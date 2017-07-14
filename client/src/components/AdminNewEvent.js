@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+<<<<<<< HEAD
 import { Container, Button, Content, Card, Item, Input } from 'native-base';
 import DatePicker from './DatePicker.js';
 // import GooglePlacesAutocomplete from 'react-native-google-places-autocomplete';
+=======
+import { Container, Button, Content } from 'native-base';
+>>>>>>> (feature) Admin home screen / events button / create event button
 
 
 
@@ -10,6 +14,7 @@ export default class NewEvent extends Component {
   static navigationOptions = {
     title: "Create New Event",
   };
+<<<<<<< HEAD
   constructor(props) {
     super(props)
 
@@ -65,6 +70,15 @@ export default class NewEvent extends Component {
           <Text> Submit Details </Text>
           </Button>
         </Container>
+=======
+
+  render() {
+    return (
+      <View>
+        <Text> Create New Events Page </Text>
+        <Text> Will have a form here for inputting basic details</Text>
+        </View>
+>>>>>>> (feature) Admin home screen / events button / create event button
     )
   }
 
