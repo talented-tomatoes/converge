@@ -46,23 +46,22 @@ export default class MyEvents extends Component {
         <Content>
           <FlatList
             data={this.state.conferences}
-            renderItem={(event, i) => {
-              console.log('this.state.conferences: ', this.state.conferences)
+            renderItem={(event) => {
               return (
-                <Card key={i} style={{flex: 0}}>
+                <Card style={{flex: 0}}>
                   <CardItem>
                     <Left>
                       <Body>
-                        <Image style={{width: 80, height: 50}}source={{uri: event.logo}} />
-                        <Text>{event.name}</Text>
-                        <Text note>{event.city}, {event.dates}</Text>
+                        <Image style={{width: 80, height: 50}}source={{uri: event.item.logo}} />
+                        <Text>{event.item.name}</Text>
+                        <Text note>{event.item.city}, {event.item.dates}</Text>
                       </Body>
                     </Left>
                   </CardItem>
                   <CardItem>
                     <Body>
                       <TouchableHighlight onPress={() => this.props.navigation.navigate('Home')}>
-                        <Image source={{uri: event.banner}} style={{height: 115, width: 325}}/>
+                        <Image source={{uri: event.item.banner}} style={{height: 115, width: 325}}/>
                       </TouchableHighlight>
                     </Body>
                   </CardItem>

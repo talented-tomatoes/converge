@@ -22,6 +22,7 @@ import MasterSchedule from './components/attendeeStack/MasterSchedule';
 import Register from './components/registerStack/Register';
 import ConferenceList from './components/registerStack/ConferenceList';
 import ConferenceDetails from './components/registerStack/ConferenceDetails';
+import Camera from './components/registerStack/Camera';
 import SpeakerList from './components/registerStack/SpeakerList.js';
 import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 
@@ -72,6 +73,7 @@ const RegisterStack = StackNavigator({
   AdminStack: { screen: AdminStack },
   ConferenceList: { screen: ConferenceList },
   ConferenceDetails: { screen: ConferenceDetails },
+  Camera: { screen: Camera }
   SpeakerList: { screen: SpeakerList },
   SpeakerDetails: { screen: SpeakerDetails}
 });
