@@ -37,8 +37,6 @@ export default class NewEvent extends Component {
           <Item>
             <Input placeholder="Name of Event" />
             </Item>
-          </Card>
-        <Card>
           <Item>
              <GooglePlacesAutocomplete
               placeholder="Input Location"
@@ -85,6 +83,8 @@ export default class NewEvent extends Component {
             />   
             </Item>
           </Card>
+
+
         <Button 
           full
           success
