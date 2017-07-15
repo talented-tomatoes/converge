@@ -42,4 +42,3 @@ export default class ConferenceListEntry extends React.Component {
   }
 }
 
-// AppRegistry.registerComponent('converge', () => ConferenceListEntry);

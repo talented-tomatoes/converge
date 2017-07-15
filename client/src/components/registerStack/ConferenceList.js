@@ -5,7 +5,7 @@ import ConferenceListEntry from './ConferenceListEntry.js';
 import ConferenceDetails from './ConferenceDetails.js';
 import { Container, Header, Right, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 
-class ConferenceListScreen extends React.Component {
+export default class ConferenceListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,8 +42,8 @@ class ConferenceListScreen extends React.Component {
 
   render() {
 
-    const conferenceListItems = this.state.conferences.map((conference) => 
-      <ConferenceListEntry conference={conference} navigation={this.props.navigation}/>
+    const conferenceListItems = this.state.conferences.map((conference, i) =>
+      <ConferenceListEntry key={i} conference={conference} navigation={this.props.navigation}/>
     );
 
     return (
@@ -56,9 +56,9 @@ class ConferenceListScreen extends React.Component {
   }
 }
 
-export default ConferenceList = StackNavigator({
-  ConferenceListScreen: { screen: ConferenceListScreen},
-  ConferenceDetails: { screen: ConferenceDetails }
-});
+// export default ConferenceList = StackNavigator({
+//   ConferenceListScreen: { screen: ConferenceListScreen},
+//   ConferenceDetails: { screen: ConferenceDetails }
+// });
 
 // AppRegistry.registerComponent('converge', () => ConferenceList);

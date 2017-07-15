@@ -28,7 +28,7 @@ export default class ConferenceDetails extends Component {
   }
 
   render() {
-    const { conference } = this.state; 
+    const { conference } = this.state;
     return (
       <Container>
         <Header>
@@ -104,7 +104,7 @@ export default class ConferenceDetails extends Component {
 }
 
 
-AppRegistry.registerComponent('converge', () => HomeScreenNavigator);
+// AppRegistry.registerComponent('converge', () => HomeScreenNavigator);
 
 /*
 <Card>

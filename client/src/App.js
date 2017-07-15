@@ -19,6 +19,8 @@ import MasterSchedule from './components/attendeeStack/MasterSchedule';
 
 //RegisterStack
 import Register from './components/registerStack/Register';
+import ConferenceList from './components/registerStack/ConferenceList';
+import ConferenceDetails from './components/registerStack/ConferenceDetails';
 
 //AdminStack
 import CreateEvent from './components/adminStack/CreateEvent';
@@ -60,9 +62,9 @@ const AdminStack = StackNavigator({
 const RegisterStack = StackNavigator({
   Register: { screen: Register },
   AdminStack: { screen: AdminStack },
-}, {
-  headerMode: 'none'
-})
+  ConferenceList: { screen: ConferenceList },
+  ConferenceDetails: { screen: ConferenceDetails },
+});
 
 const AppStack = StackNavigator({
   SplashScreen: { screen: SplashScreen },
