@@ -1,2 +1,1 @@
-// first page
-// import './client/src/App.js';
+import './client/src/App.js';
