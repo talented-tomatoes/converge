@@ -1,10 +1,5 @@
 const models = require('../../db/models/models.js');
 
-let getHome = (req, res) => {
-	console.log('GET /');
-	res.status(200).send('success!');
-};
-
 let getAllUsers = (req, res) => {
 	console.log('GET /api/users');
 	res.status(200).send('success');
