@@ -22,7 +22,6 @@ let getAllPresentationsOfConf = (req, res) => {
 };
 
 module.exports = {
-	getHome: getHome,
 	getAllUsers: getAllUsers,
 	getAllSpeakersOfConf: getAllSpeakersOfConf,
 	getAllSpeakersOfPresentation: getAllSpeakersOfPresentation,
