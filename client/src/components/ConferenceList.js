@@ -3,7 +3,6 @@ import { AppRegistry, Image, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import ConferenceListEntry from './ConferenceListEntry.js';
 import ConferenceDetails from './ConferenceDetails.js';
-import SpeakerDetails from './SpeakerDetails';
 import { Container, Header, Right, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 
 class ConferenceListScreen extends React.Component {
@@ -59,8 +58,7 @@ class ConferenceListScreen extends React.Component {
 
 export default ConferenceList = StackNavigator({
   ConferenceListScreen: { screen: ConferenceListScreen},
-  ConferenceDetails: { screen: ConferenceDetails },
-  SpeakerDetails: { screen: SpeakerDetails }
+  ConferenceDetails: { screen: ConferenceDetails }
 });
 
 // AppRegistry.registerComponent('converge', () => ConferenceList);
