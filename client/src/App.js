@@ -30,9 +30,11 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 import CreateEvent from './components/adminStack/CreateEvent';
 
 
+import { TabNavigator } from 'react-navigation';
 import axios from 'axios';
-
-
+import MySchedule from './components/MySchedule';
+import VenueMap from './components/VenueMap';
+import Concierge from './components/Concierge';
 
 export default class App extends React.Component {
   static navigationOptions = {
