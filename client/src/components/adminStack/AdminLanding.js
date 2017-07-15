@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { AppRegistry, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon } from 'native-base';
-import AdminEvents from './AdminEvents.js';
 import NewEvent from './AdminNewEvent.js';
 
 
@@ -45,4 +44,3 @@ export default class Admin extends React.Component {
   }
 }
 
-// AppRegistry.registerComponent('converge', () => Admin);
