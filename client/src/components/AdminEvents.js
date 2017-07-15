@@ -10,7 +10,6 @@ export default class AdminEvents extends Component {
   };
 
   render() {
-
     return (
       <View>
         <Text> Events Page </Text>

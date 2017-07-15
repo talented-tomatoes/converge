@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Container, Button, Content } from 'native-base';
+import DatePicker from './DatePicker.js';
 
 
 
@@ -12,8 +13,9 @@ export default class NewEvent extends Component {
   render() {
     return (
       <View>
-        <Text> Create New Events Page </Text>
+        {/* <Text> Create New Events Page </Text> */}
         <Text> Will have a form here for inputting basic details</Text>
+        <DatePicker />
         </View>
     )
   }
