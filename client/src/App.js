@@ -27,9 +27,9 @@ import SpeakerList from './components/registerStack/SpeakerList.js';
 import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 
 //AdminStack
+import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
 
-import axios from 'axios';
 
 export default class App extends React.Component {
   static navigationOptions = {
@@ -63,6 +63,7 @@ const AttendeeStack = StackNavigator({
 });
 
 const AdminStack = StackNavigator({
+  AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
 }, {
   headerMode: 'none'

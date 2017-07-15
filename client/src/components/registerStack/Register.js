@@ -64,7 +64,7 @@ export default class Register extends Component {
             <Button block onPress={() => {this.props.navigation.navigate('ConferenceList')}}>
               <Text style={{fontSize: 15}}>Register as Attendee</Text>
             </Button>
-          <Button block onPress={() => {this.props.navigation.navigate('CreateEvent')}}>
+          <Button block onPress={() => {this.props.navigation.navigate('AdminStack')}}>
             <Text style={{fontSize: 15}}>Register as Host</Text>
           </Button>
         </Swiper>
