@@ -25,12 +25,30 @@ import ConferenceDetails from './components/registerStack/ConferenceDetails';
 //AdminStack
 import CreateEvent from './components/adminStack/CreateEvent';
 
+<<<<<<< HEAD
+=======
+import { TabNavigator } from 'react-navigation';
+import axios from 'axios';
+import MySchedule from './components/MySchedule';
+import VenueMap from './components/VenueMap';
+import Concierge from './components/Concierge';
+>>>>>>> Server side routing with end points and database schema
 
 export default class App extends React.Component {
   static navigationOptions = {
 
   }
 
+  componentDidMount() {
+    console.log('componentDidMount');
+    axios.get('/api/users')
+      .then(response => {
+        console.log('response=', response);
+      })
+      .catch(err => {
+        console.log('error=', err);
+      })
+  }
   //This is our main app
   render() {
     return (
