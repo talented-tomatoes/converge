@@ -31,12 +31,6 @@ import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
 
 
-import { TabNavigator } from 'react-navigation';
-import axios from 'axios';
-import MySchedule from './components/MySchedule';
-import VenueMap from './components/VenueMap';
-import Concierge from './components/Concierge';
-
 export default class App extends React.Component {
   static navigationOptions = {
 
@@ -80,7 +74,7 @@ const RegisterStack = StackNavigator({
   AdminStack: { screen: AdminStack },
   ConferenceList: { screen: ConferenceList },
   ConferenceDetails: { screen: ConferenceDetails },
-  Camera: { screen: Camera }
+  Camera: { screen: Camera },
   SpeakerList: { screen: SpeakerList },
   SpeakerDetails: { screen: SpeakerDetails}
 });
