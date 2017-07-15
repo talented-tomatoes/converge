@@ -10,10 +10,6 @@ export default class AdminEvents extends Component {
   };
 
   render() {
-<<<<<<< HEAD
-=======
-
->>>>>>> (feature) Admin home screen / events button / create event button
     return (
       <View>
         <Text> Events Page </Text>
