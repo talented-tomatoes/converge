@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
 
-export default class Register extends Component {
+export default class CreateEvent extends Component {
   static navigationOptions = {
 
   };
@@ -14,19 +14,16 @@ export default class Register extends Component {
       <Container>
         <Header>
           <Body>
-            <Title>Register</Title>
+            <Title>CreateEvent</Title>
           </Body>
         </Header>
         <Content>
-          <Text>Register</Text>
+          <Text>CreateEvent</Text>
         </Content>
         <Footer>
           <FooterTab>
             <Button rounded dark onPress={() => {}}>
-              <Text style={{fontSize: 15}}>Submit as Attendee</Text>
-            </Button>
-            <Button rounded dark onPress={() => {this.props.navigation.navigate('CreateEvent')}}>
-              <Text style={{fontSize: 15}}>Submit as Host</Text>
+              <Text style={{fontSize: 15}}>Create Event</Text>
             </Button>
           </FooterTab>
         </Footer>
