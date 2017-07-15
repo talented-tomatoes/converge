@@ -73,7 +73,7 @@ const RegisterStack = StackNavigator({
   AdminStack: { screen: AdminStack },
   ConferenceList: { screen: ConferenceList },
   ConferenceDetails: { screen: ConferenceDetails },
-  Camera: { screen: Camera }
+  Camera: { screen: Camera },
   SpeakerList: { screen: SpeakerList },
   SpeakerDetails: { screen: SpeakerDetails}
 });
