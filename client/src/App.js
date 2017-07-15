@@ -1,42 +1,67 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Image, View, Text } from 'react-native';
+import { AppRegistry } from 'react-native';
+import { Container, Text } from 'native-base';
 
-import { TabNavigator } from 'react-navigation';
-import MySchedule from './components/MySchedule';
-import VenueMap from './components/VenueMap';
-import Concierge from './components/Concierge';
+import { StackNavigator } from 'react-navigation';
+
+import SplashScreen from './components/SplashScreen';
+import Auth from './components/Auth';
+
+import MySchedule from './components/attendeeStack/MySchedule';
+import VenueMap from './components/attendeeStack/VenueMap';
+import Concierge from './components/attendeeStack/Concierge';
+import Sidebar from './components/attendeeStack/Sidebar';
+import Home from './components/attendeeStack/Home';
+import Speakers from './components/attendeeStack/Speakers';
+import Presentations from './components/attendeeStack/Presentations';
+import MasterSchedule from './components/attendeeStack/MasterSchedule';
+import Register from './components/registerStack/Register';
 
 export default class App extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Home',
+
   }
 
   //This is our main app
   render() {
-    console.log('i\'m in the app');
     return (
-      <View style={styles.container}>
-        <Text style={{color: 'red'}}>Hello world!</Text>
-      </View>
+      <Container>
+        <Text>This pages routes everything!</Text>
+      </Container>
     );
   }
 }
 
-const HomeScreenNavigator = TabNavigator({
-  App: { screen: App },
+const AttendeeStack = StackNavigator({
+  Home: { screen: Home },
   MySchedule: { screen: MySchedule },
   VenueMap: { screen: VenueMap },
-  Concierge: { screen: Concierge}
+  Concierge: { screen: Concierge},
+  Speakers: { screen: Speakers },
+  Presentations: { screen: Presentations },
+  MasterSchedule: { screen: MasterSchedule},
+}, {
+  headerMode: 'none',
 });
 
+// const AllEventsStack = StackNavigator({
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'black',
-    flexDirection: 'column'
-  }
-});
+// })
 
-AppRegistry.registerComponent('converge', () => HomeScreenNavigator);
+const RegisterStack = StackNavigator({
+  Register: { screen: Register },
+}, {
+  headerMode: 'none'
+})
+
+const AppStack = StackNavigator({
+  SplashScreen: { screen: SplashScreen },
+  Auth: { screen: Auth},
+  AttendeeStack: { screen: AttendeeStack },
+  RegisterStack: { screen: RegisterStack },
+}, {
+  headerMode: 'none'
+})
+
+
+AppRegistry.registerComponent('converge', () => AppStack);
