@@ -8,6 +8,7 @@ import SplashScreen from './components/SplashScreen';
 import Auth from './components/Auth';
 
 //AttendeeStack
+import MyEvents from './components/attendeeStack/MyEvents';
 import MySchedule from './components/attendeeStack/MySchedule';
 import VenueMap from './components/attendeeStack/VenueMap';
 import Concierge from './components/attendeeStack/Concierge';
@@ -25,11 +26,7 @@ import ConferenceDetails from './components/registerStack/ConferenceDetails';
 //AdminStack
 import CreateEvent from './components/adminStack/CreateEvent';
 
-import { TabNavigator } from 'react-navigation';
 import axios from 'axios';
-import MySchedule from './components/MySchedule';
-import VenueMap from './components/VenueMap';
-import Concierge from './components/Concierge';
 
 export default class App extends React.Component {
   static navigationOptions = {
@@ -50,6 +47,7 @@ export default class App extends React.Component {
 }
 
 const AttendeeStack = StackNavigator({
+  MyEvents: { screen: MyEvents },
   Home: { screen: Home },
   MySchedule: { screen: MySchedule },
   VenueMap: { screen: VenueMap },
