@@ -21,6 +21,15 @@ export default class NewEvent extends Component {
           <Text> End Date: </Text>
           <DatePicker />
           </Card>
+        <Card> 
+          </Card>
+        <Card>
+          </Card>
+        <Button 
+          full
+          success>
+          <Text> Submit Details </Text>
+          </Button>
         </Container>
     )
   }
