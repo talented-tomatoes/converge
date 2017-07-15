@@ -7,6 +7,7 @@ import { StackNavigator } from 'react-navigation';
 import SplashScreen from './components/SplashScreen';
 import Auth from './components/Auth';
 
+//AttendeeStack
 import MySchedule from './components/attendeeStack/MySchedule';
 import VenueMap from './components/attendeeStack/VenueMap';
 import Concierge from './components/attendeeStack/Concierge';
@@ -15,7 +16,13 @@ import Home from './components/attendeeStack/Home';
 import Speakers from './components/attendeeStack/Speakers';
 import Presentations from './components/attendeeStack/Presentations';
 import MasterSchedule from './components/attendeeStack/MasterSchedule';
+
+//RegisterStack
 import Register from './components/registerStack/Register';
+
+//AdminStack
+import CreateEvent from './components/adminStack/CreateEvent';
+
 
 export default class App extends React.Component {
   static navigationOptions = {
@@ -44,12 +51,15 @@ const AttendeeStack = StackNavigator({
   headerMode: 'none',
 });
 
-// const AllEventsStack = StackNavigator({
-
-// })
+const AdminStack = StackNavigator({
+  CreateEvent: { screen: CreateEvent },
+}, {
+  headerMode: 'none'
+})
 
 const RegisterStack = StackNavigator({
   Register: { screen: Register },
+  AdminStack: { screen: AdminStack },
 }, {
   headerMode: 'none'
 })
