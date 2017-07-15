@@ -1,6 +1,6 @@
 const local = {
   host: 'localhost',
-  user: 'root',
+  user: 'postgres',
   password: '',
   database: 'converge'
 };

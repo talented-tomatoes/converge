@@ -3,9 +3,6 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/controller.js');
 
-router.route('/')
-  .get(controller.getHome);
-
 /*********************USERS **********************/
 router.route('/users')
   .get(controller.getAllUsers);
