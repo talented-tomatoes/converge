@@ -9,15 +9,6 @@ export default class ConferenceListEntry extends React.Component {
     super(props);
   }
 
-  static navigationOptions = {
-    tabBarLabel: 'Conference List Entry',
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-  };
-
-  handleImagePress() {
-    console.log('Image pressed..')
-  }
-  //This is our main app
   render() {
     return (
       <Card style={{flex: 0}}>
@@ -32,7 +23,7 @@ export default class ConferenceListEntry extends React.Component {
         </CardItem>
         <CardItem>
           <Body>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation })}>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: this.props.conference })}>
               <Image source={{uri: this.props.conference.banner}} style={{height: 115, width: 325}}/>
             </TouchableHighlight>
           </Body>
