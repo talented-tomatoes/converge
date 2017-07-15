@@ -38,7 +38,8 @@ export default class EventsList extends Component {
       <Content>
         <List>
           {state.data.map(event => {
-            return <EventsListEntry eventData={event}/>
+            return <EventsListEntry eventData={event} 
+            onPress={() => console.log('clicked on the event Listing')} />
           })}
         </List>
         </Content>

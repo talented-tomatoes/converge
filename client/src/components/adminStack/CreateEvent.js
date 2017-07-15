@@ -25,14 +25,11 @@ export default class NewEvent extends Component {
   render() {
     return (
       <Container>
-        <Card>
           <Text> Start Date: </Text>
           <DatePicker />
-          </Card>
-        <Card>
           <Text> End Date: </Text>
           <DatePicker />
-          </Card>
+
         <Card> 
           <Item>
             <Input placeholder="Name of Event" />

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Container, Button, Content, Text, Header, Right, Title, Left, Icon } from 'native-base';
+import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 
@@ -20,6 +20,9 @@ export default class Admin extends React.Component {
     return (
       <Container>
         <Header> 
+          <Body>
+            <Title>My Events</Title>
+          </Body>
           <Right>
             <Button 
               onPress={() => navigate('CreateEvent')}
