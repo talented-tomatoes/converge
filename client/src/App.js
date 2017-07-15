@@ -29,12 +29,16 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 //AdminStack
 import CreateEvent from './components/adminStack/CreateEvent';
 
+
 import axios from 'axios';
+
+
 
 export default class App extends React.Component {
   static navigationOptions = {
 
   }
+
 
   componentDidMount() {
     console.log('componentDidMount');
