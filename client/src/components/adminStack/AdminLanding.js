@@ -2,16 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { AppRegistry, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon } from 'native-base';
-import NewEvent from './AdminNewEvent.js';
+import NewEvent from './CreateEvent.js';
+import EventsList from './EventsList.js';
 
 
 export default class Admin extends React.Component {
   static navigationOptions = {
 
   };
-  // constructor(props){
-    // super(props);
-  // }
+  constructor(props){
+    super(props);
+  }
 
   // ADMIN LANDING PAGE
   render() {
@@ -28,16 +29,9 @@ export default class Admin extends React.Component {
             </Right>
         </Header>
         <Content>
-          <Text> Event #1 </Text>
-          <Text> Event #2 </Text>
-          <Text> Event #3 </Text>
 
-          <Button 
-            primary
-            onPress={() => navigate('CreateEvent')}
-            title="Create New Event">
-            <Text> Add Events </Text>
-            </Button>
+          <EventsList />
+          
         </Content>
       </Container>
     );
