@@ -9,6 +9,10 @@ export default class NewEvent extends Component {
   static navigationOptions = {
     title: "Create New Event",
   };
+  
+  onSubmitDetails() {
+    console.log('submitted the new event details!');
+  }
 
   render() {
     return (
@@ -27,7 +31,9 @@ export default class NewEvent extends Component {
           </Card>
         <Button 
           full
-          success>
+          success
+          onPress={this.onSubmitDetails}
+          >
           <Text> Submit Details </Text>
           </Button>
         </Container>
