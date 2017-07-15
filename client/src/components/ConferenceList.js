@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry, Image, TouchableHighlight } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import ConferenceListEntry from './ConferenceListEntry.js';
+import ConferenceDetails from './ConferenceDetails.js';
 import { Container, Header, Right, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 
-export default class ConferenceList extends React.Component {
+class ConferenceListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,17 +37,17 @@ export default class ConferenceList extends React.Component {
 
   static navigationOptions = {
     tabBarLabel: 'Conferences',
+    title: 'Conferences'
   };
 
   render() {
 
     const conferenceListItems = this.state.conferences.map((conference) => 
-      <ConferenceListEntry conference={conference}/>
+      <ConferenceListEntry conference={conference} navigation={this.props.navigation}/>
     );
 
     return (
       <Container>
-        <Header></Header>
         <Content>
           {conferenceListItems}
         </Content>
@@ -55,4 +56,9 @@ export default class ConferenceList extends React.Component {
   }
 }
 
-AppRegistry.registerComponent('converge', () => ConferenceList);
+export default ConferenceList = StackNavigator({
+  ConferenceListScreen: { screen: ConferenceListScreen},
+  ConferenceDetails: { screen: ConferenceDetails }
+});
+
+// AppRegistry.registerComponent('converge', () => ConferenceList);

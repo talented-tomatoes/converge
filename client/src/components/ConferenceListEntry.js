@@ -32,7 +32,7 @@ export default class ConferenceListEntry extends React.Component {
         </CardItem>
         <CardItem>
           <Body>
-            <TouchableHighlight onPress={this.handleImagePress}>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation })}>
               <Image source={{uri: this.props.conference.banner}} style={{height: 115, width: 325}}/>
             </TouchableHighlight>
           </Body>

@@ -59,13 +59,13 @@ export default class ConferenceDetails extends Component {
               <Title>Speakers</Title>
             </ListItem>
                 <ListItem avatar>
-                  <TouchableOpacity onPress={this.handleAvatarPress}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails')}>
                     <Left>
                       <Thumbnail small source={{ uri: 'https://crunchbase-production-res.cloudinary.com/image/upload/h_216,w_216,c_fit/v1447357652/stlfnd3tnusjskqulegz.png' }} />
                     </Left>
                   </TouchableOpacity>
                   <Body>
-                    <TouchableOpacity onPress={this.handleAvatarPress}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails')}>
                       <Text>Sam Altman</Text>
                     </TouchableOpacity>
                   </Body>
