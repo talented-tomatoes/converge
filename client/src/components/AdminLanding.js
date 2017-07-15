@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Container, Button, Content, Text } from 'native-base';
+import { Container, Button, Content, Text, Header, Right, Title, Left, Icon } from 'native-base';
 import AdminEvents from './AdminEvents.js';
 import NewEvent from './AdminNewEvent.js';
 
 
 export default class Admin extends React.Component {
   static navigationOptions = {
-    title: 'Admin Home'
+
   };
   // constructor(props){
     // super(props);
@@ -19,13 +19,19 @@ export default class Admin extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <Container>
+        <Header> 
+          <Right>
+            <Button 
+              onPress={() => navigate('CreateEvent')}
+              transparent>
+              <Icon name="add" />
+              </Button>
+            </Right>
+        </Header>
         <Content>
-          <Button 
-            light 
-            onPress={() => navigate('Events')}
-            title="My Events">
-            <Text> My Events </Text>
-            </Button>
+          <Text> Event #1 </Text>
+          <Text> Event #2 </Text>
+          <Text> Event #3 </Text>
 
           <Button 
             primary

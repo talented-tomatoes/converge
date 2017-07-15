@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-<<<<<<< HEAD
 import { Container, Button, Content, Card, Item, Input } from 'native-base';
 import DatePicker from './DatePicker.js';
-// import GooglePlacesAutocomplete from 'react-native-google-places-autocomplete';
-=======
-import { Container, Button, Content } from 'native-base';
->>>>>>> (feature) Admin home screen / events button / create event button
-
-
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default class NewEvent extends Component {
   static navigationOptions = {
     title: "Create New Event",
   };
-<<<<<<< HEAD
   constructor(props) {
     super(props)
 
@@ -47,19 +40,49 @@ export default class NewEvent extends Component {
           </Card>
         <Card>
           <Item>
-            {/* <GooglePlacesAutocomplete
+             <GooglePlacesAutocomplete
               placeholder="Input Location"
               minLength={2}
               autoFocus={false}
               fetchDetails={true}
               renderDescription={(row) => row.description}
               listViewDisplayed="auto"
+              query={{
+                key: "AIzaSyCJmGGm6zUUMgYxRKwXGH1KzlK6p910QEQ",
+                language: "en",
+              }}
               onPress={(data, details = null) => {
                 console.log(data);
                 console.log(details);
               }}
-              getDefaultValue={ () => return '' }
-              > */}
+              getDefaultValue={ () => {
+                return '';
+              }} 
+              styles={{
+                textInputContainer: {
+                  backgroundColor: 'rgba(0,0,0,0)',
+                  borderTopWidth: 0,
+                  borderBottomWidth:0
+                },
+                textInput: {
+                  marginLeft: 0,
+                  marginRight: 0,
+                  height: 38,
+                  color: '#5d5d5d',
+                  fontSize: 16
+                },
+                predefinedPlacesDescription: {
+                  color: "#1faadb"
+                },
+              }}
+              GooglePlacesSearchQuery={{
+                rankby: 'distance',
+                types: 'food',
+              }}
+              debounce={200}
+              currentLocation={true}
+              nearbyPlacesAPI="GooglePlacesSearch"
+            />   
             </Item>
           </Card>
         <Button 
@@ -70,15 +93,6 @@ export default class NewEvent extends Component {
           <Text> Submit Details </Text>
           </Button>
         </Container>
-=======
-
-  render() {
-    return (
-      <View>
-        <Text> Create New Events Page </Text>
-        <Text> Will have a form here for inputting basic details</Text>
-        </View>
->>>>>>> (feature) Admin home screen / events button / create event button
     )
   }
 
