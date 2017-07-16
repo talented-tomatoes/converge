@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
 import EventsListEntry from './EventsListEntry.js';
 
@@ -38,8 +39,11 @@ export default class EventsList extends Component {
       <Content>
         <List>
           {state.data.map(event => {
-            return <EventsListEntry eventData={event} 
-            onPress={() => console.log('clicked on the event Listing')} />
+            return (
+              <TouchableOpacity onPress={ () => console.log('hi') }>
+                <EventsListEntry eventData={event} />
+              </TouchableOpacity>
+            )
           })}
         </List>
         </Content>
