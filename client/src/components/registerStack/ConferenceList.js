@@ -10,7 +10,7 @@ export default class ConferenceListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      conferences : [mockData]
+      conferences : mockData
     }
   }
 
@@ -22,8 +22,8 @@ export default class ConferenceListScreen extends React.Component {
   render() {
 
     const conferenceListItems = this.state.conferences.map((conference, i) =>
-    <TouchableOpacity onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: conference })}>
-      <ConferenceListEntry key={i} conference={conference}/>
+    <TouchableOpacity key ={i} onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: conference })}>
+      <ConferenceListEntry conference={conference}/>
     </TouchableOpacity>
     );
 
