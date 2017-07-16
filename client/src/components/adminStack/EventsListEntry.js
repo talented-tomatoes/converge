@@ -13,7 +13,7 @@ export default class EventsListEntry extends Component {
 
   }
 
-  render() {    
+  render() {
 
     return (
       <Content>

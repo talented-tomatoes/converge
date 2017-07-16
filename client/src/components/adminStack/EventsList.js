@@ -34,13 +34,18 @@ export default class EventsList extends Component {
     }
   }
 
+  handleClick(event) {
+    // console.log(event);
+    // console.log('hi');
+  }
+
   render() {
     return (
       <Content>
         <List>
           {state.data.map(event => {
             return (
-              <TouchableOpacity onPress={ () => console.log('hi') }>
+              <TouchableOpacity onPress={this.handleClick.bind(this)}>
                 <EventsListEntry eventData={event} />
               </TouchableOpacity>
             )
