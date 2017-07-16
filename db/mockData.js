@@ -2,7 +2,7 @@ module.exports = {
   "name": "TechCrunch Disrupt",
   "dates": "Sept 18-20, 2017",
   "city": "San Francisco",
-  "logo": "https://s.aolcdn.com/dims-global/dims3/GLOB/resize/1200x642/quality/80/https://tctechcrunch2011.files.wordpress.com/2014/04/tc-logo.jpg",
+  "logo": "https://midineromifuturo.com/wp-content/uploads/2016/07/TechCrunch-Logo.jpg",
   "banner": "https://tctechcrunch2011.files.wordpress.com/2015/01/disruptsf2015_banner.png",
   "details": "TechCrunch Disrupt is the world’s leading authority in debuting revolutionary startups, introducing game-changing technologies and discussing what’s top of mind for the tech industry’s key innovators. Disrupt gathers the best and brightest entrepreneurs, investors, hackers, and tech fans for on-stage interviews, the Startup Battlefield competition, a 24-hour Hackathon, Startup Alley, Hardware Alley, and After Parties.",
   "speakers": [

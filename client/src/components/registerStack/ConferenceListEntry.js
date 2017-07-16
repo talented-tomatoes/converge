@@ -11,24 +11,22 @@ export default class ConferenceListEntry extends React.Component {
 
   render() {
     return (
-      <Card style={{flex: 0}}>
-        <CardItem>
-          <Left>
-            <Body>
-              <Image style={{width: 80, height: 50}}source={{uri: this.props.conference.logo}} />
-              <Text>{this.props.conference.name}</Text>
-              <Text note>{this.props.conference.city}, {this.props.conference.dates}</Text>
-            </Body>
-          </Left>
-        </CardItem>
-        <CardItem>
-          <Body>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: this.props.conference })}>
-              <Image source={{uri: this.props.conference.banner}} style={{height: 115, width: 325}}/>
-            </TouchableHighlight>
-          </Body>
-        </CardItem>
-      </Card>
+      <Content>
+        <Card>
+          <CardItem>
+            <Left>
+              <Thumbnail square source={{uri: this.props.conference.logo}} />
+              <Body>
+                <Text>{this.props.conference.name}</Text>
+                <Text note>{this.props.conference.city}, {this.props.conference.dates}</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image source={{uri: this.props.conference.banner}} style={{height: 200, flex: 1}}/>
+          </CardItem>
+        </Card>
+      </Content>
     );
   }
 }
