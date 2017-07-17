@@ -7,7 +7,6 @@ import EventsList from './EventsList.js';
 
 
 export default class Admin extends React.Component {
-
   constructor(props) {
     super(props);
   }
