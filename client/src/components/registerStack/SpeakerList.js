@@ -17,6 +17,9 @@ export default class ConferenceListScreen extends React.Component {
 
     return (
       <List>
+        <ListItem itemHeader first>
+          <Title>Speakers</Title>
+        </ListItem>
         {speakerListItems}
       </List>
     );
