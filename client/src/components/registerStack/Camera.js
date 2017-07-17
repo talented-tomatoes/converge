@@ -14,10 +14,22 @@ export default class CameraScreen extends Component {
   static navigationOptions = {
     title: 'Camera',
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      picURI: ''
+    }
+  }
 
   takePicture() {
     this.camera.capture()
-      .then((data) => console.log(data))
+      .then((data) => {
+        this.setState({
+          picURI: data.mediaUri
+        }, this.props.navigation.navigate('Register: ', {picURI: this.state.picURI}));
+
+        console.log(data)
+      })
       .catch(err => console.error(err));
   }
 
