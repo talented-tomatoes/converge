@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Image, TouchableHighlight } from 'react-native';
+import { AppRegistry, Image, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import ConferenceListEntry from './ConferenceListEntry.js';
 import ConferenceDetails from './ConferenceDetails.js';
@@ -10,7 +10,7 @@ export default class ConferenceListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      conferences : [mockData]
+      conferences : mockData
     }
   }
 
@@ -22,7 +22,9 @@ export default class ConferenceListScreen extends React.Component {
   render() {
 
     const conferenceListItems = this.state.conferences.map((conference, i) =>
-      <ConferenceListEntry key={i} conference={conference} navigation={this.props.navigation}/>
+    <TouchableOpacity key ={i} onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: conference })}>
+      <ConferenceListEntry conference={conference}/>
+    </TouchableOpacity>
     );
 
     return (
