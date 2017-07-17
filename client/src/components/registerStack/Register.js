@@ -45,10 +45,6 @@ export default class Register extends Component {
       }
       else {
         let source = { uri: response.uri };
-        console.log('source: ', source);
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
         this.setState({
           avatarSource: source
         }, () => console.log('state set for image'));
@@ -57,8 +53,6 @@ export default class Register extends Component {
   }
 
   render() {
-    // console.log('this.props.navigation.params.picURI: ', this.props.navigation.params.picURI || 'hello')
-
     return (
       <Container>
         <Content>
@@ -66,6 +60,7 @@ export default class Register extends Component {
             <Item floatingLabel>
               <Label>First Name</Label>
               <Input />
+              <Text>{JSON.stringify(this.props.navigation.params)}</Text>
             </Item>
             <Item floatingLabel>
               <Label>Last Name</Label>
