@@ -9,7 +9,7 @@ export default class EventDetails extends Component {
 
   render() {
     return (
-      <Text>EVENTS DETAIL PAGE</Text>
+      <Text>EVENTS DETAIL PAGE FOR </Text>
     );
   }
 

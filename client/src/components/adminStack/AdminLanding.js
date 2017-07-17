@@ -7,12 +7,16 @@ import EventsList from './EventsList.js';
 
 
 export default class Admin extends React.Component {
-  static navigationOptions = {
 
-  };
-  constructor(props){
+  constructor(props) {
     super(props);
   }
+
+  handleEventPress() {
+    console.log('hello');
+    // nagivate('EventDetails');
+  }
+
 
   // ADMIN LANDING PAGE
   render() {
@@ -25,7 +29,7 @@ export default class Admin extends React.Component {
           </Body>
           <Right>
             <Button 
-              onPress={() => navigate('CreateEvent')}
+              onPress={ () => navigate('CreateEvent') }
               transparent>
               <Icon name="add" />
               </Button>
@@ -33,7 +37,7 @@ export default class Admin extends React.Component {
         </Header>
         <Content>
 
-          <EventsList />
+          <EventsList navigate={navigate}/>
           
         </Content>
       </Container>

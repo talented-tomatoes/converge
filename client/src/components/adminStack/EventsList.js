@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { StackNavigator } from 'react-navigation';
 import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
 import EventsListEntry from './EventsListEntry.js';
+import EventDetails from './EventDetails.js';
 
 export default class EventsList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     state = {
       data: [
@@ -31,24 +33,29 @@ export default class EventsList extends Component {
           date: 'Conference dates go here'
         }
       ]
-    }
+    };
   }
 
-  handleClick(event) {
-    // console.log(event);
-    // console.log('hi');
+  handleClick(title) {
+    console.log('clicked on', title);
+
+    this.props.navigate('EventDetails');
   }
 
   render() {
+
     return (
       <Content>
         <List>
           {state.data.map(event => {
+
             return (
-              <TouchableOpacity onPress={this.handleClick.bind(this)}>
-                <EventsListEntry eventData={event} />
+              <TouchableOpacity onPress={this.handleClick.bind(this, event.title)}>
+                <EventsListEntry 
+                  eventData={event}
+                  />
               </TouchableOpacity>
-            )
+            );
           })}
         </List>
         </Content>
