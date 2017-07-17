@@ -14,7 +14,7 @@ export default class SplashScreen extends Component {
 
   //This is our main app
   render() {
-    setTimeout(()=> {this.props.navigation.navigate('Auth')}, 100)
+    setTimeout(()=> {this.props.navigation.navigate('Auth')}, 700)
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'darkcyan'}}>
         <Text style={{color: 'lightgrey', fontSize: 50, fontWeight: 'bold', fontFamily: 'Verdana'}}>Converge</Text>
