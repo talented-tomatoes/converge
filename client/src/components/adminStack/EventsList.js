@@ -6,6 +6,9 @@ import EventsListEntry from './EventsListEntry.js';
 import EventDetails from './EventDetails.js';
 
 export default class EventsList extends Component {
+  static navigationOptions = ({ navigation }) => {
+
+  };
   constructor(props) {
     super(props);
 

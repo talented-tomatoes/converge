@@ -16,36 +16,15 @@ export default class Admin extends React.Component {
   constructor(props) {
     super(props);
 
-    this.goCreateEvent = this.goCreateEvent.bind(this);
   }
 
-  goCreateEvent() {
-    const { navigate } = this.props.navigation;
-
-    navigate('CreateEvent');
-  }
 
   // ADMIN LANDING PAGE
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <Container>
-        <Header> 
-          <Body>
-            <Title>My Events</Title>
-          </Body>
-          <Right>
-            <Button 
-              onPress={this.goCreateEvent}
-              transparent>
-              <Icon name="add" />
-              </Button>
-            </Right>
-        </Header>
         <Content>
-
-          <EventsList navigate={navigate}/>
-          
+          <EventsList navigate={this.props.navigation.navigate}/>
         </Content>
       </Container>
     );
