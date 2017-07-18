@@ -3,15 +3,21 @@ import { Container, Header, Tab, Tabs, TabHeading, Icon, Text } from 'native-bas
 import ScheduleEditPage from './ScheduleEditPage';
 import SpeakersEditPage from './SpeakersEditPage';
 import MapEditPage from './MapEditPage';
-import DateTabEntry from './DateTabEntry';
+import { TabNavigator } from 'react-navigation';
+
+
 
 export default class DateTabs extends Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
-      dates: ['July 1, 2017', 'July 2, 2017', 'July 3, 2017']
+      dates: ['July 1, 2017', 'July 2, 2017']
     };
+  }
+
+  fetchData() {
+    // will make calls to the database to get the data
   }
 
   render() {
@@ -23,7 +29,7 @@ export default class DateTabs extends Component {
             {this.state.dates.map(date => {
               return (
                 <Tab heading={ <TabHeading><Text>{date}</Text></TabHeading> }>
-
+                  <EditStack />
                   </Tab>
               );
             })}
@@ -32,3 +38,11 @@ export default class DateTabs extends Component {
     );
   }
 }
+
+const EditStack = TabNavigator({
+  Schedule: { screen: ScheduleEditPage },
+  Speakers: { screen: SpeakersEditPage },
+  Map: { screen: MapEditPage },
+}, {
+  headerMode: 'none'
+});
