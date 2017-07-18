@@ -354,6 +354,7 @@
 		190221381F1C5DEE00E8FCF8 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
 		190221391F1C5DEE00E8FCF8 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = "<group>"; };
 		190221411F1C5F7200E8FCF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		19F0C7ED1F1EAFA0001F70DC /* converge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = converge.entitlements; path = converge/converge.entitlements; sourceTree = "<group>"; };
 		25879768AF2749B1942D2C10 /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		2D02E47B1E0B4A5D006451C7 /* converge-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "converge-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* converge-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "converge-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -525,6 +526,7 @@
 		13B07FAE1A68108700A75B9A /* converge */ = {
 			isa = PBXGroup;
 			children = (
+				19F0C7ED1F1EAFA0001F70DC /* converge.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -806,7 +808,12 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Z7D573462S;
+						DevelopmentTeam = C7S5SG9579;
+						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1358,9 +1365,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = converge/converge.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = Z7D573462S;
+				DEVELOPMENT_TEAM = C7S5SG9579;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleSdk",
@@ -1378,7 +1386,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.converge.app;
+				PRODUCT_BUNDLE_IDENTIFIER = co.converge78.app;
 				PRODUCT_NAME = converge;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1388,8 +1396,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = converge/converge.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z7D573462S;
+				DEVELOPMENT_TEAM = C7S5SG9579;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleSdk",
@@ -1407,7 +1416,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.converge.app;
+				PRODUCT_BUNDLE_IDENTIFIER = co.converge78.app;
 				PRODUCT_NAME = converge;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
