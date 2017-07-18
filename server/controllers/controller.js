@@ -48,10 +48,17 @@ let getAllPresentationsOfConf = (req, res) => {
 
 };
 
+let checkinUser = (req, res) => {
+	console.log('Inside checkinUser!');
+	console.log('req = ', req);
+	res.status(200).send('Success!');
+};
+
 module.exports = {
 	getAllUsers: getAllUsers,
 	getAllSpeakersOfConf: getAllSpeakersOfConf,
 	getAllSpeakersOfPresentation: getAllSpeakersOfPresentation,
 	getAllConferences: getAllConferences,
-	getAllPresentationsOfConf: getAllPresentationsOfConf
+	getAllPresentationsOfConf: getAllPresentationsOfConf,
+	checkinUser: checkinUser
 };

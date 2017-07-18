@@ -19,6 +19,9 @@ export default class Sidebar extends React.Component {
           <Button rounded transparent onPress={() => {this.props.navigation.navigate('MasterSchedule')}}>
             <Title>Event Schedule</Title>
           </Button>
+          <Button rounded transparent onPress={() => {this.props.navigation.navigate('Checkin')}}>
+            <Title>Check-in</Title>
+          </Button>
       </Container>
     );
   }
