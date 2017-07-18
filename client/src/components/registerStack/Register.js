@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, StyleSheet, Dimensions, Image } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput } from 'react-native';
 import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text, Form, Item, Input, Label, Radio, ListItem, Separator, CheckBox, SwipeRow } from 'native-base';
+import { connect } from 'react-redux';
+import { setUser } from '../actions/actions';
 
 import Swiper from 'react-native-swiper';
-// import Camera from 'react-native-camera';
-// import CameraScreen from './Camera';
+
 import ImagePicker from 'react-native-image-picker';
 
-export default class Register extends Component {
+class Register extends Component {
   static navigationOptions = {
     title: 'Register',
   };
@@ -17,6 +18,7 @@ export default class Register extends Component {
       isAttendee: true,
       avatarSource: ''
     }
+    console.log('user: ', this.props.user)
   }
 
   takePicture() {
@@ -53,22 +55,22 @@ export default class Register extends Component {
   }
 
   render() {
+    // console.log(this.props.user);
     return (
       <Container>
         <Content>
           <Form>
             <Item floatingLabel>
               <Label>First Name</Label>
-              <Input />
-              <Text>{JSON.stringify(this.props.navigation.params)}</Text>
+              <Input value={ this.props.user.givenName } />
             </Item>
             <Item floatingLabel>
               <Label>Last Name</Label>
-              <Input />
+              <Input value={ this.props.user.familyName } />
             </Item>
             <Item floatingLabel>
               <Label>Email</Label>
-              <Input />
+              <Input value={ this.props.user.email } />
             </Item>
             <Item floatingLabel>
               <Label>linkedIn URL</Label>
@@ -107,6 +109,14 @@ export default class Register extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(Register);
 
 const styles = StyleSheet.create({
   container: {
