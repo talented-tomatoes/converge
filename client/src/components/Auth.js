@@ -5,8 +5,10 @@ import { TabNavigator } from 'react-navigation';
 import { Container, Content, Button } from 'native-base';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import { connect } from 'react-redux';
+import { setUser } from './actions/actions';
 
-export default class Auth extends Component {
+class Auth extends Component {
   static navigationOptions = {
     title: 'Log In',
     header: null,
@@ -31,8 +33,10 @@ export default class Auth extends Component {
       });
 
       const user = await GoogleSignin.currentUserAsync();
-      console.log(user);
       this.setState({user});
+      this.props.dispatch(setUser(this.state.user));
+
+
     }
     catch(err) {
       console.log("Google signin error", err.code, err.message);
@@ -42,8 +46,9 @@ export default class Auth extends Component {
   _signIn() {
     GoogleSignin.signIn()
     .then((user) => {
-      console.log(user);
       this.setState({user: user});
+      this.props.dispatch(setUser(this.state.user));
+
     })
     .catch((err) => {
       console.log('WRONG SIGNIN', err);
@@ -60,6 +65,8 @@ export default class Auth extends Component {
 
   //This is our main app
   render() {
+    {console.log('this.props: ', this.props)}
+
     if (!this.state.user) {
       return (
         <Container style={{backgroundColor: 'lightgrey'}}>
@@ -95,6 +102,14 @@ export default class Auth extends Component {
 
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(Auth);
 
 const styles = StyleSheet.create({
   container: {
