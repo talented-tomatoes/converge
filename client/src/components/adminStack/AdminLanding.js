@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { AppRegistry, View } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
 import NewEvent from './CreateEvent.js';
@@ -7,15 +7,23 @@ import EventsList from './EventsList.js';
 
 
 export default class Admin extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'My Events',
+      headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>
+    }
+  };
   constructor(props) {
     super(props);
+
+    this.goCreateEvent = this.goCreateEvent.bind(this);
   }
 
-  handleEventPress() {
-    console.log('hello');
-    // nagivate('EventDetails');
-  }
+  goCreateEvent() {
+    const { navigate } = this.props.navigation;
 
+    navigate('CreateEvent');
+  }
 
   // ADMIN LANDING PAGE
   render() {
@@ -28,7 +36,7 @@ export default class Admin extends React.Component {
           </Body>
           <Right>
             <Button 
-              onPress={ () => navigate('CreateEvent') }
+              onPress={this.goCreateEvent}
               transparent>
               <Icon name="add" />
               </Button>
