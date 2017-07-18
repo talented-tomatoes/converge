@@ -30,6 +30,8 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
+import DateTabs from './components/adminStack/DateTabs';
+
 
 const AttendeeStack = StackNavigator({
   MyEvents: { screen: MyEvents },
@@ -48,9 +50,10 @@ const AttendeeStack = StackNavigator({
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
+  DateTabs: { screen: DateTabs },
 }, {
   headerMode: 'none'
-})
+});
 
 const RegisterStack = StackNavigator({
   Register: { screen: Register },
