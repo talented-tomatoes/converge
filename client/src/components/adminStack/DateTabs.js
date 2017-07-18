@@ -5,26 +5,37 @@ import SpeakersEditPage from './SpeakersEditPage';
 import MapEditPage from './MapEditPage';
 import DateTabEntry from './DateTabEntry';
 
-export default class EditTabs extends Component {
+export default class DateTabs extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      dates: ['July 17, 2017', 'July 18, 2017', 'July 19, 2017']
+      // eventually would get its data from  up above after eceive data from the API call to the database
+      dates: [
+        {
+          date: 'July 17, 2017'
+        },
+        { 
+          date: 'July 18, 2017'
+        }, 
+        {
+          date: 'July 19, 2017'
+        }]
     };
   }
 
   render() {
     return (
       <Container>
-        <Header hasTabs/>
-        <Tabs>
+        <Header/>
+        {/* <Tabs>
           {this.state.dates.map(date => {
             return (
-              <DateTabEntry date={date} />
+              <Text>{date.date}</Text>
             );
           })}
-        </Tabs>
+        </Tabs> */}
+        <Text>Hello</Text>
       </Container>
     );
   }

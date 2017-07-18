@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-// import { StackNavigator } from 'react-navigation';
 import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
 import EventsListEntry from './EventsListEntry.js';
-// import EventDetails from './EventDetails.js';
-
 
 export default class EventsList extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -13,7 +10,7 @@ export default class EventsList extends Component {
   constructor(props) {
     super(props);
 
-    state = {
+    this.state = {
       data: [
         {
           title: 'Amazon',
@@ -47,11 +44,10 @@ export default class EventsList extends Component {
 
 
   render() {
-
     return (
       <Content>
         <List>
-          {state.data.map(event => {
+          {this.state.data.map(event => {
 
             return (
               <TouchableOpacity onPress={this.handleClick.bind(this, event.title)}>
@@ -61,7 +57,7 @@ export default class EventsList extends Component {
               </TouchableOpacity>
             );
           })}
-        </List>
+          </List>
         </Content>
     );
   }

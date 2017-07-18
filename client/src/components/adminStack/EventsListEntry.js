@@ -6,15 +6,9 @@ import EventDetails from './EventDetails.js';
 export default class EventsListEntry extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   data: []
-    // }
-
   }
 
   render() {
-
     return (
       <Content>
         <Card>
