@@ -4,21 +4,20 @@ import { Image } from 'react-native';
 import EventDetails from './EventDetails.js';
 
 export default class MapEditPage extends Component {
-  constructor(props) {
-    super(props)
+  static navigationOptions = {
+    title: 'Map'
+  }
 
-    // this.state = {
-    //   data: []
-    // }
+  constructor(props) {
+    super(props);
+
 
   }
 
   render() {
 
     return (
-      <Card>
-        <Text>Hi</Text>
-        </Card>
+        <Text> Hi </Text>
     );
   }
 }

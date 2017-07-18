@@ -69,7 +69,7 @@ const AttendeeStack = StackNavigator({
 const EditStack = TabNavigator({
   Schedule: { screen: ScheduleEditPage },
   Speakers: { screen: SpeakersEditPage },
-  MapVenue: { screen: MapEditPage },
+  MapEdit: { screen: MapEditPage },
 })
 
 const AdminStack = StackNavigator({

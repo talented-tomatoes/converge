@@ -4,6 +4,9 @@ import { Image } from 'react-native';
 import EventDetails from './EventDetails.js';
 
 export default class SpeakersEditPage extends Component {
+  static navigationOptions = {
+    title: 'Speakers'
+  }
   constructor(props) {
     super(props);
 
@@ -16,7 +19,7 @@ export default class SpeakersEditPage extends Component {
   render() {
 
     return (
-      <Card><Text> Hi </Text> </Card>
+        <Text> Hi </Text>
     );
   }
 }
