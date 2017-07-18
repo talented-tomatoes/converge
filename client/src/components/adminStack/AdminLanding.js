@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
+
 
 
 export default class Admin extends React.Component {
@@ -13,6 +14,7 @@ export default class Admin extends React.Component {
       headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>
     }
   };
+
   constructor(props) {
     super(props);
 
@@ -30,4 +32,5 @@ export default class Admin extends React.Component {
     );
   }
 }
+
 

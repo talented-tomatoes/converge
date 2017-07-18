@@ -30,6 +30,9 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
 import EventDetails from './components/adminStack/EventDetails';
+import ScheduleEditPage from './components/adminStack/ScheduleEditPage';
+import SpeakersEditPage from './components/adminStack/SpeakersEditPage';
+import MapEditPage from './components/adminStack/MapEditPage';
 
 
 export default class App extends React.Component {
@@ -63,13 +66,21 @@ const AttendeeStack = StackNavigator({
   headerMode: 'none',
 });
 
+const EditStack = TabNavigator({
+  Schedule: { screen: ScheduleEditPage },
+  Speakers: { screen: SpeakersEditPage },
+  MapVenue: { screen: MapEditPage },
+})
+
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
-  EventDetails: { screen: EventDetails },
+  // next item will be a page with TabNavigators
+  EditStack: { screen: EditStack },
 }, {
   headerMode: 'none'
 })
+
 
 const RegisterStack = StackNavigator({
   Register: { screen: Register },

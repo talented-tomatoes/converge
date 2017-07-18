@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StackNavigator } from 'react-navigation';
+// import { StackNavigator } from 'react-navigation';
 import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
 import EventsListEntry from './EventsListEntry.js';
-import EventDetails from './EventDetails.js';
+// import EventDetails from './EventDetails.js';
+
 
 export default class EventsList extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -41,8 +42,9 @@ export default class EventsList extends Component {
 
   handleClick(title) {
     console.log('clicked on', title);
-    this.props.navigate('EventDetails', { eventName: title });
+    this.props.navigate('EditStack', { eventName: title });
   }
+
 
   render() {
 
