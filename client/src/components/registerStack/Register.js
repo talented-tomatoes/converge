@@ -10,7 +10,7 @@ import ImagePicker from 'react-native-image-picker';
 
 class Register extends Component {
   static navigationOptions = {
-    title: 'Register',
+    title: 'Finish Your Profile',
   };
   constructor(props) {
     super(props);
@@ -50,6 +50,26 @@ class Register extends Component {
         this.setState({
           avatarSource: source
         }, () => console.log('state set for image'));
+
+        let url = 'https://api.cloudinary.com/v1_1/' + 'awchang56' + '/image/upload';
+
+        let header = {
+            method: 'post',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+           }
+        };
+
+        let timestamp = Date.now();
+
+        var values = {
+          file: 'data:image/png;base64,' + response.data,
+          api_key: api_key,
+          timestamp: timestamp,
+          tags: tags,
+          signature: sha1("tags=" + tags + "&timestamp=" + timestamp + api_secret)
+        };
       }
     });
   }
