@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
@@ -20,13 +19,16 @@ export default class Admin extends React.Component {
 
   }
 
+  navigateTo(place) {
+    this.navigation.navigate(place);
+  }
 
   // ADMIN LANDING PAGE
   render() {
     return (
       <Container>
         <Content>
-          <EventsList navigate={this.props.navigation.navigate}/>
+          <EventsList navigation={this.props.navigation}/>
         </Content>
       </Container>
     );

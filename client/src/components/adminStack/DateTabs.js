@@ -10,32 +10,24 @@ export default class DateTabs extends Component {
     super(props);
   
     this.state = {
-      // eventually would get its data from  up above after eceive data from the API call to the database
-      dates: [
-        {
-          date: 'July 17, 2017'
-        },
-        { 
-          date: 'July 18, 2017'
-        }, 
-        {
-          date: 'July 19, 2017'
-        }]
+      dates: ['July 1, 2017', 'July 2, 2017', 'July 3, 2017']
     };
   }
 
   render() {
+    console.log('in datetabs');
     return (
       <Container>
-        <Header/>
-        {/* <Tabs>
-          {this.state.dates.map(date => {
-            return (
-              <Text>{date.date}</Text>
-            );
-          })}
-        </Tabs> */}
-        <Text>Hello</Text>
+        <Header hasTabs/>
+          <Tabs>
+            {this.state.dates.map(date => {
+              return (
+                <Tab heading={ <TabHeading><Text>{date}</Text></TabHeading> }>
+
+                  </Tab>
+              );
+            })}
+        </Tabs> 
       </Container>
     );
   }

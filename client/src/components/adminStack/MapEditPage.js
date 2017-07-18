@@ -19,5 +19,6 @@ export default class MapEditPage extends Component {
     return (
         <Text> Hi </Text>
     );
+      
   }
 }

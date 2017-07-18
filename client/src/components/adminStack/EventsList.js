@@ -37,20 +37,21 @@ export default class EventsList extends Component {
     };
   }
 
-  handleClick(title) {
-    console.log('clicked on', title);
-    this.props.navigate('DateTabs', { eventName: title });
-  }
+  // handleClick(title) {
+  //   console.log('clicked on', title);
+  //   this.props.navigate('DateTabs');
+// }
 
 
   render() {
+    console.log('this.props: ', this.props);
     return (
       <Content>
         <List>
           {this.state.data.map(event => {
-
+            console.log('inside the event list mapping');
             return (
-              <TouchableOpacity onPress={this.handleClick.bind(this, event.title)}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('DateTabs')}>
                 <EventsListEntry 
                   eventData={event}
                   />
