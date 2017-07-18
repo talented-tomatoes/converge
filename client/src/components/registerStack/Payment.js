@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Text, View } from 'react-native';
 
 export default class Payment extends React.Component {
