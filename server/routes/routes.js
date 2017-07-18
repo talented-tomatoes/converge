@@ -3,9 +3,6 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/controller.js');
 
-router.route('/')
-  .get(controller.getHome);
-
 /*********************USERS **********************/
 router.route('/users')
   .get(controller.getAllUsers);
@@ -29,4 +26,7 @@ router.route('/conferences')
 router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
 
+/*********************UPLOAD PIC **********************/
+router.route('/users/:username/checkin')
+  .post(controller.checkinUser);
 module.exports = router;
