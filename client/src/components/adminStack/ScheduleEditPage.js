@@ -14,7 +14,7 @@ export default class ScheduleEditPage extends Component {
   render() {
     return (
       <Container>
-        <Text> Hello </Text>
+        <Text> current schedule and options to edit will go here </Text>
       </Container>
     );
   }

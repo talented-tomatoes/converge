@@ -50,14 +50,6 @@ const AttendeeStack = StackNavigator({
   headerMode: 'none',
 });
 
-const EditStack = TabNavigator({
-  Schedule: { screen: ScheduleEditPage },
-  Speakers: { screen: SpeakersEditPage },
-  Map: { screen: MapEditPage },
-}, {
-  headerMode: 'none'
-});
-
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },

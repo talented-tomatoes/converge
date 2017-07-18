@@ -12,7 +12,7 @@ export default class DateTabs extends Component {
     super(props);
 
     this.state = {
-      dates: ['July 1, 2017', 'July 2, 2017']
+      dates: ['July 1, 2017', 'July 2, 2017', 'July 3, 2017']
     };
   }
 

@@ -17,8 +17,8 @@ export default class MapEditPage extends Component {
   render() {
 
     return (
-        <Text> Hi </Text>
+        <Text> current map and options to upload a new one will go here </Text>
     );
-      
+
   }
 }

@@ -19,7 +19,7 @@ export default class SpeakersEditPage extends Component {
   render() {
 
     return (
-        <Text> Hi </Text>
+        <Text> current speakers and options to edit will go here </Text>
     );
   }
 }
