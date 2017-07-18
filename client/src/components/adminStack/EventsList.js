@@ -42,7 +42,7 @@ export default class EventsList extends Component {
 
   handleClick(title) {
     console.log('clicked on', title);
-    this.props.navigate('EditStack', { eventName: title });
+    this.props.navigate('EditTabs', { eventName: title });
   }
 
 

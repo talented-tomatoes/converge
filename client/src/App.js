@@ -33,6 +33,7 @@ import EventDetails from './components/adminStack/EventDetails';
 import ScheduleEditPage from './components/adminStack/ScheduleEditPage';
 import SpeakersEditPage from './components/adminStack/SpeakersEditPage';
 import MapEditPage from './components/adminStack/MapEditPage';
+import EditTabs from './components/adminStack/EditPageTabs'
 
 
 export default class App extends React.Component {
@@ -76,6 +77,7 @@ const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
   // next item will be a page with TabNavigators
+  EditTabs: { screen: EditTabs },
   EditStack: { screen: EditStack },
 }, {
   headerMode: 'none'
