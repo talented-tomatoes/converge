@@ -92,10 +92,6 @@ export default class Checkin extends Component {
             },
           ]
         };
-        console.log('FileUpload=', FileUpload);
-        FileUpload.upload(obj, function(err, result) {
-          console.log('upload:', err, result);
-        })
       }
   });
 };
