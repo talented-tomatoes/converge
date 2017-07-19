@@ -16,6 +16,33 @@ export default class ConferenceDetails extends Component {
   };
 
   render() {
+
+    const METHOD_DATA = [{
+              supportedMethods: ['apple-pay'],
+              data: {
+                merchantIdentifier: 'merchant.com.converge',
+                supportedNetworks: ['visa', 'mastercard', 'amex'],
+                countryCode: 'US',
+                currencyCode: 'USD'
+              }
+            }];
+
+    const DETAILS = {
+      id: 'basic-example',
+      displayItems: [
+        {
+          label: 'Movie Ticket',
+          amount: { currency: 'USD', value: '15.00' }
+        }
+      ],
+      total: {
+        label: 'Merchant Name',
+        amount: { currency: 'USD', value: '15.00' }
+      }
+    };
+
+    const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
+
     const { params } = this.props.navigation.state;
     console.log(params);
     return (
@@ -33,12 +60,15 @@ export default class ConferenceDetails extends Component {
               </Body>
             </CardItem>
             <CardItem footer>
-              <Button onPress={() => this.props.navigation.navigate('Payment')}>
-                <Text style={{color: 'white'}}>Attend</Text>
+              <Button onPress={() => {paymentRequest.show()}}>
+                <Text style={{color: 'white'}}>Register</Text>
               </Button>
             </CardItem>
          </Card>
          <SpeakerList speakers={params.conference.speakers} navigation={this.props.navigation}/>
+        </Content>
+        <Content>
+
         </Content>
       </Container>
     );
