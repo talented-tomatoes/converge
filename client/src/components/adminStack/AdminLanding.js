@@ -7,10 +7,12 @@ import SpaceXData from './dummy/spaceX.js';
 import AmazonData from './dummy/amazon.js';
 import GoogleData from './dummy/google.js';
 import { connect } from 'react-redux';
-// import the reducer/action 
+// import the action 
+import { setInitialData } from './actions/actions';
 
 
-export default class Admin extends React.Component {
+
+class Admin extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Events',
@@ -26,9 +28,21 @@ export default class Admin extends React.Component {
   componentDidMount() {
     console.log('Admin Landing Page mounted!');
     
-    // redux the dummyData
+    // REAL THING 
+    // (would use this.getEvents('USER ID IN HERE))
+    // make a DB call with the user's ID
 
-    // get events now
+    // if no results, simple display a basic page saying you don't have any events for the time being
+
+    // Update the props
+
+
+
+
+
+    // begin storing the dummy data
+    
+
   }
 
   getEvents() {
@@ -54,4 +68,14 @@ export default class Admin extends React.Component {
   }
 }
 
+// REDUX THINGS
+const mapStateToProps = (state) => {
+  return {
+    user: state.adminReducer
+  }
+}
+
+export default connect(mapStateToProps)(AdminLanding);
+
+// STYLING 
 

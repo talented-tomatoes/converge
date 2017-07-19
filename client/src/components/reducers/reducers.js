@@ -10,14 +10,18 @@ const userReducer = (state = { user: null }, action) => {
   }
 }
 
-const conferenceReducer = (state = { conference: null }, action) => {
-  return state;
+const adminReducer = (state = { conference: null }, action) => {
+  switch (action.type) {
+    case 'SET_EVENT':
+      return {...action.conference};
+    default:
+      return state;
+  }
 }
 
 const reducers = combineReducers({
   userReducer,
-  conferenceReducer
-  //
+  adminReducer
 })
 
 export default reducers;
