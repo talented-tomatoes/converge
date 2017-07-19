@@ -11,12 +11,13 @@ import {
 import { Button, Content, Drawer, Item } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { FileUpload } from 'NativeModules';
-
-
+import axios from 'axios';
+import sha1 from 'sha1';
 import Camera from 'react-native-camera';
 import SideBar from './Sidebar';
 import AttendeeHeader from './AttendeeHeader.js';
 import AttendeeFooter from './AttendeeFooter.js';
+import Config from '../../../../config/config.js'
 
 export default class Checkin extends Component {
 
@@ -43,7 +44,6 @@ export default class Checkin extends Component {
   }
 
   capturePic() {
-    //let options = {};
     let options = {
       title: 'Select Avatar',
       customButtons: [
@@ -68,33 +68,41 @@ export default class Checkin extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        console.log(response.uri);
-        let source = { uri: response.uri };
-        this.setState({
-          picture: source
-        });
-
-        var obj = {
-          uploadUrl: 'http://localhost:3000/api/users/1/checkin',
-          method: 'POST', 
+        let cloud_name = Config.cloudinary.cloud_name;
+        let api_secret = Config.cloudinary.api_secret;
+        let url = 'https://api.cloudinary.com/v1_1/' + cloud_name + '/image/upload';
+        let header = {
+          method: 'post',
           headers: {
             'Accept': 'application/json',
-          },
-          fields: {
-              'hello': 'world',
-          },
-          files: [
-            {
-            // name: 'one', // optional, if none then `filename` is used instead
-              filename: response.fileName, // require, file name
-              filepath: response.uri // require, file absolute path
-              //filetype: 'audio/x-m4a', // options, if none, will get mimetype from `filepath` extension
-            },
-          ]
+            'Content-Type': 'application/json'
+          }
         };
+        let timestamp = Date.now();
+        let tags = ['pic'];
+        let values = {
+          file: 'data:image/png;base64,' + response.data,
+          api_key: Config.cloudinary.api_key,
+          timestamp: timestamp,
+          tags: tags,
+          signature: sha1("tags=" + tags + "&timestamp=" + timestamp + api_secret)
+      };
+
+      var request = _.extend({
+        body: JSON.stringify(values)
+      }, header);
+
+      fetch(url, request)
+        .then((response) => {
+          console.log('response.url = ', response.url);
+          //save url in DB
+        })
+        .catch(err => {
+          console.log('Error! ', err) 
+        })
       }
-  });
-};
+      })
+    }
 
   render() {
     return (
