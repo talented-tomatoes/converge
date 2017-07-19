@@ -23,7 +23,13 @@ export default class ConferenceDetails extends Component {
                 merchantIdentifier: 'merchant.com.converge',
                 supportedNetworks: ['visa', 'mastercard', 'amex'],
                 countryCode: 'US',
-                currencyCode: 'USD'
+                currencyCode: 'USD',
+                paymentMethodTokenizationParameters: {
+                  parameters: {
+                    'gateway': 'stripe',
+                    'stripe:publishableKey': 'pk_test_XvGWkr3d77Bulcj72lSfboG2'
+                  }
+                }
               }
             }];
 
@@ -36,7 +42,7 @@ export default class ConferenceDetails extends Component {
         }
       ],
       total: {
-        label: 'Merchant Name',
+        label: 'Converge',
         amount: { currency: 'USD', value: '15.00' }
       }
     };
@@ -66,9 +72,6 @@ export default class ConferenceDetails extends Component {
             </CardItem>
          </Card>
          <SpeakerList speakers={params.conference.speakers} navigation={this.props.navigation}/>
-        </Content>
-        <Content>
-
         </Content>
       </Container>
     );
