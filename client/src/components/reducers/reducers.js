@@ -25,6 +25,7 @@ const reducers = combineReducers({
   adminReducer
   conferenceReducer,
   form: formReducer
+  adminReducer
 })
 
 export default reducers;
