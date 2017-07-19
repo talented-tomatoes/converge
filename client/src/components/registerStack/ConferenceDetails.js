@@ -89,7 +89,7 @@ export default class ConferenceDetails extends Component {
             </CardItem>
             <CardItem footer>
               <Button onPress={this.handlePaymentRequest}>
-                <Text style={{color: 'white'}}>Register</Text>
+                <Text style={{color: 'white'}}>Attend</Text>
               </Button>
             </CardItem>
          </Card>
