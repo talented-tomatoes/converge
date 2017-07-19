@@ -16,15 +16,15 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS speakers(
 	id serial NOT NULL PRIMARY KEY,
-	first_name VARCHAR(50) NOT NULL, 
+	first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
 	jobtitle VARCHAR(50),
 	avatar_url VARCHAR(1024),
 	about VARCHAR(250),
 	emailid VARCHAR(50),
 	linkedinid VARCHAR(50),
-	confid int 
-); 
+	confid int
+);
 
 CREATE TABLE IF NOT EXISTS conferences(
 	id serial NOT NULL PRIMARY KEY,
@@ -65,21 +65,21 @@ CREATE TABLE IF NOT EXISTS conferences_users(
 
 /* DUMMY DATA */
 /* USERS */
-INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "img_url", "emailid", "linkedinid", "phonenumber", "usertype") 
+INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "img_url", "emailid", "linkedinid", "phonenumber", "usertype")
 VALUES('padma123', 'padma', 'Padma', 'Govindarajalu', ' ', 'padma.govindarajalu@gmail.com', 'linkedin.com/padmag', '123-123-1234', 'user');
 
-INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "emailid", "linkedinid", "phonenumber") 
+INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "emailid", "linkedinid", "phonenumber")
 VALUES('alex123', 'alex', 'Alex', 'Chang', ' ',  'alex.chang@gmail.com', 'linkedin.com/alexc', '321-321-4321', 'user');
 
-INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "emailid", "linkedinid", "phonenumber") 
+INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "emailid", "linkedinid", "phonenumber")
 VALUES('ryan123', 'ryan', 'Ryan', 'Platon', ' ', 'ryan.platon@gmail.com', 'linkedin.com/ryanp', '121-121-1212', 'user');
 
-INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "emailid", "linkedinid", "phonenumber") 
+INSERT INTO "public"."users"("loginid", "username", "first_name", "last_name", "emailid", "linkedinid", "phonenumber")
 VALUES('wilson123', 'wilson', 'Wilson', 'Cen', ' ', 'wilson.cen@gmail.com', 'linkedin.com/wilsonc', '112-112-1122', 'user');
 
 /* SPEAKERS */
 
-INSERT INTO "public"."speakers"("first_name", "last_name", "jobtitle", "avatar", "about", "emailid", "linkedinid", "confid") 
+INSERT INTO "public"."speakers"("first_name", "last_name", "jobtitle", "avatar", "about", "emailid", "linkedinid", "confid")
 VALUES('Aaron', 'Irizarry', 'Senior Product Designer', ' ', 'Aaron Irizarry is a Senior Product Designer for Nasdaq OMX, a lover of heavy metal, a foodie, and a master of BBQ arts. You can find some of his thoughts and presentations on the conversation surrounding design over at discussingdesign.com.',  'aaron.Irizarry@gmail.com', 'linkedin.com/aaron', 1);
 
 /* CONFERENCES */

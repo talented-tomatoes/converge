@@ -14,3 +14,10 @@ export function setInitialHostData(data) {
   };
 }
 
+export function addConference(conference) {
+  return {
+    type: 'ADD_CONFERENCE',
+    conference: conference
+  }
+}
+
