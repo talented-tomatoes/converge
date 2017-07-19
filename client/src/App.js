@@ -15,7 +15,7 @@ class App extends Component {
       <Provider store={store} >
         <AppStack />
       </Provider>
-    )
+    );
   }
 }
 

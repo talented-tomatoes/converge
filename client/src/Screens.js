@@ -2,7 +2,7 @@
 // import { AppRegistry } from 'react-native';
 // import { Container, Text } from 'native-base';
 
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import SplashScreen from './components/SplashScreen';
 import Auth from './components/Auth';
@@ -26,10 +26,16 @@ import ConferenceDetails from './components/registerStack/ConferenceDetails';
 import Camera from './components/registerStack/Camera';
 import SpeakerList from './components/registerStack/SpeakerList.js';
 import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
+import Payment from './components/registerStack/Payment.js';
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
+import DateTabs from './components/adminStack/DateTabs';
+import ScheduleEditPage from './components/adminStack/ScheduleEditPage';
+import SpeakersEditPage from './components/adminStack/SpeakersEditPage';
+import MapEditPage from './components/adminStack/MapEditPage';
+
 
 const AttendeeStack = StackNavigator({
   MyEvents: { screen: MyEvents },
@@ -48,9 +54,10 @@ const AttendeeStack = StackNavigator({
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
+  DateTabs: { screen: DateTabs },
 }, {
   headerMode: 'none'
-})
+});
 
 const RegisterStack = StackNavigator({
   Register: { screen: Register },
@@ -59,7 +66,8 @@ const RegisterStack = StackNavigator({
   ConferenceDetails: { screen: ConferenceDetails },
   Camera: { screen: Camera },
   SpeakerList: { screen: SpeakerList },
-  SpeakerDetails: { screen: SpeakerDetails}
+  SpeakerDetails: { screen: SpeakerDetails},
+  Payment: { screen: Payment}
 });
 
 export default AppStack = StackNavigator({
