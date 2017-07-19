@@ -1,6 +1,6 @@
-const bookshelf = require('../bookshelf.js');
+const db = require('../index.js');
 //define the models
-const User = bookshelf.Model.extend({
+const User = db.Model.extend({
   tableName: 'users',
   presentations: () => {
     return this.belongsToMany(Presentation, 'users_presentations');
@@ -10,7 +10,7 @@ const User = bookshelf.Model.extend({
   }
 });
 
-const Presentation = bookshelf.Model.extend({
+const Presentation = db.Model.extend({
   tableName: 'presentations',
   users: () => {
     return this.belongsToMany(User, 'users_presentations');
@@ -20,7 +20,7 @@ const Presentation = bookshelf.Model.extend({
   }
 });
 
-const Conference = bookshelf.Model.extend({
+const Conference = db.Model.extend({
   tableName: 'conferences',
   users: () => {
     return this.belongsToMany(User, 'conferences_users');
@@ -30,7 +30,7 @@ const Conference = bookshelf.Model.extend({
   }
 });
 
-const Speaker = bookshelf.Model.extend({
+const Speaker = db.Model.extend({
   tableName: 'speakers',
   presentations: () => {
     return this.belongsToMany(Presentation, 'presentations_speakers');
