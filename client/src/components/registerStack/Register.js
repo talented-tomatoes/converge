@@ -3,10 +3,20 @@ import { TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput } from
 import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text, Form, Item, Input, Label, Radio, ListItem, Separator, CheckBox, SwipeRow } from 'native-base';
 import { connect } from 'react-redux';
 import { setUser } from '../actions/actions';
+import { Field, reduxForm } from 'redux-form';
+
+import ProfileForm from './ProfileForm';
 
 import Swiper from 'react-native-swiper';
-
 import ImagePicker from 'react-native-image-picker';
+
+// const submit = values => {
+//   console.log('submitting form', values);
+// }
+
+// const renderInput = ({ input: { onChange, ...restInput }}) => {
+//   return <Input onChangeText={onChange} {...restInput} />
+// }
 
 class Register extends Component {
   static navigationOptions = {
@@ -19,14 +29,12 @@ class Register extends Component {
       avatarSource: ''
     }
     console.log('user: ', this.props.user)
+
   }
 
   takePicture() {
     let options = {
       title: 'Select Avatar',
-      customButtons: [
-        {name: 'fb', title: 'Choose Photo from Facebook'},
-      ],
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -75,43 +83,55 @@ class Register extends Component {
   }
 
   render() {
-    // console.log(this.props.user);
+    console.log('this.props in register screen: ', this.props);
+    // const { handleSubmit } = this.props;
+
     return (
       <Container>
         <Content>
-          <Form>
-            <Item floatingLabel>
-              <Label>First Name</Label>
-              <Input value={ this.props.user.givenName } />
-            </Item>
-            <Item floatingLabel>
-              <Label>Last Name</Label>
-              <Input value={ this.props.user.familyName } />
-            </Item>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input value={ this.props.user.email } />
-            </Item>
-            <Item floatingLabel>
-              <Label>linkedIn URL</Label>
-              <Input />
-            </Item>
-            <Item floatingLabel>
-              <Label>Phone Number</Label>
-              <Input />
-            </Item>
-
-            <Separator bordered>
-              <Text style={{alignSelf: 'center'}} note>Attach a profile picture</Text>
-            </Separator>
-
-            <Item style={{margin: 5, alignSelf: 'center'}}>
-              <TouchableOpacity light onPress={() => this.takePicture()}>
-                <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
+          <Content>
+          <ProfileForm user={this.props.user} />
+          </Content>
+          {/*<Form>
+              <Label>Email:</Label>
+              <Field name="email" component={ renderInput } />
+              <TouchableOpacity onPress={handleSubmit(submit)}>
+                <Text style={styles.button}>Submit</Text>
               </TouchableOpacity>
-            </Item>
-
           </Form>
+          <Form>
+                      <Item floatingLabel>
+                        <Label>First Name</Label>
+                        <Input value={ this.props.user.givenName } />
+                      </Item>
+                      <Item floatingLabel>
+                        <Label>Last Name</Label>
+                        <Input value={ this.props.user.familyName } />
+                      </Item>
+                      <Item floatingLabel>
+                        <Label>Email</Label>
+                        <Input value={ this.props.user.email } />
+                      </Item>
+                      <Item floatingLabel>
+                        <Label>linkedIn URL</Label>
+                        <Input />
+                      </Item>
+                      <Item floatingLabel>
+                        <Label>Phone Number</Label>
+                        <Input />
+                      </Item>
+
+                      <Separator bordered>
+                        <Text style={{alignSelf: 'center'}} note>Attach a profile picture</Text>
+                      </Separator>
+
+                      <Item style={{margin: 5, alignSelf: 'center'}}>
+                        <TouchableOpacity light onPress={() => this.takePicture()}>
+                          <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
+                        </TouchableOpacity>
+                      </Item>
+
+                    </Form>*/}
           <Content style={{height: 50}}>
             <Swiper showsButtons={false}>
                 <Button block onPress={() => {this.props.navigation.navigate('ConferenceList')}}>
@@ -132,15 +152,18 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer
+    user: state.userReducer,
+    conference: state.conferenceReducer
   }
 }
 
+// export default reduxForm({
+//   form: 'finishProfile',
+// })(Register)
 export default connect(mapStateToProps)(Register);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
   },
   preview: {
     flex: 1,
@@ -156,5 +179,20 @@ const styles = StyleSheet.create({
     color: '#000',
     padding: 10,
     margin: 40
+  },
+  button: {
+    backgroundColor: 'blue',
+    color: 'white',
+    height: 30,
+    lineHeight: 30,
+    marginTop: 10,
+    textAlign: 'center',
+    width: 250
+  },
+  input: {
+    borderColor: 'black',
+    borderWidth: 1,
+    height: 37,
+    width: 250
   }
 });

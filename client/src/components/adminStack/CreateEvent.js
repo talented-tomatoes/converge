@@ -3,8 +3,10 @@ import { View, Text } from 'react-native';
 import { Container, Button, Content, Card, Item, Input } from 'native-base';
 import DatePicker from './DatePicker.js';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { connect } from 'react-redux';
+import { addConference } from '../actions/actions';
 
-export default class NewEvent extends Component {
+class NewEvent extends Component {
   static navigationOptions = {
     title: "Create New Event",
   };
@@ -16,13 +18,15 @@ export default class NewEvent extends Component {
     }
   }
 
-  
+
   onSubmitDetails(event) {
     console.log(event);
     console.log('submitted the new event details!');
+    this.props.dispatch(addConference('Space X'))
   }
 
   render() {
+    console.log('this.props in create event: ', this.props);
     return (
       <Container>
           <Text> Start Date: </Text>
@@ -30,7 +34,7 @@ export default class NewEvent extends Component {
           <Text> End Date: </Text>
           <DatePicker />
 
-        <Card> 
+        <Card>
           <Item>
             <Input placeholder="Name of Event" />
             </Item>
@@ -52,7 +56,7 @@ export default class NewEvent extends Component {
               }}
               getDefaultValue={ () => {
                 return '';
-              }} 
+              }}
               styles={{
                 textInputContainer: {
                   backgroundColor: 'rgba(0,0,0,0)',
@@ -77,15 +81,15 @@ export default class NewEvent extends Component {
               debounce={200}
               currentLocation={true}
               nearbyPlacesAPI="GooglePlacesSearch"
-            />   
+            />
             </Item>
           </Card>
 
 
-        <Button 
+        <Button
           full
           success
-          onPress={this.onSubmitDetails}
+          onPress={this.onSubmitDetails.bind(this)}
           >
           <Text> Submit Details </Text>
           </Button>
@@ -94,3 +98,11 @@ export default class NewEvent extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => {
+  return {
+    conference: state.conferenceReducer
+  }
+}
+
+export default connect(mapStateToProps)(NewEvent);

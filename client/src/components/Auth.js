@@ -36,7 +36,6 @@ class Auth extends Component {
       this.setState({user});
       this.props.dispatch(setUser(this.state.user));
 
-
     }
     catch(err) {
       console.log("Google signin error", err.code, err.message);
