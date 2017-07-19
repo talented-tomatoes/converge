@@ -29,4 +29,9 @@ router.route('/presentations/:confid')
 /*********************UPLOAD PIC **********************/
 router.route('/users/:username/checkin')
   .post(controller.checkinUser);
+
+/*********************PAYMENTS**********************/
+router.route('/payments/charge')
+  .post(controller.chargeCustomer);
+
 module.exports = router;

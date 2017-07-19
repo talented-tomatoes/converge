@@ -1,4 +1,6 @@
 const models = require('../../db/models/models.js');
+const config = require('../../config/config.js');
+const stripe = require('stripe')(config.stripe.key);
 
 let getAllUsers = (req, res) => {
 	console.log('GET /api/users');
@@ -54,11 +56,17 @@ let checkinUser = (req, res) => {
 	res.status(200).send('Success!');
 };
 
+let chargeCustomer = (req, res) => {
+	console.log(req.body);
+	res.status(201).end();
+}
+
 module.exports = {
 	getAllUsers: getAllUsers,
 	getAllSpeakersOfConf: getAllSpeakersOfConf,
 	getAllSpeakersOfPresentation: getAllSpeakersOfPresentation,
 	getAllConferences: getAllConferences,
 	getAllPresentationsOfConf: getAllPresentationsOfConf,
-	checkinUser: checkinUser
+	checkinUser: checkinUser,
+	chargeCustomer: chargeCustomer
 };
