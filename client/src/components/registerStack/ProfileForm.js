@@ -6,48 +6,27 @@ import {
   View,
   Image
 } from 'react-native';
-import { Input, Label, Item, Content, Separator, Text } from 'native-base';
-import ImagePicker from 'react-native-image-picker';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab } from 'native-base';
+import uploadImage from './helpers/uploadImage'
+import normalizePhoneNumber from './helpers/normalizePhoneNumber';
+import UserSwiperFooter from './helpers/UserSwiperFooter';
 
+import ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
+import Swiper from 'react-native-swiper';
 
 
 import { Field, reduxForm } from 'redux-form';
 
-const submit = values => {
-  console.log('submitting form', values);
-}
 
-const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, normalize}) => {
+const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, normalize, placeholder}) => {
   console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
-      <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} />
+      <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} placeholder={placeholder}/>
     </Item>
   )
-}
-
-const normalizePhone = (value, previousValue) => {
-  if (!value) {
-    return value
-  }
-  const onlyNums = value.replace(/[^\d]/g, '')
-  if (!previousValue || value.length > previousValue.length) {
-    // typing forward
-    if (onlyNums.length === 3) {
-      return onlyNums + '-'
-    }
-    if (onlyNums.length === 6) {
-      return onlyNums.slice(0, 3) + '-' + onlyNums.slice(3) + '-'
-    }
-  }
-  if (onlyNums.length <= 3) {
-    return onlyNums
-  }
-  if (onlyNums.length <= 6) {
-    return onlyNums.slice(0, 3) + '-' + onlyNums.slice(3)
-  }
-  return onlyNums.slice(0, 3) + '-' + onlyNums.slice(3, 6) + '-' + onlyNums.slice(6, 10)
 }
 
 class ProfileForm extends Component {
@@ -55,7 +34,7 @@ class ProfileForm extends Component {
     super(props);
     this.state = {
       isAttendee: true,
-      avatarSource: ''
+      avatarSource: '',
     }
   }
 
@@ -81,52 +60,72 @@ class ProfileForm extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        let source = { uri: response.uri };
         this.setState({
-          avatarSource: source
-        }, () => console.log('state set for image'));
+          avatarSource: { uri: 'https://media.giphy.com/media/210NUQw5BT8c0/giphy.gif' }
+        });
 
-        // let url = 'https://api.cloudinary.com/v1_1/' + 'awchang56' + '/image/upload';
+        let options = uploadImage(response.data)
 
-        // let header = {
-        //     method: 'post',
-        //     headers: {
-        //       'Accept': 'application/json',
-        //       'Content-Type': 'application/json'
-        //    }
-        // };
-
-        // let timestamp = Date.now();
-
-        // var values = {
-        //   file: 'data:image/png;base64,' + response.data,
-        //   api_key: api_key,
-        //   timestamp: timestamp,
-        //   tags: tags,
-        //   signature: sha1("tags=" + tags + "&timestamp=" + timestamp + api_secret)
-        // };
+        axios.post(options.url, options.body)
+          .then( response => {
+            console.log('response: ', response.data.secure_url);
+            this.setState({
+              avatarSource: {uri: response.data.secure_url}
+            });
+          })
       }
     });
   }
 
+  submit(values) {
+    let user = {
+      loginid: this.props.user.id,
+      first_name: this.props.user.givenName,
+      last_name: this.props.user.familyName,
+      avatar_url: this.state.avatarSource.uri,
+      email: this.props.user.email,
+      linkedinid: values.linkedIn,
+      phonenumber: values.phoneNumber,
+    };
+    console.log('submitting form', user);
+    return user;
+  }
+
   render() {
     const { handleSubmit } = this.props;
+    console.log('this.props in profileForm: ', this.props);
     return (
-      <Content>
-        <Field name="linkedIn" component={ renderInput } label="LinkedIn URL:" />
-        <Field name="phoneNumber" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhone} />
-        <Separator bordered>
-          <Text style={{alignSelf: 'center'}} note>Attach a profile picture</Text>
-        </Separator>
-        <Item style={{margin: 5, alignSelf: 'center'}}>
-          <TouchableOpacity light onPress={() => this.takePicture()}>
-            <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
+      <Container>
+        <Content>
+          <Field name="linkedIn" component={ renderInput } label="LinkedIn URL:" placeholder="linkedin.com/in/johndoe123" />
+          <Field name="phoneNumber" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
+          <Separator bordered>
+            <Text style={{alignSelf: 'center'}} note>Attach a profile picture</Text>
+          </Separator>
+          <Item style={{margin: 5, alignSelf: 'center'}}>
+            <TouchableOpacity light onPress={() => this.takePicture()}>
+              <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
+            </TouchableOpacity>
+          </Item>
+          <TouchableOpacity onPress={handleSubmit(this.submit.bind(this))}>
+            <Text>Submit</Text>
           </TouchableOpacity>
-        </Item>
-        <TouchableOpacity onPress={handleSubmit(submit)}>
-          <Text style={styles.button}>Submit</Text>
-        </TouchableOpacity>
-      </Content>
+        </Content>
+        <Text style={{alignSelf: 'center'}} note>Swipe For Host</Text>
+        <Footer>
+          <UserSwiperFooter navigation={this.props.navigation} handleSubmit={handleSubmit(this.submit.bind(this)).bind(this)} imageUrl={this.state.avatarSource.url}/>
+          {/*<Content style={{flex:1}}>
+                      <Swiper style={{backgroundColor: '#428bca'}} showsButtons={false}>
+                          <Button style={{alignSelf: 'center'}}transparent onPress={() => {this.props.navigation.navigate('ConferenceList')}}>
+                            <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Register as Attendee</Text>
+                          </Button>
+                        <Button style={{alignSelf: 'center'}}transparent onPress={() => {this.props.navigation.navigate('AdminStack')}}>
+                          <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Register as Host</Text>
+                        </Button>
+                      </Swiper>
+                    </Content>*/}
+        </Footer>
+      </Container>
     )
   }
 }
@@ -135,23 +134,4 @@ export default reduxForm({
   form: 'finishProfile'
 })(ProfileForm)
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'blue',
-    color: 'white',
-    height: 30,
-    lineHeight: 30,
-    marginTop: 10,
-    textAlign: 'center',
-    width: 250
-  },
-  container: {
 
-  },
-  input: {
-    borderColor: 'black',
-    borderWidth: 1,
-    height: 37,
-    width: 250
-  }
-})
