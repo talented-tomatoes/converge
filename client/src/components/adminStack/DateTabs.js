@@ -21,7 +21,7 @@ export default class DateTabs extends Component {
   }
 
   render() {
-    console.log('in datetabs');
+    // console.log('in datetabs');
     return (
       <Container>
         <Header hasTabs/>

@@ -2,7 +2,7 @@
 // import { AppRegistry } from 'react-native';
 // import { Container, Text } from 'native-base';
 
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
 import SplashScreen from './components/SplashScreen';
 import Auth from './components/Auth';
@@ -55,6 +55,7 @@ const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
   DateTabs: { screen: DateTabs },
+  // DateTabs has a TabNavigator within it
 }, {
   headerMode: 'none'
 });

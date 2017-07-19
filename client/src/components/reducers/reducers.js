@@ -17,6 +17,7 @@ const conferenceReducer = (state = { conference: null }, action) => {
 const reducers = combineReducers({
   userReducer,
   conferenceReducer
+  //
 })
 
 export default reducers;
