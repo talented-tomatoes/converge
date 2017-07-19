@@ -3,11 +3,19 @@ import { AppRegistry } from 'react-native';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
+<<<<<<< HEAD
 import DummyData from './dummy/fakeEventData.js';
 import { connect } from 'react-redux';
 // import the action 
 import { setInitialHostData } from '../actions/actions';
 
+=======
+import SpaceXData from './dummy/spaceX.js';
+import AmazonData from './dummy/amazon.js';
+import GoogleData from './dummy/google.js';
+import { connect } from 'react-redux';
+// import the reducer/action 
+>>>>>>> (feature) redux management start
 
 
 class Admin extends React.Component {
