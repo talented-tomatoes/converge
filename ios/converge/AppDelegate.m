@@ -8,6 +8,7 @@
  */
 
 #import "AppDelegate.h"
+@import Stripe;
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -17,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:@"pk_test_XvGWkr3d77Bulcj72lSfboG2"];
+  [[STPPaymentConfiguration sharedConfiguration] setAppleMerchantIdentifier:@"merchant.com.converge"];
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];

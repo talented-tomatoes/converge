@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import AppStack from './Screens';
 import configureStore from './configureStore';
 
+global.PaymentRequest = require('react-native-payments').PaymentRequest;
+
 const store = configureStore();
 
 class App extends Component {

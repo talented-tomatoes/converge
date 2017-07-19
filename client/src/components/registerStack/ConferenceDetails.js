@@ -16,6 +16,33 @@ export default class ConferenceDetails extends Component {
   };
 
   render() {
+
+    const METHOD_DATA = [{
+              supportedMethods: ['apple-pay'],
+              data: {
+                merchantIdentifier: 'merchant.com.converge',
+                supportedNetworks: ['visa', 'mastercard', 'amex'],
+                countryCode: 'US',
+                currencyCode: 'USD'
+              }
+            }];
+
+    const DETAILS = {
+      id: 'basic-example',
+      displayItems: [
+        {
+          label: 'Movie Ticket',
+          amount: { currency: 'USD', value: '15.00' }
+        }
+      ],
+      total: {
+        label: 'Merchant Name',
+        amount: { currency: 'USD', value: '15.00' }
+      }
+    };
+
+    const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
+
     const { params } = this.props.navigation.state;
     console.log(params);
     return (
@@ -33,12 +60,15 @@ export default class ConferenceDetails extends Component {
               </Body>
             </CardItem>
             <CardItem footer>
-              <Button>
+              <Button onPress={() => {paymentRequest.show()}}>
                 <Text style={{color: 'white'}}>Register</Text>
               </Button>
             </CardItem>
          </Card>
          <SpeakerList speakers={params.conference.speakers} navigation={this.props.navigation}/>
+        </Content>
+        <Content>
+
         </Content>
       </Container>
     );
@@ -85,7 +115,7 @@ conference: {
               name: 'Sam Altman',
               picture: 'https://crunchbase-production-res.cloudinary.com/image/upload/h_216,w_216,c_fit/v1447357652/stlfnd3tnusjskqulegz.png',
               bio: 'Sam Altman is the president of Y Combinator and the co-chair of OpenAI. Sam also serves on the board of Boom and Reddit. He was cofounder and CEO of Loopt, which was funded by Y Combinator in 2005 and acquired by Green Dot in 2012. Sam also founded Hydrazine Capital. He studied computer science at Stanford, and while there worked in the AI lab. \n Prior to taking over as Y Combinator\'s president, Sam was a part-time partner at Y Combinator since 2011. You can read Sam\'s essays on startups and technology at [his blog](http://blog.samaltman.com/). \n Sam has consistently been recognized for his entrepreneurship. He was featured in Inc. Magazine\'s Top 30 Entrepreneurs Under 30 and BusinessWeek\'s Tech\'s Best Entrepreneurs. \n As an early innovator in mobile location services, Sam joined Apple CEO Steve Jobs on stage at WWDC 2008, presenting Loopt as one of the first applications in the iPhone App Store. \n Sam has been a valuable source for many media outlets including Charlie Rose, CNN, The Economist, New York Times, Wall Street Journal and numerous others.',
-              
+
             },
             {
               name: 'Alon Cohen',

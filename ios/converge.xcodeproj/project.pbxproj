@@ -34,6 +34,8 @@
 		190221401F1C5DEE00E8FCF8 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 190221391F1C5DEE00E8FCF8 /* GoogleUtilities.framework */; };
 		190221421F1C5F7200E8FCF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 190221411F1C5F7200E8FCF8 /* GoogleService-Info.plist */; };
 		190221431F1C5F7200E8FCF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 190221411F1C5F7200E8FCF8 /* GoogleService-Info.plist */; };
+		19F0C7EF1F1EDC5D001F70DC /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F0C7EE1F1EDC5D001F70DC /* Stripe.framework */; };
+		19F0C7F01F1EDC5D001F70DC /* Stripe.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19F0C7EE1F1EDC5D001F70DC /* Stripe.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		25FBDD8F2BE746258731A953 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1326D93F1343BB96484405 /* Entypo.ttf */; };
 		2B710A024FBC41E98F7DE113 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDF344A998B4E93BF0821AE /* SystemConfiguration.framework */; };
 		2C253DADC901442FB053780D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD981A6CC83E4CDCBAC9DA4F /* EvilIcons.ttf */; };
@@ -61,6 +63,7 @@
 		BF23962F55604FF88944E836 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF505AA343B846F8A5063C76 /* Zocial.ttf */; };
 		C4D68494FC0743C8A591AD92 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B35F92D384D46BCA598AD4C /* Octicons.ttf */; };
 		C9420995487F48F2B34049FE /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DFFCB38A66814855AEC5ED53 /* Foundation.ttf */; };
+		E80A94CDA377434D947850E4 /* libReactNativePayments.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E7D5E7D06A4519AB115F29 /* libReactNativePayments.a */; };
 		ECF5E616F797422AB8D512A4 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 594AA45C83904C4387536D95 /* Roboto_medium.ttf */; };
 		F088F5FD122B4DC1A0AB07CD /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CB8D507B2604032A69D6AFC /* Ionicons.ttf */; };
 		F58DB1B5257E449AB4AD558F /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 037B0567A0F74ECC88D2D0A5 /* libRNImagePicker.a */; };
@@ -193,6 +196,13 @@
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = RNImagePicker;
 		};
+		19F0C8241F1EDE3C001F70DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDBEBF19EE264FCE8EB69A3C /* ReactNativePayments.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = ReactNativePayments;
+		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -321,6 +331,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		19F0C7F11F1EDC5D001F70DC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				19F0C7F01F1EDC5D001F70DC /* Stripe.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -355,6 +379,7 @@
 		190221391F1C5DEE00E8FCF8 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = "<group>"; };
 		190221411F1C5F7200E8FCF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		19F0C7ED1F1EAFA0001F70DC /* converge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = converge.entitlements; path = converge/converge.entitlements; sourceTree = "<group>"; };
+		19F0C7EE1F1EDC5D001F70DC /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Stripe.framework; sourceTree = "<group>"; };
 		25879768AF2749B1942D2C10 /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		2D02E47B1E0B4A5D006451C7 /* converge-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "converge-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* converge-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "converge-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -364,6 +389,7 @@
 		594AA45C83904C4387536D95 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6CB773FC996545668700AAEF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		72E7D5E7D06A4519AB115F29 /* libReactNativePayments.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativePayments.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7C1326D93F1343BB96484405 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -376,6 +402,7 @@
 		BCAC43D2D9594059AC6DBBC7 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		D8BDB87EBC0445D6BAC27DE4 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = "<group>"; };
 		DD981A6CC83E4CDCBAC9DA4F /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		DDBEBF19EE264FCE8EB69A3C /* ReactNativePayments.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePayments.xcodeproj; path = "../node_modules/react-native-payments/lib/ios/ReactNativePayments.xcodeproj"; sourceTree = "<group>"; };
 		DFFCB38A66814855AEC5ED53 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		F5ECB8A665FF48F4989E5258 /* AddressBook.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		FF505AA343B846F8A5063C76 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -417,7 +444,9 @@
 				9CB6F7A988EF4A8695A65057 /* SafariServices.framework in Frameworks */,
 				2B710A024FBC41E98F7DE113 /* SystemConfiguration.framework in Frameworks */,
 				1902213A1F1C5DEE00E8FCF8 /* GoogleAppUtilities.framework in Frameworks */,
+				19F0C7EF1F1EDC5D001F70DC /* Stripe.framework in Frameworks */,
 				6B3AC56CEACB415FB47AD54F /* AddressBook.framework in Frameworks */,
+				E80A94CDA377434D947850E4 /* libReactNativePayments.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +640,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		19F0C8031F1EDE3C001F70DC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19F0C8251F1EDE3C001F70DC /* libReactNativePayments.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		30E797F2BB7E47058680C15B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -658,6 +695,7 @@
 				B4B6BCED789644AB89C83BD5 /* RCTCamera.xcodeproj */,
 				BCAC43D2D9594059AC6DBBC7 /* RNImagePicker.xcodeproj */,
 				855C00A5EDC14531911F8460 /* RNGoogleSignin.xcodeproj */,
+				DDBEBF19EE264FCE8EB69A3C /* ReactNativePayments.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -674,6 +712,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				19F0C7EE1F1EDC5D001F70DC /* Stripe.framework */,
 				190221411F1C5F7200E8FCF8 /* GoogleService-Info.plist */,
 				190221321F1C5DEE00E8FCF8 /* GoogleSdk */,
 				1902212C1F1C5D7F00E8FCF8 /* RNGoogleSignin.xcodeproj */,
@@ -747,6 +786,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				19F0C7F11F1EDC5D001F70DC /* Embed Frameworks */,
+				19F0C7F21F1EDCBA001F70DC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -886,6 +927,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 19F0C8031F1EDE3C001F70DC /* Products */;
+					ProjectRef = DDBEBF19EE264FCE8EB69A3C /* ReactNativePayments.xcodeproj */;
 				},
 				{
 					ProductGroup = 190221021F1C5C5600E8FCF8 /* Products */;
@@ -1032,6 +1077,13 @@
 			fileType = archive.ar;
 			path = libRNImagePicker.a;
 			remoteRef = 1938F4E11F1AE8D100CEB9C5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		19F0C8251F1EDE3C001F70DC /* libReactNativePayments.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativePayments.a;
+			remoteRef = 19F0C8241F1EDE3C001F70DC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
@@ -1219,6 +1271,19 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		19F0C7F21F1EDCBA001F70DC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework/integrate-dynamic-framework.sh\"";
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1312,12 +1377,14 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-payments/lib/ios",
 				);
 				INFOPLIST_FILE = convergeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1342,12 +1409,14 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-payments/lib/ios",
 				);
 				INFOPLIST_FILE = convergeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1372,12 +1441,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleSdk",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-payments/lib/ios",
 				);
 				INFOPLIST_FILE = converge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1402,12 +1473,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleSdk",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-payments/lib/ios",
 				);
 				INFOPLIST_FILE = converge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1440,11 +1513,13 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-payments/lib/ios",
 				);
 				INFOPLIST_FILE = "converge-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1479,11 +1554,13 @@
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-payments/lib/ios",
 				);
 				INFOPLIST_FILE = "converge-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1518,6 +1595,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.converge-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1542,6 +1620,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
