@@ -1,17 +1,17 @@
 DROP DATABASE IF EXISTS converge;
 CREATE DATABASE converge;
+/* change database to converge */
 \c converge;
 CREATE TABLE IF NOT EXISTS users( 
-    id serial NOT NULL PRIMARY KEY, 
-    loginid VARCHAR(100) NOT NULL,
-    username  VARCHAR(100) NOT NULL, 
-    first_name VARCHAR(50) NOT NULL, 
-    last_name VARCHAR(50) NOT NULL,
-		img_url VARCHAR(1024), 
-    emailid VARCHAR(100), 
-    linkedinid VARCHAR(100),
-		phonenumber VARCHAR(15),
-    usertype VARCHAR(10)
+  id serial NOT NULL PRIMARY KEY, 
+  loginid VARCHAR(100) NOT NULL,
+  first_name VARCHAR(50) NOT NULL, 
+  last_name VARCHAR(50) NOT NULL,
+	avatar_url VARCHAR(1024), 
+  email VARCHAR(100), 
+  linkedinid VARCHAR(100),
+	phonenumber VARCHAR(15),
+  usertype VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS speakers(
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS speakers(
 	first_name VARCHAR(50) NOT NULL, 
   last_name VARCHAR(50) NOT NULL,
 	jobtitle VARCHAR(50),
-	avatar bytea,
+	avatar_url VARCHAR(1024),
 	about VARCHAR(250),
 	emailid VARCHAR(50),
 	linkedinid VARCHAR(50),
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS presentations(
 	description VARCHAR(250) NOT NULL,
 	presentationdate DATE NOT NULL,
 	presentationtime TIME NOT NULL,
-	speakerid references speakers(id),
 	location VARCHAR(100) NOT NULL,
+	speakerid references speakers(id),
 	conferenceid references conferences(id)
 );
 /* JOIN TABLES */
