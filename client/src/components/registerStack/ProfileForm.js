@@ -107,23 +107,10 @@ class ProfileForm extends Component {
               <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
             </TouchableOpacity>
           </Item>
-          <TouchableOpacity onPress={handleSubmit(this.submit.bind(this))}>
-            <Text>Submit</Text>
-          </TouchableOpacity>
         </Content>
         <Text style={{alignSelf: 'center'}} note>Swipe For Host</Text>
         <Footer>
           <UserSwiperFooter navigation={this.props.navigation} handleSubmit={handleSubmit(this.submit.bind(this)).bind(this)} imageUrl={this.state.avatarSource.url}/>
-          {/*<Content style={{flex:1}}>
-                      <Swiper style={{backgroundColor: '#428bca'}} showsButtons={false}>
-                          <Button style={{alignSelf: 'center'}}transparent onPress={() => {this.props.navigation.navigate('ConferenceList')}}>
-                            <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Register as Attendee</Text>
-                          </Button>
-                        <Button style={{alignSelf: 'center'}}transparent onPress={() => {this.props.navigation.navigate('AdminStack')}}>
-                          <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Register as Host</Text>
-                        </Button>
-                      </Swiper>
-                    </Content>*/}
         </Footer>
       </Container>
     )
