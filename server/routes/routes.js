@@ -34,4 +34,8 @@ router.route('/users/:username/checkin')
 router.route('/payments/charge')
   .post(controller.chargeCustomer);
 
+/*********************REGISTRATION**********************/
+router.route('/registerUser')
+  .post(controller.registerUser);
+
 module.exports = router;

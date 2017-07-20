@@ -4837,7 +4837,7 @@ stripe@^4.23.1:
     lodash.isplainobject "^4.0.6"
     object-assign "^4.1.0"
     qs "~6.0.4"
-    
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
