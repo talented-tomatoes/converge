@@ -29,7 +29,7 @@ exports.up = function(knex, Promise) {
 		table.string('confname').notNullable();
 		table.string('address').notNullable();
 		table.string('mapurl').notNullable();
-		table.binary('confimg').notNullable();
+		table.string('confimg_url').notNullable();
 	})
 ])
 .then(() => {
