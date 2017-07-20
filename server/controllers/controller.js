@@ -1,4 +1,6 @@
 const models = require('../../db/models/models.js');
+const config = require('../../config/config.js');
+const stripe = require('stripe')(config.stripe.secKey);
 
 let getAllUsers = (req, res) => {
 	console.log('GET /api/users');
@@ -54,11 +56,29 @@ let checkinUser = (req, res) => {
 	res.status(200).send('Success!');
 };
 
+let chargeCustomer = (req, res) => {
+
+	stripe.charges.create({
+		amount: Number(req.body.details.total.amount.value) * 100,
+		currency: 'usd',
+		description: 'Example event registration charge',
+		source: req.body.token
+	}, function(err, charge) {
+		if (err) {
+			console.log(err);
+		}
+		console.log(charge);
+	});
+
+	res.status(201).end();
+}
+
 module.exports = {
 	getAllUsers: getAllUsers,
 	getAllSpeakersOfConf: getAllSpeakersOfConf,
 	getAllSpeakersOfPresentation: getAllSpeakersOfPresentation,
 	getAllConferences: getAllConferences,
 	getAllPresentationsOfConf: getAllPresentationsOfConf,
-	checkinUser: checkinUser
+	checkinUser: checkinUser,
+	chargeCustomer: chargeCustomer
 };
