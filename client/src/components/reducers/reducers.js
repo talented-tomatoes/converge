@@ -11,10 +11,10 @@ const userReducer = (state = { user: null }, action) => {
   }
 }
 
-const adminReducer = (state = { conference: null }, action) => {
+const adminReducer = (state = { data: [] }, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
-      return {...action.conference};
+      return {...action.data};
 
     default:
       return state;

@@ -8,9 +8,11 @@ export function setUser(user) {
 
 export function setInitialHostData(data) {
   console.log('data in action: ', data);
+  console.log('typeof data in action', Array.isArray(data));
+  
   return {
-    type: 'SET_DATA',
-    data: data
+    type: 'GET_EVENTS',
+    data
   };
 }
 
@@ -18,6 +20,6 @@ export function addConference(conference) {
   return {
     type: 'ADD_CONFERENCE',
     conference: conference
-  }
+  };
 }
 

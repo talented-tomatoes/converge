@@ -3,7 +3,11 @@ import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
 import EventsListEntry from './EventsListEntry.js';
 
-export default class EventsList extends Component {
+import {connect} from 'react-redux';
+import { adminReducer } from '../actions/actions';
+
+
+class EventsList extends Component {
   // static navigationOptions = ({ navigation }) => {
 
   // };
@@ -16,24 +20,37 @@ export default class EventsList extends Component {
     this.props.navigation.navigate('DateTabs');
   }
 
+  convertDataTypes() {
+    // convert the store object form into an array
+  }
 
   render() {
-    console.log('this.props: ', this.props);
+    // console.log('this.props.data: ', this.props);
     return (
       <Content>
-        <List>
-          
-          {/* {this.state.data.map(event => {
-            return (
+         <List> 
+            {/* {console.log('proppps', this.props.data[0])}  */}
+              {this.props.data[0].map(event => {
+              return (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('DateTabs')}>
                 <EventsListEntry 
                   eventData={event}
                   />
               </TouchableOpacity>
-            );
-          })} */}
+              );
+            })}     
+
           </List>
         </Content>
     );
   }
 }
+
+// REDUX THINGS
+const mapStateToProps = (state) => {
+  return {
+    data: state.adminReducer
+  };
+};
+
+export default connect(mapStateToProps)(EventsList);
