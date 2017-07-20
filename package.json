@@ -12,6 +12,7 @@
 		"bluebird": "^3.5.0",
 		"body-parser": "^1.17.2",
 		"bookshelf": "^0.10.3",
+		"config": "^1.26.1",
 		"express": "^4.15.3",
 		"knex": "^0.13.0",
 		"native-base": "^2.2.1",
