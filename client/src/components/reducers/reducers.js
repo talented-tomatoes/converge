@@ -13,8 +13,9 @@ const userReducer = (state = { user: null }, action) => {
 
 const adminReducer = (state = { conference: null }, action) => {
   switch (action.type) {
-    case 'SET_EVENT':
+    case 'GET_EVENTS':
       return {...action.conference};
+    case 'ADD_EVENT'
     default:
       return state;
   }
