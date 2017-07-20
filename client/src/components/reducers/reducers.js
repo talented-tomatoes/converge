@@ -22,10 +22,8 @@ const adminReducer = (state = { conference: null }, action) => {
 
 const reducers = combineReducers({
   userReducer,
-  adminReducer
-  conferenceReducer,
+  adminReducer,
   form: formReducer
-  adminReducer
 })
 
 export default reducers;

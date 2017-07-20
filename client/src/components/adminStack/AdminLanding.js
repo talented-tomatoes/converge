@@ -4,15 +4,14 @@ import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Bod
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
-import { connect } from 'react-redux';
 // import the action 
-import { setInitialHostData } from '../actions/actions';
+
 import { connect } from 'react-redux';
 // import the reducer/action 
 
 
 // import the action 
-import { setInitialData } from './actions/actions';
+import { setInitialHostData } from '../actions/actions';
 
 
 class Admin extends React.Component {
