@@ -11,7 +11,8 @@ exports.up = function(knex, Promise) {
 		table.string('linkedinid');
 		table.string('phonenumber');
 		table.string('usertype');
-		table.unique('loginid')
+		table.string('gallery_name');
+		table.unique('loginid');
 	}),
 	knex.schema.createTableIfNotExists('speakers', (table) => {
 		table.increments('id').primary;
