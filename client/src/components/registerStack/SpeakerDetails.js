@@ -21,15 +21,15 @@ export default class ConferenceDetails extends Component {
             <CardItem>
               <Left>
                 <Body>
-                  <Title>{params.speaker.name}</Title>
+                  <Title>{params.speaker.first_name + ' ' + params.speaker.last_name}</Title>
                 </Body>
               </Left>
             </CardItem>
             <CardItem>
               <Body>
-                <Image source={{uri: params.speaker.picture}} style={{height: 200, width: 200, flex: 1}}/>
+                <Image source={{uri: params.speaker.avatar_url}} style={{height: 200, width: 200, flex: 1}}/>
                 <Text>
-                  {params.speaker.bio}
+                  {params.speaker.about}
                 </Text>
               </Body>
             </CardItem>

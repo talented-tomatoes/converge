@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Container, Header, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
-import mockData from '../../../../db/mockData';
+import axios from 'axios';
+import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
 
-export default class ConferenceDetails extends Component {
+class ConferenceDetails extends Component {
 
   static navigationOptions = {
     title: 'Conference Details'
@@ -49,30 +50,36 @@ export default class ConferenceDetails extends Component {
     paymentRequest.show()
       .then(paymentResponse => {
 
+        let { params } = this.props.navigation.state
+
         var paymentDetails = {
           token: paymentResponse.details.paymentToken,
-          details: DETAILS
+          details: DETAILS,
+          conference_id: params.conference.id,
+          user_id: this.props.user.id
         }
 
-        fetch('http://localhost:3000/api/payments/charge', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(paymentDetails)
-        });
-        paymentResponse.complete('success');
+        axios.post('http://localhost:3000/api/payments/charge', paymentDetails)
+          .then(response => {
+            return response;
+          })
+          .then(response => {
+            return axios.post('http://localhost:3000/api/join/conferences_users', paymentDetails)
+          })
+          .then(response => {
+            paymentResponse.complete('success');
+          })
+          .catch(error => {
+            console.log(error);
+            paymentRequest.abort();
+          })
       })
-      .catch(e => {
-        paymentRequest.abort();
-        console.log(e.message);
-      });
   }
  
   render() {
     const { params } = this.props.navigation.state;
     console.log(params);
+    console.log(this.props)
     return (
       <Container>
         <Content>
@@ -88,14 +95,22 @@ export default class ConferenceDetails extends Component {
               </Body>
             </CardItem>
             <CardItem footer>
-              <Button onPress={this.handlePaymentRequest}>
+              <Button onPress={this.handlePaymentRequest.bind(this)}>
                 <Text style={{color: 'white'}}>Attend</Text>
               </Button>
             </CardItem>
          </Card>
-         <SpeakerList speakers={params.conference.speakers} navigation={this.props.navigation}/>
+         <SpeakerList navigation={this.props.navigation} conferenceID={params.conference.id}/>
         </Content>
       </Container>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(ConferenceDetails);
