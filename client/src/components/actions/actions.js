@@ -21,3 +21,10 @@ export function addConference(conference) {
   }
 }
 
+export function addConference(conference) {
+  return {
+    type: 'ADD_CONFERENCE',
+    conference: conference
+  }
+}
+

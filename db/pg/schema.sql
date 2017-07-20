@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS converge;
 CREATE DATABASE converge;
 /* change database to converge */
 \c converge;
-CREATE TABLE IF NOT EXISTS users( 
-  id serial NOT NULL PRIMARY KEY, 
+CREATE TABLE IF NOT EXISTS users(
+  id serial NOT NULL PRIMARY KEY,
   loginid VARCHAR(100) NOT NULL,
-  first_name VARCHAR(50) NOT NULL, 
+  first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
-	avatar_url VARCHAR(1024), 
-  email VARCHAR(100), 
+	avatar_url VARCHAR(1024),
+  email VARCHAR(100),
   linkedinid VARCHAR(100),
 	phonenumber VARCHAR(15),
   usertype VARCHAR(10)
