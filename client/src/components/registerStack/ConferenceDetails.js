@@ -93,7 +93,7 @@ export default class ConferenceDetails extends Component {
               </Button>
             </CardItem>
          </Card>
-         <SpeakerList speakers={params.conference.speakers} navigation={this.props.navigation}/>
+         <SpeakerList navigation={this.props.navigation} conferenceID={params.conference.id}/>
         </Content>
       </Container>
     );

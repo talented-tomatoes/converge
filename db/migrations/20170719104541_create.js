@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
 		table.string('last_name').notNullable();
 		table.string('jobtitle');
 		table.string('avatar_url');
-		table.string('about');
+		table.string('about', 2000);
 		table.string('email');
 		table.string('linkedinid');
 		table.integer('confid');
