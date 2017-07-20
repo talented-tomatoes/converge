@@ -4,7 +4,16 @@ import DatePicker from 'react-native-datepicker';
 export default class MyDatePicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {date: ''};
+    this.state = {
+      date: ''
+    };
+  }
+
+  dateChange(date) {
+    this.props.onChange(date);
+    this.setState({
+      date
+    });
   }
 
   render() {
@@ -29,7 +38,7 @@ export default class MyDatePicker extends Component {
           }
           // ... You can check the source to find the other keys.
         }}
-        onDateChange={(date) => { this.setState({date: date}); }}
+        onDateChange={(date) => { this.dateChange(date); }}
       />
     );
   }

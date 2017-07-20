@@ -36,10 +36,17 @@ class NewEvent extends Component {
 
   }
 
-  onStartDateChangedate() {
-    console.log('changing the start date now');
+  onStartDateChangeDate(date) {
+    console.log('changing the start date now to ', date);
     this.setState({
-      
+      startDate: date
+    })
+  }  
+  
+  onEndDateChangeDate(date) {
+    console.log('changing the end date now to ', date);
+    this.setState({
+      endDate: date
     })
   }
 
@@ -48,17 +55,9 @@ class NewEvent extends Component {
     return (
       <Container>
           <Text> Start Date: </Text>
-          <DatePicker 
-            />
+          <DatePicker onChange={this.onStartDateChangeDate.bind(this)} />
           <Text> End Date: </Text>
-          <DatePicker 
-            onDateChange={(date) => {this.setState({endDate: date})}}
-            mode="date"
-            date={this.state.endDate}
-            format="YYYY-MM-DD"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            />
+          <DatePicker onChange={this.onEndDateChangeDate.bind(this)} />
 
         <Card>
           <Item>
