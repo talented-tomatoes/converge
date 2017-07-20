@@ -6,7 +6,7 @@ export function setUser(user) {
   };
 }
 
-export function setInitialData(data) {
+export function setInitialHostData(data) {
   console.log('data in action: ', data);
   return {
     type: 'SET_DATA',

@@ -23,7 +23,7 @@ export default class EventsList extends Component {
       <Content>
         <List>
           
-          {this.state.data.map(event => {
+          {/* {this.state.data.map(event => {
             return (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('DateTabs')}>
                 <EventsListEntry 
@@ -31,7 +31,7 @@ export default class EventsList extends Component {
                   />
               </TouchableOpacity>
             );
-          })}
+          })} */}
           </List>
         </Content>
     );

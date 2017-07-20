@@ -3,12 +3,10 @@ import { AppRegistry } from 'react-native';
 import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
-import SpaceXData from './dummy/spaceX.js';
-import AmazonData from './dummy/amazon.js';
-import GoogleData from './dummy/google.js';
+import DummyData from './dummy/fakeEventData.js';
 import { connect } from 'react-redux';
 // import the action 
-import { setInitialData } from './actions/actions';
+import { setInitialHostData } from '../actions/actions';
 
 
 
@@ -35,13 +33,9 @@ class Admin extends React.Component {
     // if no results, simple display a basic page saying you don't have any events for the time being
 
     // Update the props
+    // load up the first host because host basis
 
 
-
-
-
-    // begin storing the dummy data
-    
 
   }
 
@@ -71,11 +65,11 @@ class Admin extends React.Component {
 // REDUX THINGS
 const mapStateToProps = (state) => {
   return {
-    user: state.adminReducer
+    data: state.adminReducer
   }
 }
 
-export default connect(mapStateToProps)(AdminLanding);
+export default connect(mapStateToProps)(Admin);
 
 // STYLING 
 
