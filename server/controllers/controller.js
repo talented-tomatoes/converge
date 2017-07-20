@@ -45,11 +45,29 @@ let getAllSpeakersOfPresentation = (req, res) => {
 };
 
 let getAllConferences = (req, res) => {
-
+	models.Conferences.fetch()
+	.then(collection => {
+		console.log('conferences = ', collection);
+		res.status(200).send(collection)
+	})
+	.catch(err => {
+		console.log('ERROR:', err);
+		dz
+	});
 };
 
 let getAllPresentationsOfConf = (req, res) => {
-
+	const confid = req.params.confid;
+	console.log('confid = ', confid);
+	// models.Presentation.forge({conferenceid:confid})
+	// 	.fetch({withRelated: ['conferences']})
+	// 	.then(presentations => {
+	// 		console.log('presentations = ', presentations);
+	// 		res.status(200).send(collection)
+	// 	})
+	// 	.catch(err => {
+	// 		console.log('Error!', err);
+	// 	})
 };
 
 let checkinUser = (req, res) => {

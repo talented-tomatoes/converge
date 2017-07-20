@@ -17,6 +17,9 @@ const Presentation = db.Model.extend({
   },
   speakers: () => {
     return this.belongsToMany(Speaker, 'presentations_speakers');
+  },
+  conference: () => {
+    return this.belongsTo(Conference, 'conferences');
   }
 });
 
@@ -27,6 +30,9 @@ const Conference = db.Model.extend({
   },
   speakers: () => {
     return this.hasMany(Speaker);
+  },
+  presentations: () => {
+    return this.hasMany(Presentation);
   }
 });
 
