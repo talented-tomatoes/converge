@@ -29,10 +29,15 @@ exports.up = function(knex, Promise) {
 	return Promise.all([
 		knex.schema.createTableIfNotExists('conferences', (table) => {
 			table.increments('id').primary;
-			table.string('confname').notNullable();
+			table.string('name').notNullable();
 			table.string('address').notNullable();
-			table.string('mapurl').notNullable();
-			table.string('confimg_url').notNullable();
+			table.string('start_date').notNullable();
+			table.string('end_date').notNullable();
+			table.string('logo', 500);
+			table.string('details', 2000).notNullable();
+			table.integer('ticket_price').notNullable();
+			table.string('venue_map', 500).notNullable();
+			table.string('banner', 500).notNullable();
 			table.integer('userid').references('id').inTable('users');
 		})
 		knex.schema.createTableIfNotExists('presentations', (table) => {
