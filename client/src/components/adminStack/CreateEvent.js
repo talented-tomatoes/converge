@@ -14,15 +14,33 @@ class NewEvent extends Component {
     super(props)
 
     this.state = {
-      date: ""
+      startDate: '',
+      endDate: '',
+      locationAddress: '',
+      nameOfEvent: ''
     }
   }
 
 
+  onLocationAddressChange() {
+
+  }
+
+  onNameOfEventChange() {
+
+  }
+
   onSubmitDetails(event) {
-    console.log(event);
-    console.log('submitted the new event details!');
-    this.props.dispatch(addConference('Space X'))
+    console.log('startDate:', this.state.startDate);
+    console.log('endDate:', this.state.endDate);
+
+  }
+
+  onStartDateChangedate() {
+    console.log('changing the start date now');
+    this.setState({
+      
+    })
   }
 
   render() {
@@ -30,16 +48,25 @@ class NewEvent extends Component {
     return (
       <Container>
           <Text> Start Date: </Text>
-          <DatePicker />
+          <DatePicker 
+            />
           <Text> End Date: </Text>
-          <DatePicker />
+          <DatePicker 
+            onDateChange={(date) => {this.setState({endDate: date})}}
+            mode="date"
+            date={this.state.endDate}
+            format="YYYY-MM-DD"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            />
 
         <Card>
           <Item>
             <Input placeholder="Name of Event" />
             </Item>
           <Item>
-             <GooglePlacesAutocomplete
+            <Input placeholder="Location of Event" />
+             {/* <GooglePlacesAutocomplete
               placeholder="Input Location"
               minLength={2}
               autoFocus={false}
@@ -81,8 +108,15 @@ class NewEvent extends Component {
               debounce={200}
               currentLocation={true}
               nearbyPlacesAPI="GooglePlacesSearch"
-            />
+            /> */}
             </Item>
+            <Item>
+              <Input placeholder="upload venue map">
+              </Input>
+              </Item>
+              <Item>
+                <Input placeholder="upload event banner"></Input>
+              </Item>
           </Card>
 
 
@@ -91,7 +125,7 @@ class NewEvent extends Component {
           success
           onPress={this.onSubmitDetails.bind(this)}
           >
-          <Text> Submit Details </Text>
+          <Text> Create this Event </Text>
           </Button>
         </Container>
     )
