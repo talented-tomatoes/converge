@@ -11,10 +11,10 @@ const userReducer = (state = { user: null }, action) => {
   }
 }
 
-const conferenceReducer = (state = { conference: null }, action) => {
+const adminReducer = (state = { conference: null }, action) => {
   switch (action.type) {
-    case 'ADD_CONFERENCE':
-      return Object.assign(state, {conference: action.conference})
+    case 'SET_EVENT':
+      return {...action.conference};
     default:
       return state;
   }
@@ -22,7 +22,7 @@ const conferenceReducer = (state = { conference: null }, action) => {
 
 const reducers = combineReducers({
   userReducer,
-  conferenceReducer,
+  adminReducer,
   form: formReducer
 })
 
