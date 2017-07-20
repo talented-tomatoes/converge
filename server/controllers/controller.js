@@ -73,6 +73,14 @@ let chargeCustomer = (req, res) => {
 	res.status(201).end();
 }
 
+let registerUser = (req, res) => {
+  console.log('Inside registerUser');
+  console.log('req.body: ', req.body);
+  // models.User.forge(req.body).save();
+
+  res.status(200).send('Success!');
+}
+
 module.exports = {
 	getAllUsers: getAllUsers,
 	getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -80,5 +88,6 @@ module.exports = {
 	getAllConferences: getAllConferences,
 	getAllPresentationsOfConf: getAllPresentationsOfConf,
 	checkinUser: checkinUser,
-	chargeCustomer: chargeCustomer
+	chargeCustomer: chargeCustomer,
+  registerUser: registerUser
 };
