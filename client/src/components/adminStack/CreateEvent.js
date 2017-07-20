@@ -5,6 +5,7 @@ import DatePicker from './DatePicker.js';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { connect } from 'react-redux';
 import { addConference } from '../actions/actions';
+import axios from 'axios';
 
 class NewEvent extends Component {
   static navigationOptions = {
@@ -14,26 +15,30 @@ class NewEvent extends Component {
     super(props)
 
     this.state = {
-      startDate: '',
-      endDate: '',
-      locationAddress: '',
-      nameOfEvent: ''
+      start_date: '',
+      end_date: '',
+      address: '',
+      name: '',
+      logo: '',
+      banner: '',
+      venue_map: '',
+      details: ''
     }
   }
 
 
-  onLocationAddressChange() {
-
+  onNameOfEventChange(name) {
+    console.log('event name', name);
+    this.setState({
+      nameOfEvent: name
+    })
   }
 
-  onNameOfEventChange() {
-
-  }
-
-  onSubmitDetails(event) {
-    console.log('startDate:', this.state.startDate);
-    console.log('endDate:', this.state.endDate);
-
+  onLocationAddressChange(address) {
+    console.log('address', address);
+    this.setState({
+      locationAddress: address
+    })
   }
 
   onStartDateChangeDate(date) {
@@ -50,6 +55,32 @@ class NewEvent extends Component {
     })
   }
 
+  onSubmitDetails() {
+    let details = {
+      start_date: this.state.startDate,
+      end_end: this.state.endDate,
+      address: this.state.locationAddress,
+      name: this.state.nameOfEvent,
+      banner: this.state.banner,
+      venue_map: this.state.venue_map,
+      details: this.state.details
+    }
+    console.log(details);
+
+    axios.post('apiURL', details)
+      .then(function(response) {
+        console.log(response);
+        // navigate to the the admin landing
+        this.props.navigation.navigate('')
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
+
+  // handle 
+
+
   render() {
     console.log('this.props in create event: ', this.props);
     return (
@@ -61,10 +92,15 @@ class NewEvent extends Component {
 
         <Card>
           <Item>
-            <Input placeholder="Name of Event" />
+            <Input 
+              placeholder="Name of Event" 
+              onChangeText={this.onNameOfEventChange.bind(this)}
+              />
             </Item>
           <Item>
-            <Input placeholder="Location of Event" />
+            <Input 
+              placeholder="Location of Event" 
+              onChangeText={this.onLocationAddressChange.bind(this)}/>
              {/* <GooglePlacesAutocomplete
               placeholder="Input Location"
               minLength={2}
@@ -110,12 +146,21 @@ class NewEvent extends Component {
             /> */}
             </Item>
             <Item>
-              <Input placeholder="upload venue map">
-              </Input>
+              <Input placeholder="upload venue map"></Input>
               </Item>
-              <Item>
-                <Input placeholder="upload event banner"></Input>
+            <Item>
+              <Input placeholder="upload banner"></Input>
               </Item>
+            <Item>
+              <Input placeholder="upload logo"></Input>
+              </Item>
+            <Item>
+              <Input placeholder="upload event details"></Input>
+              </Item>
+            <Item> 
+              <Input placeholder="ticket price"></Input>
+              </Item>
+              
           </Card>
 
 

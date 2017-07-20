@@ -31,7 +31,7 @@ class EventsList extends Component {
          <List> 
             {/* {console.log('proppps', this.props.data[0])}  */}
 
-              {/* {this.props.data[0].map(event => {
+               {this.props.data[0].map(event => {
                 return (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('DateTabs')}>
                 <EventsListEntry 
@@ -39,7 +39,7 @@ class EventsList extends Component {
                   />
               </TouchableOpacity>
               );
-            })} */}
+            })} 
 
           </List>
         </Content>
