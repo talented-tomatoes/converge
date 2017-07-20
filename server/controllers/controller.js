@@ -104,7 +104,23 @@ let registerUser = (req, res) => {
 			console.log('err=', err);
 		})
 
-  res.status(200).send('Success!');
+  res.status(200).send('User saved!');
+}
+
+let createNewConference = (req, res) => {
+  console.log('Inside createNewConference');
+  console.log('req.body: ', req.body);
+  console.log('req.body type: ', typeof req.body);
+
+  models.Conference.forge(req.body).save()
+    .then(conference => {
+      console.log('conference saved: ', conference);
+    })
+    .catch(err => {
+      console.log('error: ', err);
+    })
+
+  res.status(200).send('Conference saved!');
 }
 
 module.exports = {
@@ -115,5 +131,6 @@ module.exports = {
 	getAllPresentationsOfConf: getAllPresentationsOfConf,
 	checkinUser: checkinUser,
 	chargeCustomer: chargeCustomer,
-  registerUser: registerUser
+  registerUser: registerUser,
+  createNewConference: createNewConference,
 };

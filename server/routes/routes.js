@@ -21,6 +21,9 @@ router.route('/speakers/:presentationid')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
+router.route('/createConference')
+  .post(controller.createNewConference);
+
 /*********************PRESENTATIONS **********************/
 
 router.route('/presentations/:confid')
