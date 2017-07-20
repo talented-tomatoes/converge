@@ -22,7 +22,8 @@ class NewEvent extends Component {
       logo: '',
       banner: '',
       venue_map: '',
-      details: ''
+      details: '',
+      price: 0
     }
   }
 
@@ -54,6 +55,20 @@ class NewEvent extends Component {
       endDate: date
     })
   }
+    
+  onTicketPriceChange(price) {
+    console.log('price', price);
+    this.setState({
+      ticket_price: price
+    })
+  }  
+  
+  onEventDetailsChange(details) {
+    console.log('details', details);
+    this.setState({
+      details: details
+    })
+  }
 
   onSubmitDetails() {
     let details = {
@@ -61,21 +76,29 @@ class NewEvent extends Component {
       end_end: this.state.endDate,
       address: this.state.locationAddress,
       name: this.state.nameOfEvent,
-      banner: this.state.banner,
-      venue_map: this.state.venue_map,
-      details: this.state.details
+      banner: 'BANNER_URL',
+      venue_map: 'VENUE_MAP_URL',
+      details: this.state.details,
+      ticket_price: this.state.price,
+      logo: 'LOGO_URL'
     }
     console.log(details);
 
-    axios.post('apiURL', details)
-      .then(function(response) {
-        console.log(response);
-        // navigate to the the admin landing
-        this.props.navigation.navigate('')
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+
+    // AXIOS 
+    // ==================================
+    // axios.post('apiURL', details)
+    //   .then(function(response) {
+    //     console.log(response);
+    //     // navigate to the the admin landing
+    //     this.props.navigation.navigate('AdminStack')
+    //   })
+    //   .catch(function(err) {
+    //     console.log(err);
+    //   });
+
+    
+    this.props.navigation.navigate('AdminStack')
   }
 
   // handle 
@@ -146,7 +169,10 @@ class NewEvent extends Component {
             /> */}
             </Item>
             <Item>
-              <Input placeholder="upload venue map"></Input>
+              <Input 
+                placeholder="upload venue map"
+
+                ></Input>
               </Item>
             <Item>
               <Input placeholder="upload banner"></Input>
@@ -155,11 +181,22 @@ class NewEvent extends Component {
               <Input placeholder="upload logo"></Input>
               </Item>
             <Item>
-              <Input placeholder="upload event details"></Input>
+              <Input 
+                placeholder="upload event details"
+                onChangeText={this.onEventDetailsChange.bind(this)}
+                ></Input>
               </Item>
             <Item> 
-              <Input placeholder="ticket price"></Input>
+              <Input 
+                placeholder="ticket price"
+                onChangeText={this.onTicketPriceChange.bind(this)}
+                ></Input>
               </Item>
+              <Item>
+                <Input
+                  placeholder="upload logo"
+                  ></Input>
+                </Item>
               
           </Card>
 
