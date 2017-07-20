@@ -6,3 +6,10 @@ export function setUser(user) {
   }
 }
 
+export function addConference(conference) {
+  return {
+    type: 'ADD_CONFERENCE',
+    conference: conference
+  }
+}
+

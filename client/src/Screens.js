@@ -26,7 +26,6 @@ import ConferenceDetails from './components/registerStack/ConferenceDetails';
 import Camera from './components/registerStack/Camera';
 import SpeakerList from './components/registerStack/SpeakerList.js';
 import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
-import Payment from './components/registerStack/Payment.js';
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
@@ -67,7 +66,6 @@ const RegisterStack = StackNavigator({
   Camera: { screen: Camera },
   SpeakerList: { screen: SpeakerList },
   SpeakerDetails: { screen: SpeakerDetails},
-  Payment: { screen: Payment}
 });
 
 export default AppStack = StackNavigator({

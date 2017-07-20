@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 const userReducer = (state = { user: null }, action) => {
   console.log('action.type: ', action.type)
@@ -11,12 +12,18 @@ const userReducer = (state = { user: null }, action) => {
 }
 
 const conferenceReducer = (state = { conference: null }, action) => {
-  return state;
+  switch (action.type) {
+    case 'ADD_CONFERENCE':
+      return Object.assign(state, {conference: action.conference})
+    default:
+      return state;
+  }
 }
 
 const reducers = combineReducers({
   userReducer,
-  conferenceReducer
+  conferenceReducer,
+  form: formReducer
 })
 
 export default reducers;
