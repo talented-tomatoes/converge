@@ -24,16 +24,17 @@ exports.up = function(knex, Promise) {
 		table.string('linkedinid');
 		table.integer('confid');
 	}),
-	knex.schema.createTableIfNotExists('conferences', (table) => {
-		table.increments('id').primary;
-		table.string('confname').notNullable();
-		table.string('address').notNullable();
-		table.string('mapurl').notNullable();
-		table.string('confimg_url').notNullable();
-	})
 ])
 .then(() => {
 	return Promise.all([
+		knex.schema.createTableIfNotExists('conferences', (table) => {
+			table.increments('id').primary;
+			table.string('confname').notNullable();
+			table.string('address').notNullable();
+			table.string('mapurl').notNullable();
+			table.string('confimg_url').notNullable();
+			table.integer('userid').references('id').inTable('users');
+		})
 		knex.schema.createTableIfNotExists('presentations', (table) => {
 			table.increments('id').primary;
 			table.string('presentationname').notNullable();
