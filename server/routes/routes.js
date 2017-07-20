@@ -41,4 +41,8 @@ router.route('/payments/charge')
 router.route('/registerUser')
   .post(controller.registerUser);
 
+/*********************JOINS**********************/
+router.route('/join/conferences_users')
+  .post(controller.saveUserToConference);
+
 module.exports = router;

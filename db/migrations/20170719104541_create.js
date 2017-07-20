@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
 		table.string('linkedinid');
 		table.string('phonenumber');
 		table.string('usertype');
+		table.unique('loginid')
 	}),
 	knex.schema.createTableIfNotExists('speakers', (table) => {
 		table.increments('id').primary;
@@ -39,7 +40,7 @@ exports.up = function(knex, Promise) {
 			table.string('venue_map', 500).notNullable();
 			table.string('banner', 500).notNullable();
 			table.integer('userid').references('id').inTable('users');
-		})
+		}),
 		knex.schema.createTableIfNotExists('presentations', (table) => {
 			table.increments('id').primary;
 			table.string('presentationname').notNullable();
@@ -63,7 +64,7 @@ exports.up = function(knex, Promise) {
 		knex.schema.createTableIfNotExists('conferences_users', (table) => {
 			table.increments('id').primary;
 			table.integer('conferenceid').references('id').inTable('conferences');
-			table.integer('userid').references('id').inTable('users');
+			table.string('userid').references('loginid').inTable('users');
 		})
 	])
 	})
