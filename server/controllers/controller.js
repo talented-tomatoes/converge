@@ -86,6 +86,7 @@ let checkinUser = (req, res) => {
 			console.log('GALLERY_NAME=', gallery_name);
 			const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
 			console.log('options = ', OPTIONS);
+			// axios - OPTIONS.url + '/verify'
 	};
 		//res.status(200).send('Success!');
 	})

@@ -3,7 +3,7 @@ const CONFIG = require('../../config/config.js');
 
 let getKairosRequestObj = (checkinpic_url, gallery_name, userid) => {
 	const options = {
-		url: CONFIG.kairos.KAIROS_URL,
+		url: CONFIG.kairos.KAIROS_URL + '/verify',
 		headers: {
 			'Content-Type': 'application/json',
 			'app_id': CONFIG.kairos.APP_ID,

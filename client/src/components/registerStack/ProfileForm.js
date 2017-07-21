@@ -48,7 +48,6 @@ class ProfileForm extends Component {
 
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
@@ -62,16 +61,16 @@ class ProfileForm extends Component {
         this.setState({
           avatarSource: { uri: 'https://media.giphy.com/media/210NUQw5BT8c0/giphy.gif' }
         });
-
         let options = uploadImage(response.data)
-
         axios.post(options.url, options.body)
-          .then( response => {
-            console.log('response: ', response.data.secure_url);
-            this.setState({
-              avatarSource: {uri: response.data.secure_url}
-            });
-          })
+        .then( response => {
+          console.log('response: ', response.data.secure_url);
+          this.setState({
+            avatarSource: {uri: response.data.secure_url}
+          });
+          options = kairosEnrollReqObj(response.data.secure_url, userid, );
+          return axios.post()
+        })
       }
     });
   }
