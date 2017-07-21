@@ -20,7 +20,6 @@ import { Field, reduxForm } from 'redux-form';
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, normalize, placeholder}) => {
-  console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
@@ -87,13 +86,11 @@ class ProfileForm extends Component {
       linkedinid: values.linkedIn,
       phonenumber: values.phoneNumber,
     };
-    console.log('submitting form', user);
     return user;
   }
 
   render() {
     const { handleSubmit } = this.props;
-    console.log('this.props in profileForm: ', this.props);
     return (
       <Container>
         <Content>

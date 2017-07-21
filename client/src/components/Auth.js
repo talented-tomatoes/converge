@@ -64,8 +64,6 @@ class Auth extends Component {
 
   //This is our main app
   render() {
-    {console.log('this.props: ', this.props)}
-
     if (!this.state.user) {
       return (
         <Container style={{backgroundColor: 'lightgrey'}}>

@@ -30,10 +30,12 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
-import DateTabs from './components/adminStack/DateTabs';
-import ScheduleEditPage from './components/adminStack/ScheduleEditPage';
-import SpeakersEditPage from './components/adminStack/SpeakersEditPage';
-import MapEditPage from './components/adminStack/MapEditPage';
+import EditSpeakers from './components/adminStack/EditSpeakers';
+import EditSpeakersForm from './components/adminStack/EditSpeakersForm';
+import EditSchedule from './components/adminStack/EditSchedule';
+import EditScheduleForm from './components/adminStack/EditScheduleForm';
+import EditConference from './components/adminStack/EditConference';
+import EditConferenceForm from './components/adminStack/EditConferenceForm';
 
 
 const AttendeeStack = StackNavigator({
@@ -53,10 +55,19 @@ const AttendeeStack = StackNavigator({
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
-  DateTabs: { screen: DateTabs },
-  // DateTabs has a TabNavigator within it
+  EditSchedule: { screen: EditSchedule },
+  EditScheduleForm: { screen: EditScheduleForm },
+  EditSpeakers: { screen: EditSpeakers },
+  EditSpeakersForm: { screen: EditSpeakersForm },
+  EditConference: { screen: EditConference },
+  EditConferenceForm: { screen: EditConferenceForm }
 }, {
-  headerMode: 'none'
+  headerMode: 'none',
+  transitionConfig: () => ({
+    transitionSpec: {
+      duration: 0
+    }
+  }),
 });
 
 const RegisterStack = StackNavigator({

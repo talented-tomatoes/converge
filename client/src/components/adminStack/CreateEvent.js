@@ -23,7 +23,8 @@ class NewEvent extends Component {
       banner: '',
       venue_map: '',
       details: '',
-      price: 0
+      ticket_price: 0,
+      user_id: null
     }
 
   }
@@ -48,22 +49,22 @@ class NewEvent extends Component {
     this.setState({
       startDate: date
     })
-  }  
-  
+  }
+
   onEndDateChangeDate(date) {
     console.log('changing the end date now to ', date);
     this.setState({
       endDate: date
     })
   }
-    
+
   onTicketPriceChange(price) {
     console.log('price', price);
     this.setState({
       ticket_price: price
     })
-  }  
-  
+  }
+
   onEventDetailsChange(details) {
     console.log('details', details);
     this.setState({
@@ -99,11 +100,11 @@ class NewEvent extends Component {
       });
 
 
-    
+
     this.props.navigation.navigate('AdminLanding')
   }
 
-  // handle 
+  // handle
 
 
   render() {
@@ -117,14 +118,14 @@ class NewEvent extends Component {
 
         <Card>
           <Item>
-            <Input 
-              placeholder="Name of Event" 
+            <Input
+              placeholder="Name of Event"
               onChangeText={this.onNameOfEventChange.bind(this)}
               />
             </Item>
           <Item>
-            <Input 
-              placeholder="Location of Event" 
+            <Input
+              placeholder="Location of Event"
               onChangeText={this.onLocationAddressChange.bind(this)}/>
              {/* <GooglePlacesAutocomplete
               placeholder="Input Location"
@@ -171,7 +172,7 @@ class NewEvent extends Component {
             /> */}
             </Item>
             <Item>
-              <Input 
+              <Input
                 placeholder="upload venue map"
 
                 ></Input>
@@ -183,13 +184,13 @@ class NewEvent extends Component {
               <Input placeholder="upload logo"></Input>
               </Item>
             <Item>
-              <Input 
+              <Input
                 placeholder="upload event details"
                 onChangeText={this.onEventDetailsChange.bind(this)}
                 ></Input>
               </Item>
-            <Item> 
-              <Input 
+            <Item>
+              <Input
                 placeholder="ticket price"
                 onChangeText={this.onTicketPriceChange.bind(this)}
                 ></Input>
