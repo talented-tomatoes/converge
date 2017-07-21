@@ -17,6 +17,7 @@ class ConferenceDetails extends Component {
   }
 
   handlePaymentRequest() {
+    let { params } = this.props.navigation.state
     const METHOD_DATA = [{
       supportedMethods: ['apple-pay'],
       data: {
@@ -36,21 +37,19 @@ class ConferenceDetails extends Component {
       id: 'basic-example',
       displayItems: [
         {
-          label: 'Event Reservation',
-          amount: { currency: 'USD', value: '15.00' }
+          label: `${params.conference.name} ticket`,
+          amount: { currency: 'USD', value: params.conference.ticket_price }
         }
       ],
       total: {
         label: 'Converge',
-        amount: { currency: 'USD', value: '15.00' }
+        amount: { currency: 'USD', value: params.conference.ticket_price }
       }
     };
     const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
     
     paymentRequest.show()
       .then(paymentResponse => {
-
-        let { params } = this.props.navigation.state
 
         var paymentDetails = {
           token: paymentResponse.details.paymentToken,
