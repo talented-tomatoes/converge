@@ -1,6 +1,6 @@
 module.exports = {
   data: {
-    amazon: [[
+    amazon: [
       {
         title: 'Amazon\'s Best Conference!',
         thumbnail: 'https://s3.amazonaws.com/BURC_Pages/downloads/a-smile_color.jpg',
@@ -15,7 +15,7 @@ module.exports = {
         image: 'https://d3i6fh83elv35t.cloudfront.net/newshour/wp-content/uploads/2015/08/RTR3UIDN-1024x683.jpg',
         dates: ['2018-07-01', '2018-07-02', '2018-07-03']
       }
-    ]],
+    ],
     google: [
       {
         title: 'Google I/O',

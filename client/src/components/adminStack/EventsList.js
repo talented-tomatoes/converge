@@ -4,7 +4,7 @@ import { Container, Content, List, Text} from 'native-base';
 import EventsListEntry from './EventsListEntry.js';
 
 import {connect} from 'react-redux';
-import { adminReducer } from '../actions/actions';
+
 
 
 class EventsList extends Component {
@@ -14,32 +14,66 @@ class EventsList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      events: this.props.data || [],
+      isDataFetched: false
+    };
+
   }
+
 
   handleClick() {
     this.props.navigation.navigate('DateTabs');
   }
 
-  convertDataTypes() {
-    // convert the store object form into an array
+  // componentDidMount() {
+
+  // }
+
+  componentWillReceiveProps(nextprops) {
+
+    console.log('nextprops ', nextprops);
+    if (nextprops.data && !this.state.isDataFetched) {
+      this.setState({
+        events: nextprops.data,
+        isDataFetched: true
+      }, () => console.log('nextProps state set'))
+    }
+    // console.log('componentDidMount.. props=', this.props.data);
+    // this.props.subscribe(() => {
+    //   this.setState({
+    //     events: this.props.getState().data
+    //   }, function() {
+    //     console.log('events', this.state.events);
+    //   });
+    // });
+   // this.props.getState();
   }
 
+  // componentWillUnmount() {
+  //   this.setState({
+  //     isDataFetched: false
+  //   });
+  // }
+
+
+
   render() {
-    // console.log('this.props.data: ', this.props);
+    console.log('this.props in eventsList: ', this.state.events);
     return (
       <Content>
          <List> 
-            {/* {console.log('proppps', this.props.data[0])}  */}
+              { console.log('proppps', this.props.data)}   
 
-               {/* {this.props.data[0].map(event => {
-                return (
+                 { this.state.events.map(event => {
+              return (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('DateTabs')}>
                 <EventsListEntry 
                   eventData={event}
                   />
               </TouchableOpacity>
               );
-            })}  */}
+            })    }    
 
           </List>
         </Content>
@@ -49,8 +83,9 @@ class EventsList extends Component {
 
 // REDUX THINGS
 const mapStateToProps = (state) => {
+  console.log('state.adminReducer: ', state.adminReducer);
   return {
-    data: state.adminReducer
+    data: state.adminReducer.data
   };
 };
 

@@ -31,8 +31,9 @@ class AdminLanding extends Component {
     // make a DB call with the user's ID
 
     // if no results, simple display a basic page saying you don't have any events for the time being
-
+    
     // Update the props
+    console.log('DummyData.data.amazon: ', DummyData.data.amazon);
     this.props.dispatch(setInitialHostData(DummyData.data.amazon));
 
 

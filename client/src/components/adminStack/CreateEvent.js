@@ -25,6 +25,7 @@ class NewEvent extends Component {
       details: '',
       price: 0
     }
+
   }
 
 
@@ -76,16 +77,16 @@ class NewEvent extends Component {
       end_end: this.state.endDate,
       address: this.state.locationAddress,
       name: this.state.nameOfEvent,
-      banner: 'BANNER_URL',
-      venue_map: 'VENUE_MAP_URL',
+      banner: 'https://d3i6fh83elv35t.cloudfront.net/newshour/wp-content/uploads/2015/08/RTR3UIDN-1024x683.jpg',
+      venue_map: 'https://s-media-cache-ak0.pinimg.com/736x/b1/a0/51/b1a051ec5a60c4572771f6e288d33b5c.jpg',
       details: this.state.details,
       ticket_price: this.state.price,
-      logo: 'LOGO_URL'
+      logo: 'https://s3.amazonaws.com/BURC_Pages/downloads/a-smile_color.jpg'
     }
     console.log(details);
 
 
-    // AXIOS 
+    // AXIOS (use for later)
     // ==================================
     // axios.post('apiURL', details)
     //   .then(function(response) {
@@ -97,8 +98,9 @@ class NewEvent extends Component {
     //     console.log(err);
     //   });
 
+
     
-    this.props.navigation.navigate('AdminStack')
+    this.props.navigation.navigate('AdminLanding')
   }
 
   // handle 
@@ -192,12 +194,6 @@ class NewEvent extends Component {
                 onChangeText={this.onTicketPriceChange.bind(this)}
                 ></Input>
               </Item>
-              <Item>
-                <Input
-                  placeholder="upload logo"
-                  ></Input>
-                </Item>
-              
           </Card>
 
 
@@ -216,7 +212,7 @@ class NewEvent extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    conference: state.conferenceReducer
+    events: state.adminReducer
   }
 }
 
