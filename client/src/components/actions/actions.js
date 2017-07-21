@@ -6,18 +6,14 @@ export function setUser(user) {
   };
 }
 
+// action to get the data from the DB on page load of ADMINLANDING
 export function setInitialHostData(data) {
   console.log('data in action: ', data);
+  console.log('typeof data in action', Array.isArray(data));
+  
   return {
-    type: 'SET_DATA',
+    type: 'GET_EVENTS',
     data: data
   };
-}
-
-export function addConference(conference) {
-  return {
-    type: 'ADD_CONFERENCE',
-    conference: conference
-  }
 }
 

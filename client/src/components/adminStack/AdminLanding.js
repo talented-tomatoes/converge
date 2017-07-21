@@ -4,17 +4,13 @@ import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Bod
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
-// import the action 
 
+// import the action 
 import { connect } from 'react-redux';
-// import the reducer/action 
-
-
-// import the action 
 import { setInitialHostData } from '../actions/actions';
 
 
-class Admin extends React.Component {
+class AdminLanding extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Events',
@@ -29,19 +25,16 @@ class Admin extends React.Component {
 
   componentDidMount() {
     console.log('Admin Landing Page mounted!');
-    
+
     // REAL THING 
     // (would use this.getEvents('USER ID IN HERE))
     // make a DB call with the user's ID
 
     // if no results, simple display a basic page saying you don't have any events for the time being
-
+    
     // Update the props
-
-    // load up the first host because host basis
-
-
-
+    console.log('DummyData.data.amazon: ', DummyData.data.amazon);
+    this.props.dispatch(setInitialHostData(DummyData.data.amazon));
 
 
 
@@ -81,7 +74,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Admin);
+export default connect(mapStateToProps)(AdminLanding);
 
 // STYLING 
 

@@ -19,5 +19,4 @@ class App extends Component {
   }
 }
 
-
 AppRegistry.registerComponent('converge', () => App);

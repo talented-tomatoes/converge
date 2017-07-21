@@ -14,6 +14,7 @@ export default class SplashScreen extends Component {
 
   //This is our main app
   render() {
+    {console.log('props.store!!!!!!!!!!', this.props)}
     setTimeout(()=> {this.props.navigation.navigate('Auth')}, 700)
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#428bca'}}>
