@@ -1,6 +1,7 @@
 const models = require('../../db/models/models.js');
 const config = require('../../config/config.js');
 const stripe = require('stripe')(config.stripe.secKey);
+const util = require('../lib/utils.js');
 
 let getAllUsers = (req, res) => {
 	console.log('GET /api/users');
@@ -74,37 +75,25 @@ let checkinUser = (req, res) => {
 	console.log('req.userid = ', req.params.userid);
 	const USERID = req.params.userid;
 	const CHECKINPICURL = req.params.checkinpicurl;
-	const AVATARURL = '';
-	const GALLERY_NAME = '';
+	let gallery_name = '';
 	const FIRST_NAME = '';
 	const LAST_NAME = '';
-	models.User.where({loginid:USERID}).fetch({columns:['avatar_url', 'gallery_name']})
+	models.User.where({loginid:USERID}).fetch({columns:['gallery_name']})
 	.then(user => {
-		AVATARURL = user.attributes.avatar_url;
-		GALLERY_NAME = user.attributes.gallery_name;
-		FIRST_NAME = user.attributes.first_name;
-		LAST_NAME = user.attributes.last_name;
-		console.log('AVATAR_URL =', AVATARURL + 'GALLERY_NAME=', GALLERY_NAME,
-								'FIRST_NAME=', FIRST_NAME + 'LAST_NAME = ', LAST_NAME);
+		if (!user) {
+			console.log('user=', user);
+			res.status(200).send('No User');
+		} else {
+			gallery_name = user.attributes.gallery_name;
+			console.log('GALLERY_NAME=', gallery_name);
+			const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
+			console.log('options = ', OPTIONS);
+	};
+		//res.status(200).send('Success!');
 	})
 	.catch(err => {
 		console.log('ERROR getting avatar_url for user with userid:', err);
 	})
-	const KAIROS_URL = 'https://api.kairos.com/verify';
-	const options = {
-		url: KAIROS_URL,
-		headers: {
-			'Content-Type': 'application/json',
-			'app_id': '4a8dfd7f',
-			'app_key': 'eb263032e513c3c1eb2bc4033c9e3340'
-		},
-		body: {
-			'image': AVATARURL,
-			'gallery_name': GALLERY_NAME,
-			'subject_id': USERID
-		}
-	};
-		res.status(200).send('Success!');
 	};
 
 
