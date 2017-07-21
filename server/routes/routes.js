@@ -21,13 +21,23 @@ router.route('/speakers/:presentationid')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
-router.route('/createConference')
-  .post(controller.createNewConference);
+router.route('/users/:userid/create')
+  .post(controller.createConference);
+
+router.route('/users/:userid/:confid/edit/map')
+  .post(controller.editMap);
+
+router.route('/users/:userid/:confid/edit/speakers')
+  .post(controller.createSpeaker);
+
+router.route('/users/:userid/:confid/edit/presentations')
+  .post(controller.createPresentation);
 
 /*********************PRESENTATIONS **********************/
 
 router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
+
 
 /*********************UPLOAD PIC **********************/
 router.route('/users/:username/checkin')

@@ -3,22 +3,22 @@ const config = require('../../config/config.js');
 const stripe = require('stripe')(config.stripe.secKey);
 
 let getAllUsers = (req, res) => {
-	console.log('GET /api/users');
-	models.Users.fetch()
+  console.log('GET /api/users');
+  models.Users.fetch()
 		.then(user => {
-			console.log('users=', user.attributes);
-			res.status(200).send(user);
-		})
+  console.log('users=', user.attributes);
+  res.status(200).send(user);
+})
 		//.then()
 		.catch(err => {
-			console.log('Error:', err);
-			res.status(500).send(err);
-		})
+  console.log('Error:', err);
+  res.status(500).send(err);
+});
 };
 
 let getAllSpeakersOfConf = (req, res) => {
-	const confid = req.params.confid;
-	models.Speaker.where({confid: confid})
+  const confid = req.params.confid;
+  models.Speaker.where({confid: confid})
 		.fetchAll()
   	.then((trips) => {
     console.log('\tSUCCESS\n');
@@ -31,8 +31,8 @@ let getAllSpeakersOfConf = (req, res) => {
 };
 
 let getAllSpeakersOfPresentation = (req, res) => {
-	const confid = req.params.confid;
-	models.Speaker.where({confid: confid})
+  const confid = req.params.confid;
+  models.Speaker.where({confid: confid})
 		.fetchAll()
   	.then((trips) => {
     console.log('\tSUCCESS\n');
@@ -45,20 +45,20 @@ let getAllSpeakersOfPresentation = (req, res) => {
 };
 
 let getAllConferences = (req, res) => {
-	models.Conferences.fetch()
+  models.Conferences.fetch()
 	.then(collection => {
-		console.log('conferences = ', collection);
-		res.status(200).send(collection)
-	})
+  console.log('conferences = ', collection);
+  res.status(200).send(collection);
+})
 	.catch(err => {
-		console.log('ERROR:', err);
-		dz
-	});
+  console.log('ERROR:', err);
+  dz;
+});
 };
 
 let getAllPresentationsOfConf = (req, res) => {
-	const confid = req.params.confid;
-	console.log('confid = ', confid);
+  const confid = req.params.confid;
+  console.log('confid = ', confid);
 	// models.Presentation.forge({conferenceid:confid})
 	// 	.fetch({withRelated: ['conferences']})
 	// 	.then(presentations => {
@@ -71,43 +71,43 @@ let getAllPresentationsOfConf = (req, res) => {
 };
 
 let checkinUser = (req, res) => {
-	console.log('Inside checkinUser!');
-	console.log('req = ', req);
-	res.status(200).send('Success!');
+  console.log('Inside checkinUser!');
+  console.log('req = ', req);
+  res.status(200).send('Success!');
 };
 
 let chargeCustomer = (req, res) => {
 
-	console.log('Inside chargeCustomer POST ===> ', req.body);
+  console.log('Inside chargeCustomer POST ===> ', req.body);
 
-	stripe.charges.create({
-		amount: Number(req.body.details.total.amount.value) * 100,
-		currency: 'usd',
-		description: 'Example event registration charge',
-		source: req.body.token
-	}, function(err, charge) {
-		if (err) {
-			console.log(err);
-		}
-		console.log(charge);
-	});
-
-	res.status(201).end();
+  stripe.charges.create({
+  amount: Number(req.body.details.total.amount.value) * 100,
+  currency: 'usd',
+  description: 'Example event registration charge',
+  source: req.body.token
+}, function(err, charge) {
+  if (err) {
+  console.log(err);
 }
+  console.log(charge);
+});
+
+  res.status(201).end();
+};
 
 let registerUser = (req, res) => {
   console.log('Inside registerUser');
   console.log('req.body: ', req.body);
-	models.User.forge(req.body).save()
+  models.User.forge(req.body).save()
 		.then(user => {
-			console.log('usr=', user);
-		})
+  console.log('usr=', user);
+})
 		.catch(err => {
-			console.log('err=', err);
-		})
+  console.log('err=', err);
+});
 
   res.status(200).send('User saved!');
-}
+};
 
 let createNewConference = (req, res) => {
   console.log('Inside createNewConference');
@@ -120,41 +120,41 @@ let createNewConference = (req, res) => {
     })
     .catch(err => {
       console.log('error: ', err);
-    })
+    });
 
   res.status(200).send('Conference saved!');
-}
+};
 
 let saveUserToConference = (req, res) => {
-	console.log('Payment successful. Saving user to Conference ===>', req.body);
-	var conferenceid = req.body.conference_id;
-	var userid = req.body.user_id;
-	models.ConferenceUser.forge({conferenceid, userid})
+  console.log('Payment successful. Saving user to Conference ===>', req.body);
+  var conferenceid = req.body.conference_id;
+  var userid = req.body.user_id;
+  models.ConferenceUser.forge({conferenceid, userid})
 		.fetch()
 		.then(record => {
-			if (record) {
-				console.log('RECORD FOUND ===>', record);
-				res.status(201).end();
-			} else {
-				models.ConferenceUser.forge({conferenceid, userid}).save();
-				res.status(201).end();
-      }
-		})
-		.catch(error => {
-			console.log(error);
-			res.status(400).end();
-		});
+  if (record) {
+  console.log('RECORD FOUND ===>', record);
+  res.status(201).end();
+} else {
+  models.ConferenceUser.forge({conferenceid, userid}).save();
+  res.status(201).end();
 }
+})
+		.catch(error => {
+  console.log(error);
+  res.status(400).end();
+});
+};
 
 module.exports = {
-	getAllUsers: getAllUsers,
-	getAllSpeakersOfConf: getAllSpeakersOfConf,
-	getAllSpeakersOfPresentation: getAllSpeakersOfPresentation,
-	getAllConferences: getAllConferences,
-	getAllPresentationsOfConf: getAllPresentationsOfConf,
-	checkinUser: checkinUser,
-	chargeCustomer: chargeCustomer,
+  getAllUsers: getAllUsers,
+  getAllSpeakersOfConf: getAllSpeakersOfConf,
+  getAllSpeakersOfPresentation: getAllSpeakersOfPresentation,
+  getAllConferences: getAllConferences,
+  getAllPresentationsOfConf: getAllPresentationsOfConf,
+  checkinUser: checkinUser,
+  chargeCustomer: chargeCustomer,
   registerUser: registerUser,
-	createNewConference: createNewConference,
-	saveUserToConference: saveUserToConference
+  createNewConference: createNewConference,
+  saveUserToConference: saveUserToConference
 };
