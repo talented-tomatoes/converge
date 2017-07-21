@@ -76,8 +76,6 @@ let checkinUser = (req, res) => {
 	const USERID = req.params.userid;
 	const CHECKINPICURL = req.params.checkinpicurl;
 	let gallery_name = '';
-	const FIRST_NAME = '';
-	const LAST_NAME = '';
 	models.User.where({loginid:USERID}).fetch({columns:['gallery_name']})
 	.then(user => {
 		if (!user) {
