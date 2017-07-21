@@ -21,7 +21,7 @@ router.route('/speakers/:presentationid')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
-router.route('/users/:userid/create')
+router.route('/users/:userid/create') 
   .post(controller.createConference);
 
 router.route('/users/:userid/:confid/edit/map')
