@@ -16,11 +16,9 @@ class Register extends Component {
     this.state = {
       isAttendee: true,
     }
-    console.log('user: ', this.props.user)
   }
 
   render() {
-    console.log('this.props in register screen: ', this.props);
     return (
       <ProfileForm user={this.props.user} navigation={this.props.navigation} />
     );

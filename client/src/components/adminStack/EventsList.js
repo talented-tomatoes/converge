@@ -8,9 +8,6 @@ import {connect} from 'react-redux';
 
 
 class EventsList extends Component {
-  // static navigationOptions = ({ navigation }) => {
-
-  // };
   constructor(props) {
     super(props);
 
@@ -26,55 +23,30 @@ class EventsList extends Component {
     this.props.navigation.navigate('DateTabs');
   }
 
-  // componentDidMount() {
-
-  // }
-
   componentWillReceiveProps(nextprops) {
-
-    console.log('nextprops ', nextprops);
     if (nextprops.data && !this.state.isDataFetched) {
       this.setState({
         events: nextprops.data,
         isDataFetched: true
-      }, () => console.log('nextProps state set'))
+      })
     }
-    // console.log('componentDidMount.. props=', this.props.data);
-    // this.props.subscribe(() => {
-    //   this.setState({
-    //     events: this.props.getState().data
-    //   }, function() {
-    //     console.log('events', this.state.events);
-    //   });
-    // });
-   // this.props.getState();
   }
 
-  // componentWillUnmount() {
-  //   this.setState({
-  //     isDataFetched: false
-  //   });
-  // }
-
-
-
   render() {
-    console.log('this.props in eventsList: ', this.state.events);
     return (
       <Content>
-         <List> 
-              { console.log('proppps', this.props.data)}   
-
-                 { this.state.events.map(event => {
+         <List>
+          {
+            this.state.events.map((event, key) => {
               return (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('DateTabs')}>
-                <EventsListEntry 
+              <TouchableOpacity key={key} onPress={() => this.props.navigation.navigate('EditSchedule')}>
+                <EventsListEntry
                   eventData={event}
                   />
               </TouchableOpacity>
               );
-            })    }    
-
+            })
+          }
           </List>
         </Content>
     );
@@ -83,7 +55,6 @@ class EventsList extends Component {
 
 // REDUX THINGS
 const mapStateToProps = (state) => {
-  console.log('state.adminReducer: ', state.adminReducer);
   return {
     data: state.adminReducer.data
   };
