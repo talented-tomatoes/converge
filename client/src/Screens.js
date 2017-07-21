@@ -50,6 +50,11 @@ const AttendeeStack = StackNavigator({
   MasterSchedule: { screen: MasterSchedule},
 }, {
   headerMode: 'none',
+  transitionConfig: () => ({
+    transitionSpec: {
+      duration: 0
+    }
+  }),
 });
 
 const AdminStack = StackNavigator({
