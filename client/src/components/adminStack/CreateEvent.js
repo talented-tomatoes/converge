@@ -86,17 +86,17 @@ class NewEvent extends Component {
     console.log(details);
 
 
-    // AXIOS (use for later)
+    // AXIOS
     // ==================================
-    // axios.post('apiURL', details)
-    //   .then(function(response) {
-    //     console.log(response);
-    //     // navigate to the the admin landing
-    //     this.props.navigation.navigate('AdminStack')
-    //   })
-    //   .catch(function(err) {
-    //     console.log(err);
-    //   });
+    axios.post('apiURL', details)
+      .then(function(response) {
+        console.log(response);
+        // navigate to the the admin landing
+        this.props.navigation.navigate('AdminStack')
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 
 
     

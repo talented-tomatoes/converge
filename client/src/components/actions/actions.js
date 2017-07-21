@@ -17,11 +17,3 @@ export function setInitialHostData(data) {
   };
 }
 
-// action to add conferences form the CREATEEVENTS page
-export function addConference(conference) {
-  return {
-    type: 'ADD_CONFERENCE',
-    conference
-  };
-}
-

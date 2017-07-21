@@ -20,8 +20,6 @@ const adminReducer = (state = {data: null}, action) => {
     case 'GET_EVENTS':
       console.log('action.data', action.data);
       return {...state, ...{data: action.data}};
-    case 'ADD_CONFERENCE':
-      return [...action.data]
     default:
       return state;
   }
