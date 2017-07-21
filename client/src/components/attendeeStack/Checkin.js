@@ -72,13 +72,6 @@ class Checkin extends Component {
         let cloud_name = Config.cloudinary.cloud_name;
         let api_secret = Config.cloudinary.api_secret;
         let url = 'https://api.cloudinary.com/v1_1/' + cloud_name + '/image/upload';
-        let header = {
-          method: 'post',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        };
         let timestamp = Date.now();
         let tags = ['pic'];
         let values = {
