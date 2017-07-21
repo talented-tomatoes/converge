@@ -15,12 +15,12 @@ export default class ConferenceListScreen extends React.Component {
       <ListItem avatar>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { speaker: this.props.speaker })}>
           <Left>
-            <Thumbnail small source={{ uri: this.props.speaker.picture }} />
+            <Thumbnail small source={{ uri: this.props.speaker.avatar_url }} />
           </Left>
         </TouchableOpacity>
         <Body>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { speaker: this.props.speaker })}>
-            <Text>{this.props.speaker.name}</Text>
+            <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
           </TouchableOpacity>
         </Body>
       </ListItem>

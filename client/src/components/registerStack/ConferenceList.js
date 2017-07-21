@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
-import { AppRegistry, Image, TouchableOpacity } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { Image, TouchableOpacity } from 'react-native';
+import { Container, Content } from 'native-base';
 import ConferenceListEntry from './ConferenceListEntry.js';
 import ConferenceDetails from './ConferenceDetails.js';
-import mockData from '../../../../db/mockData';
-import { Container, Header, Right, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
+import axios from 'axios';
 
 export default class ConferenceListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      conferences : mockData
+      conferences : []
     }
+  }
+
+  componentDidMount() {
+
+    axios.get('http://localhost:3000/api/conferences')
+      .then(response => {
+        this.setState({
+          conferences: response.data
+        })
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   static navigationOptions = {

@@ -78,6 +78,8 @@ let checkinUser = (req, res) => {
 
 let chargeCustomer = (req, res) => {
 
+	console.log('Inside chargeCustomer POST ===> ', req.body);
+
 	stripe.charges.create({
 		amount: Number(req.body.details.total.amount.value) * 100,
 		currency: 'usd',
@@ -123,6 +125,27 @@ let createNewConference = (req, res) => {
   res.status(200).send('Conference saved!');
 }
 
+let saveUserToConference = (req, res) => {
+	console.log('Payment successful. Saving user to Conference ===>', req.body);
+	var conferenceid = req.body.conference_id;
+	var userid = req.body.user_id;
+	models.ConferenceUser.forge({conferenceid, userid})
+		.fetch()
+		.then(record => {
+			if (record) {
+				console.log('RECORD FOUND ===>', record);
+				res.status(201).end();
+			} else {
+				models.ConferenceUser.forge({conferenceid, userid}).save();
+				res.status(201).end();
+      }
+		})
+		.catch(error => {
+			console.log(error);
+			res.status(400).end();
+		});
+}
+
 module.exports = {
 	getAllUsers: getAllUsers,
 	getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -132,5 +155,6 @@ module.exports = {
 	checkinUser: checkinUser,
 	chargeCustomer: chargeCustomer,
   registerUser: registerUser,
-  createNewConference: createNewConference,
+	createNewConference: createNewConference,
+	saveUserToConference: saveUserToConference
 };
