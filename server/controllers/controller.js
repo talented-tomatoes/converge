@@ -9,7 +9,6 @@ let getAllUsers = (req, res) => {
 			console.log('users=', user.attributes);
 			res.status(200).send(user);
 		})
-		//.then()
 		.catch(err => {
 			console.log('Error:', err);
 			res.status(500).send(err);
@@ -72,9 +71,42 @@ let getAllPresentationsOfConf = (req, res) => {
 
 let checkinUser = (req, res) => {
 	console.log('Inside checkinUser!');
-	console.log('req = ', req);
-	res.status(200).send('Success!');
-};
+	console.log('req.userid = ', req.params.userid);
+	const USERID = req.params.userid;
+	const CHECKINPICURL = req.params.checkinpicurl;
+	const AVATARURL = '';
+	const GALLERY_NAME = '';
+	const FIRST_NAME = '';
+	const LAST_NAME = '';
+	models.User.where({loginid:USERID}).fetch({columns:['avatar_url', 'gallery_name']})
+	.then(user => {
+		AVATARURL = user.attributes.avatar_url;
+		GALLERY_NAME = user.attributes.gallery_name;
+		FIRST_NAME = user.attributes.first_name;
+		LAST_NAME = user.attributes.last_name;
+		console.log('AVATAR_URL =', AVATARURL + 'GALLERY_NAME=', GALLERY_NAME,
+								'FIRST_NAME=', FIRST_NAME + 'LAST_NAME = ', LAST_NAME);
+	})
+	.catch(err => {
+		console.log('ERROR getting avatar_url for user with userid:', err);
+	})
+	const KAIROS_URL = 'https://api.kairos.com/verify';
+	const options = {
+		url: KAIROS_URL,
+		headers: {
+			'Content-Type': 'application/json',
+			'app_id': '4a8dfd7f',
+			'app_key': 'eb263032e513c3c1eb2bc4033c9e3340'
+		},
+		body: {
+			'image': AVATARURL,
+			'gallery_name': GALLERY_NAME,
+			'subject_id': USERID
+		}
+	};
+		res.status(200).send('Success!');
+	};
+
 
 let chargeCustomer = (req, res) => {
 

@@ -30,7 +30,7 @@ router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
 
 /*********************UPLOAD PIC **********************/
-router.route('/users/:username/checkin')
+router.route('/users/:userid/checkin')
   .post(controller.checkinUser);
 
 /*********************PAYMENTS**********************/
