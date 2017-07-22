@@ -28,16 +28,6 @@ class AdminLanding extends Component {
   componentDidMount() {
     console.log('Admin Landing Page mounted!');
 
-    // REAL THING 
-    // (would use this.getEvents('USER ID IN HERE))
-    // make a DB call with the user's ID
-
-    // if no results, simple display a basic page saying you don't have any events for the time being
-    
-    // Update the props
-    // console.log('DummyData.data.amazon: ', DummyData.data.amazon);
-    // this.props.dispatch(setInitialHostData(DummyData.data.amazon));
-
     let url = 'http://localhost:3000/api/getUserID/' + this.props.user.id;
 
     axios.get(url)
@@ -45,7 +35,7 @@ class AdminLanding extends Component {
         console.log('response in createEvent: ', response);
         //add userID to store
         this.props.dispatch(decorateUserWithDBUserID(response.data.id));
-        console.log('after dispatch: ', this.props.user);
+        console.log('after dispatch: ', this.props);
         this.setState({
           user_id: this.props.user.userID
         }, () => {console.log('user_id state changed to: ', this.state.user_id)});
@@ -64,15 +54,15 @@ class AdminLanding extends Component {
 
   }
 
-  getEvents() {
-    console.log('=====Fetching Events=====');
-    let url = 'http://localhost:3000/api/getConferences/';
-    axios.get(URL_GOES_HERE).then(function(response) {
-      //set state here
-    }).catch(function(err) {
-      //handle error stuff here;
-    });
-  }
+  // getEvents() {
+  //   console.log('=====Fetching Events=====');
+  //   let url = 'http://localhost:3000/api/getConferences/';
+  //   axios.get(URL_GOES_HERE).then(function(response) {
+  //     //set state here
+  //   }).catch(function(err) {
+  //     //handle error stuff here;
+  //   });
+  // }
 
 
 

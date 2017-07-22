@@ -201,8 +201,8 @@ let getConferencesByHostID = (req, res) => {
     .then(conferences => {
       console.log('conferences: ', conferences);
       res.status(200).send(conferences);
-    })
-}
+    });
+};
 
 
 let addSpeaker = (req, res) => {

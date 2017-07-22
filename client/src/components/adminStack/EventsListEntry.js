@@ -28,7 +28,7 @@ export default class EventsListEntry extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Text> {this.props.eventData.start_date}  -  {this.props.eventData.end_date}</Text>
+                <Text> {this.props.eventData.start_date}  -    {this.props.eventData.end_date}</Text>
                 </Left>
                 </CardItem>
           </Card>
