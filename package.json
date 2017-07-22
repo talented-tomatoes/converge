@@ -5,7 +5,8 @@
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest",
-		"dev-start": "nodemon ./server/index.js"
+		"dev-start": "nodemon ./server/index.js",
+		"db-start": "sh recreateDB.sh"
 	},
 	"dependencies": {
 		"axios": "^0.16.2",
