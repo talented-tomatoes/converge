@@ -39,7 +39,7 @@ router.route('/presentations/:confid')
 
 
 /*********************UPLOAD PIC **********************/
-router.route('/users/:username/checkin')
+router.route('/users/:userid/checkin')
   .post(controller.checkinUser);
 
 /*********************PAYMENTS**********************/

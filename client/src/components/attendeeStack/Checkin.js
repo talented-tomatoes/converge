@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   AppRegistry,
   StyleSheet,
@@ -8,7 +9,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
-import { Button, Content, Drawer, Item } from 'native-base';
+import { Button, Content, Drawer, Item, Toast } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { FileUpload } from 'NativeModules';
 import axios from 'axios';
@@ -19,7 +20,7 @@ import AttendeeHeader from './AttendeeHeader.js';
 import AttendeeFooter from './AttendeeFooter.js';
 import Config from '../../../../config/config.js'
 
-export default class Checkin extends Component {
+class Checkin extends Component {
 
   constructor(props) {
     super(props);
@@ -71,13 +72,6 @@ export default class Checkin extends Component {
         let cloud_name = Config.cloudinary.cloud_name;
         let api_secret = Config.cloudinary.api_secret;
         let url = 'https://api.cloudinary.com/v1_1/' + cloud_name + '/image/upload';
-        let header = {
-          method: 'post',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        };
         let timestamp = Date.now();
         let tags = ['pic'];
         let values = {
@@ -86,19 +80,47 @@ export default class Checkin extends Component {
           timestamp: timestamp,
           tags: tags,
           signature: sha1("tags=" + tags + "&timestamp=" + timestamp + api_secret)
-      };
-
-      var request = _.extend({
-        body: JSON.stringify(values)
-      }, header);
-
-      fetch(url, request)
-        .then((response) => {
-          console.log('response.url = ', response.url);
-          //save url in DB
+        };
+        console.log('USER ID', this.props.user.id);
+        const USER_ID = this.props.user.id;
+        const SERVER_URL = Config.server.url || 'http://localhost:3000';
+        axios.post(url, values)
+        .then(response => {
+           console.log('Response URL: ', response.data.secure_url);
+           let reqObj = {
+            checkinpicurl: response.data.secure_url
+           };
+           //console.log('sending axios to server,userid=', USER_ID);
+           return axios.post(SERVER_URL + `/api/users/${USER_ID}/checkin`, reqObj)
+        })
+        .then(response => {
+          console.log('Response', response.data);
+          if (response.data !== 'Success') {
+            //console.log('Checkin Failed!');
+            Toast.show({
+              text: 'Check-in Failed! Please try again.',
+              position: 'bottom',
+              buttonText: 'Okay',
+              type: 'danger'
+            });
+          } else {
+            Toast.show({
+              text: 'Check-in Successful!',
+              position: 'bottom',
+              type: 'success',
+              duration: 500
+            });
+            this.props.navigation.navigate('Home');
+          }
         })
         .catch(err => {
-          console.log('Error! ', err) 
+          console.log('Error: ', err);
+          Toast.show({
+            text: 'Check-in Failed! Please try again.',
+            position: 'bottom',
+            buttonText: 'Okay',
+            type: 'danger'
+          });
         })
       }
       })
@@ -124,4 +146,12 @@ export default class Checkin extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(Checkin);
 
