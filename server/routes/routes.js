@@ -33,6 +33,9 @@ router.route('/getConferencesByHostID/:hostID')
 router.route('/addSpeaker')
   .post(controller.addSpeaker);
 
+// router.route('/getSpeakersByConfID/:confID')
+//   .get(controller.getSpeakersByConfID);
+
 // router.route('/users/edit/presentations')
 //   .post(controller.createPresentation);
 
