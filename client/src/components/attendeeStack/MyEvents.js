@@ -1,38 +1,28 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
 import { FlatList, Image, TouchableHighlight } from 'react-native';
 import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Card, CardItem, Icon, Button, Title, Text } from 'native-base';
 
-export default class MyEvents extends Component {
+class MyEvents extends Component {
   static navigationOptions = {
 
   };
   constructor(props) {
     super(props);
     this.state = {
-      conferences : [
-        {
-          name: 'TechCrunch Disrupt',
-          dates: 'Sept 18-20, 2017',
-          city: 'San Francisco',
-          logo: 'https://s.aolcdn.com/dims-global/dims3/GLOB/resize/1200x642/quality/80/https://tctechcrunch2011.files.wordpress.com/2014/04/tc-logo.jpg',
-          banner: 'https://tctechcrunch2011.files.wordpress.com/2015/01/disruptsf2015_banner.png'
-        },
-        {
-          name: 'TechCrunch Disrupt',
-          dates: 'Sept 18-20, 2017',
-          city: 'San Francisco',
-          logo: 'https://s.aolcdn.com/dims-global/dims3/GLOB/resize/1200x642/quality/80/https://tctechcrunch2011.files.wordpress.com/2014/04/tc-logo.jpg',
-          banner: 'https://tctechcrunch2011.files.wordpress.com/2015/01/disruptsf2015_banner.png'
-        },
-        {
-          name: 'TechCrunch Disrupt',
-          dates: 'Sept 18-20, 2017',
-          city: 'San Francisco',
-          logo: 'https://s.aolcdn.com/dims-global/dims3/GLOB/resize/1200x642/quality/80/https://tctechcrunch2011.files.wordpress.com/2014/04/tc-logo.jpg',
-          banner: 'https://tctechcrunch2011.files.wordpress.com/2015/01/disruptsf2015_banner.png'
-        }
-      ]
+      conferences : []
     }
+  }
+
+  componentDidMount() {
+
+    axios.get(`http://localhost:3000/api/join/conferences_users/${this.props.user.id}`)
+      .then(response => {
+        this.setState({
+          conferences: response.data
+        })
+      })
   }
 
   render() {
@@ -47,21 +37,22 @@ export default class MyEvents extends Component {
           <FlatList
             data={this.state.conferences}
             renderItem={(event) => {
+              console.log('INSIDE EVENT====>',event);
               return (
                 <Card style={{flex: 0}}>
                   <CardItem>
                     <Left>
                       <Body>
-                        <Image style={{width: 80, height: 50}}source={{uri: event.item.logo}} />
-                        <Text>{event.item.name}</Text>
-                        <Text note>{event.item.city}, {event.item.dates}</Text>
+                        <Image style={{width: 80, height: 50}}source={{uri: event.item.conferences.logo}} />
+                        <Text>{event.item.conferences.name}</Text>
+                        <Text note>{event.item.conferences.city}, {event.item.conferences.dates}</Text>
                       </Body>
                     </Left>
                   </CardItem>
                   <CardItem>
                     <Body>
                       <TouchableHighlight onPress={() => this.props.navigation.navigate('Home')}>
-                        <Image source={{uri: event.item.banner}} style={{height: 115, width: 325}}/>
+                        <Image source={{uri: event.item.conferences.banner}} style={{height: 115, width: 325}}/>
                       </TouchableHighlight>
                     </Body>
                   </CardItem>
@@ -84,4 +75,13 @@ export default class MyEvents extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer
+  }
+}
+
+
+export default connect(mapStateToProps)(MyEvents);
 

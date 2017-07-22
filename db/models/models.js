@@ -5,8 +5,8 @@ const User = db.Model.extend({
   presentations: () => {
     return this.belongsToMany(Presentation, 'users_presentations');
   },
-  conferences: () => {
-    return this.belongsToMany(Conference, 'conferences_users');
+  conferences: function() {
+    return this.belongsToMany(Conference)
   }
 });
 
@@ -27,7 +27,7 @@ const Presentation = db.Model.extend({
 const Conference = db.Model.extend({
   tableName: 'conferences',
   users: () => {
-    return this.belongsToMany(User, 'conferences_users');
+    return this.belongsToMany(User)
   },
   speakers: () => {
     return this.hasMany(Speaker);
@@ -48,9 +48,14 @@ const Speaker = db.Model.extend({
 });
 
 const ConferenceUser = db.Model.extend({
-  tableName: 'conferences_users'
-});
-
+  tableName: 'conferences_users',
+  conferences: function() {
+    return this.belongsTo(Conference)
+  },
+  users: function() {
+    return this.belongsTo(User)
+  }
+})
 
 module.exports = {
   User: User,

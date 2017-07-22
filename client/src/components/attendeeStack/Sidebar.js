@@ -22,6 +22,9 @@ export default class Sidebar extends React.Component {
           <Button rounded transparent onPress={() => {this.props.navigation.navigate('Checkin')}}>
             <Title>Check-in</Title>
           </Button>
+          <Button rounded transparent onPress={() => {this.props.navigation.navigate('MyEvents')}}>
+            <Title>My Events</Title>
+          </Button>
       </Container>
     );
   }
