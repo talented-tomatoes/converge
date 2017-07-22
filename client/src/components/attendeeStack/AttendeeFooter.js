@@ -19,7 +19,7 @@ export default class AttendeeFooter extends Component {
           <FooterTab>
             <Button onPress={() => {this.props.navigation.navigate('MySchedule')}}>
               <Icon ios="ios-calendar-outline" android="md-calendar"/>
-              <Text style={{fontSize: 10}}>My Schedule</Text>
+              <Text style={{fontSize: 9}}>My Schedule</Text>
             </Button>
           </FooterTab>
           <FooterTab>

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { FlatList, Image, TouchableHighlight } from 'react-native';
-import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Card, CardItem, Icon, Button, Title, Text } from 'native-base';
+import { setSelectedConference } from '../actions/actions'
+import { TouchableOpacity } from 'react-native';
+import { Container, Header, Body, Title, Content } from 'native-base';
+import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
 
 class MyEvents extends Component {
   static navigationOptions = {
-
+    title: 'My Events'
   };
   constructor(props) {
     super(props);
@@ -21,11 +23,23 @@ class MyEvents extends Component {
       .then(response => {
         this.setState({
           conferences: response.data
-        })
-      })
+        });
+      });
+  }
+
+  handleImageOnPress(conference) {
+    this.props.dispatch(setSelectedConference(conference));
+    this.props.navigation.navigate('Home');
   }
 
   render() {
+
+    const conferenceListItems = this.state.conferences.map((conference, i) =>
+    <TouchableOpacity key ={i} onPress={this.handleImageOnPress.bind(this, conference)}>
+      <ConferenceListEntry conference={conference}/>
+    </TouchableOpacity>
+    );
+
     return (
       <Container>
         <Header>
@@ -34,43 +48,8 @@ class MyEvents extends Component {
           </Body>
         </Header>
         <Content>
-          <FlatList
-            data={this.state.conferences}
-            renderItem={(event) => {
-              console.log('INSIDE EVENT====>',event);
-              return (
-                <Card style={{flex: 0}}>
-                  <CardItem>
-                    <Left>
-                      <Body>
-                        <Image style={{width: 80, height: 50}}source={{uri: event.item.conferences.logo}} />
-                        <Text>{event.item.conferences.name}</Text>
-                        <Text note>{event.item.conferences.city}, {event.item.conferences.dates}</Text>
-                      </Body>
-                    </Left>
-                  </CardItem>
-                  <CardItem>
-                    <Body>
-                      <TouchableHighlight onPress={() => this.props.navigation.navigate('Home')}>
-                        <Image source={{uri: event.item.conferences.banner}} style={{height: 115, width: 325}}/>
-                      </TouchableHighlight>
-                    </Body>
-                  </CardItem>
-                </Card>
-              );
-            }}
-          >
-
-          </FlatList>
-          <Text>My Events</Text>
+          {conferenceListItems}
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button rounded dark onPress={() => {}}>
-              <Text style={{fontSize: 15}}>My Event</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     );
   }
@@ -82,6 +61,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-
 export default connect(mapStateToProps)(MyEvents);
-
