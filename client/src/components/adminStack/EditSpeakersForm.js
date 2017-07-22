@@ -7,11 +7,12 @@ import {
   Image
 } from 'react-native';
 import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab } from 'native-base';
-
 import axios from 'axios';
 
 
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
@@ -40,7 +41,8 @@ class EditSpeakersForm extends Component {
   saveToDB(speaker) {
       let url = 'http://localhost:3000/api/addSpeaker';
       let options = speaker;
-      speaker.conf_id = this.props.navigation.state.params.conferenceID;
+      speaker.conference_id = this.props.admin.currentConfID;
+      console.log('00000000 SPEAKER INFORMATION, ', speaker)
       axios.post(url, speaker)
         .then(response => {
           console.log('response : ', response);
@@ -83,8 +85,14 @@ class EditSpeakersForm extends Component {
   }
 }
 
-export default reduxForm({
+EditSpeakersForm = reduxForm({
   form: 'AddSpeaker'
 })(EditSpeakersForm)
 
+EditSpeakersForm = connect(
+  state => ({
+    admin: state.adminReducer
+  })
+)(EditSpeakersForm)
 
+export default EditSpeakersForm
