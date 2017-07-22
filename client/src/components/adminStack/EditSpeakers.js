@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Content, Header, Text, Button, Icon } from 'native-base';
-
 import EditConferenceFooter from './helpers/EditConferenceFooter';
-
 import EditSpeakersForm from './EditSpeakersForm';
 
+// redux things
+import { connect } from 'react-redux';
 
-export default class EditSpeakers extends Component {
+
+
+
+class EditSpeakers extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Speakers',
@@ -21,11 +24,12 @@ export default class EditSpeakers extends Component {
 
     return (
       <Container>
+        {console.log('inside editspeaker landing page', this.props)}
        {/*<Header>
                  <Text>This is the header</Text>
                </Header>*/}
         <Content>
-          <Text>This the body</Text>
+          <Text>This the body of conference {this.props.confID.confID}</Text>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
 
@@ -33,3 +37,11 @@ export default class EditSpeakers extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    confID: state.adminReducer
+  }
+}
+
+export default connect(mapStateToProps)(EditSpeakers);

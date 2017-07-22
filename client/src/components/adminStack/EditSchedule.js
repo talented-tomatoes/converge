@@ -17,8 +17,19 @@ export default class EditSchedule extends Component {
     super(props);
 
     this.state = {
-      dates: ['July 1, 2017', 'July 2, 2017', 'July 3, 2017']
+      dates: ['July 1, 2017', 'July 2, 2017', 'July 3, 2017'],
+      confID: null
     };
+  }
+
+  componentDidMount() {
+    console.log('editschedule props', this.props);
+    // console.log('component mounted', this);
+    // if (this.state.confID === null) {
+    //   this.setState({
+    //     confID: this.props.navigation.state.params.confID
+    //   }, function() {console.log('confid is now ', this.state.confID)})
+    // }
   }
 
   fetchData() {
@@ -42,7 +53,7 @@ export default class EditSchedule extends Component {
             })
           }
         </Tabs>
-        <EditConferenceFooter navigation={this.props.navigation}/>
+        <EditConferenceFooter navigation={this.props.navigation} />
 
       </Container>
     );

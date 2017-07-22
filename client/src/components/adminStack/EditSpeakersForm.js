@@ -38,15 +38,16 @@ class EditSpeakersForm extends Component {
   }
 
   saveToDB(speaker) {
-      let url = 'http://localhost:3000/api/??????';
+      let url = 'http://localhost:3000/api/addSpeaker';
       let options = speaker;
-      // axios.post(url, user)
-      //   .then(response => {
-      //     console.log('response : ', response);
-      //   })
-      //   .catch(error => {
-      //     console.log('error: ', error);
-      //   })
+      speaker.conf_id = this.props.navigation.state.params.conferenceID;
+      axios.post(url, speaker)
+        .then(response => {
+          console.log('response : ', response);
+        })
+        .catch(error => {
+          console.log('error: ', error);
+        })
       this.props.navigation.navigate('EditSpeakers');
     }
 
@@ -60,6 +61,7 @@ class EditSpeakersForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <Container>
+        {console.log('CONFERENCEID: ', this.props.navigation.state.params)}
         <Content>
           <Field name="first_name" component={ renderInput } label="First Name:" placeholder="John" />
           <Field name="last_name" component={ renderInput } label="Last Name:" placeholder="Doe" />
