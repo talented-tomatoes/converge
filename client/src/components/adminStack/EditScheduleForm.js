@@ -11,6 +11,7 @@ import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer
 import axios from 'axios';
 
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
@@ -38,6 +39,7 @@ class EditScheduleForm extends Component {
   saveToDB(presentation) {
       let url = 'http://localhost:3000/api/???????';
       let options = presentation;
+      console.log('presentation: ', presentation);
       // axios.post(url, user)
       //   .then(response => {
       //     console.log('response : ', response);
@@ -52,10 +54,10 @@ class EditScheduleForm extends Component {
     presentation.speaker_id = null;
     presentation.conference_id = null;
     this.saveToDB(presentation);
-    console.log('values in EditScheduleForm: ', presentation);
   }
 
   render() {
+    console.log('props in EditScheduleForm: ', this.props);
     const { handleSubmit } = this.props;
     return (
       <Container>
@@ -79,8 +81,16 @@ class EditScheduleForm extends Component {
   }
 }
 
-export default reduxForm({
+EditScheduleForm = reduxForm({
   form: 'AddPresentation'
 })(EditScheduleForm)
+
+EditScheduleForm = connect(
+  state => ({
+    admin: state.adminReducer
+  })
+  )(EditScheduleForm)
+
+export default EditScheduleForm
 
 

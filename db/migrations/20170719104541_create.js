@@ -14,17 +14,6 @@ exports.up = function(knex, Promise) {
 		table.string('gallery_name');
 		table.unique('loginid');
 	}),
-	// knex.schema.createTableIfNotExists('speakers', (table) => {
-	// 	table.increments('id').primary;
-	// 	table.string('first_name').notNullable();
-	// 	table.string('last_name').notNullable();
-	// 	table.string('job_title');
-	// 	table.string('avatar_url');
-	// 	table.string('bio', 2000);
-	// 	table.string('email');
-	// 	table.string('linkedin_id');
-	// 	table.integer('conference_id').references('id').inTable('conferences');
-	// }),
 ])
 .then(() => {
 	return Promise.all([

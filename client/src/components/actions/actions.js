@@ -23,6 +23,6 @@ export function decorateUserWithDBUserID(userID) {
 export function decorateUserWithDBConferenceID(confID) {
   return {
     type: 'SET_CURRENT_CONF_ID',
-    confID: confID
+    currentConfID: confID
   };
 }
