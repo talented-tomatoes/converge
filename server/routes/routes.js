@@ -21,7 +21,10 @@ router.route('/speakers/:presentationid')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
-router.route('/addConference') 
+router.route('/helloWorld')
+  .get(controller.helloWorld);
+
+router.route('/addConference')
   .post(controller.addConference);
 
 router.route('/getConferencesByHostID/:hostID')

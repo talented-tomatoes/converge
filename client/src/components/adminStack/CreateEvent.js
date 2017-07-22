@@ -112,7 +112,7 @@ class NewEvent extends Component {
         this.props.navigation.navigate('AdminLanding')
       })
       .catch(function(err) {
-        console.log(err);
+        console.log('error in getting host conference: ', err);
       });
   }
 

@@ -6,16 +6,16 @@ const axios = require('axios');
 
 let getAllUsers = (req, res) => {
 
-  console.log('GET /api/users');
-  models.Users.fetch()
+	console.log('GET /api/users');
+	models.Users.fetch()
 		.then(user => {
-  console.log('users=', user.attributes);
-  res.status(200).send(user);
-})
+			console.log('users=', user.attributes);
+			res.status(200).send(user);
+		})
 		.catch(err => {
-  console.log('Error:', err);
-  res.status(500).send(err);
-});
+			console.log('Error:', err);
+			res.status(500).send(err);
+		})
 
 };
 
@@ -55,61 +55,60 @@ let getAllConferences = (req, res) => {
   })
   .catch(err => {
     console.log('ERROR:', err);
-    dz;
   });
 };
 
 let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
-  // console.log('confid = ', confid);
-  // models.Presentation.forge({conferenceid:confid})
-  // 	.fetch({withRelated: ['conferences']})
-  // 	.then(presentations => {
-  // 		console.log('presentations = ', presentations);
-  // 		res.status(200).send(collection)
-  // 	})
-  // 	.catch(err => {
-  // 		console.log('Error!', err);
-  // 	})
+  console.log('confid = ', confid);
+  models.Presentation.forge({conferenceid:confid})
+  	.fetch({withRelated: ['conferences']})
+  	.then(presentations => {
+  		console.log('presentations = ', presentations);
+  		res.status(200).send(collection)
+  	})
+  	.catch(err => {
+  		console.log('Error!', err);
+  	})
 };
 
 let checkinUser = (req, res) => {
 
 	//console.log('req.userid = ', req.params.userid);
 	//console.log('req.body======>', req.body);
-  let USERID = req.params.userid;
-  let CHECKINPICURL = req.body.checkinpicurl;
+	let USERID = req.params.userid;
+	let CHECKINPICURL = req.body.checkinpicurl;
 	//console.log('CHECKINPICURL=====>', CHECKINPICURL);
-  let gallery_name = '';
-  models.User.where({loginid: USERID}).fetch({columns: ['gallery_name']})
+	let gallery_name = '';
+	models.User.where({loginid:USERID}).fetch({columns:['gallery_name']})
 	.then(user => {
-  if (!user) {
-  console.log('user=', user);
-  res.status(200).send('No User');
-} else {
-  gallery_name = user.attributes.gallery_name;
-  console.log('GALLERY_NAME=', gallery_name);
+		if (!user) {
+			console.log('user=', user);
+			res.status(200).send('No User');
+		} else {
+			gallery_name = user.attributes.gallery_name;
+			console.log('GALLERY_NAME=', gallery_name);
 			// verify
-  const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
-  console.log('options = ', OPTIONS);
-  return axios.post(OPTIONS.url, OPTIONS.body, OPTIONS.config);
-}
+			const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
+			console.log('options = ', OPTIONS);
+			return axios.post(OPTIONS.url, OPTIONS.body, OPTIONS.config);
+	};
 		//res.status(200).send('Success!');
 	})
 	.then(response => {
-  console.log('response from kairos ====>', response.data);
-  let confidence = response.data.images[0]['transaction']['confidence'];
-  console.log('confidence=', confidence);
-  if (confidence > 0.75) {
-  res.status(200).send('Success');
-} else {
-  res.status(200).send('Checkin Failed. Please enter a Valid Picture');
-}
-})
+		console.log('response from kairos ====>', response.data);
+		let confidence = response.data.images[0]['transaction']['confidence'];
+		console.log('confidence=', confidence);
+		if (confidence > 0.75) {
+			res.status(200).send('Success');
+		} else {
+			res.status(200).send('Checkin Failed. Please enter a Valid Picture');
+		}
+	})
 	.catch(err => {
-  console.log('ERROR getting avatar_url for user with userid:', err);
-});
-};
+		console.log('ERROR getting avatar_url for user with userid:', err);
+	})
+	};
 
 
 
@@ -137,10 +136,10 @@ let registerUser = (req, res) => {
   console.log('req.body: ', req.body);
   models.User.forge(req.body).save()
     .then(user => {
-      console.log('usr=', user);
+      console.log('user saved:', user);
     })
     .catch(err => {
-      console.log('err=', err);
+      console.log('error saving user: ', err);
     });
 
   res.status(200).send('User saved!');
@@ -153,7 +152,7 @@ let getUserIdByGoogleLoginID = (req, res) => {
       res.status(200).send(user);
     });
 
-};
+}
 
 
 
@@ -196,14 +195,17 @@ let addConference = (req, res) => {
 
 let getConferencesByHostID = (req, res) => {
   console.log('req.params.hostID: ', req.params.hostID);
-  
+
   models.Conference.where({user_id: req.params.hostID}).fetchAll()
     .then(conferences => {
       console.log('conferences: ', conferences);
       res.status(200).send(conferences);
-    });
-};
+    })
+}
 
+let helloWorld = (req, res) => {
+  res.send('hello world');
+}
 
 let addSpeaker = (req, res) => {
   models.Speaker.forge(req.body).save()
@@ -240,12 +242,14 @@ let addSpeaker = (req, res) => {
 // }
 
 let getAllUserEvents = (req, res) => {
-  models.ConferenceUser.where({user_id: req.params.userid})
-    .fetchAll({withRelated: ['conferences']})
-    .then(record => {
-      res.status(200).send(record);
-    });
-};
+
+	models.ConferenceUser.where({user_id: req.params.userid})
+		.fetchAll({withRelated: ['conferences']})
+		.then(record => {
+			res.status(200).send(record);
+		});
+
+}
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -262,5 +266,7 @@ module.exports = {
   saveUserToConference: saveUserToConference,
   getUserIdByGoogleLoginID: getUserIdByGoogleLoginID,
   getConferencesByHostID: getConferencesByHostID,
-  getAllUserEvents: getAllUserEvents
+	// createNewConference: createNewConference,
+	getAllUserEvents: getAllUserEvents,
+  helloWorld: helloWorld
 };

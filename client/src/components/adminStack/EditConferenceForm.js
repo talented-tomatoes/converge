@@ -44,10 +44,10 @@ class EditConferenceForm extends Component {
   saveToDB(conference) {
       let url = 'http://localhost:3000/api/addConference';
       let options = conference;
-      axios.post(url, user)
+      axios.post(url, conference)
         .then(response => {
           console.log('response : ', response);
-          this.props.navigation.navigate('EditSchedule');
+          this.props.navigation.navigate('EditConference');
         })
         .catch(error => {
           console.log('error: ', error);

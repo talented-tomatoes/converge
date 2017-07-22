@@ -21,7 +21,7 @@ const adminReducer = (state = {data: null}, action) => {
       return {...state, ...{data: action.data}};
     case 'SET_CURRENT_CONF_ID':
       console.log('inside set conference case');
-      return {...state, ...{confID: action.confID}}
+      return {...state, ...{currentConfID: action.currentConfID}}
     default:
       return state;
   }

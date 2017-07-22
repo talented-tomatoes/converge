@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Container, Content, Header, Text, Button, Tabs, Tab, Icon } from 'native-base';
 
+import { connect } from 'react-redux';
+
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import EditScheduleForm from './EditScheduleForm';
 
 
 
-export default class EditSchedule extends Component {
+class EditSchedule extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Schedule',
@@ -23,7 +25,6 @@ export default class EditSchedule extends Component {
   }
 
   componentDidMount() {
-    console.log('editschedule props', this.props);
     // console.log('component mounted', this);
     // if (this.state.confID === null) {
     //   this.setState({
@@ -38,6 +39,7 @@ export default class EditSchedule extends Component {
 
   render() {
     // console.log('in EditSchedule');
+    console.log('editschedule props', this.props);
     return (
       <Container>
         <Tabs initialPage={0}>
@@ -60,10 +62,11 @@ export default class EditSchedule extends Component {
   }
 }
 
-// const EditStack = TabNavigator({
-//   Schedule: { screen: ScheduleEditPage },
-//   Speakers: { screen: SpeakersEditPage },
-//   Map: { screen: MapEditPage },
-// }, {
-//   headerMode: 'none'
-// });
+const mapStateToProps = (state) => {
+  return {
+    admin: state.adminReducer,
+    user: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(EditSchedule);
