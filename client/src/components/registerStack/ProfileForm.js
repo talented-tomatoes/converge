@@ -10,7 +10,7 @@ import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer
 import uploadImage from './helpers/uploadImage'
 import normalizePhoneNumber from './helpers/normalizePhoneNumber';
 import UserSwiperFooter from './helpers/UserSwiperFooter';
-
+import kairosEnrollReqObj from './helpers/kairosEnrollReqObj';
 import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import Swiper from 'react-native-swiper';
@@ -64,12 +64,19 @@ class ProfileForm extends Component {
         let options = uploadImage(response.data)
         axios.post(options.url, options.body)
         .then( response => {
-          console.log('response: ', response.data.secure_url);
+          //console.log('response url = ', response.data.secure_url);
           this.setState({
             avatarSource: {uri: response.data.secure_url}
           });
-          //options = kairosEnrollReqObj(response.data.secure_url, userid, userid + '-gallery');
-          //return axios.post()
+          options = kairosEnrollReqObj(response.data.secure_url, this.props.user.id, this.props.user.id + '-gallery');
+          return axios.post(options.url, options.body, options.config)
+        })
+        .then(response => {
+          console.log('response.images[0]', response.images[0].transaction.status);
+        })
+        .catch(err => {
+          console.log('err=', err);
+          // handle error scenario
         })
       }
     });

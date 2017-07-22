@@ -1,17 +1,19 @@
 import Config from '../../../../../config/config.js';
 
-module.exports = (img_url, gallery_name, subject_id) => {
+module.exports = (img_url, subject_id, gallery_name) => {
 	const options = {
-		url: CONFIG.kairos.KAIROS_URL + '/enroll',
-		headers: {
+		url: Config.kairos.KAIROS_URL + '/enroll',
+		config : {
+			headers: {
 			'Content-Type': 'application/json',
-			'app_id': CONFIG.kairos.APP_ID,
-			'app_key': CONFIG.kairos.APP_KEY
+			'app_id': Config.kairos.APP_ID,
+			'app_key': Config.kairos.APP_KEY
+			}
 		},
 		body: {
 			'image': img_url,
 			'gallery_name': gallery_name,
-			'subject_id': userid
+			'subject_id': subject_id
 		}
 	}
 	return options;

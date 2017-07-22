@@ -2,6 +2,7 @@ const models = require('../../db/models/models.js');
 const config = require('../../config/config.js');
 const stripe = require('stripe')(config.stripe.secKey);
 const util = require('../lib/utils.js');
+const axios = require('axios');
 
 let getAllUsers = (req, res) => {
 	console.log('GET /api/users');
@@ -71,10 +72,11 @@ let getAllPresentationsOfConf = (req, res) => {
 };
 
 let checkinUser = (req, res) => {
-	console.log('Inside checkinUser!');
-	console.log('req.userid = ', req.params.userid);
-	const USERID = req.params.userid;
-	const CHECKINPICURL = req.params.checkinpicurl;
+	//console.log('req.userid = ', req.params.userid);
+	//console.log('req.body======>', req.body);
+	let USERID = req.params.userid;
+	let CHECKINPICURL = req.body.checkinpicurl;
+	//console.log('CHECKINPICURL=====>', CHECKINPICURL);
 	let gallery_name = '';
 	models.User.where({loginid:USERID}).fetch({columns:['gallery_name']})
 	.then(user => {
@@ -84,11 +86,22 @@ let checkinUser = (req, res) => {
 		} else {
 			gallery_name = user.attributes.gallery_name;
 			console.log('GALLERY_NAME=', gallery_name);
+			// verify
 			const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
 			console.log('options = ', OPTIONS);
-			// axios - OPTIONS.url + '/verify'
+			return axios.post(OPTIONS.url, OPTIONS.body, OPTIONS.config);
 	};
 		//res.status(200).send('Success!');
+	})
+	.then(response => {
+		console.log('response from kairos ====>', response.data);
+		let confidence = response.data.images[0]['transaction']['confidence'];
+		console.log('confidence=', confidence);
+		if (confidence > 0.75) {
+			res.status(200).send('Success');
+		} else {
+			res.status(200).send('Checkin Failed. Please enter a Valid Picture');
+		}
 	})
 	.catch(err => {
 		console.log('ERROR getting avatar_url for user with userid:', err);

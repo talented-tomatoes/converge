@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
-import { Button, Content, Drawer, Item } from 'native-base';
+import { Button, Content, Drawer, Item, Toast } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { FileUpload } from 'NativeModules';
 import axios from 'axios';
@@ -94,10 +94,33 @@ class Checkin extends Component {
            return axios.post(SERVER_URL + `/api/users/${USER_ID}/checkin`, reqObj)
         })
         .then(response => {
-          console.log('Response', response);
+          console.log('Response', response.data);
+          if (response.data !== 'Success') {
+            //console.log('Checkin Failed!');
+            Toast.show({
+              text: 'Check-in Failed! Please try again.',
+              position: 'bottom',
+              buttonText: 'Okay',
+              type: 'danger'
+            });
+          } else {
+            Toast.show({
+              text: 'Check-in Successful!',
+              position: 'bottom',
+              type: 'success',
+              duration: 500
+            });
+            this.props.navigation.navigate('Home');
+          }
         })
         .catch(err => {
           console.log('Error: ', err);
+          Toast.show({
+            text: 'Check-in Failed! Please try again.',
+            position: 'bottom',
+            buttonText: 'Okay',
+            type: 'danger'
+          });
         })
       }
       })
