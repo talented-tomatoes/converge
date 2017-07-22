@@ -19,3 +19,10 @@ export function decorateUserWithDBUserID(userID) {
     userID: userID
   };
 }
+
+export function decorateUserWithDBConferenceID(confID) {
+  return {
+    type: 'SET_CURRENT_CONF_ID',
+    confID: confID
+  };
+}

@@ -23,7 +23,7 @@ exports.up = function(knex, Promise) {
 		table.string('bio', 2000);
 		table.string('email');
 		table.string('linkedin_id');
-		table.integer('conference_id');
+		table.integer('conference_id').references('id').inTable('conferences');
 	}),
 ])
 .then(() => {

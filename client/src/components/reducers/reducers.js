@@ -19,6 +19,9 @@ const adminReducer = (state = {data: null}, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
       return {...state, ...{data: action.data}};
+    case 'SET_CURRENT_CONF_ID':
+      console.log('inside set conference case');
+      return {...state, ...{confID: action.confID}}
     default:
       return state;
   }
