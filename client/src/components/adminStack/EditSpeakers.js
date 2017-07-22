@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, Header, Text, Button, Icon } from 'native-base';
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import EditSpeakersForm from './EditSpeakersForm';
+import axios from 'axios';
 
 // redux things
 import { connect } from 'react-redux';
@@ -20,8 +21,14 @@ class EditSpeakers extends Component {
     super(props);
   }
 
-  render() {
+  componentDidMount() {
+    console.log('EDIT SPEAKERS LANDING PAGE MOUNTED');
 
+    // make call to server to get data from DB
+    axios.get
+  }
+
+  render() {
     return (
       <Container>
         {console.log('inside editspeaker landing page', this.props)}
@@ -29,7 +36,7 @@ class EditSpeakers extends Component {
                  <Text>This is the header</Text>
                </Header>*/}
         <Content>
-          <Text>This the body of conference {this.props.confID.confID}</Text>
+          <Text>This the body of conference {this.props.admin.currentConfID}</Text>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
 
@@ -40,7 +47,7 @@ class EditSpeakers extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    confID: state.adminReducer
+    admin: state.adminReducer
   }
 }
 
