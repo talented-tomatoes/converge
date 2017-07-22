@@ -22,8 +22,13 @@ exports.up = function(knex, Promise) {
 		table.string('avatar_url');
 		table.string('bio', 2000);
 		table.string('email');
+<<<<<<< HEAD
 		table.string('linkedin_id');
 		table.integer('conference_id');
+=======
+		table.string('linkedinid');
+		table.integer('confid').references('id').inTable('conferences');
+>>>>>>> checkin screen related changes
 	}),
 ])
 .then(() => {
@@ -40,6 +45,18 @@ exports.up = function(knex, Promise) {
 			table.string('venue_map', 500).notNullable();
 			table.string('banner', 500).notNullable();
 			table.integer('user_id').references('id').inTable('users');
+		}),
+		knex.schema.createTableIfNotExists('speakers', (table) => {
+			table.increments('id').primary;
+			table.string('loginid').notNullable();
+			table.string('first_name').notNullable();
+			table.string('last_name').notNullable();
+			table.string('jobtitle');
+			table.string('avatar_url');
+			table.string('about');
+			table.string('email');
+			table.string('linkedinid');
+			table.integer('confid').references('id').inTable('conferences');
 		}),
 		knex.schema.createTableIfNotExists('presentations', (table) => {
 			table.increments('id').primary;

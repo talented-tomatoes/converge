@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Root } from "native-base";
 import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
 
@@ -13,7 +14,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store} >
-        <AppStack />
+        <Root>
+          <AppStack />
+        </Root>
       </Provider>
     );
   }

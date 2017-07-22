@@ -1,6 +1,8 @@
 const models = require('../../db/models/models.js');
 const config = require('../../config/config.js');
 const stripe = require('stripe')(config.stripe.secKey);
+const util = require('../lib/utils.js');
+const axios = require('axios');
 
 let getAllUsers = (req, res) => {
 	console.log('GET /api/users');
@@ -9,7 +11,6 @@ let getAllUsers = (req, res) => {
 			console.log('users=', user.attributes);
 			res.status(200).send(user);
 		})
-		//.then()
 		.catch(err => {
 			console.log('Error:', err);
 			res.status(500).send(err);
@@ -71,10 +72,42 @@ let getAllPresentationsOfConf = (req, res) => {
 };
 
 let checkinUser = (req, res) => {
-	console.log('Inside checkinUser!');
-	console.log('req = ', req);
-	res.status(200).send('Success!');
-};
+	//console.log('req.userid = ', req.params.userid);
+	//console.log('req.body======>', req.body);
+	let USERID = req.params.userid;
+	let CHECKINPICURL = req.body.checkinpicurl;
+	//console.log('CHECKINPICURL=====>', CHECKINPICURL);
+	let gallery_name = '';
+	models.User.where({loginid:USERID}).fetch({columns:['gallery_name']})
+	.then(user => {
+		if (!user) {
+			console.log('user=', user);
+			res.status(200).send('No User');
+		} else {
+			gallery_name = user.attributes.gallery_name;
+			console.log('GALLERY_NAME=', gallery_name);
+			// verify
+			const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
+			console.log('options = ', OPTIONS);
+			return axios.post(OPTIONS.url, OPTIONS.body, OPTIONS.config);
+	};
+		//res.status(200).send('Success!');
+	})
+	.then(response => {
+		console.log('response from kairos ====>', response.data);
+		let confidence = response.data.images[0]['transaction']['confidence'];
+		console.log('confidence=', confidence);
+		if (confidence > 0.75) {
+			res.status(200).send('Success');
+		} else {
+			res.status(200).send('Checkin Failed. Please enter a Valid Picture');
+		}
+	})
+	.catch(err => {
+		console.log('ERROR getting avatar_url for user with userid:', err);
+	})
+	};
+
 
 let chargeCustomer = (req, res) => {
 
