@@ -44,6 +44,10 @@ class Checkin extends Component {
     this.drawer._root.open();
   }
 
+  closeDrawer() {
+    this.drawer._root.close()
+  }
+
   capturePic() {
     let options = {
       title: 'Select Avatar',
@@ -141,7 +145,7 @@ class Checkin extends Component {
               </TouchableOpacity>
             </Item>
           </Content>
-        <AttendeeFooter/>
+        <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
       </Drawer>
     );
   }
