@@ -4,19 +4,19 @@ import Swiper from 'react-native-swiper';
 import axios from 'axios';
 
 const saveToDB = (userType, callback) => {
-      let user = callback();
-      user.usertype = userType;
-      console.log('user: ', user);
-      let url = 'http://localhost:3000/api/registerUser';
-      let options = user;
-      axios.post(url, user)
-        .then(response => {
-          console.log('response : ', response);
-        })
-        .catch(error => {
-          console.log('error: ', error);
-        })
-    }
+  let user = callback();
+  user.usertype = userType;
+  console.log('user: ', user);
+  let url = 'http://localhost:3000/api/registerUser';
+  let options = user;
+  axios.post(url, user)
+    .then(response => {
+      console.log('response : ', response);
+    })
+    .catch(error => {
+      console.log('error saving user to DB: ', error);
+    })
+}
 
 module.exports = (props) => (
   <Content style={{flex:1}}>

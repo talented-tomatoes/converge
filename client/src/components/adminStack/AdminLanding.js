@@ -5,7 +5,7 @@ import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
 
-// import the action 
+// import the action
 import { connect } from 'react-redux';
 import { setInitialHostData, decorateUserWithDBUserID } from '../actions/actions';
 
@@ -45,6 +45,9 @@ class AdminLanding extends Component {
           console.log('response: ', response.data);
           this.props.dispatch(setInitialHostData(response.data));
         })
+      })
+      .catch(err => {
+        console.log('error getting host conferences: ', err);
       })
 
 
@@ -88,5 +91,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(AdminLanding);
 
-// STYLING 
+// STYLING
 
