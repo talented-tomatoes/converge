@@ -26,3 +26,10 @@ export function decorateUserWithDBConferenceID(confID) {
     currentConfID: confID
   };
 }
+
+export function setSelectedConference(conference) {
+  return {
+    type: 'SET_SELECTED_CONFERENCE',
+    conference: conference
+  }
+}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Drawer, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
 
 import SideBar from './Sidebar';
 
-export default class Home extends Component {
+class Home extends Component {
   static navigationOptions = {
 
   };
@@ -18,8 +19,9 @@ export default class Home extends Component {
   openDrawer() {
     this.drawer._root.open()
   };
-  //This is our main app
+
   render() {
+    const { params } = this.props.navigation.state;
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -71,3 +73,10 @@ export default class Home extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    conference: state.attendeeReducer
+  }
+}
+
+export default connect(mapStateToProps)(Home);

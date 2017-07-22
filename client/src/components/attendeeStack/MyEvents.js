@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { setSelectedConference } from '../actions/actions'
 import { TouchableOpacity } from 'react-native';
 import { Container, Header, Body, Title, Content } from 'native-base';
 import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
@@ -26,10 +27,15 @@ class MyEvents extends Component {
       });
   }
 
+  handleImageOnPress(conference) {
+    this.props.dispatch(setSelectedConference(conference));
+    this.props.navigation.navigate('Home');
+  }
+
   render() {
 
     const conferenceListItems = this.state.conferences.map((conference, i) =>
-    <TouchableOpacity key ={i} onPress={() => this.props.navigation.navigate('Home', { navigation: this.props.navigation, conference: conference })}>
+    <TouchableOpacity key ={i} onPress={this.handleImageOnPress.bind(this, conference)}>
       <ConferenceListEntry conference={conference}/>
     </TouchableOpacity>
     );

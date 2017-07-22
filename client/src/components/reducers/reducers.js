@@ -27,10 +27,22 @@ const adminReducer = (state = {data: null}, action) => {
   }
 }
 
+const attendeeReducer = (state = {conference: null}, action) => {
+  console.log('attendee Reducer Called')
+  switch (action.type) {
+    case 'SET_SELECTED_CONFERENCE':
+      console.log('SETTING CONFERENCE ==>', {...action.conference})
+      return {...action.conference}
+    default:
+      return state;
+  }
+}
+
 // root reducers?
 const reducers = combineReducers({
   userReducer,
   adminReducer,
+  attendeeReducer,
   form: formReducer
 })
 
