@@ -204,7 +204,7 @@ let addPresentation = (req, res) => {
   console.log('req.body: ', req.body);
   models.Presentation.forge(req.body).save()
     .then(presentation => {
-      console.log('Presentation saved: ', presentation)
+      console.log('Presentation saved: ', presentation);
       res.status(200).send('Presentation saved!');
     })
     .catch(err => {
