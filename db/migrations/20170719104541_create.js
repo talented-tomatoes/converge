@@ -22,13 +22,8 @@ exports.up = function(knex, Promise) {
 		table.string('avatar_url');
 		table.string('bio', 2000);
 		table.string('email');
-<<<<<<< HEAD
 		table.string('linkedin_id');
 		table.integer('conference_id');
-=======
-		table.string('linkedinid');
-		table.integer('confid').references('id').inTable('conferences');
->>>>>>> checkin screen related changes
 	}),
 ])
 .then(() => {
@@ -80,8 +75,8 @@ exports.up = function(knex, Promise) {
 		}),
 		knex.schema.createTableIfNotExists('conferences_users', (table) => {
 			table.increments('id').primary;
-			table.integer('conferenceid').references('id').inTable('conferences');
-			table.string('userid').references('loginid').inTable('users');
+			table.integer('conference_id').references('id').inTable('conferences');
+			table.string('user_id').references('loginid').inTable('users');
 		})
 	])
 	})

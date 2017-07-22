@@ -57,4 +57,7 @@ router.route('/getUserID/:userID')
 router.route('/join/conferences_users')
   .post(controller.saveUserToConference);
 
+router.route('/join/conferences_users/:userid')
+  .get(controller.getAllUserEvents);
+
 module.exports = router;
