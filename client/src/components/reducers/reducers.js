@@ -6,6 +6,8 @@ const userReducer = (state = { user: null }, action) => {
   switch (action.type) {
     case 'SET_USER':
       return {...action.user};
+    case 'ADD_USER_ID_FROM_DB':
+      return {...state, ...{userID: action.userID}}
     default:
       return state;
   }

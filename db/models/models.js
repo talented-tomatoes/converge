@@ -10,6 +10,7 @@ const User = db.Model.extend({
   }
 });
 
+
 const Presentation = db.Model.extend({
   tableName: 'presentations',
   users: () => {
@@ -40,12 +41,16 @@ const Speaker = db.Model.extend({
   tableName: 'speakers',
   presentations: () => {
     return this.belongsToMany(Presentation, 'presentations_speakers');
+  },
+  conferences: () => {
+    return this.belongsTo(Conference);
   }
 });
 
 const ConferenceUser = db.Model.extend({
   tableName: 'conferences_users'
-})
+});
+
 
 module.exports = {
   User: User,

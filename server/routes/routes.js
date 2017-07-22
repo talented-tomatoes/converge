@@ -21,13 +21,22 @@ router.route('/speakers/:presentationid')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
-router.route('/createConference')
-  .post(controller.createNewConference);
+router.route('/addConference') 
+  .post(controller.addConference);
+
+router.route('/getConferencesByHostID/:hostID')
+  .get(controller.getConferencesByHostID);
+// router.route('/users/edit/speakers')
+//   .post(controller.addSpeaker);
+
+// router.route('/users/edit/presentations')
+//   .post(controller.createPresentation);
 
 /*********************PRESENTATIONS **********************/
 
 router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
+
 
 /*********************UPLOAD PIC **********************/
 router.route('/users/:userid/checkin')
@@ -40,6 +49,9 @@ router.route('/payments/charge')
 /*********************REGISTRATION**********************/
 router.route('/registerUser')
   .post(controller.registerUser);
+
+router.route('/getUserID/:userID')
+  .get(controller.getUserIdByGoogleLoginID);
 
 /*********************JOINS**********************/
 router.route('/join/conferences_users')

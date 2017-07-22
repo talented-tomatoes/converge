@@ -42,16 +42,16 @@ class EditConferenceForm extends Component {
   }
 
   saveToDB(conference) {
-      let url = 'http://localhost:3000/api/???????';
+      let url = 'http://localhost:3000/api/addConference';
       let options = conference;
-      // axios.post(url, user)
-      //   .then(response => {
-      //     console.log('response : ', response);
-      //   })
-      //   .catch(error => {
-      //     console.log('error: ', error);
-      //   })
-      this.props.navigation.navigate('EditSchedule');
+      axios.post(url, user)
+        .then(response => {
+          console.log('response : ', response);
+          this.props.navigation.navigate('EditSchedule');
+        })
+        .catch(error => {
+          console.log('error: ', error);
+        })
     }
 
   submit(conference) {

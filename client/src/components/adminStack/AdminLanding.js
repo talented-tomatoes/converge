@@ -7,7 +7,9 @@ import DummyData from './dummy/fakeEventData.js';
 
 // import the action 
 import { connect } from 'react-redux';
-import { setInitialHostData } from '../actions/actions';
+import { setInitialHostData, decorateUserWithDBUserID } from '../actions/actions';
+
+import axios from 'axios';
 
 
 class AdminLanding extends Component {
@@ -33,9 +35,27 @@ class AdminLanding extends Component {
     // if no results, simple display a basic page saying you don't have any events for the time being
     
     // Update the props
-    console.log('DummyData.data.amazon: ', DummyData.data.amazon);
-    this.props.dispatch(setInitialHostData(DummyData.data.amazon));
+    // console.log('DummyData.data.amazon: ', DummyData.data.amazon);
+    // this.props.dispatch(setInitialHostData(DummyData.data.amazon));
 
+    let url = 'http://localhost:3000/api/getUserID/' + this.props.user.id;
+
+    axios.get(url)
+      .then(response => {
+        console.log('response in createEvent: ', response);
+        //add userID to store
+        this.props.dispatch(decorateUserWithDBUserID(response.data.id));
+        console.log('after dispatch: ', this.props.user);
+        this.setState({
+          user_id: this.props.user.userID
+        }, () => {console.log('user_id state changed to: ', this.state.user_id)});
+        let getConferencesURL = 'http://localhost:3000/api/getConferencesByHostID/' + this.props.user.userID;
+        //axios get to server
+        axios.get(getConferencesURL).then(response => {
+          console.log('response: ', response.data);
+          this.props.dispatch(setInitialHostData(response.data));
+        })
+      })
 
 
 
@@ -46,6 +66,7 @@ class AdminLanding extends Component {
 
   getEvents() {
     console.log('=====Fetching Events=====');
+    let url = 'http://localhost:3000/api/getConferences/';
     axios.get(URL_GOES_HERE).then(function(response) {
       //set state here
     }).catch(function(err) {
@@ -70,7 +91,8 @@ class AdminLanding extends Component {
 // REDUX THINGS
 const mapStateToProps = (state) => {
   return {
-    data: state.adminReducer
+    data: state.adminReducer,
+    user: state.userReducer
   }
 }
 
