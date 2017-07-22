@@ -224,22 +224,20 @@ let addSpeaker = (req, res) => {
 };
 
 // GET SPEAKERS BY CONFERENCE ID
+let getSpeakersByConfID = (req, res) => {
+  console.log('req.params.currentConfID: ', req.params.currentConfID);
+
+  models.Speaker.where({conference_id: req.params.currentConfID}).fetchAll()
+    .then(speakers => {
+      console.log('speakers: ', speakers);
+      res.status(200).send(speakers);
+    });
+};
 
 let helloWorld = (req, res) => {
   res.send('hello world');
 };
 
-// let addSpeaker = (req, res) => {
-//   models.Speaker.forge(req.body).save()
-//     .then(speaker => {
-//       console.log('speaker saved: ', speaker);
-//     })
-//     .catch(err => {
-//       console.log('error: ', err);
-//     });
-
-//   res.status(200).send('Speaker saved!');
-// };
 // let addPresentation = (req, res) => {};
 
 // let saveUserToConference = (req, res) => {
@@ -289,5 +287,6 @@ module.exports = {
   getUserIdByGoogleLoginID: getUserIdByGoogleLoginID,
   getConferencesByHostID: getConferencesByHostID,
   getAllUserEvents: getAllUserEvents,
-  helloWorld: helloWorld
+  helloWorld: helloWorld,
+  getSpeakersByConfID: getSpeakersByConfID
 };
