@@ -13,3 +13,9 @@ export function setInitialHostData(data) {
   };
 }
 
+export function decorateUserWithDBUserID(userID) {
+  return {
+    type: 'ADD_USER_ID_FROM_DB',
+    userID: userID
+  };
+}

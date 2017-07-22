@@ -4,7 +4,7 @@ import { Container, Button, Content, Card, Item, Input } from 'native-base';
 import DatePicker from './DatePicker.js';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { connect } from 'react-redux';
-import { addConference } from '../actions/actions';
+import { decorateUserWithDBUserID  } from '../actions/actions';
 import axios from 'axios';
 
 class NewEvent extends Component {
@@ -24,11 +24,25 @@ class NewEvent extends Component {
       venue_map: '',
       details: '',
       ticket_price: 0,
-      user_id: null
+      user_id: this.props.user.userID
     }
 
   }
 
+  // componentDidMount() {
+  //   let url = 'http://localhost:3000/api/getUserID/' + this.props.user.id;
+
+  //   axios.get(url)
+  //     .then(response => {
+  //       console.log('response in createEvent: ', response);
+  //       //add userID to store
+  //       this.props.dispatch(decorateUserWithDBUserID(response.data.id));
+  //       console.log('after dispatch: ', this.props.user);
+  //       this.setState({
+  //         user_id: this.props.user.userID
+  //       }, () => {console.log('user_id state changed to: ', this.state.user_id)});
+  //     });
+  // }
 
   onNameOfEventChange(name) {
     console.log('event name', name);
@@ -75,33 +89,31 @@ class NewEvent extends Component {
   onSubmitDetails() {
     let details = {
       start_date: this.state.startDate,
-      end_end: this.state.endDate,
+      end_date: this.state.endDate,
       address: this.state.locationAddress,
       name: this.state.nameOfEvent,
       banner: 'https://d3i6fh83elv35t.cloudfront.net/newshour/wp-content/uploads/2015/08/RTR3UIDN-1024x683.jpg',
       venue_map: 'https://s-media-cache-ak0.pinimg.com/736x/b1/a0/51/b1a051ec5a60c4572771f6e288d33b5c.jpg',
       details: this.state.details,
-      ticket_price: this.state.price,
-      logo: 'https://s3.amazonaws.com/BURC_Pages/downloads/a-smile_color.jpg'
+      ticket_price: this.state.ticket_price,
+      logo: 'https://s3.amazonaws.com/BURC_Pages/downloads/a-smile_color.jpg',
+      user_id: this.state.user_id
     }
     console.log(details);
 
 
     // AXIOS
     // ==================================
-    axios.post('apiURL', details)
-      .then(function(response) {
+    axios.post('http://localhost:3000/api/addConference', details)
+      .then((response) => {
+        console.log('this.props: ', this.props);
         console.log(response);
         // navigate to the the admin landing
-        this.props.navigation.navigate('AdminStack')
+        this.props.navigation.navigate('AdminLanding')
       })
       .catch(function(err) {
         console.log(err);
       });
-
-
-
-    this.props.navigation.navigate('AdminLanding')
   }
 
   // handle
@@ -213,6 +225,7 @@ class NewEvent extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.userReducer,
     events: state.adminReducer
   }
 }

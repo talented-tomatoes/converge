@@ -58,7 +58,7 @@ let getAllConferences = (req, res) => {
 
 let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
-  console.log('confid = ', confid);
+  // console.log('confid = ', confid);
   // models.Presentation.forge({conferenceid:confid})
   // 	.fetch({withRelated: ['conferences']})
   // 	.then(presentations => {
@@ -109,21 +109,16 @@ let registerUser = (req, res) => {
   res.status(200).send('User saved!');
 };
 
-let createNewConference = (req, res) => {
-  console.log('Inside createNewConference');
-  console.log('req.body: ', req.body);
-  console.log('req.body type: ', typeof req.body);
-
-  models.Conference.forge(req.body).save()
-    .then(conference => {
-      console.log('conference saved: ', conference);
-    })
-    .catch(err => {
-      console.log('error: ', err);
+let getUserIdByGoogleLoginID = (req, res) => {
+  console.log('req.params: ', req.params.userID);
+  models.User.where({'loginid': req.params.userID}).fetch()
+    .then(user => {
+      res.status(200).send(user);
     });
 
-  res.status(200).send('Conference saved!');
-};
+}
+
+
 
 let saveUserToConference = (req, res) => {
   console.log('Payment successful. Saving user to Conference ===>', req.body);
@@ -146,23 +141,46 @@ let saveUserToConference = (req, res) => {
     });
 };
 
-let createConference = (req, res) => {
-  if (req) {
-    console.log('request received from ', req.params.userid);
-  }
-  let user = req.params.userid;
+let addConference = (req, res) => {
+  console.log('Inside addConference');
+  console.log('req.body: ', req.body);
+  console.log('req.body type: ', typeof req.body);
 
-  // send DB req to post
-  models.
-    // DB should send back a conf ID 
-  // on DB response, send the DB's reponse back to the client
-    // should include the confID as mentioned above
+  models.Conference.forge(req.body).save()
+    .then(conference => {
+      console.log('conference saved: ', conference);
+    })
+    .catch(err => {
+      console.log('error: ', err);
+    });
 
-
+  res.status(200).send('Conference saved!');
 };
-let editSpeakers = (req, res) => {};
-let editPresentations = (req, res) => {};
-let editMap = (req, res) => {};
+
+let getConferencesByHostID = (req, res) => {
+  console.log('req.params.hostID: ', req.params.hostID);
+  
+  models.Conference.where({user_id: req.params.hostID}).fetchAll()
+    .then(conferences => {
+      console.log('conferences: ', conferences);
+      res.status(200).send(conferences);
+    })
+}
+
+
+let addSpeaker = (req, res) => {
+  models.Speaker.forge(req.body).save()
+    .then(speaker => {
+      console.log('speaker saved: ', speaker);
+    })
+    .catch(err => {
+      console.log('error: ', err);
+    });
+
+  res.status(200).send('Speaker saved!');
+};
+// let addPresentation = (req, res) => {};
+
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -173,6 +191,10 @@ module.exports = {
   checkinUser: checkinUser,
   chargeCustomer: chargeCustomer,
   registerUser: registerUser,
-  createNewConference: createNewConference,
-  saveUserToConference: saveUserToConference
+  addConference: addConference,
+  addSpeaker: addSpeaker,
+  // addPresentation: addPresentation,
+  saveUserToConference: saveUserToConference,
+  getUserIdByGoogleLoginID: getUserIdByGoogleLoginID,
+  getConferencesByHostID: getConferencesByHostID
 };

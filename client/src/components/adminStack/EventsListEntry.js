@@ -13,22 +13,22 @@ export default class EventsListEntry extends Component {
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail source={{uri: this.props.eventData.thumbnail}} />
+              <Thumbnail source={{uri: this.props.eventData.logo}} />
               <Body>
-                <Text>{this.props.eventData.title}</Text>
-                <Text note> {this.props.eventData.description}</Text>
+                <Text>{this.props.eventData.name}</Text>
+                <Text note> {this.props.eventData.details}</Text>
                 </Body>
               </Left>
            </CardItem>
            <CardItem cardBody>
              <Image
-              source={{uri: this.props.eventData.image}}
+              source={{uri: this.props.eventData.banner}}
               style={{height: 200, width: null, flex: 1}} 
               />
             </CardItem>
             <CardItem>
               <Left>
-                <Text> {this.props.eventData.date} </Text>
+                <Text> {this.props.eventData.start_date}  -  {this.props.eventData.end_date}</Text>
                 </Left>
                 </CardItem>
           </Card>
