@@ -50,23 +50,7 @@ class AdminLanding extends Component {
         console.log('error getting host conferences: ', err);
       })
 
-
-
-
-    // begin storing the dummy data
-
   }
-
-  // getEvents() {
-  //   console.log('=====Fetching Events=====');
-  //   let url = 'http://localhost:3000/api/getConferences/';
-  //   axios.get(URL_GOES_HERE).then(function(response) {
-  //     //set state here
-  //   }).catch(function(err) {
-  //     //handle error stuff here;
-  //   });
-  // }
-
 
 
   // ADMIN LANDING PAGE
