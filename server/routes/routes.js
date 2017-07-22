@@ -44,6 +44,8 @@ router.route('/getSpeakersByConfID/:currentConfID')
 router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
 
+router.route('/addPresentation')
+  .post(controller.addPresentation);
 
 /*********************UPLOAD PIC **********************/
 router.route('/users/:userid/checkin')

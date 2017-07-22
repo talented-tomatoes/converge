@@ -45,7 +45,7 @@ exports.up = function(knex, Promise) {
 		knex.schema.createTableIfNotExists('presentations', (table) => {
 			table.increments('id').primary;
 			table.string('name').notNullable();
-			table.string('description').notNullable();
+			table.string('description', 2000).notNullable();
 			table.date('date').notNullable();
 			table.time('time').notNullable();
 			table.string('location').notNullable();

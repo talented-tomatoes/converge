@@ -21,14 +21,14 @@ let getAllUsers = (req, res) => {
 
 let getAllSpeakersOfConf = (req, res) => {
   const confid = req.params.confid;
-  models.Speaker.where({confid: confid})
+  models.Speaker.where({conference_id: confid})
     .fetchAll()
-    .then((trips) => {
-      console.log('\tSUCCESS\n');
-      res.status(200).json(trips);
+    .then((speakers) => {
+      console.log('Speakers fetched: ', speakers);
+      res.status(200).send(speakers);
     })
   .catch((err) => {
-    console.log('ERROR GETting Trips collection: ', err);
+    console.log('Error fetching speakers by conferenceID: ', err);
     res.status(404).send(err);
   });
 };
@@ -208,19 +208,33 @@ let getConferencesByHostID = (req, res) => {
 let addSpeaker = (req, res) => {
   console.log('Inside ** ADD SPEAKER TO CONF **');
   console.log('req.body: ', req.body);
-  console.log('req.body type :', typeof req.body); 
+  console.log('req.body type :', typeof req.body);
 
   // bookshelf command
   models.Speaker.forge(req.body).save()
     .then(speaker => {
       console.log('speaker saved: ', speaker);
+      res.status(200).send('Speaker saved!');
     })
     .catch(err => {
       console.log('error: ', err);
+      res.status(400).send('error saving speaker');
     });
 
-  // server response
-  res.status(201).send('Speaker saved!');
+};
+
+let addPresentation = (req, res) => {
+  console.log('inside addPresentation');
+  console.log('req.body: ', req.body);
+  models.Presentation.forge(req.body).save()
+    .then(presentation => {
+      console.log('Presentation saved: ', presentation)
+      res.status(200).send('Presentation saved!');
+    })
+    .catch(err => {
+      console.log('Error saving presentation: ', err);
+      res.status(400).send('error saving presentation');
+    });
 };
 
 // GET SPEAKERS BY CONFERENCE ID
@@ -237,8 +251,6 @@ let getSpeakersByConfID = (req, res) => {
 let helloWorld = (req, res) => {
   res.send('hello world');
 };
-
-// let addPresentation = (req, res) => {};
 
 // let saveUserToConference = (req, res) => {
 // 	console.log('Payment successful. Saving user to Conference ===>', req.body);
@@ -282,7 +294,7 @@ module.exports = {
   registerUser: registerUser,
   addConference: addConference,
   addSpeaker: addSpeaker,
-  // addPresentation: addPresentation,
+  addPresentation: addPresentation,
   saveUserToConference: saveUserToConference,
   getUserIdByGoogleLoginID: getUserIdByGoogleLoginID,
   getConferencesByHostID: getConferencesByHostID,
