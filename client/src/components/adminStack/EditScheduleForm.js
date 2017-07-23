@@ -35,7 +35,9 @@ class EditScheduleForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedSpeakerID: 'Select A Speaker',
+      selectedDate: '',
+      selectedTime: '',
+      selectedSpeakerID: 0,
       speakers: [
         {
           first_name: 'John',
@@ -54,7 +56,7 @@ class EditScheduleForm extends Component {
         }
       ]
     }
-    let getAllSpeakersByConferenceIdUrl = 'http://localhost:3000/api/speakers/' + this.props.admin.currentConfID;
+    let getAllSpeakersByConferenceIdUrl = 'http://localhost:3000/api/speakers/' + this.props.admin.selectedConference.id;
     axios.get(getAllSpeakersByConferenceIdUrl)
       .then( speakers => {
         console.log('speakers: ', speakers.data);
@@ -83,14 +85,28 @@ class EditScheduleForm extends Component {
 
   submit(presentation) {
     presentation.speaker_id = this.state.selectedSpeakerID;
-    presentation.conference_id = this.props.admin.currentConfID;
+    presentation.conference_id = this.props.admin.selectedConference.id;
+    presentation.date = this.state.selectedDate;
+    presentation.time = this.state.selectedTime;
     this.saveToDB(presentation);
   }
 
-  onValueChange(value) {
+  onSpeakerChange(value) {
     this.setState({
       selectedSpeakerID: value
     });
+  }
+
+  onDateChange(value) {
+    this.setState({
+      selectedDate: value.slice(0,11)
+    })
+  }
+
+  onTimeChange(value) {
+    this.setState({
+      selectedTime: value
+    })
   }
 
   render() {
@@ -107,7 +123,7 @@ class EditScheduleForm extends Component {
                 iosHeader="Select one"
                 mode="dropdown"
                 selectedValue={this.state.selectedSpeakerID}
-                onValueChange={this.onValueChange.bind(this)}
+                onValueChange={this.onSpeakerChange.bind(this)}
               >
               {
                 this.state.speakers.map((speaker, i) => {
@@ -117,9 +133,15 @@ class EditScheduleForm extends Component {
             </Picker>
           </Item>
 
-          <Field name="date" component={ renderInput } label="Date:" placeholder="7/04/17" keyboardType="numeric" />
+          <Item inlineLabel>
+            <Label>Date: </Label>
+            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} />
+          </Item>
+          <Item inlineLabel>
+            <Label>Time: </Label>
+            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} />
+          </Item>
 
-          <Field name="time" component={ renderInput } label="Time:" placeholder="3:30 PM" keyboardType="numeric" />
           <Field name="location" component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
           <Field name="description" component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
         </Content>

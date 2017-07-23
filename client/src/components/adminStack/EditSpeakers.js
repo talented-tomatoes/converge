@@ -25,10 +25,10 @@ class EditSpeakers extends Component {
   };
 
   componentDidMount() {
-    console.log('EDIT SPEAKERS LANDING PAGE MOUNTED');
+    console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
 
-    let url = 'http://localhost:3000/api/getSpeakersByConfID/' + this.props.admin.currentConfID;
+    let url = 'http://localhost:3000/api/getSpeakersByConfID/' + this.props.admin.selectedConference.id;
 
     axios.get(url)
       .then(response => {

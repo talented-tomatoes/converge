@@ -5,7 +5,7 @@ import EventsListEntry from './EventsListEntry.js';
 
 // redux things
 import {connect} from 'react-redux';
-import { decorateUserWithDBConferenceID } from '../actions/actions';
+import { decorateUserWithDBConferenceID, setAdminSelectedConference } from '../actions/actions';
 
 
 
@@ -42,13 +42,12 @@ class EventsList extends Component {
           {
             this.state.events.map((event, key) => {
               return (
-              <TouchableOpacity 
-                key={key} 
-                onPress={() => {
-                  { console.log('dispatching this conferenceID: ', event.id); } 
-                  this.props.dispatch(decorateUserWithDBConferenceID(event.id)); 
-                  this.props.navigation.navigate('EditSchedule');
-                }}>
+              <TouchableOpacity key={key} onPress={() => {
+                { console.log('dispatching this conferenceID: ', event.id); }
+                this.props.dispatch(setAdminSelectedConference(event));
+                this.props.dispatch(decorateUserWithDBConferenceID(event.id));
+                this.props.navigation.navigate('EditSchedule');
+              }}>
                 <EventsListEntry
                   eventData={event}
                   />
@@ -66,7 +65,8 @@ class EventsList extends Component {
 const mapStateToProps = (state) => {
   return {
     data: state.adminReducer.data,
-    confID: state.adminReducer.confID
+    confID: state.adminReducer.confID,
+    admin: state.adminReducer,
   };
 };
 

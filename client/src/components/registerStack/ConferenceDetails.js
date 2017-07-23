@@ -47,7 +47,7 @@ class ConferenceDetails extends Component {
       }
     };
     const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
-    
+
     paymentRequest.show()
       .then(paymentResponse => {
 
@@ -67,6 +67,7 @@ class ConferenceDetails extends Component {
           })
           .then(response => {
             paymentResponse.complete('success');
+            this.props.navigation.navigate('MyEvents');
           })
           .catch(error => {
             console.log(error);
@@ -74,7 +75,7 @@ class ConferenceDetails extends Component {
           })
       })
   }
- 
+
   render() {
     const { params } = this.props.navigation.state;
     console.log(params);

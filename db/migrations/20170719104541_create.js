@@ -3,16 +3,16 @@ exports.up = function(knex, Promise) {
   return Promise.all([
 		knex.schema.createTableIfNotExists('users', (table) => {
 		table.increments('id').primary;
-		table.string('loginid').notNullable();
+		table.string('login_id').notNullable();
 		table.string('first_name').notNullable();
 		table.string('last_name').notNullable();
 		table.string('avatar_url');
 		table.string('email');
-		table.string('linkedinid');
-		table.string('phonenumber');
-		table.string('usertype');
+		table.string('linkedin_id');
+		table.string('phone_number');
+		table.string('user_type');
 		table.string('gallery_name');
-		table.unique('loginid');
+		table.unique('login_id');
 	}),
 ])
 .then(() => {
@@ -32,40 +32,39 @@ exports.up = function(knex, Promise) {
 		}),
 		knex.schema.createTableIfNotExists('speakers', (table) => {
 			table.increments('id').primary;
-			table.string('loginid').notNullable();
 			table.string('first_name').notNullable();
 			table.string('last_name').notNullable();
-			table.string('jobtitle');
+			table.string('job_title');
 			table.string('avatar_url');
-			table.string('about');
+			table.string('bio');
 			table.string('email');
-			table.string('linkedinid');
+			table.string('linkedin_id');
 			table.integer('conference_id').references('id').inTable('conferences');
 		}),
 		knex.schema.createTableIfNotExists('presentations', (table) => {
 			table.increments('id').primary;
 			table.string('name').notNullable();
 			table.string('description', 2000).notNullable();
-			table.date('date').notNullable();
-			table.time('time').notNullable();
+			table.string('date').notNullable();
+			table.string('time').notNullable();
 			table.string('location').notNullable();
 			table.integer('speaker_id').references('id').inTable('speakers');
 			table.integer('conference_id').references('id').inTable('conferences');
 		}),
 		knex.schema.createTableIfNotExists('users_presentations', (table) => {
 			table.increments('id').primary;
-			table.integer('userid').references('id').inTable('users');
-			table.integer('presentationid').references('id').inTable('presentations');
+			table.integer('user_id').references('id').inTable('users');
+			table.integer('presentation_id').references('id').inTable('presentations');
 		}),
 		knex.schema.createTableIfNotExists('presentations_speakers', (table) => {
 			table.increments('id').primary;
-			table.integer('presentationid').references('id').inTable('presentations');
-			table.integer('speakerid').references('id').inTable('speakers');
+			table.integer('presentation_id').references('id').inTable('presentations');
+			table.integer('speaker_id').references('id').inTable('speakers');
 		}),
 		knex.schema.createTableIfNotExists('conferences_users', (table) => {
 			table.increments('id').primary;
 			table.integer('conference_id').references('id').inTable('conferences');
-			table.string('user_id').references('loginid').inTable('users');
+			table.string('user_id').references('login_id').inTable('users');
 		})
 	])
 	})

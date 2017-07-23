@@ -19,11 +19,14 @@ export default class MyDatePicker extends Component {
   render() {
     return (
       <DatePicker
+        showIcon={this.props.showIcon}
         style={{width: 200}}
         date={this.state.date}
-        mode="date"
-        placeholder="select date"
-        format="YYYY-MM-DD" 
+        mode={this.props.mode || "date"}
+        placeholder= {this.props.mode === 'time' ? "Select Time" : "Select Date"}
+        format= {this.props.mode === 'time' ? "LT" : "YYYY-MM-DD"}
+        minDate={this.props.minDate}
+        maxDate={this.props.maxDate}
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         customStyles={{
@@ -35,7 +38,8 @@ export default class MyDatePicker extends Component {
           },
           dateInput: {
             marginLeft: 36
-          }
+          },
+          disabled: true,
           // ... You can check the source to find the other keys.
         }}
         onDateChange={(date) => { this.dateChange(date); }}

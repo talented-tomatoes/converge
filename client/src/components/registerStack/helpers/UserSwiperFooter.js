@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const saveToDB = (userType, callback) => {
   let user = callback();
-  user.usertype = userType;
+  user.user_type = userType;
   console.log('user: ', user);
   let url = 'http://localhost:3000/api/registerUser';
   let options = user;
