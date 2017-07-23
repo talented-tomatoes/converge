@@ -8,12 +8,6 @@ import EditSpeakersList from './EditSpeakerComponents/EditSpeakerList';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 
-
-// redux things
-import { connect } from 'react-redux';
-// import actions
-import { setSpeakerInitialValues } from '../actions/actions.js';
-
 class EditSpeakers extends Component {
   constructor(props) {
     super(props);
