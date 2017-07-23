@@ -47,7 +47,7 @@ router.route('/presentations/:confid')
 router.route('/addPresentation')
   .post(controller.addPresentation);
 
-/*********************UPLOAD PIC **********************/
+/*********************KAIROS CHECKIN **********************/
 router.route('/users/:userid/checkin')
   .post(controller.checkinUser);
 
