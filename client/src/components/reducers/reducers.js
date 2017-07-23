@@ -20,7 +20,6 @@ const adminReducer = (state = {data: null}, action) => {
     case 'GET_EVENTS':
       return {...state, ...{data: action.data}};
     case 'SET_CURRENT_CONF_ID':
-      console.log('inside set conference case');
       return {...state, ...{currentConfID: action.currentConfID}};
     case 'SET_ADMIN_SELECTED_CONFERENCE':
       return {...state, ...{selectedConference: action.conference}}
