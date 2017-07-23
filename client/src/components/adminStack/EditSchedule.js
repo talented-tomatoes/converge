@@ -20,6 +20,7 @@ class EditSchedule extends Component {
       confID: null,
       presentations: [],
     };
+
     const getAllPresentationsWithConferenceIdUrl = 'http://localhost:3000/api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
@@ -40,6 +41,7 @@ class EditSchedule extends Component {
   };
 
   componentDidMount() {
+    console.log('EDIT SCHEDULE SCREEN MOUNTED, PROPS ARE: ', this.props.admin)
     // console.log('component mounted', this);
     // if (this.state.confID === null) {
     //   this.setState({
