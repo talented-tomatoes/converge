@@ -2,27 +2,42 @@ import React, { Component } from 'react';
 import { Container, Content, Header, Text, Button, Tabs, Tab, Icon } from 'native-base';
 
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import EditScheduleForm from './EditScheduleForm';
+import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConference';
+import convertDateToEnglish from './helpers/convertDateToEnglish';
 
 
 
 class EditSchedule extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dates: renderListOfDatesFromConference(this.props.admin.selectedConference),
+      confID: null,
+      presentations: [],
+    };
+    const getAllPresentationsWithConferenceIdUrl = 'http://localhost:3000/api/presentations/' + this.props.admin.selectedConference.id
+    axios.get(getAllPresentationsWithConferenceIdUrl)
+      .then(presentations => {
+        this.setState({
+          presentations: presentations.data
+        }, () => console.log(this.state.presentations));
+      })
+      .catch(err => {
+        console.log('error fetching presentations: ', err);
+      });
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Schedule',
       headerRight: <Button transparent onPress={() => navigation.navigate('EditScheduleForm')}><Icon name="add"/></Button>
     }
   };
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dates: ['July 1, 2017', 'July 2, 2017', 'July 3, 2017'],
-      confID: null
-    };
-  }
 
   componentDidMount() {
     // console.log('component mounted', this);
@@ -40,6 +55,7 @@ class EditSchedule extends Component {
   render() {
     // console.log('in EditSchedule');
     console.log('editschedule props', this.props);
+    console.log('this.state.presentations: ', this.state.presentations);
     return (
       <Container>
         <Tabs initialPage={0}>
@@ -48,7 +64,21 @@ class EditSchedule extends Component {
               return (
                 <Tab key={i} heading={date}>
                   <Content>
-                    <Text>Schedule associated with {date}</Text>
+                    {
+                      this.state.presentations.filter(presentation => {
+                        console.log(convertDateToEnglish(presentation.date), date)
+                        return convertDateToEnglish(presentation.date) === date;
+                      }).map((presentation, i) => {
+                        return (
+                          <Content key={i}>
+                          <Text>{presentation.name}</Text>
+                          <Text>{presentation.location}</Text>
+                          <Text>{presentation.description}</Text>
+                          <Text>{presentation.time}</Text>
+                          </Content>
+                        )
+                      })
+                    }
                   </Content>
                 </Tab>
               )

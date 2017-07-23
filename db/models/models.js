@@ -2,7 +2,7 @@ const db = require('../index.js');
 //define the models
 const User = db.Model.extend({
   tableName: 'users',
-  presentations: () => {
+  presentations: function() {
     return this.belongsToMany(Presentation, 'users_presentations');
   },
   conferences: function() {
@@ -13,36 +13,36 @@ const User = db.Model.extend({
 
 const Presentation = db.Model.extend({
   tableName: 'presentations',
-  users: () => {
+  users: function() {
     return this.belongsToMany(User, 'users_presentations');
   },
-  speakers: () => {
+  speakers: function() {
     return this.belongsToMany(Speaker, 'presentations_speakers');
   },
-  conference: () => {
-    return this.belongsTo(Conference, 'conferences');
+  conferences: function() {
+    return this.belongsTo(Conference);
   }
 });
 
 const Conference = db.Model.extend({
   tableName: 'conferences',
-  users: () => {
+  users: function() {
     return this.belongsToMany(User);
   },
-  speakers: () => {
+  speakers: function() {
     return this.hasMany(Speaker);
   },
-  presentations: () => {
+  presentations: function() {
     return this.hasMany(Presentation);
   }
 });
 
 const Speaker = db.Model.extend({
   tableName: 'speakers',
-  presentations: () => {
+  presentations: function() {
     return this.belongsToMany(Presentation, 'presentations_speakers');
   },
-  conferences: () => {
+  conferences: function() {
     return this.belongsTo(Conference);
   }
 });

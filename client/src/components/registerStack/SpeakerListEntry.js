@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import { Container, Header, Right, Content, Card, CardItem, ListItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 
 export default class ConferenceListScreen extends React.Component {
-  
+
   constructor(props) {
     super(props);
   }
@@ -15,7 +15,7 @@ export default class ConferenceListScreen extends React.Component {
       <ListItem avatar>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { speaker: this.props.speaker })}>
           <Left>
-            <Thumbnail small source={{ uri: this.props.speaker.avatar_url }} />
+            <Thumbnail small source={{ uri: this.props.speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
           </Left>
         </TouchableOpacity>
         <Body>

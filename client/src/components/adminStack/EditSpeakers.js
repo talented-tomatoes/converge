@@ -26,10 +26,10 @@ class EditSpeakers extends Component {
   };
 
   componentDidMount() {
-    console.log('EDIT SPEAKERS LANDING PAGE MOUNTED');
+    console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
 
-    let url = 'http://localhost:3000/api/getSpeakersByConfID/' + this.props.admin.currentConfID;
+    let url = 'http://localhost:3000/api/getSpeakersByConfID/' + this.props.admin.selectedConference.id;
 
     axios.get(url)
       .then(response => {
@@ -52,9 +52,9 @@ class EditSpeakers extends Component {
         <Content>
           <List>
 
-             {this.state.speakers.map((speaker) => {
+             {this.state.speakers.map((speaker, i) => {
               return (
-                <ListItem avatar>
+                <ListItem key={i} avatar>
                   <Left>
                     <Thumbnail source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg'}} />
                     </Left>
@@ -64,7 +64,7 @@ class EditSpeakers extends Component {
                     </Body>
                   </ListItem>
               );
-            })} 
+            })}
             </List>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>

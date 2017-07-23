@@ -82,7 +82,8 @@ const RegisterStack = StackNavigator({
   ConferenceDetails: { screen: ConferenceDetails },
   Camera: { screen: Camera },
   SpeakerList: { screen: SpeakerList },
-  SpeakerDetails: { screen: SpeakerDetails},
+  SpeakerDetails: { screen: SpeakerDetails },
+  AttendeeStack: { screen: AttendeeStack },
 });
 
 export default AppStack = StackNavigator({

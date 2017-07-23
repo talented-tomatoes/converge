@@ -60,12 +60,12 @@ let getAllConferences = (req, res) => {
 
 let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
-  console.log('confid = ', confid);
-  models.Presentation.forge({conferenceid: confid})
-  	.fetch({withRelated: ['conferences']})
+  console.log('inside getAllPresentationsOfConf ', confid);
+  models.Presentation.forge({conference_id: confid})
+  	.fetchAll({withRelated: ['conferences']})
   	.then(presentations => {
-  		console.log('presentations = ', presentations);
-  		res.status(200).send(collection);
+  		console.log('presentations fetched: ', presentations);
+  		res.status(200).send(presentations);
   	})
   	.catch(err => {
   		console.log('Error!', err);
@@ -80,7 +80,7 @@ let checkinUser = (req, res) => {
   let CHECKINPICURL = req.body.checkinpicurl;
 	//console.log('CHECKINPICURL=====>', CHECKINPICURL);
   let gallery_name = '';
-  models.User.where({loginid: USERID}).fetch({columns: ['gallery_name']})
+  models.User.where({login_id: USERID}).fetch({columns: ['gallery_name']})
 	.then(user => {
   if (!user) {
   console.log('user=', user);
@@ -147,7 +147,7 @@ let registerUser = (req, res) => {
 
 let getUserIdByGoogleLoginID = (req, res) => {
   console.log('req.params: ', req.params.userID);
-  models.User.where({'loginid': req.params.userID}).fetch()
+  models.User.where({'login_id': req.params.userID}).fetch()
     .then(user => {
       res.status(200).send(user);
     });
@@ -215,6 +215,7 @@ let addPresentation = (req, res) => {
 
 // GET SPEAKERS BY CONFERENCE ID
 let getSpeakersByConfID = (req, res) => {
+  console.log('inside getSpeakersByConfID')
   console.log('req.params.currentConfID: ', req.params.currentConfID);
 
   models.Speaker.where({conference_id: req.params.currentConfID}).fetchAll()
