@@ -3,11 +3,10 @@ import { Container, Content, List, ListItem, Header, Left, Body, Right, Thumbnai
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import EditSpeakersForm from './EditSpeakersForm';
 import axios from 'axios';
+import EditSpeakersList from './EditSpeakerComponents/EditSpeakerList';
 
 // redux things
 import { connect } from 'react-redux';
-
-
 
 
 class EditSpeakers extends Component {
@@ -48,27 +47,10 @@ class EditSpeakers extends Component {
   render() {
     return (
       <Container>
-       {/*<Header><Text>This is the header</Text></Header>*/}
         <Content>
-          <List>
-
-             {this.state.speakers.map((speaker, i) => {
-              return (
-                <ListItem key={i} avatar>
-                  <Left>
-                    <Thumbnail source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg'}} />
-                    </Left>
-                  <Body>
-                    <Text>{speaker.first_name} {speaker.last_name}</Text>
-                    <Text note>{speaker.job_title}</Text>
-                    </Body>
-                  </ListItem>
-              );
-            })}
-            </List>
+          <EditSpeakersList speakers={this.state.speakers}/>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
-
       </Container>
     );
   }
