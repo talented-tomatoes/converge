@@ -96,18 +96,19 @@ let checkinUser = (req, res) => {
 		//res.status(200).send('Success!');
 	})
 	.then(response => {
-  console.log('response from kairos ====>', response.data);
-  let confidence = response.data.images[0]['transaction']['confidence'];
-  console.log('confidence=', confidence);
-  if (confidence > 0.75) {
-  res.status(200).send('Success');
-} else {
-  res.status(200).send('Checkin Failed. Please enter a Valid Picture');
-}
-})
+    console.log('response from kairos ====>', response.data);
+    let confidence = response.data.images[0]['transaction']['confidence'];
+    console.log('confidence=', confidence);
+    if (confidence > 0.75) {
+      res.status(200).send('Success');
+    } else {
+      res.status(200).send('Checkin Failed. Please enter a Valid Picture');
+    }
+  })
 	.catch(err => {
-  console.log('ERROR getting avatar_url for user with userid:', err);
-});
+    console.log('ERROR :', err);
+    res.status(500).send('Internal Error!');
+  });
 };
 
 
