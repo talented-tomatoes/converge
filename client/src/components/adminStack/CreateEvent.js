@@ -29,21 +29,6 @@ class NewEvent extends Component {
 
   }
 
-  // componentDidMount() {
-  //   let url = 'http://localhost:3000/api/getUserID/' + this.props.user.id;
-
-  //   axios.get(url)
-  //     .then(response => {
-  //       console.log('response in createEvent: ', response);
-  //       //add userID to store
-  //       this.props.dispatch(decorateUserWithDBUserID(response.data.id));
-  //       console.log('after dispatch: ', this.props.user);
-  //       this.setState({
-  //         user_id: this.props.user.userID
-  //       }, () => {console.log('user_id state changed to: ', this.state.user_id)});
-  //     });
-  // }
-
   onNameOfEventChange(name) {
     console.log('event name', name);
     this.setState({

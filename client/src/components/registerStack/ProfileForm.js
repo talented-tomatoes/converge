@@ -64,11 +64,11 @@ class ProfileForm extends Component {
         let options = uploadImage(response.data)
         axios.post(options.url, options.body)
         .then( response => {
-          //console.log('response url = ', response.data.secure_url);
+          console.log('response url = ', response.data.secure_url);
           this.setState({
             avatarSource: {uri: response.data.secure_url}
           });
-          options = kairosEnrollReqObj(response.data.secure_url, this.props.user.id, this.props.user.id + '-gallery');
+          options = kairosEnrollReqObj(response.data.secure_url, this.props.user.id, this.props.user.id);
           return axios.post(options.url, options.body, options.config)
         })
         .then(response => {
@@ -84,13 +84,13 @@ class ProfileForm extends Component {
 
   submit(values) {
     let user = {
-      loginid: this.props.user.id,
+      login_id: this.props.user.id,
       first_name: this.props.user.givenName,
       last_name: this.props.user.familyName,
       avatar_url: this.state.avatarSource.uri,
       email: this.props.user.email,
-      linkedinid: values.linkedIn,
-      phonenumber: values.phoneNumber,
+      linkedin_id: values.linkedIn,
+      phone_number: values.phoneNumber,
     };
     return user;
   }
