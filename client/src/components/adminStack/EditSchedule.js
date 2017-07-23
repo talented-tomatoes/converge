@@ -20,7 +20,6 @@ class EditSchedule extends Component {
       confID: null,
       presentations: [],
     };
-
     const getAllPresentationsWithConferenceIdUrl = 'http://localhost:3000/api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
