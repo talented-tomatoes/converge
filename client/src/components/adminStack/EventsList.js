@@ -42,11 +42,13 @@ class EventsList extends Component {
           {
             this.state.events.map((event, key) => {
               return (
-              <TouchableOpacity key={key} onPress={() => {
-                { console.log('dispatching this conferenceID: ', event.id); } 
-                this.props.dispatch(decorateUserWithDBConferenceID(event.id)); 
-                this.props.navigation.navigate('EditSchedule');
-              }}>
+              <TouchableOpacity 
+                key={key} 
+                onPress={() => {
+                  { console.log('dispatching this conferenceID: ', event.id); } 
+                  this.props.dispatch(decorateUserWithDBConferenceID(event.id)); 
+                  this.props.navigation.navigate('EditSchedule');
+                }}>
                 <EventsListEntry
                   eventData={event}
                   />

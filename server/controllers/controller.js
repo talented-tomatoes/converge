@@ -74,7 +74,7 @@ let getAllPresentationsOfConf = (req, res) => {
 
 let checkinUser = (req, res) => {
 
-	//console.log('req.userid = ', req.params.userid);
+	// console.log('req.userid = ', req.params.userid);
 	//console.log('req.body======>', req.body);
   let USERID = req.params.userid;
   let CHECKINPICURL = req.body.checkinpicurl;
