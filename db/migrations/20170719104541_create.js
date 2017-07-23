@@ -36,7 +36,7 @@ exports.up = function(knex, Promise) {
 			table.string('last_name').notNullable();
 			table.string('job_title');
 			table.string('avatar_url');
-			table.string('bio');
+			table.string('bio', 2000);
 			table.string('email');
 			table.string('linkedin_id');
 			table.integer('conference_id').references('id').inTable('conferences');
@@ -76,8 +76,8 @@ exports.down = function(knex, Promise) {
 		knex.schema.dropTable('presentations_speakers'),
 		knex.schema.dropTable('users_presentations'),
 		knex.schema.dropTable('presentations'),
-		knex.schema.dropTable('conferences'),
 		knex.schema.dropTable('speakers'),
+		knex.schema.dropTable('conferences'),
 		knex.schema.dropTable('users'),
   ]);
 };
