@@ -68,7 +68,7 @@ class ProfileForm extends Component {
           this.setState({
             avatarSource: {uri: response.data.secure_url}
           });
-          options = kairosEnrollReqObj(response.data.secure_url, this.props.user.id, this.props.user.id + '-gallery');
+          options = kairosEnrollReqObj(response.data.secure_url, this.props.user.id, this.props.user.id);
           return axios.post(options.url, options.body, options.config)
         })
         .then(response => {
