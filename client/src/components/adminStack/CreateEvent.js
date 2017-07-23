@@ -5,6 +5,7 @@ import DatePicker from './DatePicker.js';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { connect } from 'react-redux';
 import { decorateUserWithDBUserID  } from '../actions/actions';
+import Config from '../../../../config/config.js';
 import axios from 'axios';
 
 class NewEvent extends Component {
@@ -89,7 +90,8 @@ class NewEvent extends Component {
 
     // AXIOS
     // ==================================
-    axios.post('http://localhost:3000/api/addConference', details)
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    axios.post(SERVER_URL + '/api/addConference', details)
       .then((response) => {
         console.log('this.props: ', this.props);
         console.log(response);

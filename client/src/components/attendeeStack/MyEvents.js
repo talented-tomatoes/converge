@@ -5,6 +5,7 @@ import { setSelectedConference } from '../actions/actions'
 import { TouchableOpacity } from 'react-native';
 import { Container, Header, Body, Title, Content } from 'native-base';
 import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
+import Config from '../../../../config/config.js';
 
 class MyEvents extends Component {
   static navigationOptions = {
@@ -18,8 +19,8 @@ class MyEvents extends Component {
   }
 
   componentDidMount() {
-
-    axios.get(`http://localhost:3000/api/join/conferences_users/${this.props.user.id}`)
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    axios.get(SERVER_URL + `/api/join/conferences_users/${this.props.user.id}`)
       .then(response => {
         this.setState({
           conferences: response.data

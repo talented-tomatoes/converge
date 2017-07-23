@@ -6,6 +6,7 @@ import axios from 'axios';
 
 // redux things
 import { connect } from 'react-redux';
+import Config from '../../../../config/config.js';
 
 
 
@@ -28,8 +29,8 @@ class EditSpeakers extends Component {
   componentDidMount() {
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
-
-    let url = 'http://localhost:3000/api/getSpeakersByConfID/' + this.props.admin.selectedConference.id;
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    let url = SERVER_URL + '/api/getSpeakersByConfID/' + this.props.admin.selectedConference.id;
 
     axios.get(url)
       .then(response => {
