@@ -91,7 +91,6 @@ EditSpeakersForm = reduxForm({
 
 EditSpeakersForm = connect(
   state => ({
-    initialValues: this.props.admin.selectedSpeaker,
     admin: state.adminReducer
   })
 )(EditSpeakersForm)
