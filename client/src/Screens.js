@@ -91,6 +91,7 @@ export default AppStack = StackNavigator({
   Auth: { screen: Auth},
   AttendeeStack: { screen: AttendeeStack },
   RegisterStack: { screen: RegisterStack },
+  // AdminStack: { screen: AdminStack },
 }, {
   headerMode: 'none'
 });
