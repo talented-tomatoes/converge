@@ -42,24 +42,6 @@ class EditSchedule extends Component {
     }
   };
 
-  componentDidMount() {
-    console.log('EDIT SCHEDULE SCREEN MOUNTED, PROPS ARE: ', this.props.admin)
-    // const getAllPresentationsWithConferenceIdUrl = 'http://localhost:3000/api/presentations/' + this.props.admin.selectedConference.id
-    // axios.get(getAllPresentationsWithConferenceIdUrl)
-    //   .then(presentations => {
-    //     this.setState({
-    //       presentations: presentations.data
-    //     }, () => console.log(this.state.presentations));
-    //   })
-    //   .catch(err => {
-    //     console.log('error fetching presentations: ', err);
-    //   });
-  }
-
-  fetchData() {
-    // will make calls to the database to get the data
-  }
-
   render() {
     console.log('in EditSchedule');
     console.log('editschedule props', this.props);
@@ -74,7 +56,8 @@ class EditSchedule extends Component {
                   <Content>
                     {
                       this.state.presentations.filter(presentation => {
-                        console.log(convertDateToEnglish(presentation.date), date)
+                        console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date))
+                        console.log('date: ', date);
                         return convertDateToEnglish(presentation.date) === date;
                       }).map((presentation, i) => {
                         return (
