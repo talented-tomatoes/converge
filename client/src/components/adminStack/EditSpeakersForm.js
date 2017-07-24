@@ -43,7 +43,7 @@ class EditSpeakersForm extends Component {
       let url = SERVER_URL + 'api/addSpeaker';
       let options = speaker;
       speaker.conference_id = this.props.admin.currentConfID;
-      console.log('00000000 SPEAKER INFORMATION, ', speaker)
+      console.log(' SPEAKER INFORMATION, ', speaker)
       axios.post(url, speaker)
         .then(response => {
           console.log('response : ', response);
