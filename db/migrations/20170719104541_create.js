@@ -36,11 +36,7 @@ exports.up = function(knex, Promise) {
 			table.string('last_name').notNullable();
 			table.string('job_title');
 			table.string('avatar_url');
-<<<<<<< HEAD
 			table.string('bio', 2000);
-=======
-			table.string('bio');
->>>>>>> changes all variable names to snake_case in schema, and fixes all bugs in admin stack, due to changes
 			table.string('email');
 			table.string('linkedin_id');
 			table.integer('conference_id').references('id').inTable('conferences');
