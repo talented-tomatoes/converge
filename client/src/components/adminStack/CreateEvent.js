@@ -180,7 +180,6 @@ class NewEvent extends Component {
             <Item>
               <Input
                 placeholder="upload venue map"
-
                 ></Input>
               </Item>
             <Item>

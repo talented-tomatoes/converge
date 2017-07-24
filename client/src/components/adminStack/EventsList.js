@@ -15,8 +15,8 @@ class EventsList extends Component {
     super(props);
 
     this.state = {
-      events: this.props.data || [],
-      isDataFetched: false
+      isDataFetched: false,
+      events: []
     };
 
   }
@@ -25,6 +25,7 @@ class EventsList extends Component {
   handleClick() {
     this.props.navigation.navigate('DateTabs');
   }
+
 
   componentWillReceiveProps(nextprops) {
     if (nextprops.data && !this.state.isDataFetched) {
@@ -36,7 +37,11 @@ class EventsList extends Component {
   }
 
   render() {
-    return (
+    if (this.state.events === []) {
+      console.log('this.state.events is empty!', this.state.events)
+      return (<Content><Text>Loading...</Text></Content>);
+    } else {
+      return (
       <Content>
          <List>
           {
@@ -49,6 +54,9 @@ class EventsList extends Component {
                   this.props.dispatch(decorateUserWithDBConferenceID(event.id));
                   this.props.dispatch(setAdminSelectedConference(event));
                   this.props.navigation.navigate('EditSchedule');
+                  this.setState({
+                    isDataFetched: false
+                  });
                 }}>
                 <EventsListEntry
                   eventData={event}
@@ -59,14 +67,15 @@ class EventsList extends Component {
           }
           </List>
         </Content>
-    );
+      );
+    }
   }
 }
 
 // REDUX THINGS
 const mapStateToProps = (state) => {
   return {
-    data: state.adminReducer.data,
+    data: state.adminReducer,
     confID: state.adminReducer.confID,
     admin: state.adminReducer,
   };
