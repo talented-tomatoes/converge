@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AttendeeFooter from './AttendeeFooter.js';
+import { Image } from 'react-native';
 import { Drawer, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
 
 import SideBar from './Sidebar';
@@ -40,7 +41,10 @@ class Home extends Component {
           <Right />
         </Header>
         <Content>
-          <Text>Home</Text>
+          <Image source={{uri: this.props.conference.banner }} style={{height: 200, width: null, flex: 1}}/>
+          <Body>
+            <Text>{this.props.conference.details}</Text>
+          </Body>
         </Content>
         <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
       </Drawer>
