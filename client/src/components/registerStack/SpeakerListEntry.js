@@ -20,7 +20,8 @@ export default class ConferenceListScreen extends React.Component {
         </TouchableOpacity>
         <Body>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { speaker: this.props.speaker })}>
-            <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
+             <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
+             <Text note>{this.props.speaker.job_title}</Text>
           </TouchableOpacity>
         </Body>
       </ListItem>
