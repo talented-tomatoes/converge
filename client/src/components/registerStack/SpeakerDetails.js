@@ -29,7 +29,7 @@ export default class ConferenceDetails extends Component {
               <Body>
                 <Image source={{uri: params.speaker.avatar_url}} style={{height: 200, width: 200, flex: 1}}/>
                 <Text>
-                  {params.speaker.about}
+                  {params.speaker.bio}
                 </Text>
               </Body>
             </CardItem>
