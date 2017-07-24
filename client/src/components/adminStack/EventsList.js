@@ -46,7 +46,8 @@ class EventsList extends Component {
                 key={key} 
                 onPress={() => {
                   { console.log('dispatching this conferenceID: ', event.id); } 
-                  this.props.dispatch(decorateUserWithDBConferenceID(event.id)); 
+                  this.props.dispatch(decorateUserWithDBConferenceID(event.id));
+                  this.props.dispatch(setAdminSelectedConference(event));
                   this.props.navigation.navigate('EditSchedule');
                 }}>
                 <EventsListEntry

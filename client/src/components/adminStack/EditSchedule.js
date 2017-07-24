@@ -42,12 +42,16 @@ class EditSchedule extends Component {
 
   componentDidMount() {
     console.log('EDIT SCHEDULE SCREEN MOUNTED, PROPS ARE: ', this.props.admin)
-    // console.log('component mounted', this);
-    // if (this.state.confID === null) {
-    //   this.setState({
-    //     confID: this.props.navigation.state.params.confID
-    //   }, function() {console.log('confid is now ', this.state.confID)})
-    // }
+    // const getAllPresentationsWithConferenceIdUrl = 'http://localhost:3000/api/presentations/' + this.props.admin.selectedConference.id
+    // axios.get(getAllPresentationsWithConferenceIdUrl)
+    //   .then(presentations => {
+    //     this.setState({
+    //       presentations: presentations.data
+    //     }, () => console.log(this.state.presentations));
+    //   })
+    //   .catch(err => {
+    //     console.log('error fetching presentations: ', err);
+    //   });
   }
 
   fetchData() {
@@ -55,7 +59,7 @@ class EditSchedule extends Component {
   }
 
   render() {
-    // console.log('in EditSchedule');
+    console.log('in EditSchedule');
     console.log('editschedule props', this.props);
     console.log('this.state.presentations: ', this.state.presentations);
     return (
