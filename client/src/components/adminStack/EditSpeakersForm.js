@@ -42,7 +42,7 @@ class EditSpeakersForm extends Component {
       let url = 'http://localhost:3000/api/addSpeaker';
       let options = speaker;
       speaker.conference_id = this.props.admin.currentConfID;
-      console.log('00000000 SPEAKER INFORMATION, ', speaker)
+      console.log(' SPEAKER INFORMATION, ', speaker)
       axios.post(url, speaker)
         .then(response => {
           console.log('response : ', response);
@@ -91,6 +91,7 @@ EditSpeakersForm = reduxForm({
 
 EditSpeakersForm = connect(
   state => ({
+    initialValues: this.props.admin.selectedSpeaker,
     admin: state.adminReducer
   })
 )(EditSpeakersForm)

@@ -96,8 +96,8 @@ let checkinUser = (req, res) => {
 		//res.status(200).send('Success!');
 
 	.then(response => {
-    console.log('response from kairos ====>', response.data);
-    if (response.data.images) {
+  console.log('response from kairos ====>', response.data);
+  if (response.data.images) {
       let confidence = response.data.images[0]['transaction']['confidence'];
       console.log('confidence=', confidence);
       if (confidence > 0.75) {
@@ -106,13 +106,13 @@ let checkinUser = (req, res) => {
         res.status(200).send('Checkin Failed. Please enter a Valid Picture');
       }
     } else {
-        res.status(200).send('Checkin Failed. Please enter a Valid Picture');
+      res.status(200).send('Checkin Failed. Please enter a Valid Picture');
     }
-  })
+})
 	.catch(err => {
-    console.log('ERROR :', err);
-    res.status(500).send('Internal Error!');
-  });
+  console.log('ERROR :', err);
+  res.status(500).send('Internal Error!');
+});
 };
 
 
@@ -220,7 +220,7 @@ let addPresentation = (req, res) => {
 
 // GET SPEAKERS BY CONFERENCE ID
 let getSpeakersByConfID = (req, res) => {
-  console.log('inside getSpeakersByConfID')
+  console.log('inside getSpeakersByConfID');
   console.log('req.params.currentConfID: ', req.params.currentConfID);
 
   models.Speaker.where({conference_id: req.params.currentConfID}).fetchAll()
@@ -237,35 +237,35 @@ let helloWorld = (req, res) => {
 // let addPresentation = (req, res) => {};
 
 let saveUserToConference = (req, res) => {
-	console.log('Payment successful. Saving user to Conference ===>', req.body);
-	var conference_id = req.body.conference_id;
-	var user_id = req.body.user_id;
-	models.ConferenceUser.forge({conference_id, user_id})
+  console.log('Payment successful. Saving user to Conference ===>', req.body);
+  var conference_id = req.body.conference_id;
+  var user_id = req.body.user_id;
+  models.ConferenceUser.forge({conference_id, user_id})
 		.fetch()
 		.then(record => {
-			if (record) {
-				console.log('RECORD FOUND ===>', record);
-				res.status(201).end();
-			} else {
-				models.ConferenceUser.forge({conference_id, user_id}).save();
-				res.status(201).end();
-      }
-		})
-		.catch(error => {
-			console.log(error);
-			res.status(400).end();
-		});
+  if (record) {
+  console.log('RECORD FOUND ===>', record);
+  res.status(201).end();
+} else {
+  models.ConferenceUser.forge({conference_id, user_id}).save();
+  res.status(201).end();
 }
+})
+		.catch(error => {
+  console.log(error);
+  res.status(400).end();
+});
+};
 
 let getAllUserEvents = (req, res) => {
 
   models.ConferenceUser.where({user_id: req.params.userid})
 		.fetchAll({withRelated: ['conferences']})
 		.then(record => {
-			var data = JSON.stringify(record);
-			var conferences = JSON.parse(data).map(conf => conf.conferences);
-			res.status(200).send(conferences);
-		});
+  var data = JSON.stringify(record);
+  var conferences = JSON.parse(data).map(conf => conf.conferences);
+  res.status(200).send(conferences);
+});
 
 };
 
