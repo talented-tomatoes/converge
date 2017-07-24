@@ -79,6 +79,8 @@ let checkinUser = (req, res) => {
   let USERID = req.params.userid;
   let CHECKINPICURL = req.body.checkinpicurl;
 	//console.log('CHECKINPICURL=====>', CHECKINPICURL);
+
+
   let gallery_name = '';
   models.User.where({login_id: USERID}).fetch({columns: ['gallery_name']})
 	.then(user => {
@@ -93,6 +95,7 @@ let checkinUser = (req, res) => {
   console.log('options = ', OPTIONS);
   return axios.post(OPTIONS.url, OPTIONS.body, OPTIONS.config)
 // }
+}})
 		//res.status(200).send('Success!');
 
 	.then(response => {
