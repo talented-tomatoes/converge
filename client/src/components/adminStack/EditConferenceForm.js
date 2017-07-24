@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon } from 'native-base';
 // import UserSwiperFooter from './helpers/UserSwiperFooter';
 
 // import ImagePicker from 'react-native-image-picker';
@@ -31,8 +31,7 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 class EditConferenceForm extends Component {
   static navigationOptions = {
     title: 'Update Conference Details',
-    header: null,
-    headerTruncatedBackTitle: ''
+    headerLeft: <Button transparent onPress={() => navigation.navigate('EditConference')}><Icon name="menu"/></Button>
   }
   constructor(props) {
     super(props);
@@ -44,7 +43,7 @@ class EditConferenceForm extends Component {
 
   saveToDB(conference) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-      let url = SERVER_URL + '/api/addConference';
+      let url = SERVER_URL + 'api/addConference';
       let options = conference;
       axios.post(url, conference)
         .then(response => {

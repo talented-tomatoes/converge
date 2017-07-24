@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry } from 'react-native';
-import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
+import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body, Thumbnail } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
@@ -14,17 +14,17 @@ import axios from 'axios';
 
 
 class AdminLanding extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Events',
-      headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>
+      headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>,
+      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="menu"/></Button>
     }
   };
 
-  constructor(props) {
-    super(props);
-
-  }
 
   componentDidMount() {
     console.log('Admin Landing Page mounted!');

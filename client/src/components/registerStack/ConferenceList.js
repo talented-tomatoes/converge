@@ -16,7 +16,7 @@ export default class ConferenceListScreen extends React.Component {
 
   componentDidMount() {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    axios.get(SERVER_URL + '/api/conferences')
+    axios.get(SERVER_URL + 'api/conferences')
       .then(response => {
         this.setState({
           conferences: response.data

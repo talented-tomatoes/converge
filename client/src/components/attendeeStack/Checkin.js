@@ -95,7 +95,7 @@ class Checkin extends Component {
             checkinpicurl: response.data.secure_url
            };
            //console.log('sending axios to server,userid=', USER_ID);
-           return axios.post(SERVER_URL + `/api/users/${USER_ID}/checkin`, reqObj)
+           return axios.post(SERVER_URL + `api/users/${USER_ID}/checkin`, reqObj)
         })
         .then(response => {
           console.log('Response', response.data);

@@ -9,7 +9,7 @@ const saveToDB = (userType, callback) => {
   user.user_type = userType;
   console.log('user: ', user);
   const SERVER_URL = Config.server.url || 'http://localhost:3000';
-  let url = SERVER_URL + '/api/registerUser';
+  let url = SERVER_URL + 'api/registerUser';
   let options = user;
   axios.post(url, user)
     .then(response => {

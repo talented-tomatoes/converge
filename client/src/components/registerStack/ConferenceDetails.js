@@ -59,12 +59,12 @@ class ConferenceDetails extends Component {
           user_id: this.props.user.id
         }
         const SERVER_URL = Config.server.url || 'http://localhost:3000';
-        axios.post(SERVER_URL + '/api/payments/charge', paymentDetails)
+        axios.post(SERVER_URL + 'api/payments/charge', paymentDetails)
           .then(response => {
             return response;
           })
           .then(response => {
-            return axios.post(SERVER_URL + '/api/join/conferences_users', paymentDetails)
+            return axios.post(SERVER_URL + 'api/join/conferences_users', paymentDetails)
           })
           .then(response => {
             paymentResponse.complete('success');
