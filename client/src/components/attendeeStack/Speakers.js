@@ -32,7 +32,7 @@ class Speakers extends Component {
         <Header>
           <Left>
             <Button dark transparent onPress={() => {this.openDrawer()}}>
-              <Icon ios='md-menu' android="md-menu" style={{padding: 10}}/>
+              <Icon ios='md-menu' android="md-menu"/>
             </Button>
           </Left>
           <Body>
