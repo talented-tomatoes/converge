@@ -12,7 +12,7 @@ export default class AttendeeHeader extends Component {
 			<Header>
 				<Left>
 					<Button dark transparent onPress={() => {this.props.openDrawer()}}>
-						<Icon ios='md-menu' android="md-menu" style={{padding: 10}}/>
+						<Icon ios='md-menu' android="md-menu"/>
 							</Button>
 				</Left>
 				<Body>
