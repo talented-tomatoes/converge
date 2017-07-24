@@ -1,14 +1,19 @@
+import axios from 'axios';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Drawer, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
+import { Drawer, Content, Header, Container, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text, Card, CardItem } from 'native-base';
 import AttendeeFooter from './AttendeeFooter.js';
 import SideBar from './Sidebar';
 
-export default class Presentations extends Component {
+class Presentations extends Component {
   static navigationOptions = {
 
   };
   constructor(props) {
     super(props);
+    this.state = {
+      presentations: []
+    }
   }
 
   closeDrawer() {
@@ -19,7 +24,18 @@ export default class Presentations extends Component {
     this.drawer._root.open()
   };
 
+  componentDidMount() {
+    axios.get(`http://localhost:3000/api/presentations/${this.props.conference.id}`)
+      .then(response => {
+        console.log(response);
+        this.setState({
+          presentations: response.data
+        })
+      })
+  }
+
   render() {
+
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -37,7 +53,27 @@ export default class Presentations extends Component {
           <Right />
         </Header>
         <Content>
-          <Text>Presentations</Text>
+          {
+            this.state.presentations.map(presentation => 
+
+                <Card>
+                  <CardItem header>
+                    <Text>{presentation.name}</Text>
+                  </CardItem>
+                  <CardItem>
+                    <Body>
+                      <Text>
+                        {presentation.description}
+                      </Text>
+                    </Body>
+                  </CardItem>
+                  <CardItem footer>
+                    <Text>{presentation.date} at {presentation.time}</Text>
+                  </CardItem>
+                </Card>
+
+            )
+          }
         </Content>
         <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
       </Drawer>
@@ -45,3 +81,10 @@ export default class Presentations extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    conference: state.attendeeReducer
+  }
+}
+
+export default connect(mapStateToProps)(Presentations);
