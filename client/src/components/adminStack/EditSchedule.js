@@ -8,6 +8,7 @@ import EditConferenceFooter from './helpers/EditConferenceFooter';
 import EditScheduleForm from './EditScheduleForm';
 import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConference';
 import convertDateToEnglish from './helpers/convertDateToEnglish';
+import Config from '../../../../config/config.js';
 
 
 
@@ -20,7 +21,8 @@ class EditSchedule extends Component {
       confID: null,
       presentations: [],
     };
-    const getAllPresentationsWithConferenceIdUrl = 'http://localhost:3000/api/presentations/' + this.props.admin.selectedConference.id
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    const getAllPresentationsWithConferenceIdUrl = SERVER_URL + '/api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
         this.setState({

@@ -5,6 +5,7 @@ import { Container, Header, Content, Title, Body, Card, CardItem, Button, List, 
 import axios from 'axios';
 import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
+import Config from '../../../../config/config.js';
 
 class ConferenceDetails extends Component {
 
@@ -57,13 +58,13 @@ class ConferenceDetails extends Component {
           conference_id: params.conference.id,
           user_id: this.props.user.id
         }
-
-        axios.post('http://localhost:3000/api/payments/charge', paymentDetails)
+        const SERVER_URL = Config.server.url || 'http://localhost:3000';
+        axios.post(SERVER_URL + '/api/payments/charge', paymentDetails)
           .then(response => {
             return response;
           })
           .then(response => {
-            return axios.post('http://localhost:3000/api/join/conferences_users', paymentDetails)
+            return axios.post(SERVER_URL + '/api/join/conferences_users', paymentDetails)
           })
           .then(response => {
             paymentResponse.complete('success');

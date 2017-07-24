@@ -12,6 +12,7 @@ import axios from 'axios';
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import Config from '../../../../config/config.js';
 
 
 
@@ -39,7 +40,8 @@ class EditSpeakersForm extends Component {
   }
 
   saveToDB(speaker) {
-      let url = 'http://localhost:3000/api/addSpeaker';
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+      let url = SERVER_URL + '/api/addSpeaker';
       let options = speaker;
       speaker.conference_id = this.props.admin.currentConfID;
       console.log('00000000 SPEAKER INFORMATION, ', speaker)

@@ -12,6 +12,7 @@ import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer
 // import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 // import Swiper from 'react-native-swiper';
+import Config from '../../../../config/config.js';
 
 
 import { Field, reduxForm } from 'redux-form';
@@ -42,7 +43,8 @@ class EditConferenceForm extends Component {
   }
 
   saveToDB(conference) {
-      let url = 'http://localhost:3000/api/addConference';
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+      let url = SERVER_URL + '/api/addConference';
       let options = conference;
       axios.post(url, conference)
         .then(response => {
