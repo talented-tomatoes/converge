@@ -139,14 +139,35 @@ let chargeCustomer = (req, res) => {
 let registerUser = (req, res) => {
   console.log('Inside registerUser');
   console.log('req.body: ', req.body);
-  models.User.forge(req.body).save()
-    .then(user => {
-      console.log('user saved:', user);
-    })
-    .catch(err => {
-      console.log('error saving user: ', err);
-    });
-
+  // models.User.forge(req.body).save()
+  //   .then(user => {
+  //     console.log('user saved:', user);
+  //   })
+  //   .catch(err => {
+  //     console.log('error saving user: ', err);
+  //   });
+  models.User.forge({login_id:req.body.login_id})
+             .fetch()
+             .then(user => {
+               console.log('user fetched===>', user);
+               user.save(req.body)
+               .then(user => {
+                  console.log('user saved:', user);
+                })
+                .catch(err => {
+                  console.log('error saving user: ', err);
+                })
+             })
+             .catch(err => {
+               models.User.forge(req.body)
+                          .save()
+                          .then(user => {
+                            console.log('user saved:', user);
+                          })
+                          .catch(user => {
+                            console.log('error saving user: ', err);
+                          })
+             })
   res.status(200).send('User saved!');
 };
 
