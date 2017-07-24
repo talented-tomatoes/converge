@@ -2,12 +2,14 @@ import React from 'react';
 import { Content, Button, Text } from 'native-base';
 import Swiper from 'react-native-swiper';
 import axios from 'axios';
+import Config from '../../../../../config/config.js';
 
 const saveToDB = (userType, callback) => {
   let user = callback();
   user.user_type = userType;
   console.log('user: ', user);
-  let url = 'http://localhost:3000/api/registerUser';
+  const SERVER_URL = Config.server.url || 'http://localhost:3000';
+  let url = SERVER_URL + 'api/registerUser';
   let options = user;
   axios.post(url, user)
     .then(response => {

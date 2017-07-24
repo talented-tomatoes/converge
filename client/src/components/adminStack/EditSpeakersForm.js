@@ -6,12 +6,13 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon } from 'native-base';
 import axios from 'axios';
 
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import Config from '../../../../config/config.js';
 
 
 
@@ -28,8 +29,7 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 class EditSpeakersForm extends Component {
   static navigationOptions = {
     title: 'Add A Speaker',
-    header: null,
-    headerTruncatedBackTitle: ''
+    headerLeft: <Button transparent onPress={() => navigation.navigate('EditSpeakers')}><Icon name="menu"/></Button>
   }
   constructor(props) {
     super(props);
@@ -39,7 +39,8 @@ class EditSpeakersForm extends Component {
   }
 
   saveToDB(speaker) {
-      let url = 'http://localhost:3000/api/addSpeaker';
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+      let url = SERVER_URL + 'api/addSpeaker';
       let options = speaker;
       speaker.conference_id = this.props.admin.currentConfID;
       console.log(' SPEAKER INFORMATION, ', speaker)
@@ -48,7 +49,7 @@ class EditSpeakersForm extends Component {
           console.log('response : ', response);
         })
         .catch(error => {
-          console.log('error: ', error);
+          console.log('error saving speaker: ', error);
         })
       this.props.navigation.navigate('EditSpeakers');
     }

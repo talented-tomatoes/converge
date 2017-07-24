@@ -4,6 +4,7 @@ import { AppRegistry, Image, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import SpeakerListEntry from './SpeakerListEntry.js';
 import { Container, Header, Right, Content, Card, Title, CardItem, ListItem, Thumbnail, Text, Button, Icon, List, Left, Body } from 'native-base';
+import Config from '../../../../config/config.js';
 
 export default class ConferenceListScreen extends React.Component {
   constructor(props) {
@@ -14,7 +15,8 @@ export default class ConferenceListScreen extends React.Component {
   }
 
   componentDidMount() {
-   axios.get(`http://localhost:3000/api/speakers/${this.props.conferenceID}`)
+  const SERVER_URL = Config.server.url || 'http://localhost:3000';
+   axios.get(SERVER_URL + `api/speakers/${this.props.conferenceID}`)
     .then(response => {
       this.setState({
         speakers: response.data

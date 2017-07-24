@@ -7,13 +7,14 @@ import {
   Image,
   Platform
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon } from 'native-base';
 
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import Config from '../../../../config/config.js';
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
@@ -29,8 +30,7 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 class EditScheduleForm extends Component {
   static navigationOptions = {
     title: 'Add A Presentation',
-    header: null,
-    headerTruncatedBackTitle: ''
+    headerLeft: <Button transparent onPress={() => navigation.navigate('EditSchedule')}><Icon name="menu"/></Button>
   }
   constructor(props) {
     super(props);
@@ -56,7 +56,8 @@ class EditScheduleForm extends Component {
         }
       ]
     }
-    let getAllSpeakersByConferenceIdUrl = 'http://localhost:3000/api/speakers/' + this.props.admin.selectedConference.id;
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    let getAllSpeakersByConferenceIdUrl = SERVER_URL + 'api/speakers/' + this.props.admin.selectedConference.id;
     axios.get(getAllSpeakersByConferenceIdUrl)
       .then( speakers => {
         console.log('speakers: ', speakers.data);
@@ -70,7 +71,8 @@ class EditScheduleForm extends Component {
   }
 
   saveToDB(presentation) {
-      let url = 'http://localhost:3000/api/AddPresentation';
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+      let url = SERVER_URL + 'api/AddPresentation';
       let options = presentation;
       console.log('presentation: ', presentation);
       axios.post(url, presentation)

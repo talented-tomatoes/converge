@@ -7,7 +7,8 @@ export default class EditConference extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Conference Details',
-      headerRight: <Button transparent onPress={() => navigation.navigate('EditConferenceForm')}><Icon name="add"/></Button>
+      headerRight: <Button transparent onPress={() => navigation.navigate('EditConferenceForm')}><Icon name="add"/></Button>,
+      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
     }
   };
 
