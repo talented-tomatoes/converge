@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Image } from 'react-native';
 import { Drawer, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
 import AttendeeFooter from './AttendeeFooter.js';
 import SideBar from './Sidebar';
 
-export default class VenueMap extends Component {
+class VenueMap extends Component {
   static navigationOptions = {
 
   };
@@ -18,7 +20,7 @@ export default class VenueMap extends Component {
   openDrawer() {
     this.drawer._root.open()
   };
-  //This is our main app
+
   render() {
     return (
       <Drawer
@@ -36,12 +38,20 @@ export default class VenueMap extends Component {
           </Body>
           <Right />
         </Header>
-        <Content>
-          <Text>VenueMap</Text>
+        <Content style={{padding: 10}}>
+          <Image source={{uri: this.props.conference.venue_map}} style={{height: 500, flex: 1}}/>
         </Content>
         <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
       </Drawer>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    conference: state.attendeeReducer
+  }
+}
+
+export default connect(mapStateToProps)(VenueMap);
 
