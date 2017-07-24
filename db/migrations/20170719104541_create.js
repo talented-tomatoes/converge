@@ -11,7 +11,6 @@ exports.up = function(knex, Promise) {
 		table.string('linkedin_id');
 		table.string('phone_number');
 		table.string('user_type');
-		table.string('gallery_name');
 		table.unique('login_id');
 	}),
 ])
