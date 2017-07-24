@@ -24,7 +24,9 @@ const adminReducer = (state = {data: null}, action) => {
     case 'SET_CURRENT_CONF_ID':
       return {...state, ...{currentConfID: action.currentConfID}};
     case 'SET_ADMIN_SELECTED_CONFERENCE':
-      return {...state, ...{selectedConference: action.conference}}
+      return {...state, ...{selectedConference: action.conference}};
+    case 'SET_SPEAKER_INITIAL_VALUE':
+      return {...state, ...{selectSpeaker: action.selectSpeaker}};
     default:
       return state;
   }

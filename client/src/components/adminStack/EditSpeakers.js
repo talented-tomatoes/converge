@@ -29,6 +29,10 @@ class EditSpeakers extends Component {
   };
 
   componentDidMount() {
+    // reset the Redux Store current speaker upon landing on this page
+    this.props.dispatch()
+
+
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
     const SERVER_URL = Config.server.url || 'http://localhost:3000';

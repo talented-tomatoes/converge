@@ -39,12 +39,19 @@ export function setSelectedConference(conference) {
   return {
     type: 'SET_SELECTED_CONFERENCE',
     conference: conference
-  }
+  };
 }
 
 export function setAdminSelectedConference(conference) {
   return {
     type: 'SET_ADMIN_SELECTED_CONFERENCE',
     conference: conference
-  }
+  };
+}
+
+export function setSpeakerInitialValues(speakerValues) {
+  return {
+    type: 'SET_SPEAKER_INITIAL_VALUES',
+    speakerValue: speakerValues
+  };
 }
