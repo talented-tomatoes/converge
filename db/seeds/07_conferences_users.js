@@ -4,11 +4,13 @@ exports.seed = function(knex, Promise) {
   return knex('conferences_users').del()
     .then(function () {
       // Inserts seed entries
-      return knex('conferences_users').insert([
-        { id: 1, conference_id: 1, user_id: '106873821099349941383' },
-        { id: 2, conference_id: 2, user_id: '106873821099349941383'},
-        { id: 3, conference_id: 1, user_id: '106873821099349941385'},
-        { id: 4, conference_id: 2, user_id: '106873821099349941385'},
+      return knex('conferences_users')
+      .returning('id')
+      .insert([
+        { conference_id: 1, user_id: '106873821099349941383' },
+        { conference_id: 2, user_id: '106873821099349941383'},
+        { conference_id: 1, user_id: '106873821099349941385'},
+        { conference_id: 2, user_id: '106873821099349941385'}
       ]);
     });
 };
