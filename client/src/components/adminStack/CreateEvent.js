@@ -91,7 +91,7 @@ class NewEvent extends Component {
     // AXIOS
     // ==================================
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    axios.post(SERVER_URL + '/api/addConference', details)
+    axios.post(SERVER_URL + 'api/addConference', details)
       .then((response) => {
         console.log('this.props: ', this.props);
         console.log(response);

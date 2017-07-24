@@ -20,7 +20,7 @@ class MyEvents extends Component {
 
   componentDidMount() {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    axios.get(SERVER_URL + `/api/join/conferences_users/${this.props.user.id}`)
+    axios.get(SERVER_URL + `api/join/conferences_users/${this.props.user.id}`)
       .then(response => {
         this.setState({
           conferences: response.data

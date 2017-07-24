@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import { Container, Button, Title, Text } from 'native-base';
 
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+
 export default class Sidebar extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  _signOut() {
+    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
+      this.setState({user: null});
+      this.props.navigation.navigate('Auth');
+    })
+    .done();
   }
 
   render() {
@@ -25,6 +35,10 @@ export default class Sidebar extends React.Component {
           <Button rounded transparent onPress={() => {this.props.navigation.navigate('MyEvents')}}>
             <Title>My Events</Title>
           </Button>
+          <Button rounded transparent onPress={() => {this._signOut()}}>
+            <Title>Logout</Title>
+          </Button>
+
       </Container>
     );
   }

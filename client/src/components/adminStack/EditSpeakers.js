@@ -22,7 +22,8 @@ class EditSpeakers extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Speakers',
-      headerRight: <Button transparent onPress={() => navigation.navigate('EditSpeakersForm')}><Icon name="add"/></Button>
+      headerRight: <Button transparent onPress={() => navigation.navigate('EditSpeakersForm')}><Icon name="add"/></Button>,
+      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
     }
   };
 
@@ -30,7 +31,7 @@ class EditSpeakers extends Component {
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    let url = SERVER_URL + '/api/getSpeakersByConfID/' + this.props.admin.selectedConference.id;
+    let url = SERVER_URL + 'api/getSpeakersByConfID/' + this.props.admin.selectedConference.id;
 
     axios.get(url)
       .then(response => {

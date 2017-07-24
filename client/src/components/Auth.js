@@ -7,6 +7,9 @@ import { Container, Content, Button } from 'native-base';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
 import { setUser } from './actions/actions';
+import Config from '../../../config/config';
+
+import axios from 'axios';
 
 class Auth extends Component {
   static navigationOptions = {
@@ -25,6 +28,27 @@ class Auth extends Component {
     this._setupGoogleSignin();
   }
 
+  validateUserType() {
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    this.props.dispatch(setUser(this.state.user));
+    let url = SERVER_URL + 'api/getUserID/' + this.state.user.id;
+    axios.get(url)
+      .then(response => {
+        if (response.data.length === 0) {
+          this.props.navigation.navigate('RegisterStack');
+        } else if (response.data.user_type === 'host') {
+          this.props.navigation.navigate('AdminStack');
+        } else if (response.data.user_type === 'attendee') {
+          this.props.navigation.navigate('AttendeeStack');
+        }
+      })
+      .catch(error => {
+        console.log('error redirecting user: ', error);
+      })
+
+
+  }
+
   async _setupGoogleSignin() {
     try {
       await GoogleSignin.hasPlayServices({ autoResolve: true });
@@ -33,8 +57,8 @@ class Auth extends Component {
       });
 
       const user = await GoogleSignin.currentUserAsync();
-      this.setState({user});
-      this.props.dispatch(setUser(this.state.user));
+      this.setState({user}, () => this.validateUserType());
+      // this.props.dispatch(setUser(this.state.user));
 
     }
     catch(err) {
@@ -45,8 +69,8 @@ class Auth extends Component {
   _signIn() {
     GoogleSignin.signIn()
     .then((user) => {
-      this.setState({user: user});
-      this.props.dispatch(setUser(this.state.user));
+      this.setState({user: user}, () => this.validateUserType());
+      // this.props.dispatch(setUser(this.state.user));
 
     })
     .catch((err) => {
@@ -64,27 +88,11 @@ class Auth extends Component {
 
   //This is our main app
   render() {
-    if (!this.state.user) {
+    // if (!this.state.user) {
       return (
         <Container style={{backgroundColor: 'lightgrey'}}>
           <View style={styles.container}>
             <GoogleSigninButton style={{width: 212, height: 48}} size={GoogleSigninButton.Size.Standard} color={GoogleSigninButton.Color.Auto} onPress={this._signIn.bind(this)}/>
-          </View>
-        </Container>
-      );
-    }
-
-    if (this.state.user) {
-      return (
-        <Container style={{backgroundColor: 'lightgrey'}}>
-          <View style={styles.container}>
-            <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 20}}>Welcome {this.state.user.name}</Text>
-            <Button rounded primary onPress={() => {this.props.navigation.navigate('AttendeeStack', this.state.user)}}>
-              <Text style={{fontWeight: 'bold', color: 'white'}}>I'm Already Registered</Text>
-            </Button>
-            <Button rounded primary onPress={() => {this.props.navigation.navigate('RegisterStack')}}>
-              <Text style={{fontWeight: 'bold', color: 'white'}}>I Need To Register</Text>
-            </Button>
             <TouchableOpacity onPress={() => {this._signOut(); }}>
               <View style={{marginTop: 50}}>
                 <Text>Log out</Text>
@@ -93,7 +101,23 @@ class Auth extends Component {
           </View>
         </Container>
       );
-    }
+    // }
+
+    // if (this.state.user) {
+    //   return (
+    //     <Container style={{backgroundColor: 'lightgrey'}}>
+    //       <View style={styles.container}>
+    //         <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 20}}>Welcome {this.state.user.name}</Text>
+    //         <Button rounded primary onPress={() => {this.props.navigation.navigate('AttendeeStack', this.state.user)}}>
+    //           <Text style={{fontWeight: 'bold', color: 'white'}}>I'm Already Registered</Text>
+    //         </Button>
+    //         <Button rounded primary onPress={() => {this.props.navigation.navigate('RegisterStack')}}>
+    //           <Text style={{fontWeight: 'bold', color: 'white'}}>I Need To Register</Text>
+    //         </Button>
+    //       </View>
+    //     </Container>
+    //   );
+    // }
 
 
 

@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry } from 'react-native';
-import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body } from 'native-base';
+import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body, Thumbnail } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
 import Config from '../../../../config/config.js';
+
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
 // import the action
 import { connect } from 'react-redux';
@@ -14,17 +16,25 @@ import axios from 'axios';
 
 
 class AdminLanding extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'My Events',
-      headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>
+      headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>,
+      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="menu"/></Button>
     }
   };
 
-  constructor(props) {
-    super(props);
-
+  _signOut() {
+    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
+      this.setState({user: null});
+      this.props.navigation.navigate('Auth');
+    })
+    .done();
   }
+
 
   componentDidMount() {
     console.log('Admin Landing Page mounted!');
@@ -60,6 +70,9 @@ class AdminLanding extends Component {
     return (
       <Container>
         <Content>
+          <Button rounded transparent onPress={() => {this._signOut()}}>
+            <Title>Logout</Title>
+          </Button>
           <EventsList navigation={this.props.navigation}/>
         </Content>
       </Container>

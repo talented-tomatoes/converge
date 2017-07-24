@@ -22,7 +22,7 @@ class EditSchedule extends Component {
       presentations: [],
     };
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    const getAllPresentationsWithConferenceIdUrl = SERVER_URL + '/api/presentations/' + this.props.admin.selectedConference.id
+    const getAllPresentationsWithConferenceIdUrl = SERVER_URL + 'api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
         this.setState({
@@ -37,7 +37,8 @@ class EditSchedule extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Schedule',
-      headerRight: <Button transparent onPress={() => navigation.navigate('EditScheduleForm')}><Icon name="add"/></Button>
+      headerRight: <Button transparent onPress={() => navigation.navigate('EditScheduleForm')}><Icon name="add"/></Button>,
+      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
     }
   };
 
