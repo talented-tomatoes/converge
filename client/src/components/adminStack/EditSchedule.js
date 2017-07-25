@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Text, Button, Tabs, Tab, Icon } from 'native-base';
+import { Container, Content, Header, Left, Right, Body, Title, Text, Button, Tabs, Tab, Icon } from 'native-base';
 
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -9,6 +9,8 @@ import EditScheduleForm from './EditScheduleForm';
 import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConference';
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
+
 
 
 
@@ -48,6 +50,15 @@ class EditSchedule extends Component {
     console.log('this.state.presentations: ', this.state.presentations);
     return (
       <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="AdminLanding"
+          leftIcon="arrow-back"
+          title="Presentations"
+          rightNavigation="EditScheduleForm"
+          rightIcon= "add"
+        />
+
         <Tabs initialPage={0}>
           {
             this.state.dates.map((date, i) => {

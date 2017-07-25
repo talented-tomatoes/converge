@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Drawer, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
-import AttendeeFooter from './AttendeeFooter.js';
 import SideBar from './Sidebar';
+import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
+import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 
 export default class Concierge extends Component {
   static navigationOptions = {
@@ -26,21 +27,15 @@ export default class Concierge extends Component {
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
-        <Header>
-          <Left>
-            <Button dark transparent onPress={() => {this.openDrawer()}}>
-              <Icon ios='md-menu' android="md-menu"/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Concierge</Title>
-          </Body>
-          <Right />
-        </Header>
+        <AttendeeConferenceHeader
+          leftOnPress={this.openDrawer.bind(this)}
+          leftIcon="menu"
+          title="Concierge"
+        />
         <Content>
           <Text>Concierge</Text>
         </Content>
-        <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
+        <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
     );
   }

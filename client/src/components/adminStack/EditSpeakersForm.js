@@ -13,6 +13,8 @@ import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
+
 
 
 
@@ -65,6 +67,13 @@ class EditSpeakersForm extends Component {
     return (
       <Container>
         {console.log('CONFERENCEID: ', this.props.navigation.state.params)}
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="EditSpeakers"
+          leftIcon="arrow-back"
+          title="Speakers"
+          rightIcon= "trash"
+        />
         <Content>
           <Field name="first_name" component={ renderInput } label="First Name:" placeholder="John" />
           <Field name="last_name" component={ renderInput } label="Last Name:" placeholder="Doe" />

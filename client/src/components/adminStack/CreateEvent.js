@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Container, Button, Content, Card, Item, Input } from 'native-base';
+import { View } from 'react-native';
+import { Container, Header, Footer, Right, Body, Left, Button, Content, Text, Card, Icon, Title, Item, Input } from 'native-base';
 import DatePicker from './DatePicker.js';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { connect } from 'react-redux';
 import { decorateUserWithDBUserID  } from '../actions/actions';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
+import AdminStackHeader from './helpers/AdminStackHeader';
 
 class NewEvent extends Component {
   static navigationOptions = {
@@ -103,13 +104,19 @@ class NewEvent extends Component {
       });
   }
 
-  // handle
-
-
   render() {
     console.log('this.props in create event: ', this.props);
     return (
       <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="AdminLanding"
+          leftIcon="arrow-back"
+          title="Conference"
+          rightNavigation="CreateEvent"
+          rightIcon= "add"
+        />
+        <Content>
           <Text> Start Date: </Text>
           <DatePicker onChange={this.onStartDateChangeDate.bind(this)} />
           <Text> End Date: </Text>
@@ -195,15 +202,16 @@ class NewEvent extends Component {
                 ></Input>
               </Item>
           </Card>
-
-
-        <Button
-          full
-          success
-          onPress={this.onSubmitDetails.bind(this)}
-          >
-          <Text> Create this Event </Text>
-          </Button>
+        </Content>
+        <Footer>
+          <Button
+            full
+            success
+            onPress={this.onSubmitDetails.bind(this)}
+            >
+            <Text> Create this Event </Text>
+            </Button>
+        </Footer>
         </Container>
     )
   }

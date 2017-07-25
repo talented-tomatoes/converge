@@ -6,6 +6,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
 import Config from '../../../../config/config.js';
+import RegisterStackHeader from './helpers/RegisterStackHeader';
 
 class ConferenceDetails extends Component {
 
@@ -83,6 +84,11 @@ class ConferenceDetails extends Component {
     console.log(this.props)
     return (
       <Container>
+        <RegisterStackHeader
+          leftOnPress={() => this.props.navigation.navigate('ConferenceList')}
+          leftIcon="arrow-back"
+          title="Details"
+        />
         <Content>
           <Card>
             <CardItem header>
