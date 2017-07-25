@@ -239,18 +239,6 @@ let addPresentation = (req, res) => {
     });
 };
 
-// GET SPEAKERS BY CONFERENCE ID
-let getSpeakersByConfID = (req, res) => {
-  console.log('inside getSpeakersByConfID')
-  console.log('req.params.currentConfID: ', req.params.currentConfID);
-
-  models.Speaker.where({conference_id: req.params.currentConfID}).fetchAll()
-    .then(speakers => {
-      console.log('speakers: ', speakers);
-      res.status(200).send(speakers);
-    });
-};
-
 let helloWorld = (req, res) => {
   res.send('hello world');
 };
@@ -306,6 +294,5 @@ module.exports = {
   getUserIdByGoogleLoginID: getUserIdByGoogleLoginID,
   getConferencesByHostID: getConferencesByHostID,
   getAllUserEvents: getAllUserEvents,
-  helloWorld: helloWorld,
-  getSpeakersByConfID: getSpeakersByConfID
+  helloWorld: helloWorld
 };
