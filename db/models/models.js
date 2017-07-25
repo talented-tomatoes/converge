@@ -57,6 +57,13 @@ const ConferenceUser = db.Model.extend({
   }
 });
 
+const UserPresentation = db.Model.extend({
+  tableName: 'users_presentations',
+  presentations: function() {
+    return this.belongsTo(Presentation);
+  }
+});
+
 module.exports = {
   User: User,
   Users: User.collection(User),
@@ -65,6 +72,7 @@ module.exports = {
   Conference: Conference,
   Conferences: Conference.collection(Conference),
   ConferenceUser: ConferenceUser,
+  UserPresentation: UserPresentation,
   Speaker: Speaker,
   Speakers: Speaker.collection(Speaker)
 };
