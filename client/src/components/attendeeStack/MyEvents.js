@@ -3,10 +3,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { setSelectedConference, decorateUserWithAvatar } from '../actions/actions'
 import { TouchableOpacity } from 'react-native';
-import { Container, Header, Body, Title, Content } from 'native-base';
+import { Container, Header, Body, Title, Content, Drawer } from 'native-base';
 import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
 import Config from '../../../../config/config.js';
 import AttendeeStackHeader from './helpers/AttendeeStackHeader';
+import SideBar from './helpers/ProfileSidebar';
+
 
 class MyEvents extends Component {
   constructor(props) {
@@ -15,6 +17,15 @@ class MyEvents extends Component {
       conferences : []
     }
   }
+
+  closeDrawer() {
+    this.drawer._root.close()
+  }
+
+  openDrawer() {
+    console.log('drawer open');
+    this.drawer._root.open()
+  };
 
   componentDidMount() {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
@@ -37,14 +48,17 @@ class MyEvents extends Component {
 
   render() {
     return (
-      <Container>
+      <Drawer
+        ref={(ref) => { this.drawer = ref; }}
+        content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
+        onClose={() => this.closeDrawer()} >
         <AttendeeStackHeader
           navigation={this.props.navigation}
-          leftNavigation="MyEvents"
+          leftNavigation={this.openDrawer.bind(this)}
           leftIcon="menu"
           title="My Events"
           rightNavigation="ConferenceList"
-          rightIcon= "add"
+          rightIcon= "search"
         />
         <Content>
           {
@@ -57,7 +71,7 @@ class MyEvents extends Component {
             })
           }
         </Content>
-      </Container>
+      </Drawer>
     );
   }
 }

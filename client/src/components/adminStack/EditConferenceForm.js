@@ -79,7 +79,6 @@ class EditConferenceForm extends Component {
           <Field name="start_date" component={ renderInput } label="Start Date:" placeholder="7/4/17" />
           <Field name="end_date" component={ renderInput } label="End Date:" placeholder="7/5/17" />
           <Field name="logo" component={ renderInput } label="Logo URL:" placeholder="http://myCompanyLogo.jpg" />
-          <Field name="avatar_url" component={ renderInput } label="Speaker Profile Picture URL:" placeholder="http://myProfilePicture.jpg" />
           <Field name="ticket_price" component={ renderInput } label="Ticket Price:" placeholder="$85.00" keyboardType="numeric" />
           <Field name="venue_map" component={ renderInput } label="Venue Map URL:" placeholder="http://venueMap.jpg" />
           <Field name="banner" component={ renderInput } label="Banner URL:" placeholder="http://banner.jpg" />
