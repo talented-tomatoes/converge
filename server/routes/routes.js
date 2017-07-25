@@ -7,6 +7,9 @@ const controller = require('../controllers/controller.js');
 router.route('/users')
   .get(controller.getAllUsers);
 
+router.route('/users/:userid')
+  .get(controller.getUser);
+
 
 /*********************SPEAKERS **********************/
 router.route('/speakers/:confid')
