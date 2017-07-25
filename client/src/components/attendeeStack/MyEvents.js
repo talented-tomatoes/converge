@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setSelectedConference } from '../actions/actions'
+import { setSelectedConference, decorateUserWithAvatar } from '../actions/actions'
 import { TouchableOpacity } from 'react-native';
 import { Container, Header, Body, Title, Content } from 'native-base';
 import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
@@ -24,6 +24,10 @@ class MyEvents extends Component {
           conferences: response.data
         });
       });
+    axios.get(SERVER_URL + `api/users/${this.props.user.id}`)
+      .then(user => {
+        this.props.dispatch(decorateUserWithAvatar(user.data.avatar_url));
+      });
   }
 
   handleImageOnPress(conference) {
@@ -36,7 +40,7 @@ class MyEvents extends Component {
       <Container>
         <AttendeeStackHeader
           navigation={this.props.navigation}
-          leftNavigation="AdminLanding"
+          leftNavigation="MyEvents"
           leftIcon="menu"
           title="My Events"
           rightNavigation="ConferenceList"
