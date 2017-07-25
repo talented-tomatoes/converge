@@ -4,7 +4,7 @@ import Config from '../../../../config/config.js';
 import { connect } from 'react-redux';
 import renderListOfDatesFromConference from '../adminStack/helpers/renderListOfDatesFromConference.js';
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
-import { Drawer, Content, Container, Tabs, Tab, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem } from 'native-base';
+import { Drawer, Content, Container, Tabs, Tab, Toast, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem } from 'native-base';
 import AttendeeFooter from './AttendeeFooter.js';
 import SideBar from './Sidebar';
 
@@ -16,7 +16,8 @@ import SideBar from './Sidebar';
     super(props);
     this.state = {
       presentations: [],
-      dates: renderListOfDatesFromConference(this.props.conference)
+      dates: renderListOfDatesFromConference(this.props.conference),
+      showToast: false
     }
   }
 
@@ -37,8 +38,37 @@ import SideBar from './Sidebar';
       })
   }
 
-  handleOnPress() {
-    console.log('Ouch..');
+  handleItemPress() {
+    //TODO: Navigate to a component that shows more details about the presentation
+  }
+
+  handleSavePress(presentation) {
+
+    axios.post(`${Config.server.url}api/join/users_presentations`, { presentation_id: presentation.id, user_id: this.props.user.id })
+      .then(response => {
+        //TODO: Try to store this in redux?
+        if (response.data === 'success') {
+          Toast.show({
+              text: 'Added presentation to your schedule!',
+              position: 'bottom',
+              buttonText: 'Okay',
+              type: 'success',
+              duration: 2000
+          });
+        }
+        if (response.data === 'already added') {
+          Toast.show({
+            text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
+            position: 'bottom',
+            buttonText: 'Okay',
+            type: 'warning',
+            duration: 2000
+          })
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      }) 
   }
 
   render() {
@@ -78,7 +108,7 @@ import SideBar from './Sidebar';
                         }).map((presentation, i) => {
                           return (
                             <List key={i}>
-                              <ListItem avatar onPress={this.handleOnPress.bind(this)}>
+                              <ListItem avatar onPress={this.handleItemPress.bind(this)}>
                                 <Left>
                                   <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
                                     <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
@@ -90,7 +120,7 @@ import SideBar from './Sidebar';
                                   <Text note>{presentation.location}</Text>
                                 </Body>
                                   <Right>
-                                    <Button small transparent>
+                                    <Button small transparent onPress={this.handleSavePress.bind(this, presentation)}>
                                       <Icon name="ios-add-circle-outline" style={{color: '#428bca'}}/>
                                     </Button>
                                   </Right>
@@ -114,7 +144,8 @@ import SideBar from './Sidebar';
 
 const mapStateToProps = (state) => {
   return {
-    conference: state.attendeeReducer
+    conference: state.attendeeReducer,
+    user: state.userReducer
   }
 }
 
