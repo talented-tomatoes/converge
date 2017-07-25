@@ -66,4 +66,7 @@ router.route('/join/conferences_users')
 router.route('/join/conferences_users/:userid')
   .get(controller.getAllUserEvents);
 
+router.route('/join/users_presentations')
+  .post(controller.savePresentationToUserSchedule);
+
 module.exports = router;
