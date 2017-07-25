@@ -291,6 +291,20 @@ let getAllUserEvents = (req, res) => {
 
 };
 
+let savePresentationToUserSchedule = (req, res) => {
+  console.log('Saving presentation to user schedule...', req.body);
+  models.UserPresentation.forge(req.body)
+    .fetch()
+    .then(record => {
+      if (!record) {
+        models.UserPresentation.forge(req.body).save();
+        res.status(201).send('success');
+      } else {
+        res.status(201).send('already added');
+      }
+    })  
+}
+
 module.exports = {
   getAllUsers: getAllUsers,
   getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -308,5 +322,6 @@ module.exports = {
   getConferencesByHostID: getConferencesByHostID,
   getAllUserEvents: getAllUserEvents,
   helloWorld: helloWorld,
+  savePresentationToUserSchedule: savePresentationToUserSchedule,
   getUser: getUser
 };

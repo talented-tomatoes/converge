@@ -52,7 +52,7 @@ exports.up = function(knex, Promise) {
 		}),
 		knex.schema.createTableIfNotExists('users_presentations', (table) => {
 			table.increments('id').primary;
-			table.integer('user_id').references('id').inTable('users');
+			table.string('user_id').references('login_id').inTable('users');
 			table.integer('presentation_id').references('id').inTable('presentations');
 		}),
 		knex.schema.createTableIfNotExists('presentations_speakers', (table) => {
