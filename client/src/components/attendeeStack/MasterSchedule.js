@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import axios from 'axios';
 import Config from '../../../../config/config.js';
 import { connect } from 'react-redux';
@@ -6,7 +7,10 @@ import renderListOfDatesFromConference from '../adminStack/helpers/renderListOfD
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
 import { Drawer, Content, Container, Tabs, Tab, Toast, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem } from 'native-base';
 import AttendeeFooter from './AttendeeFooter.js';
+
 import SideBar from './Sidebar';
+import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
+import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 
   class MasterSchedule extends Component {
   static navigationOptions = {

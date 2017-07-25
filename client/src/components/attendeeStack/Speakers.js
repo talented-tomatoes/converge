@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Drawer, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
-import AttendeeFooter from './AttendeeFooter.js';
 import SpeakerList from '../registerStack/SpeakerList.js';
 import SideBar from './Sidebar';
+import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
+import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 
 class Speakers extends Component {
   static navigationOptions = {
@@ -23,27 +24,21 @@ class Speakers extends Component {
   };
 
   render() {
-    console.log('INSIDE SPEAEKERS ===>', this.props);
+    console.log('INSIDE SPEAKERS ===>', this.props);
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
-        <Header>
-          <Left>
-            <Button dark transparent onPress={() => {this.openDrawer()}}>
-              <Icon ios='md-menu' android="md-menu"/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Speakers</Title>
-          </Body>
-          <Right />
-        </Header>
+        <AttendeeConferenceHeader
+          leftOnPress={this.openDrawer.bind(this)}
+          leftIcon="menu"
+          title="Speakers"
+        />
         <Content>
           <SpeakerList conferenceID={this.props.conference.id} navigation={this.props.navigation}></SpeakerList>
         </Content>
-        <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
+        <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
     );
   }

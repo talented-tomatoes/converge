@@ -5,6 +5,8 @@ import ConferenceListEntry from './ConferenceListEntry.js';
 import ConferenceDetails from './ConferenceDetails.js';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
+import RegisterStackHeader from './helpers/RegisterStackHeader.js'
+
 
 export default class ConferenceListScreen extends React.Component {
   constructor(props) {
@@ -28,23 +30,29 @@ export default class ConferenceListScreen extends React.Component {
       });
   }
 
-  static navigationOptions = {
-    tabBarLabel: 'Conferences',
-    title: 'Conferences'
-  };
+  // static navigationOptions = {
+  //   tabBarLabel: 'Conferences',
+  //   title: 'Conferences'
+  // };
 
   render() {
-
-    const conferenceListItems = this.state.conferences.map((conference, i) =>
-    <TouchableOpacity key ={i} onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: conference })}>
-      <ConferenceListEntry conference={conference}/>
-    </TouchableOpacity>
-    );
-
     return (
       <Container>
+        <RegisterStackHeader
+          leftOnPress={() => console.log('drawer open')}
+          leftIcon="menu"
+          title="All Events"
+        />
         <Content>
-          {conferenceListItems}
+          {
+            this.state.conferences.map((conference, i) => {
+              return (
+                <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: conference })}>
+                  <ConferenceListEntry conference={conference}/>
+                </TouchableOpacity>
+              )
+            })
+          }
         </Content>
       </Container>
     );

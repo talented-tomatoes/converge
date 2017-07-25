@@ -15,6 +15,8 @@ import DatePicker from './DatePicker.js';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
+
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
@@ -116,6 +118,13 @@ class EditScheduleForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="EditSchedule"
+          leftIcon="arrow-back"
+          title="Presentations"
+          rightIcon= "trash"
+        />
         <Content>
           <Field name="name" component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
           <Item inlineLabel>

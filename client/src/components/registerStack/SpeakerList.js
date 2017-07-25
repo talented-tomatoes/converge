@@ -6,7 +6,7 @@ import SpeakerListEntry from './SpeakerListEntry.js';
 import { Container, Header, Right, Content, Card, Title, CardItem, ListItem, Thumbnail, Text, Button, Icon, List, Left, Body } from 'native-base';
 import Config from '../../../../config/config.js';
 
-export default class ConferenceListScreen extends React.Component {
+export default class SpeakerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

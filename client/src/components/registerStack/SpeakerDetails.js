@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
 import { Container, Header, Icon, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
+import RegisterStackHeader from './helpers/RegisterStackHeader.js'
 
-export default class ConferenceDetails extends Component {
+
+export default class SpeakerDetails extends Component {
 
   constructor(props) {
     super(props);
@@ -16,6 +18,11 @@ export default class ConferenceDetails extends Component {
     const { params } = this.props.navigation.state;
     return (
       <Container>
+        <RegisterStackHeader
+          leftOnPress={() => this.props.navigation.navigate('SpeakerList')}
+          leftIcon="arrow-back"
+          title="Details"
+        />
         <Content>
           <Card style={{flex: 0}}>
             <CardItem>

@@ -13,6 +13,7 @@ import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer
 import axios from 'axios';
 // import Swiper from 'react-native-swiper';
 import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
 
 
 import { Field, reduxForm } from 'redux-form';
@@ -65,6 +66,13 @@ class EditConferenceForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="EditConference"
+          leftIcon="arrow-back"
+          title="Edit Details"
+          rightIcon= "trash"
+        />
         <Content>
           <Field name="name" component={ renderInput } label="Conference Name:" placeholder="SXSW" />
           <Field name="address" component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />

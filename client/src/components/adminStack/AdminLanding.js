@@ -5,6 +5,7 @@ import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
 import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
@@ -19,13 +20,6 @@ class AdminLanding extends Component {
   constructor(props) {
     super(props);
   }
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'My Events',
-      headerRight: <Button transparent onPress={() => navigation.navigate('CreateEvent')}><Icon name="add"/></Button>,
-      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="menu"/></Button>
-    }
-  };
 
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
@@ -69,6 +63,14 @@ class AdminLanding extends Component {
   render() {
     return (
       <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="AdminLanding"
+          leftIcon="menu"
+          title="Hosted Events"
+          rightNavigation="CreateEvent"
+          rightIcon="add"
+        />
         <Content>
           <Button rounded transparent onPress={() => {this._signOut()}}>
             <Title>Logout</Title>
