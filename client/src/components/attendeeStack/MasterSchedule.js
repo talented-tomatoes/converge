@@ -91,7 +91,7 @@ import SideBar from './Sidebar';
                                 </Body>
                                   <Right>
                                     <Button small transparent>
-                                      <Icon name="add"/>
+                                      <Icon name="ios-add-circle-outline" style={{color: '#428bca'}}/>
                                     </Button>
                                   </Right>
                               </ListItem>
