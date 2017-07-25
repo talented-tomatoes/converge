@@ -16,7 +16,6 @@ import Sidebar from './components/attendeeStack/Sidebar';
 import Home from './components/attendeeStack/Home';
 import Speakers from './components/attendeeStack/Speakers';
 import Checkin from './components/attendeeStack/Checkin';
-import Presentations from './components/attendeeStack/Presentations';
 import MasterSchedule from './components/attendeeStack/MasterSchedule';
 import PresentationDetails from './components/attendeeStack/PresentationDetails';
 //RegisterStack
@@ -45,7 +44,6 @@ const AttendeeStack = StackNavigator({
   Concierge: { screen: Concierge},
   Speakers: { screen: Speakers },
   Checkin: { screen: Checkin },
-  Presentations: { screen: Presentations },
   MasterSchedule: { screen: MasterSchedule},
   PresentationDetails: { screen: PresentationDetails }
 }, {
