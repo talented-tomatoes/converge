@@ -66,7 +66,9 @@ class EditSpeakers extends Component {
           rightIcon= "add"
         />
         <Content>
-          <EditSpeakersList speakers={this.state.speakers}/>
+          <EditSpeakersList 
+            speakers={this.state.speakers}
+            navigation={this.props.navigation}/>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
       </Container>

@@ -18,6 +18,7 @@ class EditSpeakersListEntry extends Component {
       <ListItem avatar onPress={() => {
         // navigate to the EditSchedule form and pass it an object
         console.log('props', this.props); 
+        this.props.navigation.navigate('EditSpeakersForm');
         // on clicking the item, it will set the speaker's value into the store
         this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
       }}>

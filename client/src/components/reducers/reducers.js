@@ -51,3 +51,5 @@ const reducers = combineReducers({
 })
 
 export default reducers;
+
+export const loadSpeakerValues = speakerValues => ({ type: SET_SPEAKER_INITIAL_VALUE, speakerValues});

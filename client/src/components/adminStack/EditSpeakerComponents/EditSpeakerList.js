@@ -18,11 +18,11 @@ export default class EditSpeakersList extends Component {
           {
             this.props.speakers.map((speaker, key) => {
               return (
-                  <EditSpeakerListEntry 
-                    key={key}
-                    speaker={speaker}
-                    />
-
+                <EditSpeakerListEntry 
+                  key={key}
+                  speaker={speaker}
+                  navigation={this.props.navigation}
+                  />
               );
             }) 
           } 
