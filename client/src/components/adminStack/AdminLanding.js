@@ -19,6 +19,10 @@ import axios from 'axios';
 class AdminLanding extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      events: []
+    }
   }
 
   _signOut() {
@@ -31,33 +35,37 @@ class AdminLanding extends Component {
 
 
   componentDidMount() {
-    console.log('Admin Landing Page mounted!');
+    // setup URL for getting the user id
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-
     let url = SERVER_URL + 'api/getUserID/' + this.props.user.id;
 
     axios.get(url)
       .then(response => {
         console.log('response in createEvent: ', response);
+
         //add userID to store
         this.props.dispatch(decorateUserWithDBUserID(response.data.id));
-        console.log('after dispatch: ', this.props);
-        this.setState({
-          user_id: this.props.user.userID
-        }, () => {console.log('user_id state changed to: ', this.state.user_id)});
+        // set the local state with the redux store ID that was just made 
+
+        // this.setState({ user_id: this.props.user.userID }); // probably not necessary
+        // make call to get the conferences with the newly gotten HOSTID
         let getConferencesURL = SERVER_URL + 'api/getConferencesByHostID/' + this.props.user.userID;
-        //axios get to server
+
         axios.get(getConferencesURL).then(response => {
           console.log('response: ', response.data);
+          // put the response's info into the redux store
           this.props.dispatch(setInitialHostData(response.data));
+          this.setState({
+            events: response.data
+          })
+        }).catch(err => {
+          console.log('error getting conferences ', err);
         })
+      }).catch(err => {
+        console.log('error getting host id ', err);
       })
-      .catch(err => {
-        console.log('error getting host conferences: ', err);
-      })
-
+    console.log('bottom of the component did mount component ', this.props);
   }
-
 
   // ADMIN LANDING PAGE
   render() {
@@ -75,7 +83,7 @@ class AdminLanding extends Component {
           <Button rounded transparent onPress={() => {this._signOut()}}>
             <Title>Logout</Title>
           </Button>
-          <EventsList navigation={this.props.navigation}/>
+          <EventsList navigation={this.props.navigation} events={this.state.events}/>
         </Content>
       </Container>
     );

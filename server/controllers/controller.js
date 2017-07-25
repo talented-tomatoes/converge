@@ -75,26 +75,26 @@ let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
   console.log('inside getAllPresentationsOfConf ', confid);
   models.Presentation.forge({conference_id: confid})
-  	.fetchAll({withRelated: ['conferences']})
-  	.then(presentations => {
-  		console.log('presentations fetched: ', presentations);
-  		res.status(200).send(presentations);
-  	})
-  	.catch(err => {
-  		console.log('Error!', err);
-  	});
+    .fetchAll({withRelated: ['conferences']})
+    .then(presentations => {
+      console.log('presentations fetched: ', presentations);
+      res.status(200).send(presentations);
+    })
+    .catch(err => {
+      console.log('Error!', err);
+    });
 };
 
 let checkinUser = (req, res) => {
 
-	//console.log('req.userid = ', req.params.userid);
-	//console.log('req.body======>', req.body);
+  //console.log('req.userid = ', req.params.userid);
+  //console.log('req.body======>', req.body);
   let USERID = req.params.userid;
   let CHECKINPICURL = req.body.checkinpicurl;
-	//console.log('CHECKINPICURL=====>', CHECKINPICURL);
+  //console.log('CHECKINPICURL=====>', CHECKINPICURL);
   let gallery_name = req.params.userid;
 //   models.User.where({login_id: USERID}).fetch({columns: ['gallery_name']})
-// 	.then(user => {
+//  .then(user => {
 //   if (!user) {
 //   console.log('user=', user);
 //   res.status(200).send('No User');

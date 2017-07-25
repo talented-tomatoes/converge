@@ -15,12 +15,11 @@ const userReducer = (state = { user: null }, action) => {
   }
 }
 
-// As an admin, I want to have the state of all the events I am hosting
-// I want it to be stored in an array
-const adminReducer = (state = {data: null}, action) => {
+// using state = { data = [] } in order to set the initial state of the data prop to an empty array. I need this in order to have my app map through 'something'
+const adminReducer = (state = { data: [] }, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
-      return {...state, ...{data: action.data}};
+      return {data: action.data};
     case 'SET_CURRENT_CONF_ID':
       return {...state, ...{currentConfID: action.currentConfID}};
     case 'SET_ADMIN_SELECTED_CONFERENCE':

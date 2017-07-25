@@ -17,7 +17,7 @@ export function decorateUserWithAvatar(url) {
 export function setInitialHostData(data) {
   return {
     type: 'GET_EVENTS',
-    data: data
+    data
   };
 }
 
