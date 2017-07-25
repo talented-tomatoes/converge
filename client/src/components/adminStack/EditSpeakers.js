@@ -8,6 +8,8 @@ import EditSpeakersList from './EditSpeakerComponents/EditSpeakerList';
 // redux things
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
+
 
 
 class EditSpeakers extends Component {
@@ -49,6 +51,14 @@ class EditSpeakers extends Component {
   render() {
     return (
       <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="AdminLanding"
+          leftIcon="arrow-back"
+          title="Speakers"
+          rightNavigation="EditSpeakersForm"
+          rightIcon= "add"
+        />
         <Content>
           <EditSpeakersList speakers={this.state.speakers}/>
         </Content>

@@ -16,9 +16,10 @@ import axios from 'axios';
 import sha1 from 'sha1';
 import Camera from 'react-native-camera';
 import SideBar from './Sidebar';
-import AttendeeHeader from './AttendeeHeader.js';
-import AttendeeFooter from './AttendeeFooter.js';
+import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
+import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 import Config from '../../../../config/config.js'
+import uploadImage from '../registerStack/helpers/uploadImage';
 
 class Checkin extends Component {
 
@@ -73,22 +74,11 @@ class Checkin extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        let cloud_name = Config.cloudinary.cloud_name;
-        let api_secret = Config.cloudinary.api_secret;
-        let url = 'https://api.cloudinary.com/v1_1/' + cloud_name + '/image/upload';
-        let timestamp = Date.now();
-        let tags = ['pic'];
-        let values = {
-          file: 'data:image/png;base64,' + response.data,
-          api_key: Config.cloudinary.api_key,
-          timestamp: timestamp,
-          tags: tags,
-          signature: sha1("tags=" + tags + "&timestamp=" + timestamp + api_secret)
-        };
+        let options = uploadImage(response.data);
         console.log('USER ID', this.props.user.id);
         const USER_ID = this.props.user.id;
         const SERVER_URL = Config.server.url || 'http://localhost:3000';
-        axios.post(url, values)
+        axios.post(options.url, options.body)
         .then(response => {
            console.log('Response URL: ', response.data.secure_url);
            let reqObj = {
@@ -136,16 +126,19 @@ class Checkin extends Component {
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
-        <AttendeeHeader title = "Check-in" openDrawer = { this.openDrawer }/>
-      	  <Content>
-            <Text>Check-in</Text>
-            <Item style={{margin: 5, alignSelf: 'center'}}>
-              <TouchableOpacity light onPress={() => this.capturePic()}>
-                <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
-              </TouchableOpacity>
-            </Item>
-          </Content>
-        <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
+        <AttendeeConferenceHeader
+          leftOnPress={this.openDrawer.bind(this)}
+          leftIcon="menu"
+          title="Check In"
+        />
+    	  <Content>
+          <Item style={{margin: 5, alignSelf: 'center'}}>
+            <TouchableOpacity light onPress={() => this.capturePic()}>
+              <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
+            </TouchableOpacity>
+          </Item>
+        </Content>
+        <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
     );
   }

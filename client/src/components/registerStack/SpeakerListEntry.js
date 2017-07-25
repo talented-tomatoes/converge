@@ -3,7 +3,7 @@ import { AppRegistry, Image, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Container, Header, Right, Content, Card, CardItem, ListItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
 
-export default class ConferenceListScreen extends React.Component {
+export default class SpeakerListEntry extends React.Component {
 
   constructor(props) {
     super(props);

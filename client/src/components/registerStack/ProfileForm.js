@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Header, Left, Right, Body, Title } from 'native-base';
 import uploadImage from './helpers/uploadImage'
 import normalizePhoneNumber from './helpers/normalizePhoneNumber';
 import UserSwiperFooter from './helpers/UserSwiperFooter';
@@ -14,6 +14,9 @@ import kairosEnrollReqObj from './helpers/kairosEnrollReqObj';
 import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import Swiper from 'react-native-swiper';
+
+import RegisterStackHeader from './helpers/RegisterStackHeader.js'
+
 
 
 import { Field, reduxForm } from 'redux-form';
@@ -99,11 +102,18 @@ class ProfileForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <Container>
+        <Header style={{backgroundColor: '#428bca'}}>
+          <Left />
+          <Body>
+          <Title style={{color: 'white'}}>Almost done...</Title>
+          </Body>
+          <Right />
+        </Header>
         <Content>
           <Field name="linkedIn" component={ renderInput } label="LinkedIn URL:" placeholder="linkedin.com/in/johndoe123" />
           <Field name="phoneNumber" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
           <Separator bordered>
-            <Text style={{alignSelf: 'center'}} note>Attach a profile picture</Text>
+            <Text style={{alignSelf: 'center'}} note>Tap below to attach a profile picture</Text>
           </Separator>
           <Item style={{margin: 5, alignSelf: 'center'}}>
             <TouchableOpacity light onPress={() => this.takePicture()}>

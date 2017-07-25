@@ -6,11 +6,9 @@ import { TouchableOpacity } from 'react-native';
 import { Container, Header, Body, Title, Content } from 'native-base';
 import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
 import Config from '../../../../config/config.js';
+import AttendeeStackHeader from './helpers/AttendeeStackHeader';
 
 class MyEvents extends Component {
-  static navigationOptions = {
-    title: 'My Events'
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -34,22 +32,26 @@ class MyEvents extends Component {
   }
 
   render() {
-
-    const conferenceListItems = this.state.conferences.map((conference, i) =>
-    <TouchableOpacity key ={i} onPress={this.handleImageOnPress.bind(this, conference)}>
-      <ConferenceListEntry conference={conference}/>
-    </TouchableOpacity>
-    );
-
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>My Events</Title>
-          </Body>
-        </Header>
+        <AttendeeStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="AdminLanding"
+          leftIcon="menu"
+          title="My Events"
+          rightNavigation="ConferenceList"
+          rightIcon= "add"
+        />
         <Content>
-          {conferenceListItems}
+          {
+            this.state.conferences.map((conference, i) => {
+              return (
+                <TouchableOpacity key={i} onPress={this.handleImageOnPress.bind(this, conference)}>
+                  <ConferenceListEntry conference={conference}/>
+                </TouchableOpacity>
+              )
+            })
+          }
         </Content>
       </Container>
     );

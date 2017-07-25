@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Content, Header, Text, Icon, Button } from 'native-base';
 
 import EditConferenceFooter from './helpers/EditConferenceFooter';
+import AdminStackHeader from './helpers/AdminStackHeader';
+
 
 export default class EditConference extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,6 +24,14 @@ export default class EditConference extends Component {
 
     return (
         <Container>
+        <AdminStackHeader
+          navigation={this.props.navigation}
+          leftNavigation="AdminLanding"
+          leftIcon="arrow-back"
+          title="Details"
+          rightNavigation="EditConferenceForm"
+          rightIcon= "add"
+        />
         <Content>
           <Text>This the body</Text>
         </Content>

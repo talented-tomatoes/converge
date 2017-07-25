@@ -2,8 +2,10 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Drawer, Content, Header, Container, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text, Card, CardItem } from 'native-base';
-import AttendeeFooter from './AttendeeFooter.js';
 import SideBar from './Sidebar';
+import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
+import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
+
 
 class Presentations extends Component {
   static navigationOptions = {
@@ -41,22 +43,16 @@ class Presentations extends Component {
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
-        <Header>
-          <Left>
-            <Button dark transparent onPress={() => {this.openDrawer()}}>
-              <Icon ios='md-menu' android="md-menu"/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Presentations</Title>
-          </Body>
-          <Right />
-        </Header>
+        <AttendeeConferenceHeader
+          leftOnPress={this.openDrawer.bind(this)}
+          leftIcon="menu"
+          title="Presentations"
+        />
         <Content>
           {
-            this.state.presentations.map(presentation => 
+            this.state.presentations.map((presentation, i) =>
 
-                <Card>
+                <Card key={i}>
                   <CardItem header>
                     <Text>{presentation.name}</Text>
                   </CardItem>
@@ -75,7 +71,7 @@ class Presentations extends Component {
             )
           }
         </Content>
-        <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
+        <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
     );
   }
