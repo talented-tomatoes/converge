@@ -38,8 +38,8 @@ export default class PresentationsDetails extends Component {
         content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
         <AttendeeConferenceHeader
-          leftOnPress={this.openDrawer.bind(this)}
-          leftIcon="menu"
+          leftOnPress={() => this.props.navigation.navigate('MasterSchedule')}
+          leftIcon="arrow-back"
           title="Presentation"
         />
         <Container>
