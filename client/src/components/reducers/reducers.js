@@ -19,7 +19,7 @@ const userReducer = (state = { user: null }, action) => {
 const adminReducer = (state = { data: [] }, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
-      return {data: action.data};
+      return {...state, ...{data: action.data}};
     case 'SET_CURRENT_CONF_ID':
       return {...state, ...{currentConfID: action.currentConfID}};
     case 'SET_ADMIN_SELECTED_CONFERENCE':
