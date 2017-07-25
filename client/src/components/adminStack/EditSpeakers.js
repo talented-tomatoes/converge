@@ -5,12 +5,14 @@ import EditSpeakersForm from './EditSpeakersForm';
 import axios from 'axios';
 import EditSpeakersList from './EditSpeakerComponents/EditSpeakerList';
 
-// redux things
-import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 
 
+// redux things
+import { connect } from 'react-redux';
+// import actions
+import { setSpeakerInitialValues } from '../actions/actions.js';
 
 class EditSpeakers extends Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class EditSpeakers extends Component {
 
   componentDidMount() {
     // reset the Redux Store current speaker upon landing on this page
-    this.props.dispatch()
+    this.props.dispatch(setSpeakerInitialValues({}));
 
 
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
