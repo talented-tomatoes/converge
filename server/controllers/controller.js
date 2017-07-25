@@ -19,6 +19,19 @@ let getAllUsers = (req, res) => {
 
 };
 
+let getUser = (req, res) => {
+  models.User.where({login_id: req.params.userid})
+  .fetch()
+  .then(user => {
+    console.log('User =====>', user);
+    res.status(200).send(user);
+  })
+  .catch(err => {
+    console.log('Error====>', err);
+    res.status(500).send(err);
+  })
+}
+
 let getAllSpeakersOfConf = (req, res) => {
   const confid = req.params.confid;
   models.Speaker.where({conference_id: confid})
@@ -294,5 +307,6 @@ module.exports = {
   getUserIdByGoogleLoginID: getUserIdByGoogleLoginID,
   getConferencesByHostID: getConferencesByHostID,
   getAllUserEvents: getAllUserEvents,
-  helloWorld: helloWorld
+  helloWorld: helloWorld,
+  getUser: getUser
 };

@@ -5,6 +5,14 @@ export function setUser(user) {
   };
 }
 
+export function decorateUserWithAvatar(url) {
+  console.log('decorateUserWithAvatar fired')
+  return {
+    type: 'SET_USER_AVATAR_URL',
+    avatarUrl: url
+  };
+}
+
 // action to get the data from the DB on page load of ADMINLANDING
 export function setInitialHostData(data) {
   return {
