@@ -72,7 +72,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
       })
       .catch(err => {
         console.log(err);
-      }) 
+      })
   }
 
   render() {
@@ -84,17 +84,11 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
-        <Header>
-          <Left>
-            <Button dark transparent onPress={() => {this.openDrawer()}}>
-              <Icon ios='md-menu' android="md-menu"/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Event Schedule</Title>
-          </Body>
-          <Right />
-        </Header>
+        <AttendeeConferenceHeader
+          leftOnPress={this.openDrawer.bind(this)}
+          leftIcon="menu"
+          title="Schedule"
+        />
           <Container>
           <Tabs initialPage={0}>
             {
@@ -140,7 +134,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
             }
           </Tabs>
         </Container>
-        <AttendeeFooter navigation={this.props.navigation}></AttendeeFooter>
+        <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
     );
   }
