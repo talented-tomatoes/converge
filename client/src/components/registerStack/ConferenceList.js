@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { Container, Content } from 'native-base';
+import { Container, Content, Drawer } from 'native-base';
 import ConferenceListEntry from './ConferenceListEntry.js';
 import ConferenceDetails from './ConferenceDetails.js';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
-import RegisterStackHeader from './helpers/RegisterStackHeader.js'
+import RegisterStackHeader from './helpers/RegisterStackHeader.js';
+import SideBar from '../helpers/ProfileSidebar';
+
 
 
 export default class ConferenceListScreen extends React.Component {
@@ -15,6 +17,15 @@ export default class ConferenceListScreen extends React.Component {
       conferences : []
     }
   }
+
+  closeDrawer() {
+    this.drawer._root.close()
+  }
+
+  openDrawer() {
+    console.log('drawer open');
+    this.drawer._root.open()
+  };
 
   componentDidMount() {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
@@ -37,9 +48,12 @@ export default class ConferenceListScreen extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Drawer
+        ref={(ref) => { this.drawer = ref; }}
+        content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
+        onClose={() => this.closeDrawer()} >
         <RegisterStackHeader
-          leftOnPress={() => console.log('drawer open')}
+          leftOnPress={this.openDrawer.bind(this)}
           leftIcon="menu"
           title="All Events"
         />
@@ -54,7 +68,7 @@ export default class ConferenceListScreen extends React.Component {
             })
           }
         </Content>
-      </Container>
+      </Drawer>
     );
   }
 }

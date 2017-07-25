@@ -5,7 +5,7 @@ import {Image} from 'react-native';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
 
-class Sidebar extends React.Component {
+class ProfileSidebar extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,6 +19,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
+    console.log('inside profile ProfileSidebar');
     return (
       <Container style={{backgroundColor: 'white'}}>
         <List style={{paddingTop:25}}>
@@ -33,6 +34,12 @@ class Sidebar extends React.Component {
         </List>
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('ConferenceList')}}>
           <Title>All Events</Title>
+        </Button>
+        <Button rounded transparent onPress={() => {this.props.navigation.navigate('MyEvents')}}>
+          <Title>My Events</Title>
+        </Button>
+        <Button rounded transparent onPress={() => {this.props.navigation.navigate('Register')}}>
+          <Title>Edit Profile</Title>
         </Button>
         <Button rounded transparent onPress={() => {this._signOut()}}>
           <Title>Logout</Title>
@@ -49,4 +56,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Sidebar);
+export default connect(mapStateToProps)(ProfileSidebar);

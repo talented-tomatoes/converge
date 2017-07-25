@@ -11,7 +11,7 @@ export default class AttendeeStackHeader extends Component {
     return (
       <Header style={{backgroundColor: '#428bca'}}>
         <Left>
-          <Button transparent onPress={() => {this.props.leftNavigation}}>
+          <Button transparent onPress={this.props.leftNavigation}>
             <Icon style={{color: 'white'}} name={this.props.leftIcon}/>
           </Button>
         </Left>
