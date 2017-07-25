@@ -7,7 +7,7 @@ import { Container, Header, Body, Title, Content, Drawer } from 'native-base';
 import ConferenceListEntry from '../registerStack/ConferenceListEntry.js';
 import Config from '../../../../config/config.js';
 import AttendeeStackHeader from './helpers/AttendeeStackHeader';
-import SideBar from './helpers/ProfileSidebar';
+import SideBar from '../helpers/ProfileSidebar';
 
 
 class MyEvents extends Component {
