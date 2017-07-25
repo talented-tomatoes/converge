@@ -19,7 +19,7 @@ export default class SpeakerDetails extends Component {
     return (
       <Container>
         <RegisterStackHeader
-          leftOnPress={() => this.props.navigation.navigate('SpeakerList')}
+          leftOnPress={() => this.props.navigation.navigate('ConferenceDetails')}
           leftIcon="arrow-back"
           title="Details"
         />
