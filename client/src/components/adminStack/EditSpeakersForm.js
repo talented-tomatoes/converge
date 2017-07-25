@@ -12,8 +12,10 @@ import axios from 'axios';
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
+
 
 
 
@@ -29,6 +31,9 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 }
 
 class EditSpeakersForm extends Component {
+
+
+
   static navigationOptions = {
     title: 'Add A Speaker',
     headerLeft: <Button transparent onPress={() => navigation.navigate('EditSpeakers')}><Icon name="menu"/></Button>
@@ -38,7 +43,20 @@ class EditSpeakersForm extends Component {
     this.state = {
 
     }
+
+    // used to populate the reducer when invoked
+    // const speakerValues = {
+    //   first_name: this.props.admin.selectSpeaker.first_name,
+    //   last_name: this.props.admin.selectSpeaker.last_name,
+    //   job_title: this.props.admin.selectSpeaker.job_title,
+    //   email: this.props.admin.selectSpeaker.email,
+    //   linkedin_id: this.props.admin.selectSpeaker.linkedin_id,
+    //   avatar: this.props.admin.selectSpeaker.avatar_url,
+    //   url: this.props.admin.selectSpeaker.url
+    // }
+
   }
+
 
   saveToDB(speaker) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
@@ -49,11 +67,12 @@ class EditSpeakersForm extends Component {
       axios.post(url, speaker)
         .then(response => {
           console.log('response : ', response);
+          // go back to the the EditSpeaker's landing page on success
+          this.props.navigation.navigate('EditSpeakers');
         })
         .catch(error => {
           console.log('error saving speaker: ', error);
         })
-      this.props.navigation.navigate('EditSpeakers');
     }
 
   submit(speaker) {
@@ -63,6 +82,7 @@ class EditSpeakersForm extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { handleSubmit } = this.props;
     return (
       <Container>
@@ -102,7 +122,8 @@ EditSpeakersForm = reduxForm({
 EditSpeakersForm = connect(
   state => ({
     admin: state.adminReducer
-  })
+  }),
+  { loadSpeakerValues: loadSpeakerValuesIntoForm }
 )(EditSpeakersForm)
 
 export default EditSpeakersForm

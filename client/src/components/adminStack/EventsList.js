@@ -15,53 +15,60 @@ class EventsList extends Component {
     super(props);
 
     this.state = {
-      events: this.props.data || [],
-      isDataFetched: false
+      // isDataFetched: false,
+      events: []
     };
 
   }
 
+  // componentWillReceiveProps(nextprops) {
+  //   if (nextprops.data && !this.state.isDataFetched) {
+  //     this.setState({
+  //       events: nextprops.data,
+  //       isDataFetched: true
+  //     });
+  //   }
+  // }
 
-  handleClick() {
-    this.props.navigation.navigate('DateTabs');
-  }
-
-  componentWillReceiveProps(nextprops) {
-    if (nextprops.data && !this.state.isDataFetched) {
-      this.setState({
-        events: nextprops.data,
-        isDataFetched: true
-      });
-    }
-  }
+  // componentDidMount() {
+  //   console.log(this.props);
+  //   this.setState({
+  //     events: this.props.data || []
+  //   });
+  // }
 
   render() {
+    console.log('EVENT LIST PROPS -> DATA ', this.state.events);  
     return (
-      <Content>
-         <List>
-          {
-            this.state.events.map((event, key) => {
-              return (
-              <TouchableOpacity 
-                key={key} 
-                onPress={() => {
-                  { console.log('dispatching this conferenceID: ', event.id); } 
-                  this.props.dispatch(decorateUserWithDBConferenceID(event.id));
-                  this.props.dispatch(setAdminSelectedConference(event));
-                  this.props.navigation.navigate('EditSchedule');
-                }}>
-                <EventsListEntry
-                  eventData={event}
-                  />
-              </TouchableOpacity>
-              );
-            })
-          }
-          </List>
-        </Content>
+    <Content>
+        <List>
+        {
+          this.props.events.map((event, key) => {
+            return (
+            <TouchableOpacity 
+              key={key} 
+              onPress={() => {
+                { console.log('dispatching this conferenceID: ', event.id); } 
+                this.props.dispatch(decorateUserWithDBConferenceID(event.id));
+                this.props.dispatch(setAdminSelectedConference(event));
+                this.props.navigation.navigate('EditSchedule');
+                this.setState({
+                  isDataFetched: false
+                });
+              }}>
+              <EventsListEntry
+                eventData={event}
+                />
+            </TouchableOpacity>
+            );
+          })
+        }
+        </List>
+      </Content>
     );
   }
 }
+
 
 // REDUX THINGS
 const mapStateToProps = (state) => {

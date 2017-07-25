@@ -11,21 +11,18 @@ export default class EditSpeakersList extends Component {
   }
 
   render() {
+    console.log('RENDERING THE EDITSPEAKRLIST ', this.props);
     return (
       <Content>
         <List>
           {
             this.props.speakers.map((speaker, key) => {
               return (
-                <TouchableOpacity
-                  key={key} 
-                  onPress={() => {
-                    { console.log('CLICKING ON THE SPEAKER'); }
-                  }}>
-                  <EditSpeakerListEntry 
-                    speaker={speaker}
-                    />
-                  </TouchableOpacity>
+                <EditSpeakerListEntry 
+                  key={key}
+                  speaker={speaker}
+                  navigation={this.props.navigation}
+                  />
               );
             }) 
           } 

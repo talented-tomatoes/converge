@@ -5,12 +5,14 @@ import EditSpeakersForm from './EditSpeakersForm';
 import axios from 'axios';
 import EditSpeakersList from './EditSpeakerComponents/EditSpeakerList';
 
-// redux things
-import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 
 
+// redux things
+import { connect } from 'react-redux';
+// import actions
+import { setSpeakerInitialValues } from '../actions/actions.js';
 
 class EditSpeakers extends Component {
   constructor(props) {
@@ -29,6 +31,10 @@ class EditSpeakers extends Component {
   };
 
   componentDidMount() {
+    // reset the Redux Store current speaker upon landing on this page
+    this.props.dispatch(setSpeakerInitialValues({}));
+
+
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
@@ -60,7 +66,9 @@ class EditSpeakers extends Component {
           rightIcon= "add"
         />
         <Content>
-          <EditSpeakersList speakers={this.state.speakers}/>
+          <EditSpeakersList 
+            speakers={this.state.speakers}
+            navigation={this.props.navigation}/>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
       </Container>

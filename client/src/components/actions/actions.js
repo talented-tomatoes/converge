@@ -17,7 +17,7 @@ export function decorateUserWithAvatar(url) {
 export function setInitialHostData(data) {
   return {
     type: 'GET_EVENTS',
-    data: data
+    data
   };
 }
 
@@ -39,12 +39,19 @@ export function setSelectedConference(conference) {
   return {
     type: 'SET_SELECTED_CONFERENCE',
     conference: conference
-  }
+  };
 }
 
 export function setAdminSelectedConference(conference) {
   return {
     type: 'SET_ADMIN_SELECTED_CONFERENCE',
     conference: conference
-  }
+  };
+}
+
+export function setSpeakerInitialValues(speakerValues) {
+  return {
+    type: 'SET_SPEAKER_INITIAL_VALUES',
+    speakerValue: speakerValues
+  };
 }
