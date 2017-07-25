@@ -40,7 +40,7 @@ class MyEvents extends Component {
       <Container>
         <AttendeeStackHeader
           navigation={this.props.navigation}
-          leftNavigation="AdminLanding"
+          leftNavigation="MyEvents"
           leftIcon="menu"
           title="My Events"
           rightNavigation="ConferenceList"
