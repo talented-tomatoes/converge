@@ -11,13 +11,13 @@ export default class EditConferenceFooter extends Component {
     return (
       <Footer>
           <FooterTab>
-            <Button onPress={() => {this.props.navigation.navigate('EditSchedule')}}>
+            <Button onPress={() => {this.props.navigation.navigate('AddPresentation')}}>
               <Icon ios="ios-home-outline" android="md-home"/>
               <Text style={{fontSize: 10}}>Schedule</Text>
             </Button>
           </FooterTab>
           <FooterTab>
-            <Button onPress={() => {this.props.navigation.navigate('EditSpeakers')}}>
+            <Button onPress={() => {this.props.navigation.navigate('AddSpeakers')}}>
               <Icon ios="ios-people-outline" android="md-people"/>
               <Text style={{fontSize: 10}}>Speakers</Text>
             </Button>

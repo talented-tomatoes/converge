@@ -30,13 +30,13 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
   )
 }
 
-class EditSpeakersForm extends Component {
+class AddSpeakersForm extends Component {
 
 
 
   static navigationOptions = {
     title: 'Add A Speaker',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('EditSpeakers')}><Icon name="menu"/></Button>
+    headerLeft: <Button transparent onPress={() => navigation.navigate('AddSpeakers')}><Icon name="menu"/></Button>
   }
   constructor(props) {
     super(props);
@@ -68,7 +68,7 @@ class EditSpeakersForm extends Component {
         .then(response => {
           console.log('response : ', response);
           // go back to the the EditSpeaker's landing page on success
-          this.props.navigation.navigate('EditSpeakers');
+          this.props.navigation.navigate('AddSpeakers');
         })
         .catch(error => {
           console.log('error saving speaker: ', error);
@@ -78,7 +78,7 @@ class EditSpeakersForm extends Component {
   submit(speaker) {
     speaker.conference_id = null;
     this.saveToDB(speaker);
-    console.log('values in EditSpeakersForm: ', speaker);
+    console.log('values in AddSpeakersForm: ', speaker);
   }
 
   render() {
@@ -89,7 +89,7 @@ class EditSpeakersForm extends Component {
         {console.log('CONFERENCEID: ', this.props.navigation.state.params)}
         <AdminStackHeader
           navigation={this.props.navigation}
-          leftNavigation="EditSpeakers"
+          leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
           rightIcon= "trash"
@@ -115,15 +115,15 @@ class EditSpeakersForm extends Component {
   }
 }
 
-EditSpeakersForm = reduxForm({
+AddSpeakersForm = reduxForm({
   form: 'AddSpeaker'
-})(EditSpeakersForm)
+})(AddSpeakersForm)
 
-EditSpeakersForm = connect(
+AddSpeakersForm = connect(
   state => ({
     admin: state.adminReducer
   }),
   { loadSpeakerValues: loadSpeakerValuesIntoForm }
-)(EditSpeakersForm)
+)(AddSpeakersForm)
 
-export default EditSpeakersForm
+export default AddSpeakersForm

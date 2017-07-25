@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import EditConferenceFooter from './helpers/EditConferenceFooter';
-import EditScheduleForm from './EditScheduleForm';
+import AddPresentationForm from './AddPresentationForm';
 import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConference';
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
@@ -14,7 +14,7 @@ import AdminStackHeader from './helpers/AdminStackHeader';
 
 
 
-class EditSchedule extends Component {
+class AddPresentation extends Component {
   constructor(props) {
     super(props);
 
@@ -39,14 +39,14 @@ class EditSchedule extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Schedule',
-      headerRight: <Button transparent onPress={() => navigation.navigate('EditScheduleForm')}><Icon name="add"/></Button>,
+      headerRight: <Button transparent onPress={() => navigation.navigate('AddPresentationForm')}><Icon name="add"/></Button>,
       headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
     }
   };
 
   render() {
-    console.log('in EditSchedule');
-    console.log('editschedule props', this.props);
+    console.log('in AddPresentation');
+    console.log('AddPresentation props', this.props);
     console.log('this.state.presentations: ', this.state.presentations);
     return (
       <Container>
@@ -55,7 +55,7 @@ class EditSchedule extends Component {
           leftNavigation="AdminLanding"
           leftIcon="arrow-back"
           title="Presentations"
-          rightNavigation="EditScheduleForm"
+          rightNavigation="AddPresentationForm"
           rightIcon= "add"
         />
 
@@ -101,4 +101,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(EditSchedule);
+export default connect(mapStateToProps)(AddPresentation);

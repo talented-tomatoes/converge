@@ -29,10 +29,10 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
   )
 }
 
-class EditScheduleForm extends Component {
+class AddPresentationForm extends Component {
   static navigationOptions = {
     title: 'Add A Presentation',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('EditSchedule')}><Icon name="menu"/></Button>
+    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
   }
   constructor(props) {
     super(props);
@@ -80,7 +80,7 @@ class EditScheduleForm extends Component {
       axios.post(url, presentation)
         .then(response => {
           console.log('response : ', response);
-          this.props.navigation.navigate('EditSchedule');
+          this.props.navigation.navigate('AddPresentation');
         })
         .catch(error => {
           console.log('Error saving presentation: ', error);
@@ -114,13 +114,13 @@ class EditScheduleForm extends Component {
   }
 
   render() {
-    console.log('props in EditScheduleForm: ', this.props);
+    console.log('props in AddPresentationForm: ', this.props);
     const { handleSubmit } = this.props;
     return (
       <Container>
         <AdminStackHeader
           navigation={this.props.navigation}
-          leftNavigation="EditSchedule"
+          leftNavigation="AddPresentation"
           leftIcon="arrow-back"
           title="Presentations"
           rightIcon= "trash"
@@ -168,16 +168,16 @@ class EditScheduleForm extends Component {
   }
 }
 
-EditScheduleForm = reduxForm({
+AddPresentationForm = reduxForm({
   form: 'AddPresentation'
-})(EditScheduleForm)
+})(AddPresentationForm)
 
-EditScheduleForm = connect(
+AddPresentationForm = connect(
   state => ({
     admin: state.adminReducer
   })
-  )(EditScheduleForm)
+  )(AddPresentationForm)
 
-export default EditScheduleForm
+export default AddPresentationForm
 
 

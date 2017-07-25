@@ -11,7 +11,7 @@ export default class AttendeeStackHeader extends Component {
     return (
       <Header style={{backgroundColor: '#428bca'}}>
         <Left>
-          <Button transparent onPress={() => this.props.navigation.navigate(this.props.leftNavigation)}>
+          <Button transparent onPress={() => {this.props.leftNavigation}}>
             <Icon style={{color: 'white'}} name={this.props.leftIcon}/>
           </Button>
         </Left>
@@ -19,8 +19,8 @@ export default class AttendeeStackHeader extends Component {
           <Title style={{color: 'white'}} >{this.props.title}</Title>
         </Body>
         <Right>
-          <Button transparent onPress={() => this.props.navigation.navigate(this.props.rightNavigation || this.props.navigation.navigate(this.props.leftNavigation))}>
-            <Icon style={{color: 'white'}} name={this.props.rightIcon || 'close'}/>
+          <Button transparent onPress={() => this.props.navigation.navigate(this.props.rightNavigation)}>
+            <Icon style={{color: 'white'}} name={this.props.rightIcon}/>
           </Button>
         </Right>
       </Header>
