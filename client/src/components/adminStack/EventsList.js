@@ -38,20 +38,20 @@ class EventsList extends Component {
   // }
 
   render() {
-    console.log('EVENT LIST PROPS -> DATA ', this.state.events);  
+    console.log('EVENT LIST PROPS -> DATA ', this.state.events);
     return (
     <Content>
         <List>
         {
           this.props.events.map((event, key) => {
             return (
-            <TouchableOpacity 
-              key={key} 
+            <TouchableOpacity
+              key={key}
               onPress={() => {
-                { console.log('dispatching this conferenceID: ', event.id); } 
+                { console.log('dispatching this conferenceID: ', event.id); }
                 this.props.dispatch(decorateUserWithDBConferenceID(event.id));
                 this.props.dispatch(setAdminSelectedConference(event));
-                this.props.navigation.navigate('EditSchedule');
+                this.props.navigation.navigate('AddPresentation');
                 this.setState({
                   isDataFetched: false
                 });

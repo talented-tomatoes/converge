@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Header, Left, Body, Right, Thumbnail, Text, Button, Icon } from 'native-base';
 import EditConferenceFooter from './helpers/EditConferenceFooter';
-import EditSpeakersForm from './EditSpeakersForm';
+import AddSpeakersForm from './AddSpeakersForm';
 import axios from 'axios';
-import EditSpeakersList from './EditSpeakerComponents/EditSpeakerList';
+import AddSpeakersList from './EditSpeakerComponents/EditSpeakerList';
 
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 // import actions
 import { setSpeakerInitialValues } from '../actions/actions.js';
 
-class EditSpeakers extends Component {
+class AddSpeakers extends Component {
   constructor(props) {
     super(props);
 
@@ -25,7 +25,7 @@ class EditSpeakers extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Speakers',
-      headerRight: <Button transparent onPress={() => navigation.navigate('EditSpeakersForm')}><Icon name="add"/></Button>,
+      headerRight: <Button transparent onPress={() => navigation.navigate('AddSpeakersForm')}><Icon name="add"/></Button>,
       headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
     }
   };
@@ -62,11 +62,11 @@ class EditSpeakers extends Component {
           leftNavigation="AdminLanding"
           leftIcon="arrow-back"
           title="Speakers"
-          rightNavigation="EditSpeakersForm"
+          rightNavigation="AddSpeakersForm"
           rightIcon= "add"
         />
         <Content>
-          <EditSpeakersList 
+          <AddSpeakersList
             speakers={this.state.speakers}
             navigation={this.props.navigation}/>
         </Content>
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(EditSpeakers);
+export default connect(mapStateToProps)(AddSpeakers);

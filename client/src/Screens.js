@@ -29,10 +29,10 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
-import EditSpeakers from './components/adminStack/EditSpeakers';
-import EditSpeakersForm from './components/adminStack/EditSpeakersForm';
-import EditSchedule from './components/adminStack/EditSchedule';
-import EditScheduleForm from './components/adminStack/EditScheduleForm';
+import AddSpeakers from './components/adminStack/AddSpeakers';
+import AddSpeakersForm from './components/adminStack/AddSpeakersForm';
+import AddPresentation from './components/adminStack/AddPresentation';
+import AddPresentationForm from './components/adminStack/AddPresentationForm';
 import EditConference from './components/adminStack/EditConference';
 import EditConferenceForm from './components/adminStack/EditConferenceForm';
 
@@ -59,10 +59,10 @@ const AttendeeStack = StackNavigator({
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
   CreateEvent: { screen: CreateEvent },
-  EditSchedule: { screen: EditSchedule },
-  EditScheduleForm: { screen: EditScheduleForm },
-  EditSpeakers: { screen: EditSpeakers },
-  EditSpeakersForm: { screen: EditSpeakersForm },
+  AddPresentation: { screen: AddPresentation },
+  AddPresentationForm: { screen: AddPresentationForm },
+  AddSpeakers: { screen: AddSpeakers },
+  AddSpeakersForm: { screen: AddSpeakersForm },
   EditConference: { screen: EditConference },
   EditConferenceForm: { screen: EditConferenceForm }
 }, {
