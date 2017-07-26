@@ -5,23 +5,31 @@ import RegisterStackHeader from './helpers/RegisterStackHeader';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
 
+import { LiteCreditCardInput } from "react-native-credit-card-input";
+
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-
-
-const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
-  console.log('label: ', label)
-  return (
-    <Item stackedLabel>
-      <Label>{label}</Label>
-      <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} placeholder={placeholder} multiline={multiline}/>
-    </Item>
-  )
-}
 
 class PaymentForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      cardInfo: {valid: false}
+    }
+    // let { params } = this.props.navigation.state;
+    // DETAILS = {
+    //   id: 'basic-example',
+    //   displayItems: [
+    //     {
+    //       label: `${params.conference.name} ticket`,
+    //       amount: { currency: 'USD', value: params.conference.ticket_price }
+    //     }
+    //   ],
+    //   total: {
+    //     label: 'Converge',
+    //     amount: { currency: 'USD', value: params.conference.ticket_price }
+    //   }
+    // };
   }
 
   handlePaymentRequest() {
@@ -84,13 +92,13 @@ class PaymentForm extends Component {
       })
   }
 
-  processCreditCardPayment() {
+  processCreditCardPayment(card) {
     let { params } = this.props.navigation.state
     var cardDetails = {
-      "card[number]": '4242 4242 4242 4242',
-      "card[exp_month]": '01',
-      "card[exp_year]": '2020',
-      "card[cvc]": '123'
+      "card[number]": card.number,
+      "card[exp_month]": card.expiry.substr(0,2),
+      "card[exp_year]": card.expiry.substr(3),
+      "card[cvc]": card.cvc
     };
     var formBody = [];
     for (var property in cardDetails) {
@@ -131,7 +139,7 @@ class PaymentForm extends Component {
           conference_id: params.conference.id,
           user_id: this.props.user.id
         }
-        const SERVER_URL = Config.server.url || 'http://localhost:3000';
+        const SERVER_URL = Config.server.url;
         axios.post(SERVER_URL + 'api/payments/charge', paymentDetails)
           .then(response => {
             return response;
@@ -140,14 +148,23 @@ class PaymentForm extends Component {
             return axios.post(SERVER_URL + 'api/join/conferences_users', paymentDetails)
           })
           .then(response => {
-            console.log('payment successful')
+            console.log('payment successful: ', response);
             this.props.navigation.navigate('MyEvents');
           })
           .catch(error => {
-            console.log(error);
+            console.log('error processing payment: ', error);
             alert('error processing payment');
           })
-    }).catch(err => console.log('err: ', err));
+    }).catch(err => console.log('error processing payment: ', error));
+  }
+
+  _onChange(form) {
+    console.log(form);
+    if (form.valid === true) {
+      this.setState({
+        cardInfo: form
+      });
+    }
   }
 
   render() {
@@ -160,32 +177,31 @@ class PaymentForm extends Component {
         />
       <Content>
         <Button style={{backgroundColor: 'grey'}} full onPress={() => this.handlePaymentRequest()} >
-          <Text> Apple Pay </Text>
+          <Text> Pay with Apple Pay </Text>
         </Button>
 
         <Separator bordered />
 
-        <Field name="cardNumber" component={ renderInput } label="Credit Card Number:" placeholder="React Native Best Practices" />
-
-
-        <Button style={{backgroundColor: 'grey'}} full onPress={() => this.processCreditCardPayment()} >
-          <Text> Pay With Credit Card </Text>
-        </Button>
+        <LiteCreditCardInput onChange={this._onChange.bind(this)} />
+        {
+          this.state.cardInfo.valid ? (
+            <Button success full onPress={() => this.processCreditCardPayment(this.state.cardInfo.values)} >
+              <Text> Submit </Text>
+            </Button>) : (
+            <Button danger full onPress={() => alert('Credit Card Not Valid')} >
+              <Text> Pay With Credit Card </Text>
+            </Button>)
+        }
       </Content>
       </Container>
     );
   }
 }
 
-PaymentForm = reduxForm({
-  form: 'Payment Form'
-})(PaymentForm)
-
-PaymentForm = connect(
-  state => ({
+const mapStateToProps = (state) => {
+  return {
     user: state.userReducer
-  })
-  )(PaymentForm)
+  }
+}
 
-export default PaymentForm
-
+export default connect(mapStateToProps)(PaymentForm);
