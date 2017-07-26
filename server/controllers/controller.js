@@ -74,11 +74,14 @@ let getAllConferences = (req, res) => {
 let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
   console.log('inside getAllPresentationsOfConf ', confid);
-  models.Presentation.forge({conference_id: confid})
-    .fetchAll({withRelated: ['conferences']})
+  models.Presentation.where({conference_id: confid})
+    .fetchAll()
     .then(presentations => {
-      console.log('presentations fetched: ', presentations);
-      res.status(200).send(presentations);
+      var data = JSON.stringify(presentations);
+      var sortedData = JSON.parse(data).sort((a, b) => {
+        return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
+      })
+      res.status(200).send(sortedData);
     })
     .catch(err => {
       console.log('Error!', err);
