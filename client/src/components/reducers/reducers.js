@@ -16,23 +16,25 @@ const userReducer = (state = { user: null }, action) => {
 }
 
 // using state = { data = [] } in order to set the initial state of the data prop to an empty array. I need this in order to have my app map through 'something'
-const adminReducer = (state = { data: [] }, action) => {
+const adminReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
+      console.log('getting events');
       return {...state, ...{data: action.data}};
     case 'SET_CURRENT_CONF_ID':
       return {...state, ...{currentConfID: action.currentConfID}};
     case 'SET_ADMIN_SELECTED_CONFERENCE':
       return {...state, ...{selectedConference: action.conference}};
-    case 'SET_SPEAKER_INITIAL_VALUE':
-      return {selectSpeaker: action.selectSpeaker};
+    case 'SET_SPEAKER_INITIAL_VALUES':
+      console.log('SETTING SPEAKER INITIAL VALUES NOW');
+      return {...state, ...{speakerValues: action.speakerValues}};
     default:
       return state;
   }
 }
 
 const attendeeReducer = (state = {conference: null}, action) => {
-  console.log('attendee Reducer Called')
+  // console.log('attendee Reducer Called')
   switch (action.type) {
     case 'SET_SELECTED_CONFERENCE':
       console.log('SETTING CONFERENCE ==>', {...action.conference})
@@ -51,5 +53,3 @@ const reducers = combineReducers({
 })
 
 export default reducers;
-
-export const loadSpeakerValues = speakerValues => ({ type: SET_SPEAKER_INITIAL_VALUE, speakerValues});

@@ -30,8 +30,8 @@ import PaymentForm from './components/registerStack/PaymentForm.js';
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
 import CreateEvent from './components/adminStack/CreateEvent';
-import AddSpeakers from './components/adminStack/AddSpeakers';
-import AddSpeakersForm from './components/adminStack/AddSpeakersForm';
+import AddSpeakers from './components/adminStack/SpeakerLanding/SpeakerLanding';
+import AddSpeakersForm from './components/adminStack/SpeakerLanding/AddSpeakersForm';
 import AddPresentation from './components/adminStack/AddPresentation';
 import AddPresentationForm from './components/adminStack/AddPresentationForm';
 import EditConference from './components/adminStack/EditConference';
