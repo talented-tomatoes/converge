@@ -75,7 +75,7 @@ class AddSpeakersForm extends Component {
     // let options = speaker;
     speaker.conference_id = this.props.admin.currentConfID;
 
-    console.log(' SPEAKER INFORMATION, ', speaker)
+    // console.log(' SPEAKER INFORMATION, ', speaker)
 
     axios.post(url, speaker)
       .then(response => {
@@ -95,8 +95,7 @@ class AddSpeakersForm extends Component {
   }
 
   render() {
-    console.log('props', this.props.admin);
-    // this.props.loadSpeakerValues(this.speakerValues);
+    // console.log('props', this.props.admin);
     const { handleSubmit } = this.props;
     return (
       <Container>
@@ -105,7 +104,7 @@ class AddSpeakersForm extends Component {
           leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
-          rightIcon= "trash"
+          rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
         />
         <Content>
           <Field name="first_name" component={ renderInput } label="First Name:" placeholder="John" />

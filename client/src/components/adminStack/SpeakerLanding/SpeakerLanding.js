@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Header, Left, Body, Right, Thumbnail, Text, Button, Icon } from 'native-base';
-import EditConferenceFooter from './helpers/EditConferenceFooter';
-import AddSpeakersForm from '../AddSpeakersForm';
+import EditConferenceFooter from '../helpers/EditConferenceFooter';
+import AddSpeakersForm from './AddSpeakersForm';
 import axios from 'axios';
 import SpeakersList from './SpeakerList.js';
 import Config from '../../../../../config/config.js';
@@ -11,7 +11,7 @@ import AdminStackHeader from '../helpers/AdminStackHeader.js';
 // redux things
 import { connect } from 'react-redux';
 // import actions
-import { setSpeakerInitialValues } from '../actions/actions.js';
+import { setSpeakerInitialValues } from '../../actions/actions.js';
 
 class SpeakersLanding extends Component {
   constructor(props) {
@@ -34,7 +34,6 @@ class SpeakersLanding extends Component {
     // reset the Redux Store current speaker upon landing on this page
     // should be able to read this as being empty so that we can utilize this to tell the Form to make a post to the correct place
     this.props.dispatch(setSpeakerInitialValues({}));
-
 
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
