@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Container, Header, Footer, Right, Body, Left, Button, Content, Text, Card, Icon, Title, Item, Input } from 'native-base';
 import DatePicker from './DatePicker.js';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -202,15 +202,12 @@ class NewEvent extends Component {
               </Item>
           </Card>
         </Content>
-        <Footer>
-          <Button
-            full
-            success
-            onPress={this.onSubmitDetails.bind(this)}
-            >
-            <Text> Create this Event </Text>
-            </Button>
+        <TouchableOpacity onPress={this.onSubmitDetails.bind(this)}>
+        <Footer style={{backgroundColor: '#428bca'}}>
+
+              <Title style={{fontSize: 15, fontWeight: 'bold', color: 'white', alignSelf: 'center'}}>Create This Event</Title>
         </Footer>
+        </TouchableOpacity>
         </Container>
     )
   }

@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry } from 'react-native';
-import { Container, Button, Content, Text, Header, Right, Title, Left, Icon, Body, Thumbnail } from 'native-base';
+import { Drawer, Button, Content, Text, Header, Right, Title, Left, Icon, Body, Thumbnail } from 'native-base';
 import NewEvent from './CreateEvent.js';
 import EventsList from './EventsList.js';
 import DummyData from './dummy/fakeEventData.js';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
+import SideBar from './helpers/HostSidebar';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
@@ -24,6 +25,15 @@ class AdminLanding extends Component {
       events: []
     }
   }
+
+  closeDrawer() {
+    this.drawer._root.close()
+  }
+
+  openDrawer() {
+    console.log('drawer open');
+    this.drawer._root.open()
+  };
 
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
@@ -45,7 +55,7 @@ class AdminLanding extends Component {
 
         //add userID to store
         this.props.dispatch(decorateUserWithDBUserID(response.data.id));
-        // set the local state with the redux store ID that was just made 
+        // set the local state with the redux store ID that was just made
 
         // this.setState({ user_id: this.props.user.userID }); // probably not necessary
         // make call to get the conferences with the newly gotten HOSTID
@@ -70,22 +80,29 @@ class AdminLanding extends Component {
   // ADMIN LANDING PAGE
   render() {
     return (
-      <Container>
-        <AdminStackHeader
-          navigation={this.props.navigation}
-          leftNavigation="AdminLanding"
-          leftIcon="menu"
-          title="Hosted Events"
-          rightNavigation="CreateEvent"
-          rightIcon="add"
-        />
+      <Drawer
+        ref={(ref) => { this.drawer = ref; }}
+        content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
+        onClose={() => this.closeDrawer()} >
+         <Header style={{backgroundColor: '#428bca'}}>
+          <Left>
+            <Button transparent onPress={() => this.openDrawer()}>
+              <Icon style={{color: 'white'}} name="menu"/>
+            </Button>
+          </Left>
+          <Body>
+            <Title style={{color: 'white'}} >Hosted Events</Title>
+          </Body>
+          <Right>
+            <Button transparent onPress={() => this.props.navigation.navigate('CreateEvent')}>
+              <Icon style={{color: 'white'}} name="add"/>
+            </Button>
+          </Right>
+        </Header>
         <Content>
-          <Button rounded transparent onPress={() => {this._signOut()}}>
-            <Title>Logout</Title>
-          </Button>
           <EventsList navigation={this.props.navigation} events={this.state.events}/>
         </Content>
-      </Container>
+      </Drawer>
     );
   }
 }
