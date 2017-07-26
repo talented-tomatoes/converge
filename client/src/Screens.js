@@ -28,13 +28,14 @@ import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
-import CreateEvent from './components/adminStack/CreateEvent';
+// removing this because we have this is the version not using redux-form
+// import CreateEvent from './components/adminStack/CreateEvent';
 import AddSpeakers from './components/adminStack/SpeakerLanding/SpeakerLanding';
 import AddSpeakersForm from './components/adminStack/SpeakerLanding/AddSpeakersForm';
 import AddPresentation from './components/adminStack/AddPresentation';
 import AddPresentationForm from './components/adminStack/AddPresentationForm';
-import EditConference from './components/adminStack/EditConference';
-import EditConferenceForm from './components/adminStack/EditConferenceForm';
+import EditConference from './components/adminStack/DetailsLanding/EditConference';
+import EditConferenceForm from './components/adminStack/DetailsLanding/EditConferenceForm';
 
 
 const AttendeeStack = StackNavigator({
@@ -58,7 +59,7 @@ const AttendeeStack = StackNavigator({
 
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
-  CreateEvent: { screen: CreateEvent },
+  // CreateEvent: { screen: CreateEvent },
   AddPresentation: { screen: AddPresentation },
   AddPresentationForm: { screen: AddPresentationForm },
   AddSpeakers: { screen: AddSpeakers },
