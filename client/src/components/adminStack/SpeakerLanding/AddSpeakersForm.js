@@ -9,19 +9,16 @@ import {
 import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon } from 'native-base';
 import axios from 'axios';
 
-
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
-import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
-import Config from '../../../../config/config.js';
-import AdminStackHeader from './helpers/AdminStackHeader';
 
-
+import Config from '../../../../../config/config.js';
+import AdminStackHeader from '../helpers/AdminStackHeader.js';
 
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
-  console.log('label: ', label)
+  console.log('label: ', onChange)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
@@ -31,9 +28,6 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 }
 
 class AddSpeakersForm extends Component {
-
-
-
   static navigationOptions = {
     title: 'Add A Speaker',
     headerLeft: <Button transparent onPress={() => navigation.navigate('AddSpeakers')}><Icon name="menu"/></Button>
@@ -44,35 +38,54 @@ class AddSpeakersForm extends Component {
 
     }
 
-    // used to populate the reducer when invoked
-    // const speakerValues = {
-    //   first_name: this.props.admin.selectSpeaker.first_name,
-    //   last_name: this.props.admin.selectSpeaker.last_name,
-    //   job_title: this.props.admin.selectSpeaker.job_title,
-    //   email: this.props.admin.selectSpeaker.email,
-    //   linkedin_id: this.props.admin.selectSpeaker.linkedin_id,
-    //   avatar: this.props.admin.selectSpeaker.avatar_url,
-    //   url: this.props.admin.selectSpeaker.url
-    // }
+  }
 
+  componentDidMount() {
+    // do the pre-load of values
+    this.handleInitialize();
+  }
+
+  handleInitialize() {
+    // set Values for the pre-load
+    const speakerValues = {
+      first_name: this.props.admin.speakerValues.first_name,
+      last_name: this.props.admin.speakerValues.last_name,
+      job_title: this.props.admin.speakerValues.job_title,
+      email: this.props.admin.speakerValues.email,
+      linkedin_id: this.props.admin.speakerValues.linkedin_id,
+      avatar_url: this.props.admin.speakerValues.avatar_url,
+      bio: this.props.admin.speakerValues.bio,
+      id: this.props.admin.speakerValues.id
+    };
+    this.props.initialize(speakerValues);
   }
 
 
   saveToDB(speaker) {
+    // base URL
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-      let url = SERVER_URL + 'api/addSpeaker';
-      let options = speaker;
-      speaker.conference_id = this.props.admin.currentConfID;
-      console.log(' SPEAKER INFORMATION, ', speaker)
-      axios.post(url, speaker)
-        .then(response => {
-          console.log('response : ', response);
-          // go back to the the EditSpeaker's landing page on success
-          this.props.navigation.navigate('AddSpeakers');
-        })
-        .catch(error => {
-          console.log('error saving speaker: ', error);
-        })
+    
+    // change URL depending on whether or not how they got to the page
+    if (this.props.admin.speakerValues.id === undefined) {
+      url = SERVER_URL + 'api/addSpeaker';
+    } else {
+      url = SERVER_URL + 'api/editSpeaker';
+    }
+    // console.log('URLLLLLL', url);
+    // let options = speaker;
+    speaker.conference_id = this.props.admin.currentConfID;
+
+    // console.log(' SPEAKER INFORMATION, ', speaker)
+
+    axios.post(url, speaker)
+      .then(response => {
+        console.log('response : ', response);
+        // go back to the the EditSpeaker's landing page on success
+        this.props.navigation.navigate('AddSpeakers');
+      })
+      .catch(error => {
+        console.log('error saving speaker to the database: ', error);
+      })
     }
 
   submit(speaker) {
@@ -82,17 +95,16 @@ class AddSpeakersForm extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log('props', this.props.admin);
     const { handleSubmit } = this.props;
     return (
       <Container>
-        {console.log('CONFERENCEID: ', this.props.navigation.state.params)}
         <AdminStackHeader
           navigation={this.props.navigation}
           leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
-          rightIcon= "trash"
+          rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
         />
         <Content>
           <Field name="first_name" component={ renderInput } label="First Name:" placeholder="John" />
@@ -122,8 +134,6 @@ AddSpeakersForm = reduxForm({
 AddSpeakersForm = connect(
   state => ({
     admin: state.adminReducer
-  }),
-  { loadSpeakerValues: loadSpeakerValuesIntoForm }
-)(AddSpeakersForm)
+  }))(AddSpeakersForm)
 
-export default AddSpeakersForm
+export default AddSpeakersForm;

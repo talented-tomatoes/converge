@@ -50,8 +50,9 @@ export function setAdminSelectedConference(conference) {
 }
 
 export function setSpeakerInitialValues(speakerValues) {
+  // console.log('speaker action was called for setting values', speakerValues);
   return {
     type: 'SET_SPEAKER_INITIAL_VALUES',
-    speakerValue: speakerValues
+    speakerValues: speakerValues
   };
 }

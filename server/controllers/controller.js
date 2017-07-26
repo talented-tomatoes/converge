@@ -29,8 +29,8 @@ let getUser = (req, res) => {
   .catch(err => {
     console.log('Error====>', err);
     res.status(500).send(err);
-  })
-}
+  });
+};
 
 let getAllSpeakersOfConf = (req, res) => {
   const confid = req.params.confid;
@@ -101,14 +101,14 @@ let checkinUser = (req, res) => {
 // } else {
   // gallery_name = user.attributes.gallery_name;
   console.log('GALLERY_NAME=', gallery_name);
-			// verify
+      // verify
   const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
   console.log('options = ', OPTIONS);
   return axios.post(OPTIONS.url, OPTIONS.body, OPTIONS.config)
 // }
-		//res.status(200).send('Success!');
+    //res.status(200).send('Success!');
 
-	.then(response => {
+  .then(response => {
     console.log('response from kairos ====>', response.data);
     if (response.data.images) {
       let confidence = response.data.images[0]['transaction']['confidence'];
@@ -119,13 +119,13 @@ let checkinUser = (req, res) => {
         res.status(200).send('Checkin Failed. Please enter a Valid Picture');
       }
     } else {
-        res.status(200).send('Checkin Failed. Please enter a Valid Picture');
+      res.status(200).send('Checkin Failed. Please enter a Valid Picture');
     }
   })
 	.catch(err => {
-    console.log('ERROR :', err);
-    res.status(500).send('Internal Error!');
-  });
+  console.log('ERROR :', err);
+  res.status(500).send('Internal Error!');
+});
 };
 
 
@@ -159,17 +159,17 @@ let registerUser = (req, res) => {
   //   .catch(err => {
   //     console.log('error saving user: ', err);
   //   });
-  models.User.forge({login_id:req.body.login_id})
+  models.User.forge({login_id: req.body.login_id})
              .fetch()
              .then(user => {
                console.log('user fetched===>', user);
                user.save(req.body)
                .then(user => {
-                  console.log('user saved:', user);
-                })
+                 console.log('user saved:', user);
+               })
                 .catch(err => {
                   console.log('error saving user: ', err);
-                })
+                });
              })
              .catch(err => {
                models.User.forge(req.body)
@@ -179,8 +179,8 @@ let registerUser = (req, res) => {
                           })
                           .catch(user => {
                             console.log('error saving user: ', err);
-                          })
-             })
+                          });
+             });
   res.status(200).send('User saved!');
 };
 
@@ -235,7 +235,26 @@ let addSpeaker = (req, res) => {
       console.log('error: ', err);
       res.status(400).send('error saving speaker');
     });
+};
 
+let updateSpeakerOfConf = (req, res) => {
+  console.log('Updating speaker of of conference ', req.body);
+
+  // bookshelf command -
+    // use .where to look for the entry in Speaker
+    // then .fetch() it
+    // then use that result to update the row
+
+  models.Speaker.where({id: req.body.id}).fetch()
+    .then(speaker => {
+      speaker.save(req.body, {method: 'update'});
+      console.log('speaker updated: ', speaker);
+      res.status(200).send('Speaker Updated!');
+    })
+    .catch(err => {
+      console.log('error: ', err);
+      res.status(400).send('error udpating speaker');
+    });
 };
 
 let addPresentation = (req, res) => {
@@ -243,7 +262,7 @@ let addPresentation = (req, res) => {
   console.log('req.body: ', req.body);
   models.Presentation.forge(req.body).save()
     .then(presentation => {
-      console.log('Presentation saved: ', presentation)
+      console.log('Presentation saved: ', presentation);
       res.status(200).send('Presentation saved!');
     })
     .catch(err => {
@@ -259,35 +278,35 @@ let helloWorld = (req, res) => {
 // let addPresentation = (req, res) => {};
 
 let saveUserToConference = (req, res) => {
-	console.log('Payment successful. Saving user to Conference ===>', req.body);
-	var conference_id = req.body.conference_id;
-	var user_id = req.body.user_id;
-	models.ConferenceUser.forge({conference_id, user_id})
+  console.log('Payment successful. Saving user to Conference ===>', req.body);
+  var conference_id = req.body.conference_id;
+  var user_id = req.body.user_id;
+  models.ConferenceUser.forge({conference_id, user_id})
 		.fetch()
 		.then(record => {
-			if (record) {
-				console.log('RECORD FOUND ===>', record);
-				res.status(201).end();
-			} else {
-				models.ConferenceUser.forge({conference_id, user_id}).save();
-				res.status(201).end();
-      }
-		})
+  if (record) {
+    console.log('RECORD FOUND ===>', record);
+    res.status(201).end();
+  } else {
+    models.ConferenceUser.forge({conference_id, user_id}).save();
+    res.status(201).end();
+  }
+})
 		.catch(error => {
-			console.log(error);
-			res.status(400).end();
-		});
-}
+  console.log(error);
+  res.status(400).end();
+});
+};
 
 let getAllUserEvents = (req, res) => {
 
   models.ConferenceUser.where({user_id: req.params.userid})
 		.fetchAll({withRelated: ['conferences']})
 		.then(record => {
-			var data = JSON.stringify(record);
-			var conferences = JSON.parse(data).map(conf => conf.conferences);
-			res.status(200).send(conferences);
-		});
+  var data = JSON.stringify(record);
+  var conferences = JSON.parse(data).map(conf => conf.conferences);
+  res.status(200).send(conferences);
+});
 
 };
 
@@ -315,8 +334,10 @@ let savePresentationToUserSchedule = (req, res) => {
       } else {
         res.status(201).send('already added');
       }
-    })  
-}
+    });  
+};
+
+
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -337,5 +358,6 @@ module.exports = {
   helloWorld: helloWorld,
   savePresentationToUserSchedule: savePresentationToUserSchedule,
   getUser: getUser,
+  updateSpeakerOfConf: updateSpeakerOfConf,
   getUserSchedule: getUserSchedule
 };

@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Header, Left, Body, Right, Thumbnail, Text, Button, Icon } from 'native-base';
-import EditConferenceFooter from './helpers/EditConferenceFooter';
+import EditConferenceFooter from '../helpers/EditConferenceFooter';
 import AddSpeakersForm from './AddSpeakersForm';
 import axios from 'axios';
-import AddSpeakersList from './EditSpeakerComponents/EditSpeakerList';
-
-import Config from '../../../../config/config.js';
-import AdminStackHeader from './helpers/AdminStackHeader';
+import SpeakersList from './SpeakerList.js';
+import Config from '../../../../../config/config.js';
+import AdminStackHeader from '../helpers/AdminStackHeader.js';
 
 
 // redux things
 import { connect } from 'react-redux';
 // import actions
-import { setSpeakerInitialValues } from '../actions/actions.js';
+import { setSpeakerInitialValues } from '../../actions/actions.js';
 
-class AddSpeakers extends Component {
+class SpeakersLanding extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       speakers: []
+
     }
   }
   static navigationOptions = ({ navigation }) => {
@@ -32,8 +32,8 @@ class AddSpeakers extends Component {
 
   componentDidMount() {
     // reset the Redux Store current speaker upon landing on this page
+    // should be able to read this as being empty so that we can utilize this to tell the Form to make a post to the correct place
     this.props.dispatch(setSpeakerInitialValues({}));
-
 
     console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
@@ -46,7 +46,7 @@ class AddSpeakers extends Component {
         // on speakers data coming in, store it in local state
         this.setState({
           speakers: response.data
-        }, function() {console.log('state changed to :', this.state.speakers)});
+        });
       })
       .catch(err => {
         console.log('error getting conference speakers: ', err);
@@ -66,7 +66,7 @@ class AddSpeakers extends Component {
           rightIcon= "add"
         />
         <Content>
-          <AddSpeakersList
+          <SpeakersList
             speakers={this.state.speakers}
             navigation={this.props.navigation}/>
         </Content>
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(AddSpeakers);
+export default connect(mapStateToProps)(SpeakersLanding);
