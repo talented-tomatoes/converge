@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Header, Left, Body, Right, Thumbnail, Text, Button, Icon } from 'native-base';
 import EditConferenceFooter from './helpers/EditConferenceFooter';
-import AddSpeakersForm from './AddSpeakersForm';
+import AddSpeakersForm from '../AddSpeakersForm';
 import axios from 'axios';
-import AddSpeakersList from './AddSpeakerComponents/AddSpeakerList';
-
-import Config from '../../../../config/config.js';
-import AdminStackHeader from './helpers/AdminStackHeader';
+import SpeakersList from './SpeakerList.js';
+import Config from '../../../../../config/config.js';
+import AdminStackHeader from '../helpers/AdminStackHeader.js';
 
 
 // redux things
@@ -14,7 +13,7 @@ import { connect } from 'react-redux';
 // import actions
 import { setSpeakerInitialValues } from '../actions/actions.js';
 
-class AddSpeakers extends Component {
+class SpeakersLanding extends Component {
   constructor(props) {
     super(props);
 
@@ -68,7 +67,7 @@ class AddSpeakers extends Component {
           rightIcon= "add"
         />
         <Content>
-          <AddSpeakersList
+          <SpeakersList
             speakers={this.state.speakers}
             navigation={this.props.navigation}/>
         </Content>
@@ -84,4 +83,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(AddSpeakers);
+export default connect(mapStateToProps)(SpeakersLanding);

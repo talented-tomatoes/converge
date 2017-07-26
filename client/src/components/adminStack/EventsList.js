@@ -15,27 +15,10 @@ class EventsList extends Component {
     super(props);
 
     this.state = {
-      // isDataFetched: false,
       events: []
     };
 
   }
-
-  // componentWillReceiveProps(nextprops) {
-  //   if (nextprops.data && !this.state.isDataFetched) {
-  //     this.setState({
-  //       events: nextprops.data,
-  //       isDataFetched: true
-  //     });
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   console.log(this.props);
-  //   this.setState({
-  //     events: this.props.data || []
-  //   });
-  // }
 
   render() {
     // console.log('EVENT LIST PROPS -> DATA ', this.state.events);

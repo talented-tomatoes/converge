@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
-import AddSpeakerListEntry from './AddSpeakerListEntry';
+import SpeakerListEntry from './SpeakerListEntry';
 
 
 
@@ -18,7 +18,7 @@ export default class AddSpeakersList extends Component {
           {
             this.props.speakers.map((speaker, key) => {
               return (
-                <AddSpeakerListEntry 
+                <SpeakerListEntry 
                   key={key}
                   speaker={speaker}
                   navigation={this.props.navigation}
@@ -31,5 +31,3 @@ export default class AddSpeakersList extends Component {
     );
   }
 }
-
-

@@ -11,9 +11,10 @@ import axios from 'axios';
 
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
-import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
-import Config from '../../../../config/config.js';
-import AdminStackHeader from './helpers/AdminStackHeader';
+
+import Config from '../../../../../config/config.js';
+import AdminStackHeader from '../helpers/AdminStackHeader.js';
+
 
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
@@ -40,12 +41,12 @@ class AddSpeakersForm extends Component {
   }
 
   componentDidMount() {
+    // do the pre-load of values
     this.handleInitialize();
   }
 
   handleInitialize() {
-    // console.log('HANDLING INIT ', this.props);
-
+    // set Values for the pre-load
     const speakerValues = {
       first_name: this.props.admin.speakerValues.first_name,
       last_name: this.props.admin.speakerValues.last_name,

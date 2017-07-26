@@ -240,7 +240,11 @@ let addSpeaker = (req, res) => {
 let updateSpeakerOfConf = (req, res) => {
   console.log('Updating speaker of of conference ', req.body);
 
-  // bookshelf command
+  // bookshelf command -
+    // use .where to look for the entry in Speaker
+    // then .fetch() it
+    // then use that result to update the row
+
   models.Speaker.where({id: req.body.id}).fetch()
     .then(speaker => {
       speaker.save(req.body, {method: 'update'});
