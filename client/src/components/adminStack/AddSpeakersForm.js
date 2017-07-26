@@ -50,8 +50,8 @@ class AddSpeakersForm extends Component {
       job_title: this.props.admin.job_title,
       email: this.props.admin.email,
       linkedin_id: this.props.admin.linkedin_id,
-      avatar: this.props.admin.avatar_url,
-      url: this.props.admin.url
+      avatar_url: this.props.admin.avatar_url,
+      bio: this.props.admin.bio
     };
     this.props.initialize(speakerValues);
   }
