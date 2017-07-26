@@ -16,7 +16,7 @@ const userReducer = (state = { user: null }, action) => {
 }
 
 // using state = { data = [] } in order to set the initial state of the data prop to an empty array. I need this in order to have my app map through 'something'
-const adminReducer = (state = { data: [] }, action) => {
+const adminReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
       console.log('getting events');

@@ -44,34 +44,47 @@ class AddSpeakersForm extends Component {
   }
 
   handleInitialize() {
+    // console.log('HANDLING INIT ', this.props);
+
     const speakerValues = {
-      first_name: this.props.admin.first_name,
-      last_name: this.props.admin.last_name,
-      job_title: this.props.admin.job_title,
-      email: this.props.admin.email,
-      linkedin_id: this.props.admin.linkedin_id,
-      avatar_url: this.props.admin.avatar_url,
-      bio: this.props.admin.bio
+      first_name: this.props.admin.speakerValues.first_name,
+      last_name: this.props.admin.speakerValues.last_name,
+      job_title: this.props.admin.speakerValues.job_title,
+      email: this.props.admin.speakerValues.email,
+      linkedin_id: this.props.admin.speakerValues.linkedin_id,
+      avatar_url: this.props.admin.speakerValues.avatar_url,
+      bio: this.props.admin.speakerValues.bio,
+      id: this.props.admin.speakerValues.id
     };
     this.props.initialize(speakerValues);
   }
 
 
   saveToDB(speaker) {
+    // base URL
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-      let url = SERVER_URL + 'api/addSpeaker';
-      let options = speaker;
-      speaker.conference_id = this.props.admin.currentConfID;
-      console.log(' SPEAKER INFORMATION, ', speaker)
-      axios.post(url, speaker)
-        .then(response => {
-          console.log('response : ', response);
-          // go back to the the EditSpeaker's landing page on success
-          this.props.navigation.navigate('AddSpeakers');
-        })
-        .catch(error => {
-          console.log('error saving speaker: ', error);
-        })
+    
+    // change URL depending on whether or not how they got to the page
+    if (this.props.admin.speakerValues.id === undefined) {
+      url = SERVER_URL + 'api/addSpeaker';
+    } else {
+      url = SERVER_URL + 'api/editSpeaker';
+    }
+    // console.log('URLLLLLL', url);
+    // let options = speaker;
+    speaker.conference_id = this.props.admin.currentConfID;
+
+    console.log(' SPEAKER INFORMATION, ', speaker)
+
+    axios.post(url, speaker)
+      .then(response => {
+        console.log('response : ', response);
+        // go back to the the EditSpeaker's landing page on success
+        this.props.navigation.navigate('AddSpeakers');
+      })
+      .catch(error => {
+        console.log('error saving speaker to the database: ', error);
+      })
     }
 
   submit(speaker) {
@@ -81,7 +94,7 @@ class AddSpeakersForm extends Component {
   }
 
   render() {
-    // console.log('props', this.props.admin);
+    console.log('props', this.props.admin);
     // this.props.loadSpeakerValues(this.speakerValues);
     const { handleSubmit } = this.props;
     return (
@@ -120,7 +133,7 @@ AddSpeakersForm = reduxForm({
 
 AddSpeakersForm = connect(
   state => ({
-    admin: state.adminReducer.speakerValues
+    admin: state.adminReducer
   }))(AddSpeakersForm)
 
 export default AddSpeakersForm;

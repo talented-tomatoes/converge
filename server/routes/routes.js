@@ -19,6 +19,10 @@ router.route('/speakers/:confid')
 router.route('/speakers/:presentationid')
   .get(controller.getAllSpeakersOfPresentation);
 
+// modify speakers from a conference
+router.route('/editSpeaker')
+  .post(controller.updateSpeakerOfConf);
+
 
 /*********************CONFERENCES **********************/
 router.route('/conferences')

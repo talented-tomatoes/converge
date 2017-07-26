@@ -20,6 +20,7 @@ class AddSpeakers extends Component {
 
     this.state = {
       speakers: []
+
     }
   }
   static navigationOptions = ({ navigation }) => {
@@ -32,6 +33,7 @@ class AddSpeakers extends Component {
 
   componentDidMount() {
     // reset the Redux Store current speaker upon landing on this page
+    // should be able to read this as being empty so that we can utilize this to tell the Form to make a post to the correct place
     this.props.dispatch(setSpeakerInitialValues({}));
 
 
