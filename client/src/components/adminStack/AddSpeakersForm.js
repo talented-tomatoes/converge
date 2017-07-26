@@ -9,19 +9,15 @@ import {
 import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon } from 'native-base';
 import axios from 'axios';
 
-
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 
 
-
-
-
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
-  console.log('label: ', label)
+  console.log('label: ', onChange)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
@@ -31,9 +27,6 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 }
 
 class AddSpeakersForm extends Component {
-
-
-
   static navigationOptions = {
     title: 'Add A Speaker',
     headerLeft: <Button transparent onPress={() => navigation.navigate('AddSpeakers')}><Icon name="menu"/></Button>
@@ -44,17 +37,23 @@ class AddSpeakersForm extends Component {
 
     }
 
-    // used to populate the reducer when invoked
-    // const speakerValues = {
-    //   first_name: this.props.admin.selectSpeaker.first_name,
-    //   last_name: this.props.admin.selectSpeaker.last_name,
-    //   job_title: this.props.admin.selectSpeaker.job_title,
-    //   email: this.props.admin.selectSpeaker.email,
-    //   linkedin_id: this.props.admin.selectSpeaker.linkedin_id,
-    //   avatar: this.props.admin.selectSpeaker.avatar_url,
-    //   url: this.props.admin.selectSpeaker.url
-    // }
+  }
 
+  componentDidMount() {
+    this.handleInitialize();
+  }
+
+  handleInitialize() {
+    const speakerValues = {
+      first_name: this.props.admin.first_name,
+      last_name: this.props.admin.last_name,
+      job_title: this.props.admin.job_title,
+      email: this.props.admin.email,
+      linkedin_id: this.props.admin.linkedin_id,
+      avatar: this.props.admin.avatar_url,
+      url: this.props.admin.url
+    };
+    this.props.initialize(speakerValues);
   }
 
 
@@ -82,11 +81,11 @@ class AddSpeakersForm extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log('props', this.props.admin);
+    // this.props.loadSpeakerValues(this.speakerValues);
     const { handleSubmit } = this.props;
     return (
       <Container>
-        {console.log('CONFERENCEID: ', this.props.navigation.state.params)}
         <AdminStackHeader
           navigation={this.props.navigation}
           leftNavigation="AddSpeakers"
@@ -121,9 +120,7 @@ AddSpeakersForm = reduxForm({
 
 AddSpeakersForm = connect(
   state => ({
-    admin: state.adminReducer
-  }),
-  { loadSpeakerValues: loadSpeakerValuesIntoForm }
-)(AddSpeakersForm)
+    admin: state.adminReducer.speakerValues
+  }))(AddSpeakersForm)
 
-export default AddSpeakersForm
+export default AddSpeakersForm;

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { setSpeakerInitialValues } from '../../actions/actions.js';
 
 
-class EditSpeakersListEntry extends Component {
+class AddSpeakersListEntry extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,10 +17,11 @@ class EditSpeakersListEntry extends Component {
       // onPress I need to go to the edit page of the speaker
       <ListItem avatar onPress={() => {
         // navigate to the EditSchedule form and pass it an object
-        console.log('props', this.props); 
-        this.props.navigation.navigate('EditSpeakersForm');
-        // on clicking the item, it will set the speaker's value into the store
+        console.log('speaker that I clicked on ', this.props.speaker);  
+
         this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
+        this.props.navigation.navigate('AddSpeakersForm'); 
+        // on clicking the item, it will set the speaker's value into the store
       }}>
         <Left>
           <Thumbnail source={{ uri: this.props.speaker.avatar_url ? this.props.speaker.avatar_url : 'https://rentcircles.com/assets/no-pic.jpg'}} />
@@ -38,8 +39,8 @@ class EditSpeakersListEntry extends Component {
 // REDUX THINGS
 const mapStateToProps = (state) => {
   return {
-    data: state.adminReducer
+    speakerValues: state.adminReducer
   };
 };
 
-export default connect(mapStateToProps)(EditSpeakersListEntry);
+export default connect(mapStateToProps)(AddSpeakersListEntry);

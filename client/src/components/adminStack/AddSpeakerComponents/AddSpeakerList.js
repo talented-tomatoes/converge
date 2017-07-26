@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text} from 'native-base';
-import EditSpeakerListEntry from './EditSpeakerListEntry';
+import AddSpeakerListEntry from './AddSpeakerListEntry';
 
 
 
-export default class EditSpeakersList extends Component {
+export default class AddSpeakersList extends Component {
   constructor(props) {
     super(props);
   }
@@ -18,7 +18,7 @@ export default class EditSpeakersList extends Component {
           {
             this.props.speakers.map((speaker, key) => {
               return (
-                <EditSpeakerListEntry 
+                <AddSpeakerListEntry 
                   key={key}
                   speaker={speaker}
                   navigation={this.props.navigation}

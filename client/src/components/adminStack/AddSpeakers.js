@@ -3,7 +3,7 @@ import { Container, Content, List, ListItem, Header, Left, Body, Right, Thumbnai
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import AddSpeakersForm from './AddSpeakersForm';
 import axios from 'axios';
-import AddSpeakersList from './EditSpeakerComponents/EditSpeakerList';
+import AddSpeakersList from './AddSpeakerComponents/AddSpeakerList';
 
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
@@ -46,7 +46,7 @@ class AddSpeakers extends Component {
         // on speakers data coming in, store it in local state
         this.setState({
           speakers: response.data
-        }, function() {console.log('state changed to :', this.state.speakers)});
+        });
       })
       .catch(err => {
         console.log('error getting conference speakers: ', err);

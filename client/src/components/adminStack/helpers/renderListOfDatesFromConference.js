@@ -15,7 +15,7 @@ const months = {
 
 // expects an object
 const renderListOfDatesFromConference = (conference) => {
-  console.log(conference);
+  // console.log(conference);
   var results = [];
   var day = 1000 * 60 * 60 * 24;
   date1 = new Date(conference.start_date);
