@@ -293,6 +293,19 @@ let getAllUserEvents = (req, res) => {
 
 };
 
+let getUserSchedule = (req, res) => {
+  models.UserPresentation.where({user_id: req.params.userid})
+    .fetchAll({withRelated: ['presentations']})
+    .then(record => {
+      var data = JSON.stringify(record);
+      var presentations = JSON.parse(data).map(pres => pres.presentations);
+      res.status(200).send(presentations);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
 let savePresentationToUserSchedule = (req, res) => {
   console.log('Saving presentation to user schedule...', req.body);
   models.UserPresentation.forge(req.body)
@@ -325,5 +338,6 @@ module.exports = {
   getAllUserEvents: getAllUserEvents,
   helloWorld: helloWorld,
   savePresentationToUserSchedule: savePresentationToUserSchedule,
-  getUser: getUser
+  getUser: getUser,
+  getUserSchedule: getUserSchedule
 };

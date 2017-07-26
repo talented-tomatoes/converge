@@ -35,9 +35,6 @@ class Sidebar extends React.Component {
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('Speakers')}}>
           <Title>Speakers</Title>
         </Button>
-        <Button rounded transparent onPress={() => {this.props.navigation.navigate('Presentations')}}>
-          <Title>Presentations</Title>
-        </Button>
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('MasterSchedule')}}>
           <Title>Event Schedule</Title>
         </Button>
