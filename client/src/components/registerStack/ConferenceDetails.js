@@ -105,6 +105,9 @@ class ConferenceDetails extends Component {
               <Button onPress={this.handlePaymentRequest.bind(this)}>
                 <Text style={{color: 'white'}}>Attend</Text>
               </Button>
+              <Button onPress={() => this.props.navigation.navigate('PaymentForm', {conference: this.props.navigation.state.params.conference})}>
+                <Text style={{color: 'white'}}>Pay with Card</Text>
+              </Button>
             </CardItem>
          </Card>
          <SpeakerList navigation={this.props.navigation} conferenceID={params.conference.id}/>

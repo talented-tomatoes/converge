@@ -25,6 +25,8 @@ import ConferenceList from './components/registerStack/ConferenceList';
 import ConferenceDetails from './components/registerStack/ConferenceDetails';
 import SpeakerList from './components/registerStack/SpeakerList.js';
 import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
+import PaymentForm from './components/registerStack/PaymentForm.js';
+
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
@@ -82,6 +84,7 @@ const RegisterStack = StackNavigator({
   SpeakerList: { screen: SpeakerList },
   SpeakerDetails: { screen: SpeakerDetails },
   AttendeeStack: { screen: AttendeeStack },
+  PaymentForm: { screen: PaymentForm }
 }, {
   headerMode: 'none',
 });
