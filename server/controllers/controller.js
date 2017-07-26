@@ -142,11 +142,13 @@ let chargeCustomer = (req, res) => {
   }, function(err, charge) {
     if (err) {
       console.log(err);
+      res.status(400).end()
+    } else {
+      console.log(charge);
+      res.status(201).end();
     }
-    console.log(charge);
   });
 
-  res.status(201).end();
 };
 
 let registerUser = (req, res) => {
@@ -334,8 +336,10 @@ let savePresentationToUserSchedule = (req, res) => {
       } else {
         res.status(201).send('already added');
       }
+
     });  
 };
+
 
 
 
