@@ -270,12 +270,12 @@ let addPresentation = (req, res) => {
     .then(pres => {
       for (var speaker in speakers) {
         if (speakers[speaker] === true) {
-          return models.PresentationSpeaker.forge({speaker_id: speaker, presentation_id: pres.id}).save()
+          models.PresentationSpeaker.forge({speaker_id: speaker, presentation_id: pres.id}).save()
+            .then(record => {
+              console.log('Adding speaker and presentation to presentations_speakers....', record);
+            })
         }
       }
-    })
-    .then((response) => {
-      res.status(200).end();
     })
     .catch(err => {
       console.log('Error saving presentation: ', err);
