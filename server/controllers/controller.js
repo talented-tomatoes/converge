@@ -354,6 +354,40 @@ let savePresentationToUserSchedule = (req, res) => {
     });
 };
 
+let editConference = (req, res) => {
+  console.log('UPDATING CONFERENCE ', req.body);
+
+  // bookshelf command -
+    // use .where to look for the entry in Speaker
+    // then .fetch() it
+    // then use that result to update the row
+
+  models.Conference.where({id: req.body.id}).fetch()
+    .then(conference => {
+      conference.save(req.body, {method: 'update'});
+      console.log('conference updated: ', conference);
+      res.status(200).send('Conference Updated!');
+    })
+    .catch(err => {
+      console.log('error: ', err);
+      res.status(400).send('error udpating conference');
+    });
+};
+
+let getConferenceByConfID = (req, res) => {
+  console.log('GETTING CONFERENCE BY ID: ', req.params.confID);
+
+  models.Conference.where({id: req.params.confID}).fetch()
+    .then(conference => {
+      console.log('conference fetched: ', conference);
+      res.status(200).send(conference);
+    })
+    .catch(err => {
+      console.log('error: ', err);
+      res.status(400).send('error fetching that specific conference');
+    });
+};
+
 
 
 
@@ -377,5 +411,7 @@ module.exports = {
   savePresentationToUserSchedule: savePresentationToUserSchedule,
   getUser: getUser,
   updateSpeakerOfConf: updateSpeakerOfConf,
+  editConference: editConference,
+  getConferenceByConfID: getConferenceByConfID,
   getUserSchedule: getUserSchedule
 };

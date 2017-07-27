@@ -4,7 +4,7 @@ import { Image } from 'react-native';
 
 // import Redux things
 import { connect } from 'react-redux';
-import { setSpeakerInitialValues } from '../../actions/actions.js';
+import { setSpeakerInitialValues } from '../actions/actions.js';
 
 
 class SpeakersListEntry extends Component {
