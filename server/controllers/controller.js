@@ -116,7 +116,7 @@ let checkinUser = (req, res) => {
     if (response.data.images) {
       let confidence = response.data.images[0]['transaction']['confidence'];
       console.log('confidence=', confidence);
-      if (confidence > 0.75) {
+      if (confidence > 0.65) {
         res.status(200).send('Success');
       } else {
         res.status(200).send('Checkin Failed. Please enter a Valid Picture');
@@ -351,7 +351,7 @@ let savePresentationToUserSchedule = (req, res) => {
         res.status(201).send('already added');
       }
 
-    });  
+    });
 };
 
 
