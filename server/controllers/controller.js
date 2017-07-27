@@ -336,7 +336,7 @@ let editConference = (req, res) => {
     .then(conference => {
       conference.save(req.body, {method: 'update'});
       console.log('conference updated: ', conference);
-      res.status(200).send('Conference Updated!');
+      res.status(200).send(conference);
     })
     .catch(err => {
       console.log('error: ', err);

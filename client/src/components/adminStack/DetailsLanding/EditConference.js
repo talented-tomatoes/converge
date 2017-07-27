@@ -35,7 +35,7 @@ class EditConference extends Component {
           leftIcon="arrow-back"
           title="Details"
           rightNavigation="EditConferenceForm"
-          rightIcon= "add"
+          rightIcon={this.props.admin.selectedConference.id ? 'create' : 'add'}
         />
         <Content>
           <Text>{JSON.stringify(this.props.admin.selectedConference)}</Text>

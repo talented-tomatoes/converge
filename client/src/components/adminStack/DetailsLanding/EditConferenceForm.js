@@ -13,6 +13,8 @@ import DatePicker from '../DatePicker.js';
 // need initialize to initialize the form with some data if it exists
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
+import { setAdminSelectedConference } from '../../actions/actions.js';
+
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
   console.log('label: ', label)
@@ -28,8 +30,8 @@ class EditConferenceForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      start_date: '',
-      end_date: '', // find a way to get the date in here from the redux store (should be a string at the moment)
+      start_date: '' || this.props.admin.selectedConference.start_date,
+      end_date: '' || this.props.admin.selectedConference.end_date
     }
   }
   static navigationOptions = {
@@ -76,7 +78,8 @@ class EditConferenceForm extends Component {
 
     axios.post(url, conference)
       .then(response => {
-        console.log('response : ', response);
+        console.log('response from the updated: ', response.data);
+        this.props.dispatch(setAdminSelectedConference(response.data));
         this.props.navigation.navigate('EditConference');
       })
       .catch(error => {
@@ -88,7 +91,7 @@ class EditConferenceForm extends Component {
     // conference.user_id = null;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
-    conference.ticket_price = Number(conference.ticket_price);
+    // conference.ticket_price = Number(conference.ticket_price);
     conference.id = this.props.admin.selectedConference.id;
     this.saveToDB(conference);
     console.log('values in EditConferenceForm: ', conference);
@@ -97,14 +100,14 @@ class EditConferenceForm extends Component {
   onStartDateChange(date) {
     console.log('changing the start date now to ', date);
     this.setState({
-      startDate: date
+      start_date: date
     })
   }
 
   onEndDateChange(date) {
     console.log('changing the end date now to ', date);
     this.setState({
-      endDate: date
+      end_date: date
     })
   }
 
