@@ -17,7 +17,7 @@ const Presentation = db.Model.extend({
     return this.belongsToMany(User, 'users_presentations');
   },
   speakers: function() {
-    return this.belongsToMany(Speaker, 'presentations_speakers');
+    return this.belongsToMany(Speaker);
   },
   conferences: function() {
     return this.belongsTo(Conference);
@@ -40,7 +40,7 @@ const Conference = db.Model.extend({
 const Speaker = db.Model.extend({
   tableName: 'speakers',
   presentations: function() {
-    return this.belongsToMany(Presentation, 'presentations_speakers');
+    return this.belongsToMany(Presentation);
   },
   conferences: function() {
     return this.belongsTo(Conference);
@@ -64,6 +64,13 @@ const UserPresentation = db.Model.extend({
   }
 });
 
+const PresentationSpeaker = db.Model.extend({
+  tableName: 'presentations_speakers',
+  speakers: function() {
+    return this.belongsTo(Speaker)
+  }
+})
+
 module.exports = {
   User: User,
   Users: User.collection(User),
@@ -74,7 +81,8 @@ module.exports = {
   ConferenceUser: ConferenceUser,
   UserPresentation: UserPresentation,
   Speaker: Speaker,
-  Speakers: Speaker.collection(Speaker)
+  Speakers: Speaker.collection(Speaker),
+  PresentationSpeaker: PresentationSpeaker
 };
 
 

@@ -101,8 +101,6 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
                           console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date))
                           console.log('date: ', date);
                           return convertDateToEnglish(presentation.date) === date;
-                        }).sort((a, b) => {
-                          return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
                         }).map((presentation, i) => {
                           return (
                             <List key={i}>
