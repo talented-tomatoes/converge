@@ -47,7 +47,6 @@ exports.up = function(knex, Promise) {
 			table.string('date').notNullable();
 			table.string('time').notNullable();
 			table.string('location').notNullable();
-			table.integer('speaker_id').references('id').inTable('speakers');
 			table.integer('conference_id').references('id').inTable('conferences');
 		}),
 		knex.schema.createTableIfNotExists('users_presentations', (table) => {

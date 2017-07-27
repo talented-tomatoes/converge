@@ -74,11 +74,14 @@ let getAllConferences = (req, res) => {
 let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
   console.log('inside getAllPresentationsOfConf ', confid);
-  models.Presentation.forge({conference_id: confid})
-    .fetchAll({withRelated: ['conferences']})
+  models.Presentation.where({conference_id: confid})
+    .fetchAll()
     .then(presentations => {
-      console.log('presentations fetched: ', presentations);
-      res.status(200).send(presentations);
+      var data = JSON.stringify(presentations);
+      var sortedData = JSON.parse(data).sort((a, b) => {
+        return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
+      })
+      res.status(200).send(sortedData);
     })
     .catch(err => {
       console.log('Error!', err);
@@ -260,12 +263,23 @@ let updateSpeakerOfConf = (req, res) => {
 };
 
 let addPresentation = (req, res) => {
-  console.log('inside addPresentation');
-  console.log('req.body: ', req.body);
-  models.Presentation.forge(req.body).save()
-    .then(presentation => {
-      console.log('Presentation saved: ', presentation);
-      res.status(200).send('Presentation saved!');
+  var presentation = req.body.presentation;
+  var speakers = req.body.speakers;
+
+  models.Presentation.forge(presentation).save()
+    .then(pres => {
+      for (var speaker in speakers) {
+        if (speakers[speaker] === true) {
+          models.PresentationSpeaker.forge({speaker_id: speaker, presentation_id: pres.id}).save()
+            .then(record => {
+              console.log('Adding speaker and presentation to presentations_speakers....', record);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+      }
+      res.status(201).end();
     })
     .catch(err => {
       console.log('Error saving presentation: ', err);
