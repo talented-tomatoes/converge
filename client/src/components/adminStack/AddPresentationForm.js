@@ -35,7 +35,7 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
   )
 }
 
-const validate = (values) => { 
+const validate = (values) => {
   const errors = {};
   if (!values.name || values.name.trim() === '') {
     errors.name = <Text>Name Required</Text>;
@@ -170,7 +170,7 @@ class AddPresentationForm extends Component {
            <Content>
              {
                this.state.speakers.map((speaker, i) => {
-                 return <ListItem>
+                 return <ListItem key={i}>
                           <CheckBox onPress={this.handleCheckBoxPress.bind(this, speaker.id)} checked={this.state.selectedSpeakers[speaker.id]}/>
                           <Body>
                             <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
