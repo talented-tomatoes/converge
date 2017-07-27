@@ -57,6 +57,9 @@ router.route('/addSpeaker')
 router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
 
+router.route('/presentations/:presid')
+  .delete(controller.removePresentationFromConference)
+
 router.route('/addPresentation')
   .post(controller.addPresentation);
 
