@@ -27,7 +27,7 @@ exports.up = function(knex, Promise) {
 			table.integer('ticket_price').notNullable();
 			table.string('venue_map', 500).notNullable();
 			table.string('banner', 500).notNullable();
-			table.integer('user_id').references('id').inTable('users');
+			table.integer('user_id').references('id').inTable('users').onDelete('CASCADE');
 		}),
 		knex.schema.createTableIfNotExists('speakers', (table) => {
 			table.increments('id').primary;
@@ -38,7 +38,7 @@ exports.up = function(knex, Promise) {
 			table.string('bio', 2000);
 			table.string('email');
 			table.string('linkedin_id');
-			table.integer('conference_id').references('id').inTable('conferences');
+			table.integer('conference_id').references('id').inTable('conferences').onDelete('CASCADE');
 		}),
 		knex.schema.createTableIfNotExists('presentations', (table) => {
 			table.increments('id').primary;
@@ -47,22 +47,22 @@ exports.up = function(knex, Promise) {
 			table.string('date').notNullable();
 			table.string('time').notNullable();
 			table.string('location').notNullable();
-			table.integer('conference_id').references('id').inTable('conferences');
+			table.integer('conference_id').references('id').inTable('conferences').onDelete('CASCADE');
 		}),
 		knex.schema.createTableIfNotExists('users_presentations', (table) => {
 			table.increments('id').primary;
 			table.string('user_id').references('login_id').inTable('users');
-			table.integer('presentation_id').references('id').inTable('presentations');
+			table.integer('presentation_id').references('id').inTable('presentations').onDelete('CASCADE');
 		}),
 		knex.schema.createTableIfNotExists('presentations_speakers', (table) => {
 			table.increments('id').primary;
-			table.integer('presentation_id').references('id').inTable('presentations');
-			table.integer('speaker_id').references('id').inTable('speakers');
+			table.integer('presentation_id').references('id').inTable('presentations').onDelete('CASCADE');
+			table.integer('speaker_id').references('id').inTable('speakers').onDelete('CASCADE');
 		}),
 		knex.schema.createTableIfNotExists('conferences_users', (table) => {
 			table.increments('id').primary;
-			table.integer('conference_id').references('id').inTable('conferences');
-			table.string('user_id').references('login_id').inTable('users');
+			table.integer('conference_id').references('id').inTable('conferences').onDelete('CASCADE');
+			table.string('user_id').references('login_id').inTable('users').onDelete('CASCADE');
 		})
 	])
 	})
