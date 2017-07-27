@@ -9,11 +9,11 @@ import {
 import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Header, Left, Right, Body, Title } from 'native-base';
 import uploadImage from './helpers/uploadImage'
 import normalizePhoneNumber from './helpers/normalizePhoneNumber';
-import UserSwiperFooter from './helpers/UserSwiperFooter';
 import kairosEnrollReqObj from './helpers/kairosEnrollReqObj';
 import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import Swiper from 'react-native-swiper';
+import Config from '../../../../config/config.js';
 
 import RegisterStackHeader from './helpers/RegisterStackHeader.js'
 
@@ -21,12 +21,20 @@ import RegisterStackHeader from './helpers/RegisterStackHeader.js'
 
 import { Field, reduxForm } from 'redux-form';
 
+const required = value => {
+  return value ? undefined  : <Text> Required </Text>
+};
 
-const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, normalize, placeholder}) => {
+const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, normalize, placeholder, meta: { touched, error, warning }}) => {
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
       <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} placeholder={placeholder}/>
+      {touched &&
+        (error &&
+          <Item error>
+            {error}
+          </Item>) }
     </Item>
   )
 }
@@ -39,6 +47,39 @@ class ProfileForm extends Component {
       avatarSource: '',
     }
   }
+
+saveToDB(user, userType) {
+  user.user_type = userType;
+  console.log('user: ', user);
+  const SERVER_URL = Config.server.url || 'http://localhost:3000';
+  let url = SERVER_URL + 'api/registerUser';
+  let options = user;
+  axios.post(url, user)
+    .then(response => {
+      console.log('response : ', response);
+      if (userType === 'attendee') {
+        this.props.navigation.navigate('ConferenceList');
+      } else if (userType === 'host') {
+        this.props.navigation.navigate('AdminStack');
+      }
+    })
+    .catch(error => {
+      console.log('error saving user to DB: ', error);
+    })
+  };
+
+  submit(userType, user) {
+    let userToSave = {
+      login_id: this.props.user.id,
+      first_name: this.props.user.givenName,
+      last_name: this.props.user.familyName,
+      avatar_url: this.state.avatarSource.uri,
+      email: this.props.user.email,
+      linkedin_id: user.linkedIn,
+      phone_number: user.phoneNumber,
+    };
+    this.saveToDB(userToSave , userType);
+ }
 
   takePicture() {
     let options = {
@@ -79,23 +120,9 @@ class ProfileForm extends Component {
         })
         .catch(err => {
           console.log('err=', err);
-          // handle error scenario
         })
       }
     });
-  }
-
-  submit(values) {
-    let user = {
-      login_id: this.props.user.id,
-      first_name: this.props.user.givenName,
-      last_name: this.props.user.familyName,
-      avatar_url: this.state.avatarSource.uri,
-      email: this.props.user.email,
-      linkedin_id: values.linkedIn,
-      phone_number: values.phoneNumber,
-    };
-    return user;
   }
 
   render() {
@@ -110,8 +137,8 @@ class ProfileForm extends Component {
           <Right />
         </Header>
         <Content>
-          <Field name="linkedIn" component={ renderInput } label="LinkedIn URL:" placeholder="linkedin.com/in/johndoe123" />
-          <Field name="phoneNumber" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
+          <Field name="linkedIn" validate={[required]} component={ renderInput } label="LinkedIn URL:" placeholder="linkedin.com/in/johndoe123" />
+          <Field name="phoneNumber" validate={[required]} component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
           <Separator bordered>
             <Text style={{alignSelf: 'center'}} note>Tap below to attach a profile picture</Text>
           </Separator>
@@ -123,15 +150,28 @@ class ProfileForm extends Component {
         </Content>
         <Text style={{alignSelf: 'center'}} note>Swipe For Host</Text>
         <Footer>
-          <UserSwiperFooter navigation={this.props.navigation} handleSubmit={handleSubmit(this.submit.bind(this)).bind(this)} imageUrl={this.state.avatarSource.url}/>
+          <Content style={{flex:1}}>
+            <Swiper style={{backgroundColor: '#428bca'}} showsButtons={false}>
+              <Button style={{alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this, 'attendee'))}>
+                <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Register as Attendee</Text>
+              </Button>
+              <Button style={{alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this, 'host'))}>
+                <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Register as Host</Text>
+              </Button>
+            </Swiper>
+          </Content>
         </Footer>
       </Container>
     )
   }
 }
+               
+const reduxFormConfig = {
+  form: 'ProfileForm',
+  fields: ['linkedIn', 'phoneNumber']
+}
+ProfileForm = reduxForm(reduxFormConfig)(ProfileForm)
 
-export default reduxForm({
-  form: 'finishProfile'
-})(ProfileForm)
+export default ProfileForm
 
 
