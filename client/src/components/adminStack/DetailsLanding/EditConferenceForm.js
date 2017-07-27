@@ -67,10 +67,11 @@ class EditConferenceForm extends Component {
   saveToDB(conference) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
 
+    let url = SERVER_URL;
     if (this.props.admin.selectedConference.id === undefined) {
-      let url = SERVER_URL + 'api/addConference';
+      url += 'api/addConference';
     } else {
-      let url = SERVER_URL + 'api/editConference';
+      url += 'api/editConference';
     }
 
     axios.post(url, conference)
@@ -88,6 +89,7 @@ class EditConferenceForm extends Component {
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
     conference.ticket_price = Number(conference.ticket_price);
+    conference.id = this.props.admin.selectedConference.id;
     this.saveToDB(conference);
     console.log('values in EditConferenceForm: ', conference);
   }

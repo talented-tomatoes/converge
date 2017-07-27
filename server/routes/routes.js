@@ -34,6 +34,9 @@ router.route('/helloWorld')
 router.route('/addConference')
   .post(controller.addConference);
 
+router.route('/editConference')
+  .post(controller.editConference);
+
 router.route('/getConferencesByHostID/:hostID')
   .get(controller.getConferencesByHostID);
 
