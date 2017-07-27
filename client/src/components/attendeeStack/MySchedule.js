@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Drawer, Content, Text, Container, Button, Icon, Tabs, Body, Tab, List, ListItem, Left, Grid, Col, Right } from 'native-base';
+import { Drawer, Content, Text, Toast, Container, Button, Icon, Tabs, Body, Tab, List, ListItem, Left, Grid, Col, Right } from 'native-base';
 import SideBar from './Sidebar';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
@@ -49,6 +49,13 @@ class MySchedule extends Component {
     axios.delete(`${Config.server.url}api/join/users_presentations/${this.props.user.id}/${presentation.id}`)
       .then(response => {
         this.getUserSchedule();
+        Toast.show({
+            text: `${presentation.name} removed from your schedule`,
+            position: 'bottom',
+            buttonText: 'X',
+            type: 'warning',
+            duration: 2000
+         });
       });
   }
 
