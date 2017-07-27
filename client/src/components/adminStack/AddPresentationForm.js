@@ -18,15 +18,29 @@ import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 
 
-
-const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
-  console.log('label: ', label)
+const required = value => {
+  return value ? undefined  : <Text> Required </Text>
+};
+const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
       <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} placeholder={placeholder} multiline={multiline}/>
+      {touched &&
+        (error &&
+          <Item error>
+            {error}
+          </Item>) }
     </Item>
   )
+}
+
+const validate = (values) => { 
+  const errors = {};
+  if (!values.name || values.name.trim() === '') {
+    errors.name = <Text>Name Required</Text>;
+  }
+  return errors;
 }
 
 class AddPresentationForm extends Component {
@@ -34,6 +48,7 @@ class AddPresentationForm extends Component {
     title: 'Add A Presentation',
     headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -139,8 +154,8 @@ class AddPresentationForm extends Component {
           rightIcon= "trash"
         />
         <Content>
-          <Field name="name" component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
-          <Item inlineLabel>
+          <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
+          <Item inlineLabel name="date" validate={[required]}>
             <Label>Date: </Label>
             <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} />
           </Item>
@@ -149,8 +164,8 @@ class AddPresentationForm extends Component {
             <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} />
           </Item>
 
-          <Field name="location" component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
-          <Field name="description" component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
+          <Field name="location" validate={[required]} component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
+          <Field name="description" validate={[required]} component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
            <Label>Speakers:</Label>
            <Content>
              {
@@ -176,10 +191,11 @@ class AddPresentationForm extends Component {
     )
   }
 }
-
-AddPresentationForm = reduxForm({
-  form: 'AddPresentation'
-})(AddPresentationForm)
+const reduxFormConfig = {
+  form: 'AddPresentation',
+  fields: ['name', 'speaker', 'date', 'location', 'description']
+}
+AddPresentationForm = reduxForm(reduxFormConfig)(AddPresentationForm)
 
 AddPresentationForm = connect(
   state => ({

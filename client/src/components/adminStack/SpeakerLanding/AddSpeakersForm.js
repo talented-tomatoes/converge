@@ -11,23 +11,44 @@ import axios from 'axios';
 
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
-
+import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
 import Config from '../../../../../config/config.js';
-import AdminStackHeader from '../helpers/AdminStackHeader.js';
+import AdminStackHeader from '../helpers/AdminStackHeader';
 
+const required = (value) => {
+  return value ? undefined  : <Text> Required </Text>
+};
 
+const email = (value) => {
+ return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) 
+              ? <Text> Invalid Email </Text>
+              : undefined
+  
+}
 
-const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
-  console.log('label: ', onChange)
+const linkedin = (value) => {
+  return value && !value.toLowerCase().startsWith('http://linkedin.com')
+               ? <Text> Invalid Linkedin URL</Text>
+              : undefined
+}
+
+const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
+  console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
       <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} placeholder={placeholder} multiline={multiline}/>
+      {touched &&
+        (error &&
+          <Item error>
+            {error}
+          </Item>) }
     </Item>
   )
 }
 
 class AddSpeakersForm extends Component {
+
   static navigationOptions = {
     title: 'Add A Speaker',
     headerLeft: <Button transparent onPress={() => navigation.navigate('AddSpeakers')}><Icon name="menu"/></Button>
@@ -37,6 +58,7 @@ class AddSpeakersForm extends Component {
     this.state = {
 
     }
+    
 
   }
 
@@ -59,7 +81,6 @@ class AddSpeakersForm extends Component {
     };
     this.props.initialize(speakerValues);
   }
-
 
   saveToDB(speaker) {
     // base URL
@@ -107,13 +128,13 @@ class AddSpeakersForm extends Component {
           rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
         />
         <Content>
-          <Field name="first_name" component={ renderInput } label="First Name:" placeholder="John" />
-          <Field name="last_name" component={ renderInput } label="Last Name:" placeholder="Doe" />
-          <Field name="job_title" component={ renderInput } label="Job Title:" placeholder="Director of Engineering" />
-          <Field name="email" component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" component={ renderInput } label="Linked In URL:" placeholder="http://linkedin.com/in/johndoe123" />
-          <Field name="avatar_url" component={ renderInput } label="Speaker Profile Picture:" placeholder="http://myProfilePicture.jpg" />
-          <Field name="bio" component={ renderInput } label="Speaker Bio:" placeholder="John Doe is involved with...." multiline={true} />
+          <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" placeholder="John" />
+          <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
+          <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" placeholder="Director of Engineering" />
+          <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
+          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked In URL:" placeholder="http://linkedin.com/in/johndoe123" />
+          <Field name="avatar_url" validate={[required]} component={ renderInput } label="Speaker Profile Picture:" placeholder="http://myProfilePicture.jpg" />
+          <Field name="bio" validate={[required]} component={ renderInput } label="Speaker Bio:" placeholder="John Doe is involved with...." multiline={true} />
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
@@ -128,7 +149,8 @@ class AddSpeakersForm extends Component {
 }
 
 AddSpeakersForm = reduxForm({
-  form: 'AddSpeaker'
+  form: 'AddSpeaker',
+  fields: ['first_name', 'last_name', 'job_title', 'email', 'linkedin_id', 'avatar_url', 'bio']
 })(AddSpeakersForm)
 
 AddSpeakersForm = connect(
