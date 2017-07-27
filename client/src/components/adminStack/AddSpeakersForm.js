@@ -92,12 +92,8 @@ class AddSpeakersForm extends Component {
     } else {
       url = SERVER_URL + 'api/editSpeaker';
     }
-    // console.log('URLLLLLL', url);
-    // let options = speaker;
-    speaker.conference_id = this.props.admin.currentConfID;
 
-    // console.log(' SPEAKER INFORMATION, ', speaker)
-
+    console.log('speaker: ', speaker)
     axios.post(url, speaker)
       .then(response => {
         console.log('response : ', response);
@@ -110,13 +106,13 @@ class AddSpeakersForm extends Component {
     }
 
   submit(speaker) {
-    speaker.conference_id = null;
+    speaker.conference_id = this.props.admin.selectedConference.id;
     this.saveToDB(speaker);
     console.log('values in AddSpeakersForm: ', speaker);
   }
 
   render() {
-    // console.log('props', this.props.admin);
+    console.log('props in addspeaker', this.props);
     const { handleSubmit } = this.props;
     return (
       <Container>
