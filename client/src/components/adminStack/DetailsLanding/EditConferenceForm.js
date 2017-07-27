@@ -15,13 +15,27 @@ import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { setAdminSelectedConference } from '../../actions/actions.js';
 
+const required = value => {
+  return value ? undefined  : <Text> Required </Text>
+};
 
-const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline}) => {
+const price = (value) => {
+  return value && isNaN(Number(value))
+         ? <Text> Must be a Number </Text>
+         : undefined
+};
+
+const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
   console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
       <Input keyboardType={keyboardType} onChangeText={onChange} {...restInput} normalize={normalize} placeholder={placeholder} multiline={multiline}/>
+      {touched &&
+        (error &&
+          <Item error>
+            {error}
+          </Item>) }
     </Item>
   )
 }
@@ -54,7 +68,6 @@ class EditConferenceForm extends Component {
       address: this.props.admin.selectedConference.address,
       logo: this.props.admin.selectedConference.logo,
       // need to stringify the price so that it can be pre-loaded into the field
-      // remember to Number() it when sending the data back to the server
       ticket_price: JSON.stringify(this.props.admin.selectedConference.ticket_price),
       venue_map: this.props.admin.selectedConference.venue_map,
       banner: this.props.admin.selectedConference.banner,
@@ -131,8 +144,8 @@ class EditConferenceForm extends Component {
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
         />
         <Content>
-          <Field name="name" component={ renderInput } label="Conference Name:" placeholder="SXSW" />
-          <Field name="address" component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
+          <Field name="name" validate={[required]} component={ renderInput } label="Conference Name:" placeholder="SXSW" />
+          <Field name="address" validate={[required]} component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
           <ListItem>
             <Text>Start Date: </Text>
             <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date}/>
@@ -145,11 +158,11 @@ class EditConferenceForm extends Component {
           {/* <Text> End Date: </Text> */}
           {/* <Field name="start_date" component={ DatePicker } label="Start Date:" placeholder="7/4/17" />
           <Field name="end_date" component={ renderInput } label="End Date:" placeholder="7/5/17" /> */}
-          <Field name="logo" component={ renderInput } label="Logo URL:" placeholder="http://myCompanyLogo.jpg" />
-          <Field name="ticket_price" component={ renderInput } label="Ticket Price:" placeholder="$85.00" keyboardType="numeric" />
-          <Field name="venue_map" component={ renderInput } label="Venue Map URL:" placeholder="http://venueMap.jpg" />
-          <Field name="banner" component={ renderInput } label="Banner URL:" placeholder="http://banner.jpg" />
-          <Field name="details" component={ renderInput } label="Conference Blurb:" placeholder="SXSW brings musicians and techn ..." multiline={true} />
+          <Field name="logo" validate={[required]} component={ renderInput } label="Logo URL:" placeholder="http://myCompanyLogo.jpg" />
+          <Field name="ticket_price" validate={[required, price]} component={ renderInput } label="Ticket Price:" placeholder="$85.00" keyboardType="numeric" />
+          <Field name="venue_map" validate={[required]} component={ renderInput } label="Venue Map URL:" placeholder="http://venueMap.jpg" />
+          <Field name="banner" validate={[required]} component={ renderInput } label="Banner URL:" placeholder="http://banner.jpg" />
+          <Field name="details" validate={[required]} component={ renderInput } label="Conference Blurb:" placeholder="SXSW brings musicians and techn ..." multiline={true} />
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
@@ -163,9 +176,16 @@ class EditConferenceForm extends Component {
   }
 }
 
-EditConferenceForm = reduxForm({
-  form: 'EditConferenceForm'
-})(EditConferenceForm)
+const reduxFormConfig = {
+  form: 'EditConferenceForm',
+  fields: ['name', 'address', 'logo', 'ticket_price', 'venue_map', 'banner', 'details']
+}
+
+EditConferenceForm = reduxForm(reduxFormConfig)(EditConferenceForm)
+
+// EditConferenceForm = reduxForm({
+//   form: 'EditConferenceForm'
+// })(EditConferenceForm)
 
 
 EditConferenceForm = connect(

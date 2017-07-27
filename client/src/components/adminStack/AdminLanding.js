@@ -97,7 +97,7 @@ class AdminLanding extends Component {
             <Title style={{color: 'white'}} >Hosted Events</Title>
           </Body>
           <Right>
-            <Button transparent onPress={() => this.props.navigation.navigate('CreateEvent')}>
+            <Button transparent onPress={() => this.props.navigation.navigate('EditConferenceForm')}>
               <Icon style={{color: 'white'}} name="add"/>
             </Button>
           </Right>
