@@ -7,7 +7,7 @@ import {
   Image,
   Platform
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon } from 'native-base';
+import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon } from 'native-base';
 
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
@@ -56,7 +56,8 @@ class AddPresentationForm extends Component {
           last_name: 'Frost',
           id: 3
         }
-      ]
+      ],
+      selectedSpeakers: {}
     }
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let getAllSpeakersByConferenceIdUrl = SERVER_URL + 'api/speakers/' + this.props.admin.selectedConference.id;
@@ -75,9 +76,11 @@ class AddPresentationForm extends Component {
   saveToDB(presentation) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
       let url = SERVER_URL + 'api/AddPresentation';
-      let options = presentation;
+      let data = {};
+      data.presentation = presentation;
+      data.speakers = this.state.selectedSpeakers
       console.log('presentation: ', presentation);
-      axios.post(url, presentation)
+      axios.post(url, data)
         .then(response => {
           console.log('response : ', response);
           this.props.navigation.navigate('AddPresentation');
@@ -88,7 +91,6 @@ class AddPresentationForm extends Component {
     }
 
   submit(presentation) {
-    presentation.speaker_id = this.state.selectedSpeakerID;
     presentation.conference_id = this.props.admin.selectedConference.id;
     presentation.date = this.state.selectedDate;
     presentation.time = this.state.selectedTime;
@@ -110,6 +112,17 @@ class AddPresentationForm extends Component {
   onTimeChange(value) {
     this.setState({
       selectedTime: value
+    })
+  }
+
+  handleCheckBoxPress(id) {
+    if (this.state.selectedSpeakers[id] === undefined) {
+      this.state.selectedSpeakers[id] = true;
+    } else {
+      this.state.selectedSpeakers[id] = !this.state.selectedSpeakers[id]
+    }
+    this.setState({
+      selectedSpeakers: this.state.selectedSpeakers
     })
   }
 
@@ -155,6 +168,19 @@ class AddPresentationForm extends Component {
 
           <Field name="location" component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
           <Field name="description" component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
+           <Label>Speakers:</Label>
+           <Content>
+             {
+               this.state.speakers.map((speaker, i) => {
+                 return <ListItem>
+                          <CheckBox onPress={this.handleCheckBoxPress.bind(this, speaker.id)} checked={this.state.selectedSpeakers[speaker.id]}/>
+                          <Body>
+                            <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
+                          </Body>
+                        </ListItem>
+               })
+             }
+           </Content>
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
