@@ -30,6 +30,7 @@ export default class MyDatePicker extends Component {
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         customStyles={{
+          disabled: this.props.disabled,
           dateIcon: {
             position: 'absolute',
             left: 0,
