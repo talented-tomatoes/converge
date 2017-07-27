@@ -36,7 +36,6 @@ const linkedin = (value) => {
 }
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
-  console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
@@ -63,18 +62,15 @@ class EditAdminProfileForm extends Component {
   }
 
   openDrawer() {
-    console.log('drawer open');
     this.drawer._root.open()
   };
 
   componentDidMount() {
-    // do the pre-load of values
-    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    const SERVER_URL = Config.server.url;
 
     let url = SERVER_URL + 'api/users/' + this.props.user.id;
     axios.get(url)
       .then(user => {
-        console.log('user: ', user);
         this.setState({
           dbUser: user.data
         }, this.handleInitialize)
@@ -82,17 +78,13 @@ class EditAdminProfileForm extends Component {
       .catch(err => {
         console.log('error getting user: ', err);
       })
-    // this.handleInitialize();
   }
 
   handleInitialize() {
-    console.log('PROFILE EDIT FORM LOADED, PROPS ARE: ', this.props)
-    // set Values for the pre-load of conference form
-
     const profileValues = {
-      first_name: this.props.user.givenName,
-      last_name: this.props.user.familyName,
-      email: this.props.user.email,
+      first_name: this.state.dbUser.first_name,
+      last_name: this.state.dbUser.last_name,
+      email: this.state.dbUser.email,
       linkedin_id: this.state.dbUser.linkedin_id,
       phone_number: this.state.dbUser.phone_number,
     };
@@ -107,7 +99,6 @@ class EditAdminProfileForm extends Component {
 
     axios.post(url, profile)
       .then(response => {
-        console.log('edit profile response: ', response);
         this.props.navigation.navigate('AdminLanding');
       })
       .catch(err => {
@@ -119,9 +110,8 @@ class EditAdminProfileForm extends Component {
   submit(profile) {
     profile.login_id = this.props.user.id;
     profile.avatar_url = this.state.dbUser.avatar_url;
-    profile.user_type = "host";
+    profile.user_type = this.state.dbUser.user_type;
     this.saveToDB(profile);
-    console.log('values in EditAdminProfileForm: ', profile);
   }
 
   render() {
@@ -168,23 +158,10 @@ const reduxFormConfig = {
 
 EditAdminProfileForm = reduxForm(reduxFormConfig)(EditAdminProfileForm)
 
-// EditAdminProfileForm = reduxForm({
-//   form: 'EditAdminProfileForm'
-// })(EditAdminProfileForm)
-
-
 EditAdminProfileForm = connect(
   state => ({
-    admin: state.adminReducer,
     user: state.userReducer
   }))(EditAdminProfileForm)
-
-// // REDUX THINGS
-// const mapStateToProps = (state) => {
-//   return {
-//     admin: state.adminReducer
-//   };
-// };
 
 export default EditAdminProfileForm;
 

@@ -4,31 +4,51 @@ import {Image} from 'react-native';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
+import Config from '../../../../../config/config.js';
+import axios from 'axios';
+
 
 class HostSidebar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      dbUser: {}
+    }
   }
 
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({user: null});
       this.props.navigation.navigate('Auth');
     })
     .done();
   }
 
+  componentDidMount() {
+    const SERVER_URL = Config.server.url;
+
+    let url = SERVER_URL + 'api/users/' + this.props.user.id;
+    axios.get(url)
+      .then(user => {
+        console.log('user: ', user);
+        this.setState({
+          dbUser: user.data
+        })
+      })
+      .catch(err => {
+        console.log('error getting user: ', err);
+      })
+  }
+
   render() {
-    console.log('inside profile HostSidebar');
     return (
       <Container style={{backgroundColor: 'white'}}>
         <List style={{paddingTop:25}}>
           <ListItem avatar>
             <Left>
-              <Thumbnail small source={{uri: this.props.user.avatarUrl}} />
+              <Thumbnail small source={{uri: this.state.dbUser.avatar_url}} />
             </Left>
             <Body>
-              <Text> {this.props.user.name} </Text>
+              <Text> {this.state.dbUser.first_name + ' ' + this.state.dbUser.last_name} </Text>
             </Body>
           </ListItem>
         </List>
@@ -44,7 +64,6 @@ class HostSidebar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps!!!');
   return {
     user: state.userReducer
   }
