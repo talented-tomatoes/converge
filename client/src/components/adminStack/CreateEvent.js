@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 import { Container, Header, Footer, Right, Body, Left, Button, Content, Text, Card, Icon, Title, Item, Input, Label} from 'native-base';
 import DatePicker from './DatePicker.js';
