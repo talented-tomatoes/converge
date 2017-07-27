@@ -57,6 +57,9 @@ router.route('/addSpeaker')
 router.route('/presentations/:confid')
   .get(controller.getAllPresentationsOfConf);
 
+router.route('/presentations/:presid')
+  .delete(controller.removePresentationFromConference)
+
 router.route('/addPresentation')
   .post(controller.addPresentation);
 
@@ -87,5 +90,8 @@ router.route('/join/users_presentations/:userid')
 
 router.route('/join/users_presentations')
   .post(controller.savePresentationToUserSchedule);
+
+router.route('/join/users_presentations/:userid/:presid')
+  .delete(controller.removePresentationFromUserSchedule)
 
 module.exports = router;

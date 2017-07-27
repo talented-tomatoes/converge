@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Drawer, Content, Text, Container, Tabs, Body, Tab, List, ListItem, Left, Grid, Col, Right } from 'native-base';
+import { Drawer, Content, Text, Toast, Container, Button, Icon, Tabs, Body, Tab, List, ListItem, Left, Grid, Col, Right } from 'native-base';
 import SideBar from './Sidebar';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
@@ -30,6 +30,10 @@ class MySchedule extends Component {
   };
 
   componentDidMount() {
+    this.getUserSchedule();
+  }
+
+  getUserSchedule() {
     axios.get(`${Config.server.url}api/join/users_presentations/${this.props.user.id}`)
       .then(response => {
         this.setState({
@@ -39,6 +43,20 @@ class MySchedule extends Component {
       .catch(err => {
         console.log(err);
       })
+  }
+
+  handleDeletePress(presentation) {
+    axios.delete(`${Config.server.url}api/join/users_presentations/${this.props.user.id}/${presentation.id}`)
+      .then(response => {
+        this.getUserSchedule();
+        Toast.show({
+            text: `${presentation.name} removed from your schedule`,
+            position: 'bottom',
+            buttonText: 'X',
+            type: 'warning',
+            duration: 2000
+         });
+      });
   }
 
   render() {
@@ -83,6 +101,9 @@ class MySchedule extends Component {
                                   <Text note>{presentation.location}</Text>
                                 </Body>
                                   <Right>
+                                    <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
+                                      <Icon name="trash" style={{color: '#428bca'}}/>
+                                    </Button>
                                   </Right>
                               </ListItem>
                             </List>
