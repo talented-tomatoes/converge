@@ -414,6 +414,20 @@ let editUserProfile = (req, res) => {
     })
 }
 
+let removePresentationFromConference = (req, res) => {
+  console.log('Removing presentation from conference...', req.params);
+  var presid = req.params.presid;
+
+  models.Presentation.where({id: presid})
+    .destroy()
+    .then(results => {
+      res.status(200).end();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 
 
 
@@ -441,5 +455,6 @@ module.exports = {
   getConferenceByConfID: getConferenceByConfID,
   getUserSchedule: getUserSchedule,
   editUserProfile: editUserProfile,
-  removePresentationFromUserSchedule: removePresentationFromUserSchedule
+  removePresentationFromUserSchedule: removePresentationFromUserSchedule,
+  removePresentationFromConference: removePresentationFromConference
 };
