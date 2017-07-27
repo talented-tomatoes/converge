@@ -32,7 +32,7 @@ class HostSidebar extends React.Component {
             </Body>
           </ListItem>
         </List>
-        <Button rounded transparent onPress={() => {this.props.navigation.navigate('Register')}}>
+        <Button rounded transparent onPress={() => {this.props.navigation.navigate('EditAdminProfileForm')}}>
           <Title>Edit Profile</Title>
         </Button>
         <Button rounded transparent onPress={() => {this._signOut()}}>

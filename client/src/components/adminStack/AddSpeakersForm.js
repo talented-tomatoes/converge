@@ -20,14 +20,14 @@ const required = (value) => {
 };
 
 const email = (value) => {
- return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) 
+ return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
               ? <Text> Invalid Email </Text>
               : undefined
-  
+
 }
 
 const linkedin = (value) => {
-  return value && !value.toLowerCase().startsWith('http://linkedin.com')
+  return value && !value.toLowerCase().startsWith('linkedin.com')
                ? <Text> Invalid Linkedin URL</Text>
               : undefined
 }
@@ -58,7 +58,7 @@ class AddSpeakersForm extends Component {
     this.state = {
 
     }
-    
+
 
   }
 
@@ -85,7 +85,7 @@ class AddSpeakersForm extends Component {
   saveToDB(speaker) {
     // base URL
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    
+
     // change URL depending on whether or not how they got to the page
     if (this.props.admin.speakerValues.id === undefined) {
       url = SERVER_URL + 'api/addSpeaker';

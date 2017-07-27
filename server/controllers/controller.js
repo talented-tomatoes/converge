@@ -388,6 +388,21 @@ let getConferenceByConfID = (req, res) => {
     });
 };
 
+let editUserProfile = (req, res) => {
+  console.log('In EditUserProfile');
+
+  models.User.where({login_id: req.body.login_id}).fetch()
+    .then(user => {
+      user.save(req.body, {method: 'update'});
+      console.log('user updated: ', user);
+      res.status(201).send('User Updated');
+    })
+    .catch(err => {
+      console.log('error updating user: ', err);
+      res.status(400).send('error updating user: ', err);
+    })
+}
+
 
 
 
@@ -413,5 +428,6 @@ module.exports = {
   updateSpeakerOfConf: updateSpeakerOfConf,
   editConference: editConference,
   getConferenceByConfID: getConferenceByConfID,
-  getUserSchedule: getUserSchedule
+  getUserSchedule: getUserSchedule,
+  editUserProfile: editUserProfile
 };
