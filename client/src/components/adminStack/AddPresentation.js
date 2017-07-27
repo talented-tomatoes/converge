@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Left, Right, Body, Title, Text, Button, Tabs, Tab, Icon } from 'native-base';
+import { Container, Content, Header, Left, List, Grid, Col, ListItem, Right, Body, Title, Text, Button, Tabs, Tab, Icon } from 'native-base';
 
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -44,10 +44,15 @@ class AddPresentation extends Component {
     }
   };
 
+  handleItemPress() {
+
+  }
+
   render() {
     console.log('in AddPresentation');
     console.log('AddPresentation props', this.props);
     console.log('this.state.presentations: ', this.state.presentations);
+    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
     return (
       <Container>
         <AdminStackHeader
@@ -72,12 +77,22 @@ class AddPresentation extends Component {
                         return convertDateToEnglish(presentation.date) === date;
                       }).map((presentation, i) => {
                         return (
-                          <Content key={i}>
-                          <Text>{presentation.name}</Text>
-                          <Text>{presentation.location}</Text>
-                          <Text>{presentation.description}</Text>
-                          <Text>{presentation.time}</Text>
-                          </Content>
+                          <List key={i}>
+                              <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
+                                <Left>
+                                  <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
+                                    <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
+                                  </Grid>
+                                  <Text>{presentation.time}</Text>
+                                </Left>
+                                <Body>
+                                  <Text>{presentation.name}</Text>
+                                  <Text note>{presentation.location}</Text>
+                                </Body>
+                                  <Right>
+                                  </Right>
+                              </ListItem>
+                            </List>
                         )
                       })
                     }
