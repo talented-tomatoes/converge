@@ -10,6 +10,9 @@ router.route('/users')
 router.route('/users/:userid')
   .get(controller.getUser);
 
+router.route('/editUserProfile')
+  .post(controller.editUserProfile);
+
 
 /*********************SPEAKERS **********************/
 router.route('/speakers/:confid')

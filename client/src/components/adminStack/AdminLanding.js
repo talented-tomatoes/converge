@@ -33,15 +33,6 @@ class AdminLanding extends Component {
     this.drawer._root.open()
   };
 
-  _signOut() {
-    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({user: null});
-      this.props.navigation.navigate('Auth');
-    })
-    .done();
-  }
-
-
   componentDidMount() {
     console.log('adminlanding props', this.props);
     // setup URL for getting the user id
@@ -58,7 +49,7 @@ class AdminLanding extends Component {
 
         //add userID to store
         this.props.dispatch(decorateUserWithDBUserID(response.data.id));
-        // set the local state with the redux store ID that was just made 
+        // set the local state with the redux store ID that was just made
         // this.setState({ user_id: this.props.user.userID }); // probably not necessary
 
         // make call to get the conferences with the newly gotten HOSTID
