@@ -53,7 +53,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
         //TODO: Try to store this in redux?
         if (response.data === 'success') {
           Toast.show({
-              text: 'Added presentation to your schedule!',
+              text: `Added ${presentation.name} to your schedule`,
               position: 'bottom',
               buttonText: 'Okay',
               type: 'success',
