@@ -394,11 +394,12 @@ let removePresentationFromUserSchedule = (req, res) => {
   models.UserPresentation.where({user_id: userid, presentation_id: presid})
     .destroy()
     .then(results => {
-      res.status(200).end()
+      res.status(200).end();
     })
     .catch(err => {
       console.log(err);
-    })
+      res.status(400).send('Error removing presentation from user schedule');
+    });
 }
 
 let editUserProfile = (req, res) => {
@@ -426,6 +427,7 @@ let removePresentationFromConference = (req, res) => {
     })
     .catch(err => {
       console.log(err);
+      res.status(400).send('Error removing presentation from conference');
     });
 }
 
