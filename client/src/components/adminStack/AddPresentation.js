@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Left, List, Grid, Col, ListItem, Right, Body, Title, Text, Button, Tabs, Tab, Icon } from 'native-base';
+import { Container, Content, Header, Left, Toast, List, Grid, Col, ListItem, Right, Body, Title, Text, Button, Tabs, Tab, Icon } from 'native-base';
 
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -17,12 +17,18 @@ import AdminStackHeader from './helpers/AdminStackHeader';
 class AddPresentation extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       dates: renderListOfDatesFromConference(this.props.admin.selectedConference),
       confID: null,
       presentations: [],
     };
+  }
+
+  componentDidMount() {
+   this.getPresentations();
+  }
+
+  getPresentations() {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     const getAllPresentationsWithConferenceIdUrl = SERVER_URL + 'api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
@@ -46,6 +52,20 @@ class AddPresentation extends Component {
 
   handleItemPress() {
 
+  }
+
+  handleDeletePress(presentation) {
+    axios.delete(`${Config.server.url}api/presentations/${presentation.id}`)
+      .then(response => {
+        this.getPresentations();
+        Toast.show({
+            text: `${presentation.name} removed from your schedule`,
+            position: 'bottom',
+            buttonText: 'X',
+            type: 'warning',
+            duration: 2000
+         });
+      });
   }
 
   render() {
@@ -90,6 +110,9 @@ class AddPresentation extends Component {
                                   <Text note>{presentation.location}</Text>
                                 </Body>
                                   <Right>
+                                    <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
+                                      <Icon name="trash" style={{color: '#428bca'}}/>
+                                    </Button>
                                   </Right>
                               </ListItem>
                             </List>
