@@ -88,4 +88,7 @@ router.route('/join/users_presentations/:userid')
 router.route('/join/users_presentations')
   .post(controller.savePresentationToUserSchedule);
 
+router.route('/join/users_presentations/:userid/:presid')
+  .delete(controller.removePresentationFromUserSchedule)
+
 module.exports = router;
