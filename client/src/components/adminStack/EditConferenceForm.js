@@ -148,11 +148,11 @@ class EditConferenceForm extends Component {
           <Field name="address" validate={[required]} component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
           <ListItem>
             <Text>Start Date: </Text>
-            <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date}/>
+            <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
           <ListItem>
             <Text>End Date:   </Text>
-            <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date}/>
+            <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
           {/* <Text> Start Date: <DatePicker /> </Text> */}
           {/* <Text> End Date: </Text> */}
