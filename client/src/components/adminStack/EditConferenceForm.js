@@ -6,14 +6,14 @@ import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer
 // import Swiper from 'react-native-swiper';
 
 import axios from 'axios';
-import Config from '../../../../../config/config.js';
-import AdminStackHeader from '../helpers/AdminStackHeader';
-import DatePicker from '../DatePicker.js';
+import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
+import DatePicker from './DatePicker.js';
 
 // need initialize to initialize the form with some data if it exists
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
-import { setAdminSelectedConference } from '../../actions/actions.js';
+import { setAdminSelectedConference } from '../actions/actions.js';
 
 const required = value => {
   return value ? undefined  : <Text> Required </Text>

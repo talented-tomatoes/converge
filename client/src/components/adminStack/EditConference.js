@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Content, Header, Text, Icon, Button } from 'native-base';
 
-import EditConferenceFooter from '../helpers/EditConferenceFooter';
-import AdminStackHeader from '../helpers/AdminStackHeader';
+import EditConferenceFooter from './helpers/EditConferenceFooter';
+import AdminStackHeader from './helpers/AdminStackHeader';
 
 // import redux things
 import { connect } from 'react-redux';

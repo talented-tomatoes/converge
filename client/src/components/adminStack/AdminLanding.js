@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { AppRegistry } from 'react-native';
 import { Drawer, Button, Content, Text, Header, Right, Title, Left, Icon, Body, Thumbnail } from 'native-base';
 import EventsList from './EventsList.js';
-import DummyData from './dummy/fakeEventData.js';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import SideBar from './helpers/HostSidebar';

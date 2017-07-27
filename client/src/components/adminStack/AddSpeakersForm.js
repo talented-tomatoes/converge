@@ -11,9 +11,9 @@ import axios from 'axios';
 
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
-import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../../reducers/reducers.js';
-import Config from '../../../../../config/config.js';
-import AdminStackHeader from '../helpers/AdminStackHeader';
+import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
+import Config from '../../../../config/config.js';
+import AdminStackHeader from './helpers/AdminStackHeader';
 
 const required = (value) => {
   return value ? undefined  : <Text> Required </Text>
