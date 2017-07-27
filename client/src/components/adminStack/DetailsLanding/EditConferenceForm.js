@@ -79,7 +79,15 @@ class EditConferenceForm extends Component {
     axios.post(url, conference)
       .then(response => {
         console.log('response from the updated: ', response.data);
-        this.props.dispatch(setAdminSelectedConference(response.data));
+        
+        axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
+          .then(conference => {
+            console.log('new conference information: ', conference.data);
+            this.props.dispatch(setAdminSelectedConference(conference.data));
+          })
+          .catch(err => {
+            console.log('error: ', err);
+          })
         this.props.navigation.navigate('EditConference');
       })
       .catch(error => {

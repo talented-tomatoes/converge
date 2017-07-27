@@ -336,11 +336,25 @@ let editConference = (req, res) => {
     .then(conference => {
       conference.save(req.body, {method: 'update'});
       console.log('conference updated: ', conference);
-      res.status(200).send(conference);
+      res.status(200).send('Conference Updated!');
     })
     .catch(err => {
       console.log('error: ', err);
       res.status(400).send('error udpating conference');
+    });
+};
+
+let getConferenceByConfID = (req, res) => {
+  console.log('GETTING CONFERENCE BY ID: ', req.params.confID);
+
+  models.Conference.where({id: req.params.confID}).fetch()
+    .then(conference => {
+      console.log('conference fetched: ', conference);
+      res.status(200).send(conference);
+    })
+    .catch(err => {
+      console.log('error: ', err);
+      res.status(400).send('error fetching that specific conference');
     });
 };
 
@@ -366,5 +380,6 @@ module.exports = {
   savePresentationToUserSchedule: savePresentationToUserSchedule,
   getUser: getUser,
   updateSpeakerOfConf: updateSpeakerOfConf,
-  editConference: editConference
+  editConference: editConference,
+  getConferenceByConfID: getConferenceByConfID
 };

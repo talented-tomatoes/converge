@@ -28,6 +28,9 @@ router.route('/editSpeaker')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
+router.route('/conference/:confID')
+  .get(controller.getConferenceByConfID);
+
 router.route('/helloWorld')
   .get(controller.helloWorld);
 
