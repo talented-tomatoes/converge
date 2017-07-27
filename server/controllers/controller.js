@@ -263,12 +263,19 @@ let updateSpeakerOfConf = (req, res) => {
 };
 
 let addPresentation = (req, res) => {
-  console.log('inside addPresentation');
-  console.log('req.body: ', req.body);
-  models.Presentation.forge(req.body).save()
-    .then(presentation => {
-      console.log('Presentation saved: ', presentation);
-      res.status(200).send('Presentation saved!');
+  var presentation = req.body.presentation;
+  var speakers = req.body.speakers;
+
+  models.Presentation.forge(presentation).save()
+    .then(pres => {
+      for (var speaker in speakers) {
+        if (speakers[speaker] === true) {
+          return models.PresentationSpeaker.forge({speaker_id: speaker, presentation_id: pres.id}).save()
+        }
+      }
+    })
+    .then((response) => {
+      res.status(200).end();
     })
     .catch(err => {
       console.log('Error saving presentation: ', err);
