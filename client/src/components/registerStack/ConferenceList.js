@@ -7,10 +7,12 @@ import Config from '../../../../config/config.js';
 import axios from 'axios';
 import RegisterStackHeader from './helpers/RegisterStackHeader.js';
 import SideBar from '../helpers/ProfileSidebar';
+import { connect } from 'react-redux';
+import { setSelectedConference } from '../actions/actions';
 
 
 
-export default class ConferenceListScreen extends React.Component {
+class ConferenceList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,7 +63,11 @@ export default class ConferenceListScreen extends React.Component {
           {
             this.state.conferences.map((conference, i) => {
               return (
-                <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate('ConferenceDetails', { navigation: this.props.navigation, conference: conference })}>
+                <TouchableOpacity key={i} onPress={() => {
+                  this.props.navigation.navigate('ConferenceDetails');
+                  console.log('conference: ', conference);
+                  this.props.dispatch(setSelectedConference(conference));
+              }}>
                   <ConferenceListEntry conference={conference}/>
                 </TouchableOpacity>
               )
@@ -72,3 +78,11 @@ export default class ConferenceListScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    selectedConference: state.attendeeReducer
+  }
+}
+
+export default connect(mapStateToProps)(ConferenceList);
