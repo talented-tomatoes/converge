@@ -28,11 +28,17 @@ router.route('/editSpeaker')
 router.route('/conferences')
   .get(controller.getAllConferences);
 
+router.route('/conference/:confID')
+  .get(controller.getConferenceByConfID);
+
 router.route('/helloWorld')
   .get(controller.helloWorld);
 
 router.route('/addConference')
   .post(controller.addConference);
+
+router.route('/editConference')
+  .post(controller.editConference);
 
 router.route('/getConferencesByHostID/:hostID')
   .get(controller.getConferencesByHostID);

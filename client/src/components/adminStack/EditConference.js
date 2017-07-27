@@ -4,8 +4,10 @@ import { Container, Content, Header, Text, Icon, Button } from 'native-base';
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import AdminStackHeader from './helpers/AdminStackHeader';
 
+// import redux things
+import { connect } from 'react-redux';
 
-export default class EditConference extends Component {
+class EditConference extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Conference Details',
@@ -17,11 +19,14 @@ export default class EditConference extends Component {
   constructor(props) {
     super(props);
 
-
   }
 
-  render() {
+  // ACCESS THE CURRENT EVENT WE ARE AT WITH:
+    // this.props.admin.selectedConference
 
+
+  render() {
+    console.log('RENDERING THE CONFERENCE DETAILS', this.props);
     return (
         <Container>
         <AdminStackHeader
@@ -30,10 +35,10 @@ export default class EditConference extends Component {
           leftIcon="arrow-back"
           title="Details"
           rightNavigation="EditConferenceForm"
-          rightIcon= "add"
+          rightIcon={this.props.admin.selectedConference.id ? 'create' : 'add'}
         />
         <Content>
-          <Text>This the body</Text>
+          <Text>{JSON.stringify(this.props.admin.selectedConference)}</Text>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
 
@@ -42,3 +47,11 @@ export default class EditConference extends Component {
 
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    admin: state.adminReducer
+  };
+};
+
+export default connect(mapStateToProps)(EditConference);

@@ -45,7 +45,7 @@ export function setSelectedConference(conference) {
 export function setAdminSelectedConference(conference) {
   return {
     type: 'SET_ADMIN_SELECTED_CONFERENCE',
-    conference: conference
+    selectedConference: conference
   };
 }
 
