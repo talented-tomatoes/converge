@@ -36,7 +36,7 @@ class EditConferenceForm extends Component {
   }
   static navigationOptions = {
     title: 'Update Conference Details',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('EditConference')}><Icon name="menu"/></Button>
+    headerLeft: <Button transparent onPress={() => {navigation.navigate('EditConference')}}><Icon name="menu"/></Button>
   }
 
   componentDidMount() {
@@ -125,7 +125,7 @@ class EditConferenceForm extends Component {
       <Container>
         <AdminStackHeader
           navigation={this.props.navigation}
-          leftNavigation="EditConference"
+          leftNavigation={!!this.props.admin.selectedConference.id ? 'EditConference' : 'AdminLanding'}
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
