@@ -141,23 +141,6 @@ class AddPresentationForm extends Component {
         <Content>
           <Field name="name" component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
           <Item inlineLabel>
-            <Label>Speaker Name: </Label>
-            <Picker
-                placeholder="Select a speaker"
-                iosHeader="Select one"
-                mode="dropdown"
-                selectedValue={this.state.selectedSpeakerID}
-                onValueChange={this.onSpeakerChange.bind(this)}
-              >
-              {
-                this.state.speakers.map((speaker, i) => {
-                  return <Picker.Item key={i} label={speaker.first_name + ' ' + speaker.last_name} value={speaker.id} />
-                })
-              }
-            </Picker>
-          </Item>
-
-          <Item inlineLabel>
             <Label>Date: </Label>
             <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} />
           </Item>
