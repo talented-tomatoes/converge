@@ -88,7 +88,7 @@ class EditConferenceForm extends Component {
     } else {
       url += 'api/editConference';
     }
-
+    console.log('CONFERENCE INFO ', conference);
     axios.post(url, conference)
       .then(response => {
         console.log('response from the updated: ', response.data);
@@ -101,7 +101,7 @@ class EditConferenceForm extends Component {
           .catch(err => {
             console.log('error: ', err);
           })
-        this.props.navigation.navigate('EditConference');
+        this.props.navigation.navigate(this.props.admin.selectedConference.id ? 'EditConference' : 'AdminLanding');
       })
       .catch(error => {
         console.log('error: ', error);
@@ -109,7 +109,7 @@ class EditConferenceForm extends Component {
     }
 
   submit(conference) {
-    // conference.user_id = null;
+    conference.user_id = this.props.user.userID;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
     // conference.ticket_price = Number(conference.ticket_price);
@@ -148,11 +148,11 @@ class EditConferenceForm extends Component {
           <Field name="address" validate={[required]} component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
           <ListItem>
             <Text>Start Date: </Text>
-            <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date}/>
+            <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
           <ListItem>
             <Text>End Date:   </Text>
-            <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date}/>
+            <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
           {/* <Text> Start Date: <DatePicker /> </Text> */}
           {/* <Text> End Date: </Text> */}
@@ -190,7 +190,8 @@ EditConferenceForm = reduxForm(reduxFormConfig)(EditConferenceForm)
 
 EditConferenceForm = connect(
   state => ({
-    admin: state.adminReducer
+    admin: state.adminReducer,
+    user: state.userReducer
   }))(EditConferenceForm)
 
 // // REDUX THINGS
