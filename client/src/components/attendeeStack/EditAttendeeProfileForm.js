@@ -4,14 +4,14 @@ import { Drawer, Button, Header, Left, Right, Body, Input, Label, Item, Title, C
 // import UserSwiperFooter from './helpers/UserSwiperFooter';
 import ImagePicker from 'react-native-image-picker';
 import kairosEnrollReqObj from '../registerStack/helpers/kairosEnrollReqObj';
-import uploadImage from '../registerStack/helpers/uploadImage'
+import uploadImage from '../registerStack/helpers/uploadImage';
+import { NavigationActions } from 'react-navigation';
 
 // import Swiper from 'react-native-swiper';
 
 import axios from 'axios';
 import Config from '../../../../config/config.js';
-import AdminStackHeader from './helpers/AdminStackHeader';
-import DatePicker from './DatePicker.js';
+import DatePicker from '../adminStack/DatePicker.js';
 import normalizePhoneNumber from '../registerStack/helpers/normalizePhoneNumber';
 
 
@@ -19,7 +19,7 @@ import normalizePhoneNumber from '../registerStack/helpers/normalizePhoneNumber'
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { setAdminSelectedConference } from '../actions/actions.js';
-import SideBar from './helpers/HostSidebar';
+import SideBar from '../helpers/ProfileSidebar';
 
 
 const required = value => {
@@ -52,7 +52,7 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
   )
 }
 
-class EditAdminProfileForm extends Component {
+class EditAttendeeProfileForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -110,7 +110,7 @@ class EditAdminProfileForm extends Component {
           buttonText: 'Okay',
           type: 'success'
         })
-        this.props.navigation.navigate('AdminLanding');
+        this.props.navigation.navigate('MyEvents');
       })
       .catch(err => {
         Toast.show({
@@ -225,17 +225,17 @@ class EditAdminProfileForm extends Component {
 }
 
 const reduxFormConfig = {
-  form: 'EditAdminProfileForm',
+  form: 'EditAttendeeProfileForm',
   fields: ['name', 'address', 'logo', 'ticket_price', 'venue_map', 'banner', 'details']
 }
 
-EditAdminProfileForm = reduxForm(reduxFormConfig)(EditAdminProfileForm)
+EditAttendeeProfileForm = reduxForm(reduxFormConfig)(EditAttendeeProfileForm)
 
-EditAdminProfileForm = connect(
+EditAttendeeProfileForm = connect(
   state => ({
     user: state.userReducer
-  }))(EditAdminProfileForm)
+  }))(EditAttendeeProfileForm)
 
-export default EditAdminProfileForm;
+export default EditAttendeeProfileForm;
 
 

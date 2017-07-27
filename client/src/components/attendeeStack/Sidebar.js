@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Title, Text, Thumbnail, Left, Body, Item, List, ListItem } from 'native-base';
+import { Container, Header, Button, Title, Text, Thumbnail, Left, Body, Item, List, ListItem } from 'native-base';
 import {Image} from 'react-native';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
@@ -21,17 +21,13 @@ class Sidebar extends React.Component {
   render() {
     return (
       <Container style={{backgroundColor: 'white'}}>
-        <List style={{paddingTop:25}}>
-          <ListItem avatar>
-            <Left>
-              <Thumbnail small source={{uri: this.props.user.avatarUrl}} />
-            </Left>
-            <Body>
-              <Text> {this.props.user.name} </Text>
-            </Body>
-          </ListItem>
-        </List>
-         
+        <Header style={{ backgroundColor: '#428bca'}}>
+          <Left style={{flexDirection: 'row', alignItems: 'center' }}>
+          <Thumbnail small source={{uri: this.props.user.avatarUrl}} />
+          <Text style={{color: 'white', fontWeight: 'bold', paddingLeft: 20}}> {this.props.user.givenName + ' ' + this.props.user.familyName} </Text>
+          </Left>
+        </Header>
+
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('Speakers')}}>
           <Title>Speakers</Title>
         </Button>
@@ -43,6 +39,9 @@ class Sidebar extends React.Component {
         </Button>
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('MyEvents')}}>
           <Title>My Events</Title>
+        </Button>
+        <Button rounded transparent onPress={() => {this.props.navigation.navigate('EditAttendeeProfileForm')}}>
+          <Title>Edit Profile</Title>
         </Button>
         <Button rounded transparent onPress={() => {this._signOut()}}>
           <Title>Logout</Title>

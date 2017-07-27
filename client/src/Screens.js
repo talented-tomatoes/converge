@@ -18,6 +18,7 @@ import Speakers from './components/attendeeStack/Speakers';
 import Checkin from './components/attendeeStack/Checkin';
 import MasterSchedule from './components/attendeeStack/MasterSchedule';
 import PresentationDetails from './components/attendeeStack/PresentationDetails';
+import EditAttendeeProfileForm from './components/attendeeStack/EditAttendeeProfileForm'
 //RegisterStack
 import Register from './components/registerStack/Register';
 import ConferenceList from './components/registerStack/ConferenceList';
@@ -50,7 +51,8 @@ const AttendeeStack = StackNavigator({
   Speakers: { screen: Speakers },
   Checkin: { screen: Checkin },
   MasterSchedule: { screen: MasterSchedule},
-  PresentationDetails: { screen: PresentationDetails }
+  PresentationDetails: { screen: PresentationDetails },
+  EditAttendeeProfileForm: { screen: EditAttendeeProfileForm },
 }, {
   headerMode: 'none',
   transitionConfig: () => ({

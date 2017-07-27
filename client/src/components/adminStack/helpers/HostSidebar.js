@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Button, Title, Text, Thumbnail, Left, Body, Item, List, ListItem } from 'native-base';
-import {Image} from 'react-native';
+import { Header, Container, Button, Title, Text, Thumbnail, Left, Body, Item, List, ListItem, Right } from 'native-base';
+import {Image, View} from 'react-native';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
@@ -40,18 +40,15 @@ class HostSidebar extends React.Component {
   }
 
   render() {
+    console.log('host sidebar props: ', this.props);
     return (
       <Container style={{backgroundColor: 'white'}}>
-        <List style={{paddingTop:25}}>
-          <ListItem avatar>
-            <Left>
-              <Thumbnail small source={{uri: this.state.dbUser.avatar_url}} />
-            </Left>
-            <Body>
-              <Text> {this.state.dbUser.first_name + ' ' + this.state.dbUser.last_name} </Text>
-            </Body>
-          </ListItem>
-        </List>
+        <Header style={{ backgroundColor: '#428bca'}}>
+          <Left style={{flexDirection: 'row', alignItems: 'center' }}>
+          <Thumbnail small source={{uri: this.state.dbUser.avatar_url}} />
+          <Text style={{color: 'white', fontWeight: 'bold', paddingLeft: 20}}> {this.state.dbUser.first_name + ' ' + this.state.dbUser.last_name} </Text>
+          </Left>
+        </Header>
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('EditAdminProfileForm')}}>
           <Title>Edit Profile</Title>
         </Button>
