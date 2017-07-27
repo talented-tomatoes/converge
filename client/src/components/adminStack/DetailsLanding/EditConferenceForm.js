@@ -40,45 +40,54 @@ class EditConferenceForm extends Component {
   componentDidMount() {
     // do the pre-load of values
     console.log('CONFERENCE EDIT FORM LOADED, PROPS ARE: ', this.props)
-    // this.handleInitialize();
+    this.handleInitialize();
   }
 
   handleInitialize() {
     // set Values for the pre-load of conference form
-    // const conferenceValues = {
-    //   start_date: this.props.admin.selectedConference.start_date,
-    //   end_date: this.props.admin.selectedConference.end_date,
-    //   name: this.props.admin.selectedConference.name,
-    //   address: this.props.admin.selectedConference.address,
-    //   logo: this.props.admin.selectedConference.logo,
-    //   ticket_price: this.props.admin.selectedConference.ticket_price,
-    //   venue_map: this.props.admin.selectedConference.venue_map,
-    //   banner: this.props.admin.selectedConference.banner,
-    //   details: this.props.admin.selectedConference.details,
-    //   // include the conference ID so that you can edit it in database
-    //   // id: this.props.admin.selectedConference.id
-    // };
-    // this.props.initialize(conferenceValues);
+    const conferenceValues = {
+      start_date: this.props.admin.selectedConference.start_date,
+      end_date: this.props.admin.selectedConference.end_date,
+      name: this.props.admin.selectedConference.name,
+      address: this.props.admin.selectedConference.address,
+      logo: this.props.admin.selectedConference.logo,
+      // need to stringify the price so that it can be pre-loaded into the field
+      // remember to Number() it when sending the data back to the server
+      ticket_price: JSON.stringify(this.props.admin.selectedConference.ticket_price),
+      venue_map: this.props.admin.selectedConference.venue_map,
+      banner: this.props.admin.selectedConference.banner,
+      details: this.props.admin.selectedConference.details,
+      // include the conference ID so that you can edit it in database
+      // id: this.props.admin.selectedConference.id
+    };
+    this.props.initialize(conferenceValues);
   }
 
 
   saveToDB(conference) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
+
+    if (this.props.admin.selectedConference.id === undefined) {
       let url = SERVER_URL + 'api/addConference';
-      axios.post(url, conference)
-        .then(response => {
-          console.log('response : ', response);
-          this.props.navigation.navigate('EditConference');
-        })
-        .catch(error => {
-          console.log('error: ', error);
-        })
+    } else {
+      let url = SERVER_URL + 'api/editConference';
+    }
+
+    axios.post(url, conference)
+      .then(response => {
+        console.log('response : ', response);
+        this.props.navigation.navigate('EditConference');
+      })
+      .catch(error => {
+        console.log('error: ', error);
+      })
     }
 
   submit(conference) {
-    conference.user_id = null;
+    // conference.user_id = null;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
+    conference.ticket_price = Number(conference.ticket_price);
     this.saveToDB(conference);
     console.log('values in EditConferenceForm: ', conference);
   }
@@ -106,18 +115,18 @@ class EditConferenceForm extends Component {
           leftNavigation="EditConference"
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
-          rightIcon= "trash"
+          rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
         />
         <Content>
           <Field name="name" component={ renderInput } label="Conference Name:" placeholder="SXSW" />
           <Field name="address" component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
           <ListItem>
             <Text>Start Date: </Text>
-            <DatePicker onChange={this.onStartDateChange.bind(this)}/>
+            <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date}/>
             </ListItem>
           <ListItem>
             <Text>End Date:   </Text>
-            <DatePicker onChange={this.onEndDateChange.bind(this)}/>
+            <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date}/>
             </ListItem>
           {/* <Text> Start Date: <DatePicker /> </Text> */}
           {/* <Text> End Date: </Text> */}
