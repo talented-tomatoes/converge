@@ -5,14 +5,14 @@ export default class MyDatePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: ''
+      value: ''
     };
   }
 
-  dateChange(date) {
-    this.props.onChange(date);
+  valueChange(value) {
+    this.props.onChange(value);
     this.setState({
-      date
+      value
     });
   }
 
@@ -21,7 +21,7 @@ export default class MyDatePicker extends Component {
       <DatePicker
         showIcon={this.props.showIcon}
         style={{width: 200}}
-        date={this.props.date}
+        date={this.props.value || this.state.value}
         mode={this.props.mode || 'date'}
         placeholder= {this.props.mode === 'time' ? 'Select Time' : 'Select Date'}
         format= {this.props.mode === 'time' ? 'LT' : 'YYYY-MM-DD'}
@@ -42,8 +42,7 @@ export default class MyDatePicker extends Component {
           },
           disabled: this.props.disabled
         }}
-        onDateChange={(date) => { this.dateChange(date); }}
-        disabled={this.props.disabled}
+        onDateChange={(value) => { this.valueChange(value); }}
       />
     );
   }
