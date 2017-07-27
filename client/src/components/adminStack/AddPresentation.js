@@ -51,7 +51,7 @@ class AddPresentation extends Component {
   };
 
   handleItemPress() {
-
+    //TODO: Navigate to a page where you can edit the presentation
   }
 
   handleDeletePress(presentation) {
