@@ -5,7 +5,7 @@ import {Image} from 'react-native';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
 
-class Sidebar extends React.Component {
+class HostSidebar extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,6 +19,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
+    console.log('inside profile HostSidebar');
     return (
       <Container style={{backgroundColor: 'white'}}>
         <List style={{paddingTop:25}}>
@@ -31,18 +32,8 @@ class Sidebar extends React.Component {
             </Body>
           </ListItem>
         </List>
-         
-        <Button rounded transparent onPress={() => {this.props.navigation.navigate('Speakers')}}>
-          <Title>Speakers</Title>
-        </Button>
-        <Button rounded transparent onPress={() => {this.props.navigation.navigate('MasterSchedule')}}>
-          <Title>Event Schedule</Title>
-        </Button>
-        <Button rounded transparent onPress={() => {this.props.navigation.navigate('Checkin')}}>
-          <Title>Check-in</Title>
-        </Button>
-        <Button rounded transparent onPress={() => {this.props.navigation.navigate('MyEvents')}}>
-          <Title>My Events</Title>
+        <Button rounded transparent onPress={() => {this.props.navigation.navigate('Register')}}>
+          <Title>Edit Profile</Title>
         </Button>
         <Button rounded transparent onPress={() => {this._signOut()}}>
           <Title>Logout</Title>
@@ -59,4 +50,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Sidebar);
+export default connect(mapStateToProps)(HostSidebar);

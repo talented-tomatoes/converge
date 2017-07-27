@@ -74,11 +74,14 @@ let getAllConferences = (req, res) => {
 let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
   console.log('inside getAllPresentationsOfConf ', confid);
-  models.Presentation.forge({conference_id: confid})
-    .fetchAll({withRelated: ['conferences']})
+  models.Presentation.where({conference_id: confid})
+    .fetchAll()
     .then(presentations => {
-      console.log('presentations fetched: ', presentations);
-      res.status(200).send(presentations);
+      var data = JSON.stringify(presentations);
+      var sortedData = JSON.parse(data).sort((a, b) => {
+        return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
+      })
+      res.status(200).send(sortedData);
     })
     .catch(err => {
       console.log('Error!', err);
@@ -113,7 +116,7 @@ let checkinUser = (req, res) => {
     if (response.data.images) {
       let confidence = response.data.images[0]['transaction']['confidence'];
       console.log('confidence=', confidence);
-      if (confidence > 0.75) {
+      if (confidence > 0.65) {
         res.status(200).send('Success');
       } else {
         res.status(200).send('Checkin Failed. Please enter a Valid Picture');
@@ -142,11 +145,13 @@ let chargeCustomer = (req, res) => {
   }, function(err, charge) {
     if (err) {
       console.log(err);
+      res.status(400).end()
+    } else {
+      console.log(charge);
+      res.status(201).end();
     }
-    console.log(charge);
   });
 
-  res.status(201).end();
 };
 
 let registerUser = (req, res) => {
@@ -258,12 +263,23 @@ let updateSpeakerOfConf = (req, res) => {
 };
 
 let addPresentation = (req, res) => {
-  console.log('inside addPresentation');
-  console.log('req.body: ', req.body);
-  models.Presentation.forge(req.body).save()
-    .then(presentation => {
-      console.log('Presentation saved: ', presentation);
-      res.status(200).send('Presentation saved!');
+  var presentation = req.body.presentation;
+  var speakers = req.body.speakers;
+
+  models.Presentation.forge(presentation).save()
+    .then(pres => {
+      for (var speaker in speakers) {
+        if (speakers[speaker] === true) {
+          models.PresentationSpeaker.forge({speaker_id: speaker, presentation_id: pres.id}).save()
+            .then(record => {
+              console.log('Adding speaker and presentation to presentations_speakers....', record);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+      }
+      res.status(201).end();
     })
     .catch(err => {
       console.log('Error saving presentation: ', err);
@@ -310,6 +326,19 @@ let getAllUserEvents = (req, res) => {
 
 };
 
+let getUserSchedule = (req, res) => {
+  models.UserPresentation.where({user_id: req.params.userid})
+    .fetchAll({withRelated: ['presentations']})
+    .then(record => {
+      var data = JSON.stringify(record);
+      var presentations = JSON.parse(data).map(pres => pres.presentations);
+      res.status(200).send(presentations);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
 let savePresentationToUserSchedule = (req, res) => {
   console.log('Saving presentation to user schedule...', req.body);
   models.UserPresentation.forge(req.body)
@@ -321,7 +350,8 @@ let savePresentationToUserSchedule = (req, res) => {
       } else {
         res.status(201).send('already added');
       }
-    });  
+
+    });
 };
 
 let editConference = (req, res) => {
@@ -360,6 +390,7 @@ let getConferenceByConfID = (req, res) => {
 
 
 
+
 module.exports = {
   getAllUsers: getAllUsers,
   getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -381,5 +412,6 @@ module.exports = {
   getUser: getUser,
   updateSpeakerOfConf: updateSpeakerOfConf,
   editConference: editConference,
-  getConferenceByConfID: getConferenceByConfID
+  getConferenceByConfID: getConferenceByConfID,
+  getUserSchedule: getUserSchedule
 };

@@ -16,15 +16,16 @@ import Sidebar from './components/attendeeStack/Sidebar';
 import Home from './components/attendeeStack/Home';
 import Speakers from './components/attendeeStack/Speakers';
 import Checkin from './components/attendeeStack/Checkin';
-import Presentations from './components/attendeeStack/Presentations';
 import MasterSchedule from './components/attendeeStack/MasterSchedule';
-
+import PresentationDetails from './components/attendeeStack/PresentationDetails';
 //RegisterStack
 import Register from './components/registerStack/Register';
 import ConferenceList from './components/registerStack/ConferenceList';
 import ConferenceDetails from './components/registerStack/ConferenceDetails';
 import SpeakerList from './components/registerStack/SpeakerList.js';
 import SpeakerDetails from './components/registerStack/SpeakerDetails.js';
+import PaymentForm from './components/registerStack/PaymentForm.js';
+
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
@@ -46,8 +47,8 @@ const AttendeeStack = StackNavigator({
   Concierge: { screen: Concierge},
   Speakers: { screen: Speakers },
   Checkin: { screen: Checkin },
-  Presentations: { screen: Presentations },
   MasterSchedule: { screen: MasterSchedule},
+  PresentationDetails: { screen: PresentationDetails }
 }, {
   headerMode: 'none',
   transitionConfig: () => ({
@@ -83,6 +84,7 @@ const RegisterStack = StackNavigator({
   SpeakerList: { screen: SpeakerList },
   SpeakerDetails: { screen: SpeakerDetails },
   AttendeeStack: { screen: AttendeeStack },
+  PaymentForm: { screen: PaymentForm }
 }, {
   headerMode: 'none',
 });

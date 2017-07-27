@@ -79,6 +79,9 @@ router.route('/join/conferences_users')
 router.route('/join/conferences_users/:userid')
   .get(controller.getAllUserEvents);
 
+router.route('/join/users_presentations/:userid')
+  .get(controller.getUserSchedule);
+
 router.route('/join/users_presentations')
   .post(controller.savePresentationToUserSchedule);
 

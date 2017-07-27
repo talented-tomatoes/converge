@@ -42,8 +42,8 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
       })
   }
 
-  handleItemPress() {
-    //TODO: Navigate to a component that shows more details about the presentation
+  handleItemPress(presentation) {
+    this.props.navigation.navigate('PresentationDetails', { presentation: presentation });
   }
 
   handleSavePress(presentation) {
@@ -101,12 +101,10 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
                           console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date))
                           console.log('date: ', date);
                           return convertDateToEnglish(presentation.date) === date;
-                        }).sort((a, b) => {
-                          return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
                         }).map((presentation, i) => {
                           return (
                             <List key={i}>
-                              <ListItem avatar onPress={this.handleItemPress.bind(this)}>
+                              <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
                                 <Left>
                                   <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
                                     <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
