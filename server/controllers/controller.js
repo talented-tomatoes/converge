@@ -274,8 +274,12 @@ let addPresentation = (req, res) => {
             .then(record => {
               console.log('Adding speaker and presentation to presentations_speakers....', record);
             })
+            .catch(err => {
+              console.log(err);
+            })
         }
       }
+      res.status(201).end();
     })
     .catch(err => {
       console.log('Error saving presentation: ', err);
