@@ -387,6 +387,17 @@ let getConferenceByConfID = (req, res) => {
       res.status(400).send('error fetching that specific conference');
     });
 };
+let removePresentationFromUserSchedule = (req, res) => {
+  console.log('Removing presentation from user schedule...', req.params);
+  var userid = req.params.userid;
+  var presid = req.params.presid;
+  models.UserPresentation.where({user_id: userid, presentation_id: presid})
+    .destroy()
+    .then(results => {
+      console.log(results);
+      res.status(200).end()
+    });
+}
 
 let editUserProfile = (req, res) => {
   console.log('In EditUserProfile');
@@ -429,5 +440,6 @@ module.exports = {
   editConference: editConference,
   getConferenceByConfID: getConferenceByConfID,
   getUserSchedule: getUserSchedule,
-  editUserProfile: editUserProfile
+  editUserProfile: editUserProfile,
+  removePresentationFromUserSchedule: removePresentationFromUserSchedule
 };
