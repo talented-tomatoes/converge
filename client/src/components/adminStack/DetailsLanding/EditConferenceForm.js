@@ -79,7 +79,7 @@ class EditConferenceForm extends Component {
     axios.post(url, conference)
       .then(response => {
         console.log('response from the updated: ', response.data);
-        
+
         axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
           .then(conference => {
             console.log('new conference information: ', conference.data);
@@ -154,7 +154,7 @@ class EditConferenceForm extends Component {
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
             <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Conference Details</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.selectedConference.id ? 'Update Conference Details' : 'Add New Conference'}</Text>
             </Button>
           </Content>
         </Footer>
