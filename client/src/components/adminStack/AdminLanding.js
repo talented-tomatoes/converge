@@ -10,7 +10,7 @@ import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 
 // import the action
 import { connect } from 'react-redux';
-import { setInitialHostData, decorateUserWithDBUserID, setAdminSelectedConference } from '../actions/actions';
+import { setInitialHostData, decorateUserWithDBUserID, setAdminSelectedConference } from '../actions/actions.js';
 
 import axios from 'axios';
 
@@ -43,6 +43,7 @@ class AdminLanding extends Component {
 
 
   componentDidMount() {
+    console.log('adminlanding props', this.props);
     // setup URL for getting the user id
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let url = SERVER_URL + 'api/getUserID/' + this.props.user.id;
