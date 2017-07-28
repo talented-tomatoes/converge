@@ -21,7 +21,7 @@ router.route('/editUserProfile')
 router.route('/speakers/:confid')
   .get(controller.getAllSpeakersOfConf);
 
-  // presentations_speakers table
+  // presentations_speakers/:speakerid table
 router.route('/speakers/:presentationid')
   .get(controller.getAllSpeakersOfPresentation);
 
@@ -95,6 +95,9 @@ router.route('/join/users_presentations')
   .post(controller.savePresentationToUserSchedule);
 
 router.route('/join/users_presentations/:userid/:presid')
-  .delete(controller.removePresentationFromUserSchedule)
+  .delete(controller.removePresentationFromUserSchedule);
+
+router.route('/join/presentations_speakers/:speakerid')
+  .get(controller.getAllPresentationsOfSpeaker);
 
 module.exports = router;

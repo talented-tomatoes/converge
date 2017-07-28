@@ -199,19 +199,19 @@ let getUserIdByGoogleLoginID = (req, res) => {
 };
 
 let addConference = (req, res) => {
-  console.log('Inside addConference');
-  console.log('req.body: ', req.body);
-  console.log('req.body type: ', typeof req.body);
-
+  //console.log('Inside addConference, conference name=', req.body.name);
   models.Conference.forge(req.body).save()
     .then(conference => {
       console.log('conference saved: ', conference);
+      res.status(200).send('Conference saved!');
     })
     .catch(err => {
-      console.log('error: ', err);
+      console.log('error.error==> ',  err.detail);
+      console.log('error.keys==> ', Object.keys(err));
+      if (err.detail.includes('already exists')) {
+        res.status(500).send(`Conference ${req.body.name} has been added already!`);
+      }
     });
-
-  res.status(200).send('Conference saved!');
 };
 
 let getConferencesByHostID = (req, res) => {
@@ -336,6 +336,7 @@ let getUserSchedule = (req, res) => {
     })
     .catch(err => {
       console.log(err);
+      res.status(400).send('Error getting user schedule');
     })
 }
 
@@ -431,7 +432,20 @@ let removePresentationFromConference = (req, res) => {
     });
 }
 
-
+let getAllPresentationsOfSpeaker = (req, res) => {
+  console.log('Getting all presentations of speaker', req.params);
+  models.PresentationSpeaker.where({speaker_id: req.params.speakerid})
+    .fetchAll({withRelated: ['presentations']})
+    .then(record => {
+      var data = JSON.stringify(record);
+      var presentations = JSON.parse(data).map(pres => pres.presentations);
+      res.status(200).send(presentations);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send('Error getting speakers presentations');
+    })
+}
 
 
 module.exports = {
@@ -459,5 +473,6 @@ module.exports = {
   getUserSchedule: getUserSchedule,
   editUserProfile: editUserProfile,
   removePresentationFromUserSchedule: removePresentationFromUserSchedule,
-  removePresentationFromConference: removePresentationFromConference
+  removePresentationFromConference: removePresentationFromConference,
+  getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker
 };
