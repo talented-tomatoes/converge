@@ -12,7 +12,7 @@ import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item,
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
 
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
@@ -88,6 +88,24 @@ class AddPresentationForm extends Component {
       })
   }
 
+  componentDidMount() {
+    // do the pre-load of values
+    this.handleInitialize();
+  }
+
+  handleInitialize() {
+    // set Values for the pre-load
+    const presentationValues = {
+      name: this.props.admin.selectedPresentation.name,
+      description: this.props.admin.selectedPresentation.description,
+      date: this.props.admin.selectedPresentation.date,
+      time: this.props.admin.selectedPresentation.time,
+      location: this.props.admin.selectedPresentation.location,
+      conference_id: this.props.admin.selectedPresentation.conference_id
+    };
+    this.props.initialize(presentationValues);
+  }
+
   saveToDB(presentation) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
       let url = SERVER_URL + 'api/AddPresentation';
@@ -157,11 +175,11 @@ class AddPresentationForm extends Component {
           <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
           <Item inlineLabel name="date" validate={[required]}>
             <Label>Date: </Label>
-            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} />
+            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.props.admin.selectedPresentation.date}/>
           </Item>
           <Item inlineLabel>
             <Label>Time: </Label>
-            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} />
+            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.props.admin.selectedPresentation.time}/>
           </Item>
 
           <Field name="location" validate={[required]} component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />

@@ -26,6 +26,7 @@ class AddPresentation extends Component {
 
   componentDidMount() {
    this.getPresentations();
+   this.props.dispatch(setAdminSelectedPresentation({}));
   }
 
   getPresentations() {
