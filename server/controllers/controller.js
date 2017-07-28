@@ -459,8 +459,8 @@ let getAllPresentationsOfSpeaker = (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(400).send('Error getting speakers presentations');
-    })
-}
+    });
+};
 
 let editPresentation = (req, res) => {
   console.log('req.body in editPresentation: ', req.body);
