@@ -199,19 +199,19 @@ let getUserIdByGoogleLoginID = (req, res) => {
 };
 
 let addConference = (req, res) => {
-  console.log('Inside addConference');
-  console.log('req.body: ', req.body);
-  console.log('req.body type: ', typeof req.body);
-
+  //console.log('Inside addConference, conference name=', req.body.name);
   models.Conference.forge(req.body).save()
     .then(conference => {
       console.log('conference saved: ', conference);
+      res.status(200).send('Conference saved!');
     })
     .catch(err => {
-      console.log('error: ', err);
+      console.log('error.error==> ',  err.detail);
+      console.log('error.keys==> ', Object.keys(err));
+      if (err.detail.includes('already exists')) {
+        res.status(500).send(`Conference ${req.body.name} has been added already!`);
+      }
     });
-
-  res.status(200).send('Conference saved!');
 };
 
 let getConferencesByHostID = (req, res) => {
