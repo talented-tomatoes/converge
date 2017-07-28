@@ -28,6 +28,7 @@ exports.up = function(knex, Promise) {
 			table.string('venue_map', 500).notNullable();
 			table.string('banner', 500).notNullable();
 			table.integer('user_id').references('id').inTable('users').onDelete('CASCADE');
+			table.unique(['name', 'start_date', 'end_date']);
 		}),
 		knex.schema.createTableIfNotExists('speakers', (table) => {
 			table.increments('id').primary;

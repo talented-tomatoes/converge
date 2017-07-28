@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, ListItem } from 'native-base';
-// import UserSwiperFooter from './helpers/UserSwiperFooter';
-// import ImagePicker from 'react-native-image-picker';
-// import Swiper from 'react-native-swiper';
-
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, ListItem, Toast, Left } from 'native-base';
+import ImagePicker from 'react-native-image-picker';
+import uploadImage from '../registerStack/helpers/uploadImage';
 import axios from 'axios';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import DatePicker from './DatePicker.js';
-
-// need initialize to initialize the form with some data if it exists
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { setAdminSelectedConference } from '../actions/actions.js';
@@ -54,8 +50,7 @@ class EditConferenceForm extends Component {
   }
 
   componentDidMount() {
-    // do the pre-load of values
-    console.log('CONFERENCE EDIT FORM LOADED, PROPS ARE: ', this.props)
+    //console.log('CONFERENCE EDIT FORM LOADED, PROPS ARE: ', this.props)
     this.handleInitialize();
   }
 
@@ -78,6 +73,33 @@ class EditConferenceForm extends Component {
     this.props.initialize(conferenceValues);
   }
 
+  uploadImage(imageType) {
+     let options = {
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        let options = uploadImage(response.data);
+        axios.post(options.url, options.body)
+          .then(response => {
+            console.log('Response URL: ', response.data.secure_url);
+            if (imageType === 'logo') {
+              this.setState({logo: response.data.secure_url});
+            } else if (imageType === 'venue_map') {
+              this.setState({venue_map: response.data.secure_url});
+            } else if (imageType === 'banner') {
+              this.setState({banner: response.data.secure_url});
+            }
+          })
+          .catch(err => {
+            console.log('Error: ', err);
+          })
+      }
+    })
+  }
 
   saveToDB(conference) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
@@ -91,8 +113,7 @@ class EditConferenceForm extends Component {
     console.log('CONFERENCE INFO ', conference);
     axios.post(url, conference)
       .then(response => {
-        console.log('response from the updated: ', response.data);
-
+        // console.log('response from the updated: ', response.data);
         axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
           .then(conference => {
             console.log('new conference information: ', conference.data);
@@ -104,7 +125,13 @@ class EditConferenceForm extends Component {
         this.props.navigation.navigate(this.props.admin.selectedConference.id ? 'EditConference' : 'AdminLanding');
       })
       .catch(error => {
-        console.log('error: ', error);
+        console.log('error:', error.response.data);
+        Toast.show({
+          text: error.response.data,
+          position: 'bottom',
+          buttonText: 'Okay',
+          type: 'danger'
+        });
       })
     }
 
@@ -112,21 +139,20 @@ class EditConferenceForm extends Component {
     conference.user_id = this.props.user.userID;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
-    // conference.ticket_price = Number(conference.ticket_price);
     conference.id = this.props.admin.selectedConference.id;
+    conference.logo = this.state.logo;
+    conference.banner = this.state.banner;
+    conference.venue_map = this.state.venue_map;
     this.saveToDB(conference);
-    console.log('values in EditConferenceForm: ', conference);
   }
 
   onStartDateChange(date) {
-    console.log('changing the start date now to ', date);
     this.setState({
       start_date: date
     })
   }
 
   onEndDateChange(date) {
-    console.log('changing the end date now to ', date);
     this.setState({
       end_date: date
     })
@@ -154,14 +180,30 @@ class EditConferenceForm extends Component {
             <Text>End Date:   </Text>
             <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
-          {/* <Text> Start Date: <DatePicker /> </Text> */}
-          {/* <Text> End Date: </Text> */}
-          {/* <Field name="start_date" component={ DatePicker } label="Start Date:" placeholder="7/4/17" />
-          <Field name="end_date" component={ renderInput } label="End Date:" placeholder="7/5/17" /> */}
-          <Field name="logo" validate={[required]} component={ renderInput } label="Logo URL:" placeholder="http://myCompanyLogo.jpg" />
+          <Item inlineLabel>
+            <Label>Logo:</Label>
+              <Button success small onPress={() => this.uploadImage('logo')}>
+                <Text> Upload </Text>
+                <Icon name="ios-cloud-upload-outline" />
+              </Button>
+          </Item>
+
           <Field name="ticket_price" validate={[required, price]} component={ renderInput } label="Ticket Price:" placeholder="$85.00" keyboardType="numeric" />
-          <Field name="venue_map" validate={[required]} component={ renderInput } label="Venue Map URL:" placeholder="http://venueMap.jpg" />
-          <Field name="banner" validate={[required]} component={ renderInput } label="Banner URL:" placeholder="http://banner.jpg" />
+          <Item inlineLabel>
+            <Label>Venue Map:</Label>
+            <Button success small onPress={() => this.uploadImage('venue_map')}>
+              <Text> Upload </Text>
+              <Icon name="ios-cloud-upload-outline" />
+            </Button>
+          </Item>
+          
+          <Item inlineLabel>
+            <Label>Banner:</Label>
+            <Button success small onPress={() => this.uploadImage('banner')}>
+              <Text> Upload </Text>
+              <Icon name="ios-cloud-upload-outline" />
+            </Button>
+          </Item>
           <Field name="details" validate={[required]} component={ renderInput } label="Conference Blurb:" placeholder="SXSW brings musicians and techn ..." multiline={true} />
         </Content>
         <Footer>
@@ -183,23 +225,11 @@ const reduxFormConfig = {
 
 EditConferenceForm = reduxForm(reduxFormConfig)(EditConferenceForm)
 
-// EditConferenceForm = reduxForm({
-//   form: 'EditConferenceForm'
-// })(EditConferenceForm)
-
-
 EditConferenceForm = connect(
   state => ({
     admin: state.adminReducer,
     user: state.userReducer
   }))(EditConferenceForm)
-
-// // REDUX THINGS
-// const mapStateToProps = (state) => {
-//   return {
-//     admin: state.adminReducer
-//   };
-// };
 
 export default EditConferenceForm;
 
