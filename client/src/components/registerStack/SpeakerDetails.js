@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Config from '../../../../config/config.js';
 import { AppRegistry, Text, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
-import { Container, Header, Icon, Tab, Tabs, Content, Title, Body, Grid, Col, Right, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
+import { Container, Header, Icon, Tab, Tabs, Content, Title, Body, Grid, Col, Row, Right, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
 import RegisterStackHeader from './helpers/RegisterStackHeader.js'
 
 
@@ -46,12 +46,13 @@ export default class SpeakerDetails extends Component {
           leftIcon="arrow-back"
           title="Details"
         />
-        <Content>
+        <Content style={{padding: 10}}>
           <Card style={{flex: 0}}>
+      
             <CardItem>
               <Left>
                 <Body>
-                  <Title>{params.speaker.first_name + ' ' + params.speaker.last_name}</Title>
+                  <Title style={{paddingBottom: 10}}>{params.speaker.first_name + ' ' + params.speaker.last_name}</Title>
                 </Body>
               </Left>
             </CardItem>
@@ -65,6 +66,11 @@ export default class SpeakerDetails extends Component {
                 </Text>
               </Body>
             </CardItem>
+            <Grid style={{ alignSelf: "center", flex: 0}}>
+              <Col style={{ backgroundColor: colors[Math.floor(Math.random() * (colors.length -1 + 1))], height: 5, flex: 1}}></Col>
+            </Grid>
+          </Card>
+          <Card>
             <CardItem>
               <Body>
                 <Title>Here's where you'll find {params.speaker.first_name + ' ' + params.speaker.last_name}</Title>
