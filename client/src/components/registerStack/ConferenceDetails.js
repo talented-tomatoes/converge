@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { TouchableHighlight, TouchableOpacity } from 'react-native';
 import { TabNavigator } from 'react-navigation';
-import { Container, Header, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
+import { Container, Header, Text, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
