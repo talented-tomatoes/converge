@@ -21,7 +21,7 @@ router.route('/editUserProfile')
 router.route('/speakers/:confid')
   .get(controller.getAllSpeakersOfConf);
 
-  // presentations_speakers/:speakerid table
+  // presentations_speakers table
 router.route('/speakers/:presentationid')
   .get(controller.getAllSpeakersOfPresentation);
 
