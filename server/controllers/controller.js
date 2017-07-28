@@ -336,6 +336,7 @@ let getUserSchedule = (req, res) => {
     })
     .catch(err => {
       console.log(err);
+      res.status(400).send('Error getting user schedule');
     })
 }
 
@@ -431,7 +432,20 @@ let removePresentationFromConference = (req, res) => {
     });
 }
 
-
+let getAllPresentationsOfSpeaker = (req, res) => {
+  console.log('Getting all presentations of speaker', req.params);
+  models.PresentationSpeaker.where({speaker_id: req.params.speakerid})
+    .fetchAll({withRelated: ['presentations']})
+    .then(record => {
+      var data = JSON.stringify(record);
+      var presentations = JSON.parse(data).map(pres => pres.presentations);
+      res.status(200).send(presentations);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send('Error getting speakers presentations');
+    })
+}
 
 
 module.exports = {
@@ -459,5 +473,6 @@ module.exports = {
   getUserSchedule: getUserSchedule,
   editUserProfile: editUserProfile,
   removePresentationFromUserSchedule: removePresentationFromUserSchedule,
-  removePresentationFromConference: removePresentationFromConference
+  removePresentationFromConference: removePresentationFromConference,
+  getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker
 };

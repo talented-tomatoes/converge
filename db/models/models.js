@@ -68,6 +68,9 @@ const PresentationSpeaker = db.Model.extend({
   tableName: 'presentations_speakers',
   speakers: function() {
     return this.belongsTo(Speaker)
+  },
+  presentations: function() {
+    return this.belongsTo(Presentation)
   }
 })
 
