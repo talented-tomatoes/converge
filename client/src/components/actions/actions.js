@@ -56,3 +56,10 @@ export function setSpeakerInitialValues(speakerValues) {
     speakerValues: speakerValues
   };
 }
+
+export function setAdminSelectedPresentation(selectedPresentation) {
+  return {
+    type: 'SET_ADMIN_SELECTED_PRESENTATION',
+    selectedPresentation
+  };
+}

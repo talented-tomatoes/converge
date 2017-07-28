@@ -10,7 +10,7 @@ import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConf
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
-
+import { setAdminSelectedPresentation } from '../actions/actions.js';
 
 
 
@@ -50,8 +50,9 @@ class AddPresentation extends Component {
     }
   };
 
-  handleItemPress() {
-    //TODO: Navigate to a page where you can edit the presentation
+  handleItemPress(presentation) {
+    this.props.dispatch(setAdminSelectedPresentation(presentation));
+    this.props.navigation.navigate('AddPresentationForm');
   }
 
   handleDeletePress(presentation) {

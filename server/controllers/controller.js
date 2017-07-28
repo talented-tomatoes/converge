@@ -80,7 +80,7 @@ let getAllPresentationsOfConf = (req, res) => {
       var data = JSON.stringify(presentations);
       var sortedData = JSON.parse(data).sort((a, b) => {
         return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
-      })
+      });
       res.status(200).send(sortedData);
     })
     .catch(err => {
@@ -145,7 +145,7 @@ let chargeCustomer = (req, res) => {
   }, function(err, charge) {
     if (err) {
       console.log(err);
-      res.status(400).end()
+      res.status(400).end();
     } else {
       console.log(charge);
       res.status(201).end();
@@ -276,7 +276,7 @@ let addPresentation = (req, res) => {
             })
             .catch(err => {
               console.log(err);
-            })
+            });
         }
       }
       res.status(201).end();
@@ -401,7 +401,7 @@ let removePresentationFromUserSchedule = (req, res) => {
       console.log(err);
       res.status(400).send('Error removing presentation from user schedule');
     });
-}
+};
 
 let editUserProfile = (req, res) => {
   console.log('In EditUserProfile');
@@ -415,8 +415,8 @@ let editUserProfile = (req, res) => {
     .catch(err => {
       console.log('error updating user: ', err);
       res.status(400).send('error updating user: ', err);
-    })
-}
+    });
+};
 
 let removePresentationFromConference = (req, res) => {
   console.log('Removing presentation from conference...', req.params);
@@ -430,7 +430,22 @@ let removePresentationFromConference = (req, res) => {
       console.log(err);
       res.status(400).send('Error removing presentation from conference');
     });
-}
+};
+
+let editPresentation = (req, res) => {
+  console.log('Editing presentation ID #', req.body.id);
+
+  models.Presentation.where({id: req.body.id}).fetch()
+  .then(presentation => {
+    presentation.save(req.body, {method: 'update'});
+    console.log('presentation updated!');
+    res.status(201).send('User Updated');
+  })
+  .catch(err => {
+    console.log('error updating presentation: ', err);
+    res.status(400).send('error updating presentation: ', err);
+  });
+};
 
 let getAllPresentationsOfSpeaker = (req, res) => {
   console.log('Getting all presentations of speaker', req.params);
