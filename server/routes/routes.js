@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/controller.js');
 
+router.route('/')
+  .get((req,res) => {console.log('route works');res.send('test');})
+
 /*********************USERS **********************/
 router.route('/users')
   .get(controller.getAllUsers);

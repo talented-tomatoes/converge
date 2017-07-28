@@ -54,3 +54,7 @@ fastlane/Preview.html
 fastlane/screenshots
 
 server/config.js
+
+webApp/node_modules
+webApp/config
+webApp/react-client/dist
