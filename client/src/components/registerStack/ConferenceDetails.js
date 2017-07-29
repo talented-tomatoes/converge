@@ -24,7 +24,7 @@ class ConferenceDetails extends Component {
            leftIcon="arrow-back"
            title="Details"
          />
-         <Content>
+         <Content style={{padding: 10}}>
            <Card>
              <CardItem header>
                <Title>{this.props.selectedConference.name}</Title>
@@ -38,7 +38,7 @@ class ConferenceDetails extends Component {
              </CardItem>
              <CardItem footer>
                <Button onPress={() => this.props.navigation.navigate('PaymentForm', {conference: this.props.selectedConference})}>
-                 <Text style={{color: 'white'}}>Attend</Text>
+                 <Text style={{color: 'white'}}>Buy Ticket</Text>
                </Button>
              </CardItem>
              <Grid style={{ alignSelf: "center", flex: 0}}>
