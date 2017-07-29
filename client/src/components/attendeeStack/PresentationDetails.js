@@ -1,21 +1,23 @@
 import axios from 'axios';
-import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import React, { Component } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import { Drawer, Container, Header, Content, Card, CardItem, ListItem, Thumbnail, Body, Text, Right, Left, Icon, Button } from 'native-base';
-import SideBar from './Sidebar';
+import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish'
+import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native';
+import { Drawer, Container, Header, Title, Col, Grid, List, Content, Card, CardItem, ListItem, Thumbnail, Body, Text, Right, Left, Icon, Button } from 'native-base';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 
 
-export default class PresentationsDetails extends Component {
+class PresentationsDetails extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      presentations: []
+      speakers: []
     }
+    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
+    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
   }
 
   closeDrawer() {
@@ -27,60 +29,105 @@ export default class PresentationsDetails extends Component {
   };
 
   componentDidMount() {
-    //TODO: Get all speakers in the presentations. Grab from presentations_speakers table
+    const { params } = this.props.navigation.state;
+    console.log(params.presentation.id);
+    axios.get(`${Config.server.url}api/speakers/presentation/${params.presentation.id}`)
+      .then(response => {
+        this.setState({
+          speakers: response.data
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   render() {
     const { params } = this.props.navigation.state;
     return (
-      <Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
-        onClose={() => this.closeDrawer()} >
+      <Container>
         <AttendeeConferenceHeader
           leftOnPress={() => this.props.navigation.navigate('MasterSchedule')}
           leftIcon="arrow-back"
           title="Presentation"
         />
-        <Container>
-          <Content>
+          <Content style={{padding: 10}}>
             <Card style={{flex: 0}}>
               <CardItem>
-                  <Body>
-                    <Text>{params.presentation.name}</Text>
-                    <Text note>{params.presentation.date} at {params.presentation.time}</Text>
-                    <Text note>{params.presentation.location}</Text>
-                  </Body>
-              </CardItem>
-              <CardItem>
                 <Body>
-                  <Text>
-                    {params.presentation.description}
-                  </Text>
+                  <List>
+                    <ListItem>
+                      <Left>
+                        <Thumbnail square source={{uri: this.props.conference.logo}} />
+                      </Left>
+                    </ListItem>
+                    <ListItem>
+                      <Text style={{fontWeight: 'bold'}}>{params.presentation.name}</Text>
+                    </ListItem>
+                    <ListItem icon>
+                      <Left>
+                        <Icon name="ios-map-outline"/>
+                      </Left>
+                      <Body>
+                       <Text>Location: {params.presentation.location}</Text>
+                      </Body>
+                    </ListItem>
+                    <ListItem icon>
+                      <Left>
+                        <Icon name="ios-calendar-outline"/>
+                      </Left>
+                      <Body>
+                       <Text>Date: {convertDateToEnglish(params.presentation.date) + ', ' + params.presentation.date.substring(0,4)}</Text>
+                      </Body>
+                    </ListItem>
+                    <ListItem icon>
+                      <Left>
+                        <Icon name="ios-time-outline"/>
+                      </Left>
+                      <Body>
+                         <Text>Time: {params.presentation.time}</Text>
+                      </Body>
+                    </ListItem>
+                    <ListItem>
+                      <Text>{params.presentation.description}</Text>
+                    </ListItem>
+                    {
+                      this.state.speakers.map((speaker, i) => {
+                        return ( 
+                            <ListItem avatar key={i}>
+                              <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { backPage: 'PresentationDetails', speaker: speaker, data: params.presentation })}>
+                                <Left>
+                                  <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
+                                </Left>
+                              </TouchableOpacity>
+                              <Body>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { backPage: 'PresentationDetails', speaker: speaker, data: params.presentation })}>
+                                  <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
+                                  <Text note>{speaker.job_title}</Text>
+                                </TouchableOpacity>
+                              </Body>
+                            </ListItem>
+                        )
+                      })
+                    }
+                  </List>
                 </Body>
               </CardItem>
-              <CardItem>
-                <Left>
-                  <Button transparent>
-                    <Icon active name="thumbs-up" />
-                    <Text>12 Likes</Text>
-                  </Button>
-                </Left>
-              <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
-              </Body>
-              <Right>
-
-              </Right>
-              </CardItem>
+               <Grid style={{ alignSelf: "center", flex: 0}}>
+                <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+              </Grid>
             </Card>
           </Content>
-        </Container>
         <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
-      </Drawer>
+    </Container>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    conference: state.attendeeReducer
+  }
+}
+
+export default connect(mapStateToProps)(PresentationsDetails);
