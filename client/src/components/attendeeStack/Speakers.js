@@ -24,7 +24,6 @@ class Speakers extends Component {
   };
 
   render() {
-    console.log('INSIDE SPEAKERS ===>', this.props);
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -36,7 +35,7 @@ class Speakers extends Component {
           title="Speakers"
         />
         <Content>
-          <SpeakerList conferenceID={this.props.conference.id} navigation={this.props.navigation}></SpeakerList>
+          <SpeakerList conferenceID={this.props.conference.id} navigation={this.props.navigation} backPage={'Speakers'}></SpeakerList>
         </Content>
         <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
