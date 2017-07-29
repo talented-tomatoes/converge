@@ -67,6 +67,7 @@ class AddPresentation extends Component {
   };
 
   handleItemPress(presentation) {
+    // used for editing the presentation details
     console.log('PRESENTATION DETAILS', presentation)
     this.props.dispatch(setAdminSelectedPresentation(presentation));
     this.props.navigation.navigate('AddPresentationForm');
@@ -110,8 +111,8 @@ class AddPresentation extends Component {
                   <Content>
                     {
                       this.state.presentations.filter(presentation => {
-                        console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date))
-                        console.log('date: ', date);
+                        {/* console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date)) */}
+                        {/* console.log('date: ', date); */}
                         return convertDateToEnglish(presentation.date) === date;
                       }).map((presentation, i) => {
                         return (

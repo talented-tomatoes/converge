@@ -92,8 +92,6 @@ class AddPresentationForm extends Component {
   componentDidMount() {
     // do the pre-load of values
     this.handleInitialize();
-
-    console.log('ADD PRESENTATION FORM PROPS, ', this.props);
   }
 
   handleInitialize() {

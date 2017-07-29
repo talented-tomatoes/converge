@@ -11,28 +11,21 @@ class SpeakerPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      speakers: this.props.admin.speakers,
-      selected: []
+      speakers: this.props.admin.speakers
     };
   }
 
-  componentDidMount() {
-    // for (let i = 0; i < this.props.admin.speakers.length; i++) {
-    //   if (this.state.speakers[i].)
-    // }
-  }
-
-
-  // on pressing the speaker, trigger a check mark
-  onChangeSpeakers(value) {
-    this.setState({
-      selectedSpeakers: value || []
-    });
-  }
   
-  handleSpeakerPress(speaker) {
+  handleSpeakerPress(idx) {
+    let speakers = this.state.speakers;
+    if (speakers[idx].selected === undefined) {
+      speakers[idx].selected = true;
+    } else {
+      speakers[idx].selected = !speakers[idx].selected;
+    }
+    console.log(speakers);
     this.setState({
-      
+      speakers,
     });
   }
 
@@ -49,15 +42,15 @@ class SpeakerPicker extends Component {
           <Title style={{ color: "#fff" }}>Speaker List</Title>
         </Body>
         <Right>
-          <Button transparent onPress={this.onChangeSpeakers.bind(this)}>
+          <Button transparent >
             <Text style={{fontSize: 13, color: '#FFFFFF'}}>Confirm</Text>
           </Button>
         </Right> 
       </Header>
       <Content>
-      {this.state.speakers.map((speaker, idx)=> {
+      {this.props.admin.speakers.map((speaker, idx)=> {
         return (
-          <ListItem avatar onPress={() => this.setState({ speaker })}>
+          <ListItem key={idx} avatar onPress={this.handleSpeakerPress.bind(this, idx)}>
             <Left>
               <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
             </Left>
@@ -66,7 +59,7 @@ class SpeakerPicker extends Component {
               <Text note>{speaker.job_title}</Text>
             </Body>
             <Right>
-              {this.state.speakers[idx]["selected"] ? <Icon name="checkmark"></Icon> : <Icon name="add"></Icon>}
+              {this.state.speakers[idx]['selected'] ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}}></Icon> : <Icon name="add" style={{color: 'gray', fontSize: 32}}></Icon>}
               </Right>
           </ListItem>
         );
