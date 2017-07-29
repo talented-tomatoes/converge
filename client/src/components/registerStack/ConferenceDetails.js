@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { TouchableHighlight, TouchableOpacity } from 'react-native';
 import { TabNavigator } from 'react-navigation';
-import { Container, Header, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
+import { Container, Header, Text, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
@@ -15,7 +15,6 @@ class ConferenceDetails extends Component {
   }
 
   render() {
-    console.log('Conference Details this.props: ', this.props)
     return (
       <Container>
         <RegisterStackHeader
@@ -41,7 +40,7 @@ class ConferenceDetails extends Component {
                </Button>
              </CardItem>
           </Card>
-          <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id}/>
+          <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
          </Content>
       </Container>
     );
