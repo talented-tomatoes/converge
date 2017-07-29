@@ -447,6 +447,19 @@ let getAllPresentationsOfSpeaker = (req, res) => {
     })
 }
 
+let editPresentation = (req, res) => {
+  models.Presentation.where({id: req.body.id}).fetch()
+    .then(presentation => {
+      presentation.save(req.body, {method: 'update'});
+      console.log('presentation updated: ', presentation);
+      res.status(201).send('presentation Updated');
+    })
+    .catch(err => {
+      console.log('error updating presentation: ', err);
+      res.status(400).send('error updating presentation: ', err);
+    })
+}
+
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -474,5 +487,6 @@ module.exports = {
   editUserProfile: editUserProfile,
   removePresentationFromUserSchedule: removePresentationFromUserSchedule,
   removePresentationFromConference: removePresentationFromConference,
-  getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker
+  getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker,
+  editPresentation: editPresentation
 };

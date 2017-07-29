@@ -11,6 +11,8 @@ import normalizePhoneNumber from './helpers/normalizePhoneNumber';
 
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+
 
 
 const renderTextField = ({input, label, placeholder, width, meta: { touched, error, warning }}) => (
@@ -59,9 +61,10 @@ class EditProfile extends React.Component {
     axios.post(url, profile)
       .then(response => {
         console.log('profile updated: ', response);
+        browserHistory.goBack();
       })
       .catch(err => {
-        console.log('error updating profile: ', error);
+        console.log('error updating profile: ', err);
       })
   }
 

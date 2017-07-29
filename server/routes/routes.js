@@ -66,6 +66,9 @@ router.route('/presentations/:presid')
 router.route('/addPresentation')
   .post(controller.addPresentation);
 
+router.route('/editPresentation')
+  .post(controller.editPresentation);
+
 /*********************KAIROS CHECKIN **********************/
 router.route('/users/:userid/checkin')
   .post(controller.checkinUser);
