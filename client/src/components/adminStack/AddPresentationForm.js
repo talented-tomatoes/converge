@@ -51,7 +51,7 @@ class AddPresentationForm extends Component {
       selectedDate: '',
       selectedTime: '',
       selectedSpeakerID: 0,
-      selectedSpeakers: this.props.admin.selectedPresentation.speakers || [],
+      selectedSpeakers: this.props.admin.selectedSpeakers || [],
       speakers: [
         {
           first_name: 'John',
@@ -82,6 +82,8 @@ class AddPresentationForm extends Component {
       .catch(err => {
         console.log('Error getting speakers: ', err);
       })
+    
+    this.submit = this.submit.bind(this);
   }
 
   static navigationOptions = {
@@ -123,6 +125,12 @@ class AddPresentationForm extends Component {
           console.log('Error saving presentation: ', error);
         })
     }
+
+  handlePresentationSpeakers(selectedSpeakers) {
+    this.setState({
+      selectedSpeakers
+    })
+  }
 
   submit(presentation) {
     presentation.conference_id = this.props.admin.selectedConference.id;
@@ -187,9 +195,11 @@ class AddPresentationForm extends Component {
           <Field name="description" validate={[required]} component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
           <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
             
-            {this.state.selectedSpeakers.length === 0 ? <Text>Tap to add speakers to this presentation</Text> : this.state.selectedSpeakers.map(speaker => {
+            {this.props.admin.selectedSpeakers === {} ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here change speakers </Text>}
+
+            {/* {this.state.selectedSpeakers.map(speaker => {
               return <Text>{speaker.first_name} {speaker.last_name}</Text>
-            })} 
+            })}} */}
              </ListItem> 
         
            {/* <Content>

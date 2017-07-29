@@ -70,3 +70,10 @@ export function setSpeakersOfConference(speakers) {
     speakers
   };
 }
+
+export function setPresentationSpeakers(selectedSpeakers) {
+  return {
+    type: 'SET_PRESENTATION_SPEAKERS',
+    selectedSpeakers
+  };
+}

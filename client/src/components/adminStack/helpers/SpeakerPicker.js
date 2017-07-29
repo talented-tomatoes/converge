@@ -5,28 +5,32 @@ import SpeakerList from '../../registerStack/SpeakerList.js';
 import { connect } from 'react-redux';
 import Config from '../../../../../config/config.js';
 import axios from 'axios';
+import { setPresentationSpeakers } from '../../actions/actions.js';
 
 
 class SpeakerPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      speakers: this.props.admin.speakers
+      speakers: this.props.admin.speakers,
+      selectedSpeakers: {}
     };
+    this.setSpeakersAndGoBack = this.setSpeakersAndGoBack.bind(this);
   }
 
   
   handleSpeakerPress(idx) {
-    let speakers = this.state.speakers;
-    if (speakers[idx].selected === undefined) {
-      speakers[idx].selected = true;
-    } else {
-      speakers[idx].selected = !speakers[idx].selected;
-    }
-    console.log(speakers);
+    var selected = this.state.selectedSpeakers;
+    (selected[idx] === undefined) ? (selected[idx] = true) : (delete selected[idx]);
+
     this.setState({
-      speakers,
+      selectedSpeakers: selected
     });
+  }
+
+  setSpeakersAndGoBack() {
+    this.props.dispatch(setPresentationSpeakers(this.state.selectedSpeakers));
+    this.props.navigation.navigate('AddPresentationForm');
   }
 
   render() {
@@ -42,7 +46,7 @@ class SpeakerPicker extends Component {
           <Title style={{ color: "#fff" }}>Speaker List</Title>
         </Body>
         <Right>
-          <Button transparent >
+          <Button transparent onPress={this.setSpeakersAndGoBack}>
             <Text style={{fontSize: 13, color: '#FFFFFF'}}>Confirm</Text>
           </Button>
         </Right> 
@@ -59,7 +63,7 @@ class SpeakerPicker extends Component {
               <Text note>{speaker.job_title}</Text>
             </Body>
             <Right>
-              {this.state.speakers[idx]['selected'] ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}}></Icon> : <Icon name="add" style={{color: 'gray', fontSize: 32}}></Icon>}
+              {this.state.selectedSpeakers[idx] ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}}></Icon> : <Icon name="add" style={{color: 'gray', fontSize: 32}}></Icon>}
               </Right>
           </ListItem>
         );
