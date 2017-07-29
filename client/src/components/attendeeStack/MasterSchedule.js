@@ -24,7 +24,6 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
       dates: renderListOfDatesFromConference(this.props.conference),
       showToast: false
     }
-    this.randomColor = randomColor();
   }
 
   closeDrawer() {
@@ -106,7 +105,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
                               <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
                                 <Left>
                                   <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                    <Col style={{ backgroundColor:  this.randomColor, height: 50, width: 5}}></Col>
+                                    <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
                                   </Grid>
                                   <Text>{presentation.time}</Text>
                                 </Left>
