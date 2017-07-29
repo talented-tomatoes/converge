@@ -34,7 +34,6 @@ const linkedin = (value) => {
 }
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
-  console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
@@ -68,17 +67,29 @@ class AddSpeakersForm extends Component {
   }
 
   handleInitialize() {
-    // set Values for the pre-load
+    const linkedinid = this.props.admin.speakerValues.linkedin_id;
+    let linkedinHandle = '';
+    if (linkedinid) {
+      const str = 'https://www.linkedin.com/in';
+      const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
+      linkedinHandle = linkedinid.substring(startIndex);
+    }
     const speakerValues = {
       first_name: this.props.admin.speakerValues.first_name,
       last_name: this.props.admin.speakerValues.last_name,
       job_title: this.props.admin.speakerValues.job_title,
       email: this.props.admin.speakerValues.email,
-      linkedin_id: this.props.admin.speakerValues.linkedin_id,
+      // linkedin_id: linkedinHandle,
       avatar_url: this.props.admin.speakerValues.avatar_url,
       bio: this.props.admin.speakerValues.bio,
       id: this.props.admin.speakerValues.id
     };
+    if (linkedinid) {
+      speakerValues.linkedin_id = linkedinHandle;
+    } else {
+      speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
+    }
+    console.log('speakervalues===>', speakerValues);
     this.props.initialize(speakerValues);
   }
 
@@ -91,7 +102,6 @@ class AddSpeakersForm extends Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        console.log('settingstate of avatar_url..........===========>');
         this.setState({isLoading: true});
         let options = uploadImage(response.data);
         axios.post(options.url, options.body)
@@ -132,12 +142,13 @@ class AddSpeakersForm extends Component {
   submit(speaker) {
     speaker.conference_id = this.props.admin.selectedConference.id;
     speaker.avatar_url = this.state.avatar;
+    if (!speaker.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
+      speaker.linkedin_id = `https://www.linkedin.com/in/${speaker.linkedin_id}`;
+    }
     this.saveToDB(speaker);
-    //console.log('values in AddSpeakersForm: ', speaker);
   }
 
   render() {
-    console.log('props in addspeaker', this.props);
     const { handleSubmit } = this.props;
     return (
       <Container>
@@ -153,7 +164,7 @@ class AddSpeakersForm extends Component {
           <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
           <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" placeholder="Director of Engineering" />
           <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" validate={[required]} component={ renderInput } label="Linked In URL:" placeholder="http://linkedin.com/in/johndoe123" />
+          <Field name="linkedin_id" validate={[required]} component={ renderInput } label="Linked Handle" placeholder="johndoe123" />
           <Item inlineLabel>
             <Label>Profile Picture:</Label>
               {this.state.isLoading 
@@ -162,7 +173,7 @@ class AddSpeakersForm extends Component {
                       <Text> Upload </Text>
                       <Icon name="ios-cloud-upload-outline" />
                     </Button>)
-                }     
+              }     
           </Item>
           <Field name="bio" validate={[required]} component={ renderInput } label="Speaker Bio:" placeholder="John Doe is involved with...." multiline={true} />
         </Content>
