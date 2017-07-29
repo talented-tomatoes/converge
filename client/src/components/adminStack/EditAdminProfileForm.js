@@ -70,7 +70,6 @@ class EditAdminProfileForm extends Component {
   };
 
   componentDidMount() {
-    console.log('EditAdminProfileForm!!!!!');
     const SERVER_URL = Config.server.url;
 
     let url = SERVER_URL + 'api/users/' + this.props.user.id;
@@ -98,7 +97,6 @@ class EditAdminProfileForm extends Component {
       first_name: this.state.dbUser.first_name,
       last_name: this.state.dbUser.last_name,
       email: this.state.dbUser.email,
-      //linkedin_id: this.state.dbUser.linkedin_id,
       phone_number: this.state.dbUser.phone_number,
     };
     if (linkedinid) {
