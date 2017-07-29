@@ -447,6 +447,46 @@ let getAllPresentationsOfSpeaker = (req, res) => {
     })
 }
 
+let editPresentation = (req, res) => {
+  console.log('req.body in editPresentation: ', req.body);
+  models.Presentation.where({id: req.body.presentation.id}).fetch()
+    .then(presentation => {
+      console.log('presentation: ', presentation);
+      presentation.save(req.body.presentation, {method: 'update'});
+      for (var i = 0; i < req.body.speakerIds.length; i++) {
+        models.PresentationSpeaker.where({speaker_id: req.body.speakerIds[i], presentation_id: req.body.presentation.id}).fetchAll()
+          .then(presSpeakers => {
+            if (presSpeakers.length === 0) {
+              models.PresentationSpeaker.forge({speaker_id: req.body.speakerIds[i], presentation_id: req.body.presentation.id}).save();
+            }
+          })
+      }
+    })
+    .then(response => {
+      console.log('presentation updated');
+      res.status(201).send('presentation Updated');
+    })
+    .catch(err => {
+      console.log('error updating presentation: ', err);
+      res.status(400).send('error updating presentation: ', err);
+    })
+}
+
+let deleteSpeakerFromPresentation = (req, res) => {
+  console.log('deleteSpeakerFromPresentation: ', req.params);
+  models.PresentationSpeaker.where({speaker_id: req.params.speakerid, presentation_id: req.params.presentationid})
+  .destroy()
+  .then(results => {
+    res.status(200).end();
+  })
+  .catch(err => {
+    console.log('error deleting speaker from presentation: ', err);
+    res.status(400).send('error deleting speaker from presentation');
+  })
+}
+
+let addSpeakerToPresen
+
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -474,5 +514,7 @@ module.exports = {
   editUserProfile: editUserProfile,
   removePresentationFromUserSchedule: removePresentationFromUserSchedule,
   removePresentationFromConference: removePresentationFromConference,
-  getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker
+  getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker,
+  editPresentation: editPresentation,
+  deleteSpeakerFromPresentation: deleteSpeakerFromPresentation
 };

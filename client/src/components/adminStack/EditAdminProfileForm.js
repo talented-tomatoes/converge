@@ -157,7 +157,8 @@ class EditAdminProfileForm extends Component {
         this.setState({
           avatarSource: { uri: 'https://media.giphy.com/media/210NUQw5BT8c0/giphy.gif' }
         });
-        let options = uploadImage(response.data)
+        let options = uploadImage(response.data);
+        console.log('options: ', options);
         axios.post(options.url, options.body)
         .then( response => {
           console.log('response url = ', response.data.secure_url);
@@ -180,6 +181,7 @@ class EditAdminProfileForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    console.log('in editProfile: ', this.props);
     return (
       <Container>
         <Drawer

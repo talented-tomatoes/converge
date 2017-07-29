@@ -32,14 +32,13 @@ class MyEvents extends React.Component {
   render () {
     console.log('this.props in myEvents: ', this.props)
     let displayedConferences = this.state.conferences.map((conference, i) => {
+      let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+      let randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
       return (
-        // <Link to="/SelectedConference">
-        <Card onClick={() => {
+        <Card raised color={randomColor} onClick={() => {
           this.props.dispatch(setSelectedConference(conference));
-          browserHistory.push('/SelectedConference');
-
-
-        }} raised key={i}>
+          browserHistory.push('/ConferenceDetails');
+        }} key={i}>
           <Card.Header>
             <Image floated='left' size='mini' src={conference.logo} />
             {conference.name}
