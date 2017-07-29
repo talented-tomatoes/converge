@@ -15,7 +15,6 @@ class ConferenceDetails extends Component {
   }
 
   render() {
-    console.log('Conference Details this.props: ', this.props)
     return (
       <Container>
         <RegisterStackHeader
@@ -41,7 +40,7 @@ class ConferenceDetails extends Component {
                </Button>
              </CardItem>
           </Card>
-          <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id}/>
+          <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
          </Content>
       </Container>
     );
