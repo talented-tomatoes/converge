@@ -4,13 +4,13 @@ import { Image } from 'react-native';
 import { Drawer, Content, Header, Container, Card, CardItem, Grid, Col, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
+import randomColor from '../helpers/randomColor';
 import SideBar from './Sidebar';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+    this.randomColor = randomColor()
   }
 
   closeDrawer() {
