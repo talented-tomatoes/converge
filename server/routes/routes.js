@@ -22,7 +22,7 @@ router.route('/speakers/:confid')
   .get(controller.getAllSpeakersOfConf);
 
   // presentations_speakers table
-router.route('/speakers/:presentationid')
+router.route('/speakers/presentation/:presentationid')
   .get(controller.getAllSpeakersOfPresentation);
 
 // modify speakers from a conference
