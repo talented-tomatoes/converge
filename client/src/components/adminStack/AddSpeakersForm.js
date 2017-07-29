@@ -28,9 +28,9 @@ const email = (value) => {
 }
 
 const linkedin = (value) => {
-  return value && !value.toLowerCase().startsWith('linkedin.com')
-               ? <Text> Invalid Linkedin URL</Text>
-              : undefined
+  return value && (value.toLowerCase().indexOf('linkedin.com') !== -1)
+               ? <Text> Enter only the Handle</Text>
+               : undefined
 }
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
@@ -162,7 +162,7 @@ class AddSpeakersForm extends Component {
           <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
           <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" placeholder="Director of Engineering" />
           <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" validate={[required]} component={ renderInput } label="Linked Handle" placeholder="johndoe123" />
+          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle" placeholder="johndoe123" />
           <Item inlineLabel>
             <Label>Profile Picture:</Label>
               {this.state.isLoading 
