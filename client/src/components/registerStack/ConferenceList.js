@@ -59,7 +59,7 @@ class ConferenceList extends React.Component {
           leftIcon="menu"
           title="All Events"
         />
-        <Content>
+        <Content style={{padding: 10}}>
           {
             this.state.conferences.map((conference, i) => {
               return (
