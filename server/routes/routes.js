@@ -29,6 +29,9 @@ router.route('/speakers/presentation/:presentationid')
 router.route('/editSpeaker')
   .post(controller.updateSpeakerOfConf);
 
+router.route('/speakers/:speakerid/:presentationid')
+  .delete(controller.deleteSpeakerFromPresentation);
+
 
 /*********************CONFERENCES **********************/
 router.route('/conferences')

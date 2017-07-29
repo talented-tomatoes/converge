@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import { Form, Button, Image, Grid, Dimmer, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../../../config/config.js';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
+import EditSpeakerInPresentation from './helpers/EditSpeakerInPresentation.jsx';
+import DeleteSpeakerFromPresentation from './helpers/DeleteSpeakerFromPresentation.jsx';
 
 
 
@@ -26,21 +30,29 @@ class EditPresentation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedSpeakers: [],
+      allSpeakers: []
     }
   }
 
   submit(presentation) {
     console.log('presentation form values: ', presentation);
+    let speakerIds = [].slice.call(presentation.selectedSpeakers);
+    delete presentation.selectedSpeakers;
+    let data = {
+      presentation: presentation,
+      speakerIds: speakerIds
+    };
 
     let url = config.server.url + 'api/editPresentation';
-    axios.post(url, presentation)
+    console.log('data: ', data)
+    axios.post(url, data)
       .then(response => {
         console.log('presentation updated: ', response);
         browserHistory.push('/Presentations');
-
       })
       .catch(err => {
-        console.log('error updating presentation: ', error);
+        console.log('error updating presentation: ', err);
       })
   }
 
@@ -54,8 +66,11 @@ class EditPresentation extends React.Component {
             <Form.Group>
               <Field name="name" component={ renderTextField } validate={[required]} label="Presentation Name" width={16}/>
             </Form.Group>
+            <label style={{fontWeight: 'bold', fontSize: 13}}>Date</label>
             <Form.Group>
-              <Field name="date" component={ renderTextField } validate={[required]} label="Date" width={8}/>
+              <DatePicker selected={this.state.startDate} onChange={(date) => this.setState({startDate: date})} />
+            </Form.Group>
+            <Form.Group>
               <Field name="time" component={ renderTextField } validate={[required]} label="Time" width={8}/>
             </Form.Group>
             <Form.Group>
@@ -64,6 +79,15 @@ class EditPresentation extends React.Component {
             <Form.Group>
               <Field name="description" component={ renderTextAreaField } validate={[required]} label="Presentation Description" width={16}/>
             </Form.Group>
+            <label style={{fontWeight: 'bold', fontSize: 13}}>Selected Speakers</label>
+            <Form.Group>
+              <DeleteSpeakerFromPresentation />
+            </Form.Group>
+            <label style={{fontWeight: 'bold', fontSize: 13}}>Add A Speaker</label>
+            <Form.Group>
+              <EditSpeakerInPresentation />
+            </Form.Group>
+            <Form.Group />
             <Form.Group />
             <Button primary type="submit">Update</Button>
           </Form>
@@ -83,6 +107,7 @@ EditPresentation = reduxForm(reduxFormConfig)(EditPresentation)
 EditPresentation = connect(
   state => ({
     selectedPresentation: state.presentationReducer.selectedPresentation,
+    selectedConference: state.conferenceReducer.selectedConference,
     initialValues: state.presentationReducer.selectedPresentation
   }))(EditPresentation)
 
