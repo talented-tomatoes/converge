@@ -25,7 +25,7 @@ const App = (
       <Route path='/' component={Main}>
         <IndexRoute component={MyEvents} />
         <Route path='/MyEvents' component={MyEvents} />
-          <Route path='/SelectedConference' component={SelectedConference} />
+        <Route path='/SelectedConference' component={SelectedConference} />
 
 
         <Route path='/Speakers' component={Speakers} />

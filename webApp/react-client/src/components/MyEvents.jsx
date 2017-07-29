@@ -33,12 +33,9 @@ class MyEvents extends React.Component {
     console.log('this.props in myEvents: ', this.props)
     let displayedConferences = this.state.conferences.map((conference, i) => {
       return (
-        // <Link to="/SelectedConference">
         <Card onClick={() => {
           this.props.dispatch(setSelectedConference(conference));
-          browserHistory.push('/SelectedConference');
-
-
+          browserHistory.push('/ConferenceDetails');
         }} raised key={i}>
           <Card.Header>
             <Image floated='left' size='mini' src={conference.logo} />
