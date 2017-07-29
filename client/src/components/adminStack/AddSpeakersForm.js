@@ -79,7 +79,6 @@ class AddSpeakersForm extends Component {
       last_name: this.props.admin.speakerValues.last_name,
       job_title: this.props.admin.speakerValues.job_title,
       email: this.props.admin.speakerValues.email,
-      // linkedin_id: linkedinHandle,
       avatar_url: this.props.admin.speakerValues.avatar_url,
       bio: this.props.admin.speakerValues.bio,
       id: this.props.admin.speakerValues.id
@@ -89,7 +88,6 @@ class AddSpeakersForm extends Component {
     } else {
       speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
     }
-    console.log('speakervalues===>', speakerValues);
     this.props.initialize(speakerValues);
   }
 
