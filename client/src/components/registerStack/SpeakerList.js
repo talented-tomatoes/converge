@@ -28,9 +28,8 @@ export default class SpeakerList extends React.Component {
     });
   }
   render() {
-
     const speakerListItems = this.state.speakers.map((speaker, i) =>
-      <SpeakerListEntry key={i} speaker={speaker} navigation={this.props.navigation}/>
+      <SpeakerListEntry key={i} speaker={speaker} navigation={this.props.navigation} backPage={this.props.backPage}/>
     );
 
     return (

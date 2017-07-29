@@ -6,14 +6,15 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner } from 'native-base';
 import axios from 'axios';
-
+import ImagePicker from 'react-native-image-picker';
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/reducers.js';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
+import uploadImage from '../registerStack/helpers/uploadImage';
 
 const required = (value) => {
   return value ? undefined  : <Text> Required </Text>
@@ -56,10 +57,9 @@ class AddSpeakersForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      avatar: '',
+      isLoading: false
     }
-
-
   }
 
   componentDidMount() {
@@ -82,6 +82,31 @@ class AddSpeakersForm extends Component {
     this.props.initialize(speakerValues);
   }
 
+  upload(imageType) {
+     let options = {
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        console.log('settingstate of avatar_url..........===========>');
+        this.setState({isLoading: true});
+        let options = uploadImage(response.data);
+        axios.post(options.url, options.body)
+          .then(response => {
+            console.log('Response URL: ...setting state to.....', response.data.secure_url);
+            this.setState({avatar: response.data.secure_url });
+            this.setState({isLoading: false});
+          })
+          .catch(err => {
+            console.log('Error: ', err);
+          })
+      }
+    })
+  }
+
   saveToDB(speaker) {
     // base URL
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
@@ -92,8 +117,7 @@ class AddSpeakersForm extends Component {
     } else {
       url = SERVER_URL + 'api/editSpeaker';
     }
-
-    console.log('speaker: ', speaker)
+    //console.log('speaker: ', speaker)
     axios.post(url, speaker)
       .then(response => {
         console.log('response : ', response);
@@ -103,12 +127,13 @@ class AddSpeakersForm extends Component {
       .catch(error => {
         console.log('error saving speaker to the database: ', error);
       })
-    }
+  }
 
   submit(speaker) {
     speaker.conference_id = this.props.admin.selectedConference.id;
+    speaker.avatar_url = this.state.avatar;
     this.saveToDB(speaker);
-    console.log('values in AddSpeakersForm: ', speaker);
+    //console.log('values in AddSpeakersForm: ', speaker);
   }
 
   render() {
@@ -128,8 +153,17 @@ class AddSpeakersForm extends Component {
           <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
           <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" placeholder="Director of Engineering" />
           <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked In URL:" placeholder="http://linkedin.com/in/johndoe123" />
-          <Field name="avatar_url" validate={[required]} component={ renderInput } label="Speaker Profile Picture:" placeholder="http://myProfilePicture.jpg" />
+          <Field name="linkedin_id" validate={[required]} component={ renderInput } label="Linked In URL:" placeholder="http://linkedin.com/in/johndoe123" />
+          <Item inlineLabel>
+            <Label>Profile Picture:</Label>
+              {this.state.isLoading 
+                ? (<Spinner color='red'/>)
+                : (<Button success small onPress={() => this.upload('avatar_url')}>
+                      <Text> Upload </Text>
+                      <Icon name="ios-cloud-upload-outline" />
+                    </Button>)
+                }     
+          </Item>
           <Field name="bio" validate={[required]} component={ renderInput } label="Speaker Bio:" placeholder="John Doe is involved with...." multiline={true} />
         </Content>
         <Footer>
