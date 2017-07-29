@@ -7,6 +7,7 @@ import renderListOfDatesFromConference from '../adminStack/helpers/renderListOfD
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
 import { Drawer, Content, Container, Tabs, Tab, Toast, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem } from 'native-base';
 import AttendeeFooter from './AttendeeFooter.js';
+import randomColor from '../helpers/randomColor';
 
 import SideBar from './Sidebar';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
@@ -23,6 +24,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
       dates: renderListOfDatesFromConference(this.props.conference),
       showToast: false
     }
+    this.randomColor = randomColor();
   }
 
   closeDrawer() {
@@ -76,9 +78,6 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
   }
 
   render() {
-
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
@@ -107,7 +106,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
                               <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
                                 <Left>
                                   <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                    <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
+                                    <Col style={{ backgroundColor:  this.randomColor, height: 50, width: 5}}></Col>
                                   </Grid>
                                   <Text>{presentation.time}</Text>
                                 </Left>
