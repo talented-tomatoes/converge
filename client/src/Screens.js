@@ -39,6 +39,7 @@ import AddPresentationForm from './components/adminStack/AddPresentationForm';
 import EditConference from './components/adminStack/EditConference';
 import EditConferenceForm from './components/adminStack/EditConferenceForm';
 import EditAdminProfileForm from './components/adminStack/EditAdminProfileForm';
+import SpeakerPicker from './components/adminStack/helpers/SpeakerPicker.js';
 
 
 
@@ -71,7 +72,8 @@ const AdminStack = StackNavigator({
   AddSpeakersForm: { screen: AddSpeakersForm },
   EditConference: { screen: EditConference },
   EditConferenceForm: { screen: EditConferenceForm },
-  EditAdminProfileForm: { screen: EditAdminProfileForm }
+  EditAdminProfileForm: { screen: EditAdminProfileForm },
+  SpeakerPicker: { screen: SpeakerPicker }
 }, {
   headerMode: 'none',
   transitionConfig: () => ({

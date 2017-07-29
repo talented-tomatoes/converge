@@ -16,6 +16,7 @@ import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
+import SpeakerPicker from './helpers/SpeakerPicker.js';
 
 
 const required = value => {
@@ -44,17 +45,13 @@ const validate = (values) => {
 }
 
 class AddPresentationForm extends Component {
-  static navigationOptions = {
-    title: 'Add A Presentation',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
-  }
-
   constructor(props) {
     super(props);
     this.state = {
       selectedDate: '',
       selectedTime: '',
       selectedSpeakerID: 0,
+      selectedSpeakers: this.props.admin.selectedPresentation.speakers || [],
       speakers: [
         {
           first_name: 'John',
@@ -72,7 +69,6 @@ class AddPresentationForm extends Component {
           id: 3
         }
       ],
-      selectedSpeakers: {}
     }
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let getAllSpeakersByConferenceIdUrl = SERVER_URL + 'api/speakers/' + this.props.admin.selectedConference.id;
@@ -88,9 +84,16 @@ class AddPresentationForm extends Component {
       })
   }
 
+  static navigationOptions = {
+    title: 'Add A Presentation',
+    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
+  }
+
   componentDidMount() {
     // do the pre-load of values
     this.handleInitialize();
+
+    console.log('ADD PRESENTATION FORM PROPS, ', this.props);
   }
 
   handleInitialize() {
@@ -184,8 +187,14 @@ class AddPresentationForm extends Component {
 
           <Field name="location" validate={[required]} component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
           <Field name="description" validate={[required]} component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
-           <Label>Speakers:</Label>
-           <Content>
+          <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
+            
+            {this.state.selectedSpeakers.length === 0 ? <Text>Tap to add speakers to this presentation</Text> : this.state.selectedSpeakers.map(speaker => {
+              return <Text>{speaker.first_name} {speaker.last_name}</Text>
+            })} 
+             </ListItem> 
+        
+           {/* <Content>
              {
                this.state.speakers.map((speaker, i) => {
                  return <ListItem key={i}>
@@ -196,7 +205,7 @@ class AddPresentationForm extends Component {
                         </ListItem>
                })
              }
-           </Content>
+           </Content> */}
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>

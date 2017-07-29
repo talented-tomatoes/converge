@@ -28,8 +28,9 @@ const adminReducer = (state = {}, action) => {
     case 'SET_ADMIN_SELECTED_PRESENTATION':
       return {...state, ...{selectedPresentation: action.selectedPresentation}};
     case 'SET_SPEAKER_INITIAL_VALUES':
-      console.log('SETTING SPEAKER INITIAL VALUES NOW');
       return {...state, ...{speakerValues: action.speakerValues}};
+    case 'SET_SPEAKERS_OF_CONF':
+      return {...state, ...{speakers: action.speakers}};
     default:
       return state;
   }

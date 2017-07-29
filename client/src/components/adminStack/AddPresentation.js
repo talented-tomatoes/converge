@@ -10,7 +10,8 @@ import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConf
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
-import { setAdminSelectedPresentation } from '../actions/actions.js';
+import { setAdminSelectedPresentation, setSpeakersOfConference } from '../actions/actions.js';
+
 
 
 
@@ -26,7 +27,21 @@ class AddPresentation extends Component {
 
   componentDidMount() {
    this.getPresentations();
+   this.getSpeakersOfConf();
    this.props.dispatch(setAdminSelectedPresentation({}));
+
+  }
+
+  getSpeakersOfConf() {
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    axios.get(SERVER_URL + `api/speakers/${this.props.admin.selectedConference.id}`)
+    .then(response => {
+      console.log('SPEAKERS', response);
+      this.props.dispatch(setSpeakersOfConference(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   getPresentations() {
@@ -52,6 +67,7 @@ class AddPresentation extends Component {
   };
 
   handleItemPress(presentation) {
+    console.log('PRESENTATION DETAILS', presentation)
     this.props.dispatch(setAdminSelectedPresentation(presentation));
     this.props.navigation.navigate('AddPresentationForm');
   }

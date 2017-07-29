@@ -63,3 +63,10 @@ export function setAdminSelectedPresentation(selectedPresentation) {
     selectedPresentation
   };
 }
+
+export function setSpeakersOfConference(speakers) {
+  return {
+    type: 'SET_SPEAKERS_OF_CONF',
+    speakers
+  };
+}
