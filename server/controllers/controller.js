@@ -47,17 +47,17 @@ let getAllSpeakersOfConf = (req, res) => {
 };
 
 let getAllSpeakersOfPresentation = (req, res) => {
-  const confid = req.params.confid;
-  models.Speaker.where({confid: confid})
-    .fetchAll()
-    .then((trips) => {
-      console.log('\tSUCCESS\n');
-      res.status(200).json(trips);
+  models.PresentationSpeaker.where({presentation_id: req.params.presentationid})
+    .fetchAll({withRelated: ['speakers']})
+    .then((record) => {
+      var data = JSON.stringify(record);
+      var speakers = JSON.parse(data).map(speaker => speaker.speakers);
+      res.status(200).send(speakers);
     })
-  .catch((err) => {
-    console.log('ERROR GETting Trips collection: ', err);
-    res.status(404).send(err);
-  });
+    .catch((err) => {
+      console.log('Error getting all speakers of presentation', err);
+      res.status(404).send(err);
+    });
 };
 
 let getAllConferences = (req, res) => {
