@@ -33,8 +33,8 @@ const email = (value) => {
 }
 
 const linkedin = (value) => {
-  return value && !value.toLowerCase().startsWith('https://www.linkedin.com')
-               ? <Text> Invalid Linkedin URL</Text>
+  return value && (value.toLowerCase().indexOf('linkedin.com') !== -1)
+               ? <Text> Enter just the handle </Text>
               : undefined
 }
 
@@ -86,13 +86,26 @@ class EditAttendeeProfileForm extends Component {
   }
 
   handleInitialize() {
+    const linkedinid = this.state.dbUser.linkedin_id;
+    let linkedinHandle = '';
+    if (linkedinid) {
+      const str = 'https://www.linkedin.com/in';
+      const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
+      linkedinHandle = linkedinid.substring(startIndex);
+    }
     const profileValues = {
       first_name: this.state.dbUser.first_name,
       last_name: this.state.dbUser.last_name,
       email: this.state.dbUser.email,
-      linkedin_id: this.state.dbUser.linkedin_id,
+      //linkedin_id: this.state.dbUser.linkedin_id,
       phone_number: this.state.dbUser.phone_number,
     };
+    if (linkedinid) {
+      profileValues.linkedin_id = linkedinHandle;
+    } else {
+      profileValues.linkedin_id = this.state.dbUser.linkedin_id;
+    }
+    console.log('profileValues=======>', profileValues);
     this.props.initialize(profileValues);
   }
 
@@ -128,6 +141,9 @@ class EditAttendeeProfileForm extends Component {
     profile.login_id = this.props.user.id;
     profile.avatar_url = this.state.avatarSource.uri;
     profile.user_type = this.state.dbUser.user_type;
+    if (!profile.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
+      profile.linkedin_id = `https://www.linkedin.com/in/${profile.linkedin_id}`;
+    }
     this.saveToDB(profile);
   }
 
@@ -198,7 +214,7 @@ class EditAttendeeProfileForm extends Component {
           <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" placeholder="John" />
           <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
           <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked In URL:" placeholder="linkedin.com/in/johndoe123" />
+          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" placeholder="linkedin.com/in/johndoe123" />
           <Field name="phone_number" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} placeholder="555-555-5555" />
 
           <Separator bordered>
