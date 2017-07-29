@@ -44,7 +44,7 @@ export default class SpeakerDetails extends Component {
     return (
       <Container>
         <RegisterStackHeader
-          leftOnPress={() => this.props.navigation.navigate(params.backPage)}
+          leftOnPress={() => this.props.navigation.navigate(params.backPage, { presentation: params.data } )}
           leftIcon="arrow-back"
           title="Details"
         />
