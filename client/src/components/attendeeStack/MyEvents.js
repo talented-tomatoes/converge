@@ -60,7 +60,7 @@ class MyEvents extends Component {
           rightNavigation="ConferenceList"
           rightIcon= "search"
         />
-        <Content>
+        <Content style={{padding: 10}}>
           {
             this.state.conferences.map((conference, i) => {
               return (

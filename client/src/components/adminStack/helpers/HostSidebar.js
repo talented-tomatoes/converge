@@ -49,6 +49,9 @@ class HostSidebar extends React.Component {
           <Text style={{color: 'white', fontWeight: 'bold', paddingLeft: 20}}> {this.state.dbUser.first_name + ' ' + this.state.dbUser.last_name} </Text>
           </Left>
         </Header>
+        <Button rounded transparent onPress={() => {this.props.navigation.navigate('AdminLanding')}}>
+          <Title>Hosted Events</Title>
+        </Button>
         <Button rounded transparent onPress={() => {this.props.navigation.navigate('EditAdminProfileForm')}}>
           <Title>Edit Profile</Title>
         </Button>
