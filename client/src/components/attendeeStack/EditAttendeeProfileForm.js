@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
-import { Drawer, Button, Header, Left, Right, Body, Input, Label, Item, Title, Content, Separator, Text, Footer, FooterTab, Icon, ListItem, Toast } from 'native-base';
+import { Drawer, Button, Header, Container, Grid, Col, Card, CardItem, Thumbnail, Badge, Left, Right, Body, Input, Label, Item, Title, Content, Separator, Text, Footer, FooterTab, Icon, ListItem, Toast } from 'native-base';
 // import UserSwiperFooter from './helpers/UserSwiperFooter';
 import ImagePicker from 'react-native-image-picker';
 import kairosEnrollReqObj from '../registerStack/helpers/kairosEnrollReqObj';
 import uploadImage from '../registerStack/helpers/uploadImage';
 import { NavigationActions } from 'react-navigation';
+import randomColor from '../helpers/randomColor';
 
 // import Swiper from 'react-native-swiper';
 
@@ -23,12 +24,12 @@ import SideBar from '../helpers/ProfileSidebar';
 
 
 const required = value => {
-  return value ? undefined  : <Text> Required </Text>
+  return value ? undefined  : <Text style={{color: '#ff3b30'}}> Required </Text>
 };
 
 const email = (value) => {
  return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-              ? <Text> Invalid Email </Text>
+              ? <Text style={{color: '#ff3b30'}}> Invalid Email </Text>
               : undefined
 }
 
@@ -59,6 +60,7 @@ class EditAttendeeProfileForm extends Component {
       dbUser: {},
       avatarSource: ''
     }
+    this.randomColor = randomColor();
   }
 
   closeDrawer() {
@@ -195,47 +197,69 @@ class EditAttendeeProfileForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
-        onClose={() => this.closeDrawer()} >
-         <Header style={{backgroundColor: '#428bca'}}>
-          <Left>
-            <Button transparent onPress={() => this.openDrawer()}>
-              <Icon style={{color: 'white'}} name="menu"/>
-            </Button>
-          </Left>
-          <Body>
-            <Title style={{color: 'white'}} >Edit Profile</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content>
-          <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" placeholder="John" />
-          <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
-          <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" placeholder="linkedin.com/in/johndoe123" />
-          <Field name="phone_number" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} placeholder="555-555-5555" />
+      <Container>
+        <Drawer
+          ref={(ref) => { this.drawer = ref; }}
+          content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
+          onClose={() => this.closeDrawer()} >
+          <Header style={{backgroundColor: '#428bca'}}>
+            <Left>
+              <Button transparent onPress={() => this.openDrawer()}>
+                <Icon style={{color: 'white'}} name="menu"/>
+              </Button>
+            </Left>
+            <Body>
+              <Title style={{color: 'white'}} >Edit Profile</Title>
+            </Body>
+            <Right />
+          </Header>
+          <Content style={{padding: 10}}>
+            <Card>
+              <CardItem style={{paddingTop: 15}}>
+                <Body>
+                  <Left>
+                    <TouchableOpacity light onPress={() => this.takePicture()}>
+                      <Thumbnail large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.takePicture()} style={{position: 'absolute', left: 50, top: 50}}>
+                      <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
+                    </TouchableOpacity>
+                  </Left>
+                </Body>
 
-          <Separator bordered>
+              </CardItem>
+              <CardItem>
+                <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:"/>
+              </CardItem>
+              <CardItem>
+                <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:"/>
+              </CardItem>
+              <CardItem>
+                <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
+              </CardItem>  
+              <CardItem>
+                <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linkedin Handle:"/>
+              </CardItem>     
+              <CardItem>
+                <Field name="phone_number" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber}/>
+              </CardItem>    
+              <Grid style={{ alignSelf: "center", flex: 0}}>
+                <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+              </Grid>   
+            </Card>
 
-            <Text style={{alignSelf: 'center'}} note>Tap below to take a new profile picture</Text>
-          </Separator>
-          <Item style={{margin: 5, alignSelf: 'center'}}>
-            <TouchableOpacity light onPress={() => this.takePicture()}>
-              <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
-            </TouchableOpacity>
-          </Item>
 
-        </Content>
-        <Footer>
-          <Content style={{backgroundColor: '#428bca'}}>
-            <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Profile</Text>
-            </Button>
           </Content>
-        </Footer>
-      </Drawer>
+          <Footer>
+            <Content style={{backgroundColor: '#428bca'}}>
+              <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
+                <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Profile</Text>
+              </Button>
+            </Content>
+          </Footer>
+        </Drawer>
+
+      </Container>
     )
   }
 }

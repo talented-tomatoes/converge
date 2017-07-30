@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
+import convertDateTEnglish from '../adminStack/helpers/convertDateToEnglish';
 import { Content, Card, CardItem, Left, Thumbnail, Body, Text } from 'native-base';
 
 export default class ConferenceListEntry extends React.Component {
@@ -9,6 +10,7 @@ export default class ConferenceListEntry extends React.Component {
   }
 
   render() {
+    var year = this.props.conference.start_date.slice(0, 4);
     return (
       <Content>
         <Card>
@@ -17,7 +19,7 @@ export default class ConferenceListEntry extends React.Component {
               <Thumbnail square source={{uri: this.props.conference.logo}} />
               <Body>
                 <Text>{this.props.conference.name}</Text>
-                <Text note>{this.props.conference.start_date} to {this.props.conference.end_date}</Text>
+                <Text note>{`${convertDateTEnglish(this.props.conference.start_date)}, ${year} to ${convertDateTEnglish(this.props.conference.end_date)}, ${year}`}</Text>
               </Body>
             </Left>
           </CardItem>

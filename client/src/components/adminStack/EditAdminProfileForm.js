@@ -4,7 +4,8 @@ import { Drawer, Button, Header, Thumbnail, Badge, Container, Card, Grid, Col, C
 // import UserSwiperFooter from './helpers/UserSwiperFooter';
 import ImagePicker from 'react-native-image-picker';
 import kairosEnrollReqObj from '../registerStack/helpers/kairosEnrollReqObj';
-import uploadImage from '../registerStack/helpers/uploadImage'
+import uploadImage from '../registerStack/helpers/uploadImage';
+import randomColor from '../helpers/randomColor';
 
 // import Swiper from 'react-native-swiper';
 
@@ -59,8 +60,7 @@ class EditAdminProfileForm extends Component {
       dbUser: {},
       avatarSource: ''
     }
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+    this.randomColor = randomColor();
   }
 
   closeDrawer() {
@@ -220,9 +220,9 @@ class EditAdminProfileForm extends Component {
                   <Left>
                     <TouchableOpacity light onPress={() => this.takePicture()}>
                       <Thumbnail large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} />
-                        <TouchableOpacity onPress={() => this.takePicture()} style={{position: 'absolute', left: 50, top: 50}}>
-                          <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
-                        </TouchableOpacity>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.takePicture()} style={{position: 'absolute', left: 50, top: 50}}>
+                      <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
                     </TouchableOpacity>
                   </Left>
                 </Body>

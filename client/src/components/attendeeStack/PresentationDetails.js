@@ -4,9 +4,10 @@ import React, { Component } from 'react';
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish'
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
-import { Drawer, Container, Header, Title, Col, Grid, List, Content, Card, CardItem, ListItem, Thumbnail, Body, Text, Right, Left, Icon, Button } from 'native-base';
+import { Drawer, Container, Header, Badge, Title, Col, Grid, List, Content, Card, CardItem, ListItem, Thumbnail, Body, Text, Right, Left, Icon, Button } from 'native-base';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
+import randomColor from '../helpers/randomColor';
 
 
 class PresentationsDetails extends Component {
@@ -16,8 +17,7 @@ class PresentationsDetails extends Component {
     this.state = {
       speakers: []
     }
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+    this.randomColor = randomColor();
   }
 
   closeDrawer() {

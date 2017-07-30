@@ -45,6 +45,9 @@ class ConferenceDetails extends Component {
                 <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
               </Grid>
           </Card>
+          <ListItem itemHeader first>
+            <Title>Speakers</Title>
+          </ListItem>
           <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
          </Content>
       </Container>
