@@ -71,9 +71,16 @@ export function setSpeakersOfConference(speakers) {
   };
 }
 
-export function setPresentationSpeakers(selectedSpeakers) {
+export function setPresentationSpeakers(presentationSpeakers) {
   return {
     type: 'SET_PRESENTATION_SPEAKERS',
-    selectedSpeakers
+    presentationSpeakers
+  };
+}
+
+export function setPresentations(presentations) {
+  return {
+    type: 'SET_PRESENTATIONS',
+    presentations
   };
 }

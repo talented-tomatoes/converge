@@ -13,24 +13,44 @@ class SpeakerPicker extends Component {
     super(props);
     this.state = {
       speakers: this.props.admin.speakers,
-      selectedSpeakers: {}
+      selectedSpeakers: this.props.admin.presentationSpeakers || {}
     };
     this.setSpeakersAndGoBack = this.setSpeakersAndGoBack.bind(this);
   }
 
+  componentDidMount() {
+  }
   
   handleSpeakerPress(idx) {
+    console.log('this', this);
     var selected = this.state.selectedSpeakers;
-    (selected[idx] === undefined) ? (selected[idx] = true) : (delete selected[idx]);
-
+    // find idx of
+    if (selected[idx] === undefined) {
+      selected[idx] = this.state.speakers[idx];
+    } else {
+      delete selected[idx];
+    }
+    
     this.setState({
       selectedSpeakers: selected
-    });
+    }, function() { console.log('setting selectedSpeakers ', this.state.selectedSpeakers)});
   }
 
   setSpeakersAndGoBack() {
     this.props.dispatch(setPresentationSpeakers(this.state.selectedSpeakers));
     this.props.navigation.navigate('AddPresentationForm');
+  }
+
+  speakerIDChecker(speaker) {
+    if (this.props.admin.selectedPresentation.speakers === undefined) {
+      return false;
+    }
+    for (var i = 0; i < this.props.admin.selectedPresentation.speakers.length; i++) {
+      if (speaker.id === this.props.admin.selectedPresentation.speakers[i].id) {
+        return true;
+      }
+    }
+    return false;
   }
 
   render() {
@@ -63,7 +83,7 @@ class SpeakerPicker extends Component {
               <Text note>{speaker.job_title}</Text>
             </Body>
             <Right>
-              {this.state.selectedSpeakers[idx] ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}}></Icon> : <Icon name="add" style={{color: 'gray', fontSize: 32}}></Icon>}
+              {!!this.state.selectedSpeakers[idx] ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}}></Icon> : <Icon name="add" style={{color: 'gray', fontSize: 32}}></Icon>}
               </Right>
           </ListItem>
         );

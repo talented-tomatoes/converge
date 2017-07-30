@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import SpeakerPicker from './helpers/SpeakerPicker.js';
+import { setPresentationSpeakers } from '../actions/actions.js';
 
 
 const required = value => {
@@ -51,24 +52,8 @@ class AddPresentationForm extends Component {
       selectedDate: '',
       selectedTime: '',
       selectedSpeakerID: 0,
-      selectedSpeakers: this.props.admin.selectedSpeakers || [],
-      speakers: [
-        {
-          first_name: 'John',
-          last_name: 'Doe',
-          id: 1
-        },
-        {
-          first_name: 'Jane',
-          last_name: 'Doe',
-          id: 2
-        },
-        {
-          first_name: 'Jack',
-          last_name: 'Frost',
-          id: 3
-        }
-      ],
+      selectedSpeakers: this.props.admin.selectedPresentation.speakers || []
+
     }
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let getAllSpeakersByConferenceIdUrl = SERVER_URL + 'api/speakers/' + this.props.admin.selectedConference.id;
@@ -82,7 +67,6 @@ class AddPresentationForm extends Component {
       .catch(err => {
         console.log('Error getting speakers: ', err);
       })
-    
     this.submit = this.submit.bind(this);
   }
 
@@ -94,6 +78,22 @@ class AddPresentationForm extends Component {
   componentDidMount() {
     // do the pre-load of values
     this.handleInitialize();
+
+    var allSpeakers = this.props.admin.speakers || [];
+    var checkedSpeakers = {};
+    // convert this.props.admin.selectedPresentation = 
+    if (this.props.admin.selectedPresentation.speakers !== undefined) {
+      for (var i = 0; i < this.props.admin.selectedPresentation.speakers.length; i++) {
+        var currentSpeaker = this.props.admin.selectedPresentation.speakers[i];
+        for (var j = 0; j < allSpeakers; j++) {
+          if (currentSpeaker.id === allSpeakers[j].id) {
+            checkedSpeakers[j] = true;
+          }
+        }
+      } 
+    }
+    this.props.dispatch(setPresentationSpeakers(checkedSpeakers));
+
   }
 
   handleInitialize() {
@@ -114,7 +114,7 @@ class AddPresentationForm extends Component {
       let url = SERVER_URL + 'api/AddPresentation';
       let data = {};
       data.presentation = presentation;
-      data.speakers = this.state.selectedSpeakers
+      data.speakers = this.props.admin.selectedSpeakers;
       console.log('presentation: ', presentation);
       axios.post(url, data)
         .then(response => {
@@ -168,6 +168,15 @@ class AddPresentationForm extends Component {
     })
   }
 
+  makeSelectedSpeakersList() {
+    var selected = this.props.admin.presentationSpeakers || {};
+
+    var output = [];
+    for (var key in selected) {
+      output.push(<Text>{selected[key].first_name} {selected[key].last_name}</Text>)
+    }
+  }
+
   render() {
     console.log('props in AddPresentationForm: ', this.props);
     const { handleSubmit } = this.props;
@@ -195,11 +204,10 @@ class AddPresentationForm extends Component {
           <Field name="description" validate={[required]} component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
           <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
             
-            {this.props.admin.selectedSpeakers === {} ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here change speakers </Text>}
-
-            {/* {this.state.selectedSpeakers.map(speaker => {
-              return <Text>{speaker.first_name} {speaker.last_name}</Text>
-            })}} */}
+            {!!this.props.admin.selectedSpeakers ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here to change speakers </Text>}
+            <Content>
+            {this.makeSelectedSpeakersList()}
+            </Content>
              </ListItem> 
         
            {/* <Content>

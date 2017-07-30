@@ -10,7 +10,7 @@ import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConf
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
-import { setAdminSelectedPresentation, setSpeakersOfConference } from '../actions/actions.js';
+import { setAdminSelectedPresentation, setSpeakersOfConference, setPresentations } from '../actions/actions.js';
 
 
 
@@ -49,9 +49,7 @@ class AddPresentation extends Component {
     const getAllPresentationsWithConferenceIdUrl = SERVER_URL + 'api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
-        this.setState({
-          presentations: presentations.data
-        }, () => console.log(this.state.presentations));
+        this.props.dispatch(setPresentations(presentations.data));
       })
       .catch(err => {
         console.log('error fetching presentations: ', err);

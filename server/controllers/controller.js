@@ -75,7 +75,7 @@ let getAllPresentationsOfConf = (req, res) => {
   const confid = req.params.confid;
   console.log('inside getAllPresentationsOfConf ', confid);
   models.Presentation.where({conference_id: confid})
-    .fetchAll()
+    .fetchAll({withRelated: 'speakers'})
     .then(presentations => {
       var data = JSON.stringify(presentations);
       var sortedData = JSON.parse(data).sort((a, b) => {
@@ -268,16 +268,15 @@ let addPresentation = (req, res) => {
 
   models.Presentation.forge(presentation).save()
     .then(pres => {
-      for (var speaker in speakers) {
-        if (speakers[speaker] === true) {
-          models.PresentationSpeaker.forge({speaker_id: speaker, presentation_id: pres.id}).save()
-            .then(record => {
-              console.log('Adding speaker and presentation to presentations_speakers....', record);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }
+      for (var key in speakers) {
+        models.PresentationSpeaker.forge({speaker_id: speakers[key].id, presentation_id: pres.id}).save()
+          .then(record => {
+            console.log('Adding speaker and presentation to presentations_speakers....', record);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
       }
       res.status(201).end();
     })
@@ -292,7 +291,6 @@ let helloWorld = (req, res) => {
   res.send('hello world');
 };
 
-// let addPresentation = (req, res) => {};
 
 let saveUserToConference = (req, res) => {
   console.log('Payment successful. Saving user to Conference ===>', req.body);
