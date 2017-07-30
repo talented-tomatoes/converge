@@ -10,6 +10,7 @@ import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConf
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
+import { setAdminSelectedPresentation, setSpeakersOfConference, setPresentations, setPresentationSpeakers } from '../actions/actions.js';
 
 
 
@@ -26,6 +27,22 @@ class AddPresentation extends Component {
 
   componentDidMount() {
    this.getPresentations();
+   this.getSpeakersOfConf();
+   this.props.dispatch(setAdminSelectedPresentation({}));
+   this.props.dispatch(setPresentationSpeakers({}));
+
+  }
+
+  getSpeakersOfConf() {
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    axios.get(SERVER_URL + `api/speakers/${this.props.admin.selectedConference.id}`)
+    .then(response => {
+      console.log('SPEAKERS', response);
+      this.props.dispatch(setSpeakersOfConference(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   getPresentations() {
@@ -33,9 +50,7 @@ class AddPresentation extends Component {
     const getAllPresentationsWithConferenceIdUrl = SERVER_URL + 'api/presentations/' + this.props.admin.selectedConference.id
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
-        this.setState({
-          presentations: presentations.data
-        }, () => console.log(this.state.presentations));
+        this.props.dispatch(setPresentations(presentations.data));
       })
       .catch(err => {
         console.log('error fetching presentations: ', err);
@@ -50,8 +65,11 @@ class AddPresentation extends Component {
     }
   };
 
-  handleItemPress() {
-    //TODO: Navigate to a page where you can edit the presentation
+  handleItemPress(presentation) {
+    // used for editing the presentation details
+    console.log('PRESENTATION DETAILS', presentation)
+    this.props.dispatch(setAdminSelectedPresentation(presentation));
+    this.props.navigation.navigate('AddPresentationForm');
   }
 
   handleDeletePress(presentation) {
@@ -92,8 +110,8 @@ class AddPresentation extends Component {
                   <Content>
                     {
                       this.state.presentations.filter(presentation => {
-                        console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date))
-                        console.log('date: ', date);
+                        {/* console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date)) */}
+                        {/* console.log('date: ', date); */}
                         return convertDateToEnglish(presentation.date) === date;
                       }).map((presentation, i) => {
                         return (

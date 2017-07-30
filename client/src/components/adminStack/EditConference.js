@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Text, Icon, Button } from 'native-base';
+import { Image } from 'react-native';
+import { Container, Content, Header, Text, Icon, Button, List, ListItem, Card, Thumbnail } from 'native-base';
 
 import EditConferenceFooter from './helpers/EditConferenceFooter';
 import AdminStackHeader from './helpers/AdminStackHeader';
@@ -21,11 +22,8 @@ class EditConference extends Component {
 
   }
 
-  // ACCESS THE CURRENT EVENT WE ARE AT WITH:
-    // this.props.admin.selectedConference
-
-
   render() {
+    const { selectedConference } = this.props.admin
     console.log('RENDERING THE CONFERENCE DETAILS', this.props);
     return (
         <Container>
@@ -38,7 +36,52 @@ class EditConference extends Component {
           rightIcon={this.props.admin.selectedConference.id ? 'create' : 'add'}
         />
         <Content>
-          <Text>{JSON.stringify(this.props.admin.selectedConference)}</Text>
+          <List>
+            <ListItem>
+              <Text>Conference Name: {selectedConference.name}</Text>
+              </ListItem>
+            <ListItem>
+              <Text>Address: {selectedConference.address}</Text>
+              </ListItem>
+            <ListItem>
+              <Text>Start: {selectedConference.start_date} at {selectedConference.start_time}</Text>
+              </ListItem>
+            <ListItem>
+              <Text>End: {selectedConference.end_date} at {selectedConference.end_time}</Text>
+              </ListItem>
+            <ListItem>
+              <Text>Ticket Price: {selectedConference.ticket_price}</Text>
+              </ListItem>
+            <ListItem>
+              <Content>
+              <Text>Logo: </Text>
+              <Card>
+              <Thumbnail source={{uri: selectedConference.logo}} style={{height: 200, width: null, flex: 1}} />
+                </Card>
+                </Content>
+              </ListItem>
+            <ListItem>
+              <Content>
+              <Text>Banner: </Text>
+              <Card>
+              <Image source={{uri: selectedConference.banner}} style={{height: 200, width: null, flex: 1}} />
+                </Card>
+                </Content>
+              </ListItem>
+            <ListItem>
+              <Content>
+              <Text>Venue Map: </Text>
+              <Card>
+              <Image source={{uri: selectedConference.venue_map}} style={{height: 200, width: null, flex: 1}} />
+                </Card>
+                </Content>
+              </ListItem>
+            <ListItem>
+              <Text>Details: {selectedConference.detail}</Text>
+              </ListItem>
+            
+
+            </List>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>
 

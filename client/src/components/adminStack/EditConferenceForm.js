@@ -41,7 +41,9 @@ class EditConferenceForm extends Component {
     super(props);
     this.state = {
       start_date: '' || this.props.admin.selectedConference.start_date,
-      end_date: '' || this.props.admin.selectedConference.end_date
+      end_date: '' || this.props.admin.selectedConference.end_date,
+      start_time: '' || this.props.admin.selectedConference.start_time,
+      end_time: '' || this.props.admin.selectedConference.end_time
     }
   }
   static navigationOptions = {
@@ -139,6 +141,8 @@ class EditConferenceForm extends Component {
     conference.user_id = this.props.user.userID;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
+    conference.start_time = this.state.start_time;
+    conference.end_time = this.state.end_time;
     conference.id = this.props.admin.selectedConference.id;
     conference.logo = this.state.logo;
     conference.banner = this.state.banner;
@@ -158,6 +162,20 @@ class EditConferenceForm extends Component {
     })
   }
 
+  onStartTimeChange(time) {
+    console.log('changing the start time now to ', time);
+    this.setState({
+      start_time: time
+    })
+  }
+
+  onEndTimeChange(time) {
+    console.log('changing the end time now to ', time);
+    this.setState({
+      end_time: time
+    })
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -174,11 +192,20 @@ class EditConferenceForm extends Component {
           <Field name="address" validate={[required]} component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
           <ListItem>
             <Text>Start Date: </Text>
-            <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id}/>
+            <DatePicker onChange={this.onStartDateChange.bind(this)} value={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
           <ListItem>
+            <Text>Start Time: </Text>
+            <DatePicker onChange={this.onStartTimeChange.bind(this)} value={this.state.start_time} mode='time' disabled={!!this.props.admin.selectedConference.id}/>
+            </ListItem>
+            
+          <ListItem>
             <Text>End Date:   </Text>
-            <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
+            <DatePicker onChange={this.onEndDateChange.bind(this)} value={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
+            </ListItem>
+          <ListItem>
+            <Text>End Time: </Text>
+            <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time}/>
             </ListItem>
           <Item inlineLabel>
             <Label>Logo:</Label>

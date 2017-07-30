@@ -55,8 +55,7 @@ router.route('/getConferencesByHostID/:hostID')
 router.route('/addSpeaker')
   .post(controller.addSpeaker);
 
-// router.route('/users/edit/presentations')
-//   .post(controller.createPresentation);
+
 
 /*********************PRESENTATIONS **********************/
 

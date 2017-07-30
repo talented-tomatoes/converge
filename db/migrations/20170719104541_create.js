@@ -21,7 +21,9 @@ exports.up = function(knex, Promise) {
 			table.string('name').notNullable();
 			table.string('address').notNullable();
 			table.string('start_date').notNullable();
+			table.string('start_time').notNullable();
 			table.string('end_date').notNullable();
+			table.string('end_time').notNullable();
 			table.string('logo', 500);
 			table.string('details', 2000).notNullable();
 			table.integer('ticket_price').notNullable();

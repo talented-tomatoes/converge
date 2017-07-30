@@ -12,10 +12,12 @@ import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item,
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
 
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
+import SpeakerPicker from './helpers/SpeakerPicker.js';
+import { setPresentationSpeakers } from '../actions/actions.js';
 
 
 const required = value => {
@@ -44,35 +46,14 @@ const validate = (values) => {
 }
 
 class AddPresentationForm extends Component {
-  static navigationOptions = {
-    title: 'Add A Presentation',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
-  }
-
   constructor(props) {
     super(props);
     this.state = {
       selectedDate: '',
       selectedTime: '',
       selectedSpeakerID: 0,
-      speakers: [
-        {
-          first_name: 'John',
-          last_name: 'Doe',
-          id: 1
-        },
-        {
-          first_name: 'Jane',
-          last_name: 'Doe',
-          id: 2
-        },
-        {
-          first_name: 'Jack',
-          last_name: 'Frost',
-          id: 3
-        }
-      ],
-      selectedSpeakers: {}
+      selectedSpeakers: this.props.admin.selectedPresentation.speakers || []
+
     }
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let getAllSpeakersByConferenceIdUrl = SERVER_URL + 'api/speakers/' + this.props.admin.selectedConference.id;
@@ -86,16 +67,53 @@ class AddPresentationForm extends Component {
       .catch(err => {
         console.log('Error getting speakers: ', err);
       })
+    this.submit = this.submit.bind(this);
+  }
+
+  static navigationOptions = {
+    title: 'Add A Presentation',
+    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
+  }
+
+  componentDidMount() {
+    // do the pre-load of values
+    this.handleInitialize();
+
+    var allSpeakers = this.props.admin.speakers || [];
+    var checkedSpeakers = {};
+    // convert this.props.admin.selectedPresentation = 
+    if (this.props.admin.selectedPresentation.speakers !== undefined) {
+      for (var i = 0; i < this.props.admin.selectedPresentation.speakers.length; i++) {
+        var currentSpeaker = this.props.admin.selectedPresentation.speakers[i];
+        for (var j = 0; j < allSpeakers; j++) {
+          if (currentSpeaker.id === allSpeakers[j].id) {
+            checkedSpeakers[j] = true;
+          }
+        }
+      } 
+    }
+    // this.props.dispatch(setPresentationSpeakers(checkedSpeakers));
+
+  }
+
+  handleInitialize() {
+    // set Values for the pre-load
+    const presentationValues = {
+      name: this.props.admin.selectedPresentation.name,
+      description: this.props.admin.selectedPresentation.description,
+      date: this.props.admin.selectedPresentation.date,
+      time: this.props.admin.selectedPresentation.time,
+      location: this.props.admin.selectedPresentation.location,
+      conference_id: this.props.admin.selectedPresentation.conference_id
+    };
+    this.props.initialize(presentationValues);
   }
 
   saveToDB(presentation) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
       let url = SERVER_URL + 'api/AddPresentation';
-      let data = {};
-      data.presentation = presentation;
-      data.speakers = this.state.selectedSpeakers
       console.log('presentation: ', presentation);
-      axios.post(url, data)
+      axios.post(url, presentation)
         .then(response => {
           console.log('response : ', response);
           this.props.navigation.navigate('AddPresentation');
@@ -105,11 +123,21 @@ class AddPresentationForm extends Component {
         })
     }
 
+  handlePresentationSpeakers(selectedSpeakers) {
+    this.setState({
+      selectedSpeakers
+    })
+  }
+
   submit(presentation) {
     presentation.conference_id = this.props.admin.selectedConference.id;
     presentation.date = this.state.selectedDate;
     presentation.time = this.state.selectedTime;
-    this.saveToDB(presentation);
+    let data = {
+      presentation: presentation,
+      speakers: this.props.selectedSpeakers
+    }
+    this.saveToDB(data);
   }
 
   onSpeakerChange(value) {
@@ -141,6 +169,16 @@ class AddPresentationForm extends Component {
     })
   }
 
+  makeSelectedSpeakersList() {
+    var selected = this.props.selectedSpeakers || {};
+
+    var output = [];
+    for (var key in selected) {
+      output.push(<Text>{selected[key].first_name} {selected[key].last_name}</Text>)
+    }
+    return output;
+  }
+
   render() {
     console.log('props in AddPresentationForm: ', this.props);
     const { handleSubmit } = this.props;
@@ -154,31 +192,25 @@ class AddPresentationForm extends Component {
           rightIcon= "trash"
         />
         <Content>
-          <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
+          <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:"/>
           <Item inlineLabel name="date" validate={[required]}>
             <Label>Date: </Label>
-            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} />
+            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.props.admin.selectedPresentation.date}/>
           </Item>
           <Item inlineLabel>
             <Label>Time: </Label>
-            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} />
+            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.props.admin.selectedPresentation.time}/>
           </Item>
 
-          <Field name="location" validate={[required]} component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
-          <Field name="description" validate={[required]} component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
-           <Label>Speakers:</Label>
-           <Content>
-             {
-               this.state.speakers.map((speaker, i) => {
-                 return <ListItem key={i}>
-                          <CheckBox onPress={this.handleCheckBoxPress.bind(this, speaker.id)} checked={this.state.selectedSpeakers[speaker.id]}/>
-                          <Body>
-                            <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
-                          </Body>
-                        </ListItem>
-               })
-             }
-           </Content>
+          <Field name="location" validate={[required]} component={ renderInput } label="Location:"/>
+          <Field name="description" validate={[required]} component={ renderInput } label="Description:" multiline={true} />
+          <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
+            {!!this.props.admin.selectedSpeakers ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here to change speakers </Text>}
+             </ListItem> 
+            <Content>
+            <SpeakerPicker />
+            {/* {this.makeSelectedSpeakersList()} */}
+            </Content>
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
@@ -199,7 +231,8 @@ AddPresentationForm = reduxForm(reduxFormConfig)(AddPresentationForm)
 
 AddPresentationForm = connect(
   state => ({
-    admin: state.adminReducer
+    admin: state.adminReducer,
+    selectedSpeakers: state.adminReducer.selectedPresentationSpeakers
   })
   )(AddPresentationForm)
 

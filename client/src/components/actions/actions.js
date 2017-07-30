@@ -56,3 +56,32 @@ export function setSpeakerInitialValues(speakerValues) {
     speakerValues: speakerValues
   };
 }
+
+export function setAdminSelectedPresentation(selectedPresentation) {
+  return {
+    type: 'SET_ADMIN_SELECTED_PRESENTATION',
+    selectedPresentation
+  };
+}
+
+export function setSpeakersOfConference(speakers) {
+  return {
+    type: 'SET_SPEAKERS_OF_CONF',
+    speakers
+  };
+}
+
+export function setPresentationSpeakers(presentationSpeakers) {
+  console.log('presentationSpeakers: ', presentationSpeakers)
+  return {
+    type: 'SET_PRESENTATION_SPEAKERS',
+    selectedPresentationSpeakers: presentationSpeakers
+  };
+}
+
+export function setPresentations(presentations) {
+  return {
+    type: 'SET_PRESENTATIONS',
+    presentations
+  };
+}
