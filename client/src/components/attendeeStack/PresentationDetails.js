@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish'
 import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
-import { Drawer, Container, Header, Title, Col, Grid, List, Content, Card, CardItem, ListItem, Thumbnail, Body, Text, Right, Left, Icon, Button } from 'native-base';
+import { Drawer, Container, Header, Badge, Title, Col, Grid, List, Content, Card, CardItem, ListItem, Thumbnail, Body, Text, Right, Left, Icon, Button } from 'native-base';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 import randomColor from '../helpers/randomColor';
