@@ -88,24 +88,15 @@ class EditAdminProfileForm extends Component {
   }
 
   handleInitialize() {
-    const linkedinid = this.state.dbUser.linkedin_id;
-    let linkedinHandle = '';
-    if (linkedinid) {
-      const str = 'https://www.linkedin.com/in';
-      const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
-      linkedinHandle = linkedinid.substring(startIndex);
-    }
+
     const profileValues = {
       first_name: this.state.dbUser.first_name,
       last_name: this.state.dbUser.last_name,
       email: this.state.dbUser.email,
       phone_number: this.state.dbUser.phone_number,
+      linkedin_id: this.state.dbUser.linkedin_id
     };
-    if (linkedinid) {
-      profileValues.linkedin_id = linkedinHandle;
-    } else {
-      profileValues.linkedin_id = this.state.dbUser.linkedin_id;
-    }
+
     this.props.initialize(profileValues);
   }
 
@@ -141,9 +132,6 @@ class EditAdminProfileForm extends Component {
     profile.login_id = this.props.user.id;
     profile.avatar_url = this.state.avatarSource.uri;
     profile.user_type = this.state.dbUser.user_type;
-    if (!profile.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
-      profile.linkedin_id = `https://www.linkedin.com/in/${profile.linkedin_id}`;
-    }
     this.saveToDB(profile);
   }
 
