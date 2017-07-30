@@ -112,11 +112,8 @@ class AddPresentationForm extends Component {
   saveToDB(presentation) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
       let url = SERVER_URL + 'api/AddPresentation';
-      let data = {};
-      data.presentation = presentation;
-      data.speakers = this.props.admin.selectedSpeakers;
       console.log('presentation: ', presentation);
-      axios.post(url, data)
+      axios.post(url, presentation)
         .then(response => {
           console.log('response : ', response);
           this.props.navigation.navigate('AddPresentation');
@@ -136,7 +133,11 @@ class AddPresentationForm extends Component {
     presentation.conference_id = this.props.admin.selectedConference.id;
     presentation.date = this.state.selectedDate;
     presentation.time = this.state.selectedTime;
-    this.saveToDB(presentation);
+    let data = {
+      presentation: presentation,
+      speakers: this.props.selectedSpeakers
+    }
+    this.saveToDB(data);
   }
 
   onSpeakerChange(value) {
@@ -191,7 +192,7 @@ class AddPresentationForm extends Component {
           rightIcon= "trash"
         />
         <Content>
-          <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:" placeholder="React Native Best Practices" />
+          <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:"/>
           <Item inlineLabel name="date" validate={[required]}>
             <Label>Date: </Label>
             <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.props.admin.selectedPresentation.date}/>
@@ -201,28 +202,15 @@ class AddPresentationForm extends Component {
             <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.props.admin.selectedPresentation.time}/>
           </Item>
 
-          <Field name="location" validate={[required]} component={ renderInput } label="Location:" placeholder="Twin Peaks Room" />
-          <Field name="description" validate={[required]} component={ renderInput } label="Description:" placeholder="Developing with React Native...." multiline={true} />
+          <Field name="location" validate={[required]} component={ renderInput } label="Location:"/>
+          <Field name="description" validate={[required]} component={ renderInput } label="Description:" multiline={true} />
           <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
-            
             {!!this.props.admin.selectedSpeakers ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here to change speakers </Text>}
              </ListItem> 
             <Content>
-            {this.makeSelectedSpeakersList()}
+            <SpeakerPicker />
+            {/* {this.makeSelectedSpeakersList()} */}
             </Content>
-        
-           {/* <Content>
-             {
-               this.state.speakers.map((speaker, i) => {
-                 return <ListItem key={i}>
-                          <CheckBox onPress={this.handleCheckBoxPress.bind(this, speaker.id)} checked={this.state.selectedSpeakers[speaker.id]}/>
-                          <Body>
-                            <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
-                          </Body>
-                        </ListItem>
-               })
-             }
-           </Content> */}
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>

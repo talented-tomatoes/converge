@@ -34,6 +34,12 @@ class SpeakerPicker extends Component {
     this.setState({
       selectedSpeakers: selected
     }, () => { console.log('speaker toggled: ', speaker.first_name)});
+    
+    selected = {...this.props.selectedSpeakers}
+    console.log('selected: ', selected);
+
+    this.props.dispatch(setPresentationSpeakers(selected));
+
   }
 
   setSpeakersAndGoBack() {
@@ -54,9 +60,7 @@ class SpeakerPicker extends Component {
     return false;
   }
 
-  render() {
-    // let toggledChecks = 
-    
+  render() {    
     let toggledSpeakers = this.props.admin.speakers.map((speaker, idx)=> {
       return (
         <ListItem key={idx} avatar onPress={this.handleSpeakerPress.bind(this, speaker)}>
@@ -79,22 +83,10 @@ class SpeakerPicker extends Component {
       
     
     return (
-      <Container>
-      <Header style={{ backgroundColor: "#f44242" }}>
-        <Left>
-          <Button transparent onPress={() => this.props.navigation.navigate('AddPresentationForm')}>
-            <Icon name="arrow-back" style={{ color: "#fff" }} />
-          </Button>
-        </Left>
-        <Body style={{ flex: 3 }}>
-          <Title style={{ color: "#fff" }}>Speaker List</Title>
-        </Body>
-        <Right>
-          <Button transparent onPress={this.setSpeakersAndGoBack.bind(this)}>
-            <Text style={{fontSize: 13, color: '#FFFFFF'}}>Confirm</Text>
-          </Button>
-        </Right> 
-      </Header>
+      <Content>
+        <Button full success onPress={this.setSpeakersAndGoBack.bind(this)}>
+          <Title style={{fontSize: 13, color: '#FFFFFF'}}>Confirm</Title>
+        </Button>
       <Content>
         {toggledSpeakers}
       </Content>
@@ -102,7 +94,7 @@ class SpeakerPicker extends Component {
 
 
       
-      </Container>
+      </Content>
 
 
     );

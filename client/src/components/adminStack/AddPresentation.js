@@ -10,7 +10,7 @@ import renderListOfDatesFromConference from './helpers/renderListOfDatesFromConf
 import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
-import { setAdminSelectedPresentation, setSpeakersOfConference, setPresentations } from '../actions/actions.js';
+import { setAdminSelectedPresentation, setSpeakersOfConference, setPresentations, setPresentationSpeakers } from '../actions/actions.js';
 
 
 
@@ -29,6 +29,7 @@ class AddPresentation extends Component {
    this.getPresentations();
    this.getSpeakersOfConf();
    this.props.dispatch(setAdminSelectedPresentation({}));
+   this.props.dispatch(setPresentationSpeakers({}));
 
   }
 

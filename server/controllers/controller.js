@@ -266,8 +266,11 @@ let addPresentation = (req, res) => {
   var presentation = req.body.presentation;
   var speakers = req.body.speakers;
 
+  console.log('presentation: ', presentation)
+  console.log('speakers: ', speakers)
   models.Presentation.forge(presentation).save()
     .then(pres => {
+      console.log('pres: ', pres.id);
       for (var key in speakers) {
         models.PresentationSpeaker.forge({speaker_id: speakers[key].id, presentation_id: pres.id}).save()
           .then(record => {
