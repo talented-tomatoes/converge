@@ -13,7 +13,7 @@ class SpeakerPicker extends Component {
     super(props);
     this.state = {
       speakers: this.props.admin.speakers,
-      selectedSpeakers: this.props.admin.presentationSpeakers || {}
+      selectedSpeakers: this.props.selectedSpeakers || {}
     };
     this.setSpeakersAndGoBack = this.setSpeakersAndGoBack.bind(this);
   }
@@ -21,22 +21,23 @@ class SpeakerPicker extends Component {
   componentDidMount() {
   }
   
-  handleSpeakerPress(idx) {
-    console.log('this', this);
+  handleSpeakerPress(speaker) {
+    console.log('speaker', speaker);
     var selected = this.state.selectedSpeakers;
-    // find idx of
-    if (selected[idx] === undefined) {
-      selected[idx] = this.state.speakers[idx];
+    // find speaker of
+    if (selected[speaker.id] === undefined) {
+      selected[speaker.id] = speaker;
     } else {
-      delete selected[idx];
+      delete selected[speaker.id];
     }
     
     this.setState({
       selectedSpeakers: selected
-    }, function() { console.log('setting selectedSpeakers ', this.state.selectedSpeakers)});
+    }, () => { console.log('speaker toggled: ', speaker.first_name)});
   }
 
   setSpeakersAndGoBack() {
+    console.log('dispatching these props: ----------, ');
     this.props.dispatch(setPresentationSpeakers(this.state.selectedSpeakers));
     this.props.navigation.navigate('AddPresentationForm');
   }
@@ -54,8 +55,31 @@ class SpeakerPicker extends Component {
   }
 
   render() {
+    // let toggledChecks = 
+    
+    let toggledSpeakers = this.props.admin.speakers.map((speaker, idx)=> {
+      return (
+        <ListItem key={idx} avatar onPress={this.handleSpeakerPress.bind(this, speaker)}>
+          <Left>
+            <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
+          </Left>
+          <Body>
+            <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
+            <Text note>{speaker.job_title}</Text>
+          </Body>
+          <Right>
+            {
+              Object.keys(this.state.selectedSpeakers).includes(speaker.id.toString()) ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}} /> : <Icon name="add" style={{color: 'gray', fontSize: 32}} />          
+              
+            }
+          </Right>
+        </ListItem>
+      )
+    })
+      
+    
     return (
-      <Content>
+      <Container>
       <Header style={{ backgroundColor: "#f44242" }}>
         <Left>
           <Button transparent onPress={() => this.props.navigation.navigate('AddPresentationForm')}>
@@ -66,34 +90,19 @@ class SpeakerPicker extends Component {
           <Title style={{ color: "#fff" }}>Speaker List</Title>
         </Body>
         <Right>
-          <Button transparent onPress={this.setSpeakersAndGoBack}>
+          <Button transparent onPress={this.setSpeakersAndGoBack.bind(this)}>
             <Text style={{fontSize: 13, color: '#FFFFFF'}}>Confirm</Text>
           </Button>
         </Right> 
       </Header>
       <Content>
-      {this.props.admin.speakers.map((speaker, idx)=> {
-        return (
-          <ListItem key={idx} avatar onPress={this.handleSpeakerPress.bind(this, idx)}>
-            <Left>
-              <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
-            </Left>
-            <Body>
-              <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
-              <Text note>{speaker.job_title}</Text>
-            </Body>
-            <Right>
-              {!!this.state.selectedSpeakers[idx] ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}}></Icon> : <Icon name="add" style={{color: 'gray', fontSize: 32}}></Icon>}
-              </Right>
-          </ListItem>
-        );
-      })}
-        </Content>
+        {toggledSpeakers}
+      </Content>
 
 
 
       
-      </Content>
+      </Container>
 
 
     );
@@ -103,7 +112,8 @@ class SpeakerPicker extends Component {
 // REDUX THINGS
 const mapStateToProps = (state) => {
   return {
-    admin: state.adminReducer
+    admin: state.adminReducer,
+    selectedSpeakers: state.adminReducer.selectedPresentationSpeakers
   };
 };
 

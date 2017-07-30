@@ -431,20 +431,20 @@ let removePresentationFromConference = (req, res) => {
     });
 };
 
-let editPresentation = (req, res) => {
-  console.log('Editing presentation ID #', req.body.id);
+// let editPresentation = (req, res) => {
+//   console.log('Editing presentation ID #', req.body.id);
 
-  models.Presentation.where({id: req.body.id}).fetch()
-  .then(presentation => {
-    presentation.save(req.body, {method: 'update'});
-    console.log('presentation updated!');
-    res.status(201).send('User Updated');
-  })
-  .catch(err => {
-    console.log('error updating presentation: ', err);
-    res.status(400).send('error updating presentation: ', err);
-  });
-};
+//   models.Presentation.where({id: req.body.id}).fetch()
+//   .then(presentation => {
+//     presentation.save(req.body, {method: 'update'});
+//     console.log('presentation updated!');
+//     res.status(201).send('User Updated');
+//   })
+//   .catch(err => {
+//     console.log('error updating presentation: ', err);
+//     res.status(400).send('error updating presentation: ', err);
+//   });
+// };
 
 let getAllPresentationsOfSpeaker = (req, res) => {
   console.log('Getting all presentations of speaker', req.params);

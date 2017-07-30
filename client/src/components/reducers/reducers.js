@@ -32,7 +32,7 @@ const adminReducer = (state = {}, action) => {
     case 'SET_SPEAKERS_OF_CONF':
       return {...state, ...{speakers: action.speakers}};
     case 'SET_PRESENTATION_SPEAKERS':
-      return {...state, ...{presentationSpeakers: action.presentationSpeakers}};
+      return {...state, ...{selectedPresentationSpeakers: action.selectedPresentationSpeakers}};
     case 'SET_PRESENTATIONS':
       return {...state, ...{presentations: action.presentations}};
     default:

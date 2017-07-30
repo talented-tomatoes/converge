@@ -92,7 +92,7 @@ class AddPresentationForm extends Component {
         }
       } 
     }
-    this.props.dispatch(setPresentationSpeakers(checkedSpeakers));
+    // this.props.dispatch(setPresentationSpeakers(checkedSpeakers));
 
   }
 
@@ -169,12 +169,13 @@ class AddPresentationForm extends Component {
   }
 
   makeSelectedSpeakersList() {
-    var selected = this.props.admin.presentationSpeakers || {};
+    var selected = this.props.selectedSpeakers || {};
 
     var output = [];
     for (var key in selected) {
       output.push(<Text>{selected[key].first_name} {selected[key].last_name}</Text>)
     }
+    return output;
   }
 
   render() {
@@ -205,10 +206,10 @@ class AddPresentationForm extends Component {
           <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
             
             {!!this.props.admin.selectedSpeakers ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here to change speakers </Text>}
+             </ListItem> 
             <Content>
             {this.makeSelectedSpeakersList()}
             </Content>
-             </ListItem> 
         
            {/* <Content>
              {
@@ -242,7 +243,8 @@ AddPresentationForm = reduxForm(reduxFormConfig)(AddPresentationForm)
 
 AddPresentationForm = connect(
   state => ({
-    admin: state.adminReducer
+    admin: state.adminReducer,
+    selectedSpeakers: state.adminReducer.selectedPresentationSpeakers
   })
   )(AddPresentationForm)
 

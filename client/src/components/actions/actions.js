@@ -72,9 +72,10 @@ export function setSpeakersOfConference(speakers) {
 }
 
 export function setPresentationSpeakers(presentationSpeakers) {
+  console.log('presentationSpeakers: ', presentationSpeakers)
   return {
     type: 'SET_PRESENTATION_SPEAKERS',
-    presentationSpeakers
+    selectedPresentationSpeakers: presentationSpeakers
   };
 }
 
