@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Form, Button, Image, Grid, Dimmer, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../../../config/config.js';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
+
+
 
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
@@ -29,11 +29,20 @@ const required = value => {
 class EditPresentation extends React.Component {
   constructor(props) {
     super(props);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
     this.state = {
       selectedSpeakers: [],
-      allSpeakers: []
+      allSpeakers: [],
+      yesterday,
+      value: null
     }
   }
+
+  resetState() {
+    this.setState({ value: null })
+  }
+
 
   submit(presentation) {
     console.log('presentation form values: ', presentation);
@@ -66,11 +75,8 @@ class EditPresentation extends React.Component {
             <Form.Group>
               <Field name="name" component={ renderTextField } validate={[required]} label="Presentation Name" width={16}/>
             </Form.Group>
-            <label style={{fontWeight: 'bold', fontSize: 13}}>Date</label>
             <Form.Group>
-              <DatePicker selected={this.state.startDate} onChange={(date) => this.setState({startDate: date})} />
-            </Form.Group>
-            <Form.Group>
+              <Field name="date" component={ renderTextField } validate={[required]} label="Date" width={8}/>
               <Field name="time" component={ renderTextField } validate={[required]} label="Time" width={8}/>
             </Form.Group>
             <Form.Group>
