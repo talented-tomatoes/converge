@@ -25,6 +25,12 @@ const required = value => {
   return value ? undefined  : <Text> Required </Text>
 };
 
+const linkedin = (value) => {
+  return value && (value.toLowerCase().indexOf('linkedin.com') !== -1)
+               ? <Text> Enter only the Handle</Text>
+              : undefined
+}
+
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, normalize, placeholder, meta: { touched, error, warning }}) => {
   return (
     <Item inlineLabel>
@@ -78,6 +84,9 @@ saveToDB(user, userType) {
       linkedin_id: user.linkedIn,
       phone_number: user.phoneNumber,
     };
+    if (!userToSave.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
+      userToSave.linkedin_id = `https://www.linkedin.com/in/${profile.linkedin_id}`;
+    }
     this.saveToDB(userToSave , userType);
  }
 
@@ -137,7 +146,7 @@ saveToDB(user, userType) {
           <Right />
         </Header>
         <Content>
-          <Field name="linkedIn" validate={[required]} component={ renderInput } label="LinkedIn URL:" placeholder="linkedin.com/in/johndoe123" />
+          <Field name="linkedIn" validate={[required, linkedin]} component={ renderInput } label="LinkedIn Handle:" placeholder="johndoe123" />
           <Field name="phoneNumber" validate={[required]} component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
           <Separator bordered>
             <Text style={{alignSelf: 'center'}} note>Tap below to attach a profile picture</Text>
