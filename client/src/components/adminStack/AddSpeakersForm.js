@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail, Badge, Body, Left, Right, Card, CardItem } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail, Badge, Body, Left, Right, Card, CardItem, Grid, Col } from 'native-base';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Field, reduxForm, initialize } from 'redux-form';
@@ -166,43 +166,51 @@ class AddSpeakersForm extends Component {
           <Card>
             <CardItem style={{paddingTop: 15}}>
               <Body>
-                  {
-                    !this.state.isLoading ? (
-                      <Left>
-                        <TouchableOpacity light onPress={() => this.upload('avatar_url')}>
-                          <Thumbnail large source={{uri: this.state.avatar} ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.upload('avatar_url')} style={{position: 'absolute', left: 50, top: 50}}>
-                          <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
-                        </TouchableOpacity>
-                      </Left>
-                    ) : (
-                      <Left>
-                        <Spinner />
-                      </Left>
-                    )
-                  }
+                {
+                  !this.state.isLoading ? (
+                    <Left>
+                      <TouchableOpacity light onPress={() => this.upload('avatar_url')}>
+                        <Thumbnail large source={{uri: this.state.avatar} ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => this.upload('avatar_url')} style={{position: 'absolute', left: 50, top: 50}}>
+                        <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
+                      </TouchableOpacity>
+                    </Left>
+                  ) : (
+                    <Left>
+                      <Spinner />
+                    </Left>
+                  )
+                }
               </Body>
             </CardItem>
-          <CardItem>
-            <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
-          </CardItem>
-          <CardItem>
-            <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" />
-          </CardItem>
-          <CardItem>
-            <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" />
-          </CardItem>
-          <CardItem>
-            <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
-          </CardItem>
-          <CardItem>
-            <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" />
-          </CardItem>
-          <Text style={{paddingLeft: 17 }}>Speaker Bio:</Text>
-          <CardItem>
-            <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
-          </CardItem>
+            <Grid style={{ alignSelf: "center", flex: 0}}>
+              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+            </Grid>
+            <CardItem>
+              <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
+            </CardItem>
+            <CardItem>
+              <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" />
+            </CardItem>
+            <CardItem>
+              <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" />
+            </CardItem>
+            <CardItem>
+              <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
+            </CardItem>
+            <CardItem>
+              <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" />
+            </CardItem>
+          </Card>
+          <Card>
+            <Text style={{paddingLeft: 17, paddingTop: 10, paddingBottom: 10, fontWeight: 'bold'}}>Speaker Bio</Text>
+            <Grid style={{ alignSelf: "center", flex: 0}}>
+              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+            </Grid>
+            <CardItem>
+              <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
+            </CardItem>
           </Card>
         </Content>
         <Footer>

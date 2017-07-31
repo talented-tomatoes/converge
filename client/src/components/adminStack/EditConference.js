@@ -44,6 +44,9 @@ class EditConference extends Component {
                   </Body>
                 </Left>
             </CardItem>
+            <Grid style={{ alignSelf: "center", flex: 0}}>
+              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+            </Grid>
             <CardItem cardBody>
               <Image
                 source={{uri: selectedConference.banner}}
@@ -51,9 +54,6 @@ class EditConference extends Component {
                 />
             </CardItem>
 
-            <Grid style={{ alignSelf: "center", flex: 0}}>
-              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
-            </Grid>
           </Card>
           <Card>
             <CardItem>
@@ -65,9 +65,7 @@ class EditConference extends Component {
             <CardItem>
               <Text>{selectedConference.details}</Text>
             </CardItem>
-            <Grid style={{ alignSelf: "center", flex: 0}}>
-              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
-            </Grid>
+
           </Card>
         </Content>
 

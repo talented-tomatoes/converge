@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Container, Content, List, Text, Card} from 'native-base';
 import SpeakerListEntry from './SpeakerListEntry';
+import randomColor from '../helpers/randomColor';
 
 
 
 export default class AddSpeakersList extends Component {
   constructor(props) {
     super(props);
+    this.randomColor = randomColor();
   }
 
   render() {
@@ -20,6 +22,7 @@ export default class AddSpeakersList extends Component {
                   key={key}
                   speaker={speaker}
                   navigation={this.props.navigation}
+                  randomColor={this.randomColor}
                   />
               );
             })
