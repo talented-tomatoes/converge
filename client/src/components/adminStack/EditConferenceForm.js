@@ -303,7 +303,6 @@ class EditConferenceForm extends Component {
               </CardItem>
             </TouchableOpacity>
           </Card>
->>>>>>> e76c439bb4c04f83059144ba91af8133f0013ac3
         </Content>
         <Footer>
           <Content style={{backgroundColor: this.randomColor}}>

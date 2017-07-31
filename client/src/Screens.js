@@ -29,13 +29,10 @@ import PaymentForm from './components/registerStack/PaymentForm.js';
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
-// removing this because we have this is the version not using redux-form
-// import CreateEvent from './components/adminStack/CreateEvent';
 import AddSpeakers from './components/adminStack/SpeakerLanding';
 import AddSpeakersForm from './components/adminStack/AddSpeakersForm';
 import AddPresentation from './components/adminStack/AddPresentation';
 import AddPresentationForm from './components/adminStack/AddPresentationForm';
-import EditConference from './components/adminStack/EditConference';
 import EditConferenceForm from './components/adminStack/EditConferenceForm';
 import EditAdminProfileForm from './components/adminStack/EditAdminProfileForm';
 import SpeakerPicker from './components/adminStack/helpers/SpeakerPicker.js';
@@ -67,7 +64,6 @@ const AdminStack = StackNavigator({
   AddPresentationForm: { screen: AddPresentationForm },
   AddSpeakers: { screen: AddSpeakers },
   AddSpeakersForm: { screen: AddSpeakersForm },
-  // EditConference: { screen: EditConference },
   EditConferenceForm: { screen: EditConferenceForm },
   EditAdminProfileForm: { screen: EditAdminProfileForm },
   SpeakerPicker: { screen: SpeakerPicker }
