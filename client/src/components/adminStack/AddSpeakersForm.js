@@ -205,7 +205,7 @@ class AddSpeakersForm extends Component {
                   !this.state.isLoading ? (
                     <Left>
                       <TouchableOpacity light onPress={() => this.upload('avatar_url')}>
-                        <Thumbnail large source={{uri: this.state.avatar} ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
+                        <Thumbnail large source={this.state.avatar ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => this.upload('avatar_url')} style={{position: 'absolute', left: 50, top: 50}}>
                         <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
@@ -219,9 +219,6 @@ class AddSpeakersForm extends Component {
                 }
               </Body>
             </CardItem>
-            <Grid style={{ alignSelf: "center", flex: 0}}>
-              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
-            </Grid>
             <CardItem>
               <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
             </CardItem>
@@ -237,12 +234,12 @@ class AddSpeakersForm extends Component {
             <CardItem>
               <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" />
             </CardItem>
-          </Card>
-          <Card>
-            <Text style={{paddingLeft: 17, paddingTop: 10, paddingBottom: 10, fontWeight: 'bold'}}>Speaker Bio</Text>
             <Grid style={{ alignSelf: "center", flex: 0}}>
               <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
             </Grid>
+          </Card>
+          <Card>
+            <Text style={{paddingLeft: 17, paddingTop: 10, paddingBottom: 10, fontWeight: 'bold'}}>Speaker Bio</Text>
             <CardItem>
               <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
             </CardItem>

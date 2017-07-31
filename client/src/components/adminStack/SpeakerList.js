@@ -14,7 +14,7 @@ export default class AddSpeakersList extends Component {
 
   render() {
     return (
-      <Content>
+      <Content style={{padding: 10}}>
           {
             this.props.speakers.map((speaker, key) => {
               return (
