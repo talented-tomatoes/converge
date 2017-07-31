@@ -33,6 +33,10 @@ class MySchedule extends Component {
     this.getUserSchedule();
   }
 
+  handleItemPress(presentation) {
+    this.props.navigation.navigate('PresentationDetails', { presentation: presentation });
+  }
+
   getUserSchedule() {
     axios.get(`${Config.server.url}api/join/users_presentations/${this.props.user.id}`)
       .then(response => {
@@ -89,7 +93,7 @@ class MySchedule extends Component {
                           console.log('presentations?', presentation);
                           return (
                             <List key={i}>
-                              <ListItem avatar>
+                              <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
                                 <Left>
                                   <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
                                     <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
