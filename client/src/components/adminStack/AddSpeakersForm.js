@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image
-} from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner } from 'native-base';
+import { StyleSheet, Image } from 'react-native';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Toast } from 'native-base';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Field, reduxForm, initialize } from 'redux-form';
@@ -59,6 +53,7 @@ class AddSpeakersForm extends Component {
       avatar: '',
       isLoading: false
     }
+    this.handleSpeakerDelete = this.handleSpeakerDelete.bind(this);
   }
 
   componentDidMount() {
@@ -146,8 +141,27 @@ class AddSpeakersForm extends Component {
     this.saveToDB(speaker);
   }
 
+  handleSpeakerDelete() {
+    let currentSpeaker = this.props.admin.speakerValues;
+    axios.delete(`${Config.server.url}api/deleteSpeaker/${currentSpeaker.id}`)
+      .then(response => {
+        console.log('RESPONSE FROM SERVER ON DELETE SPEAKER ', response);
+        this.props.navigation.navigate('AddSpeakers', {speakerDeleted: true});
+      })
+      .catch(err => {
+        console.log('error deleting the conference ', err);
+        Toast.show({
+          text: `Error deleting ${currentSpeaker.first_name} ${currentSpeaker.last_name} right now...`,
+          position: 'bottom',
+          buttonText: 'X',
+          type: 'warning',
+          duration: 2000
+        });
+    })
+  }
+
   render() {
-    const { handleSubmit } = this.props;
+  const { handleSubmit } = this.props;
     return (
       <Container>
         <AdminStackHeader
@@ -156,6 +170,7 @@ class AddSpeakersForm extends Component {
           leftIcon="arrow-back"
           title="Speakers"
           rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
+          rightAction={this.handleSpeakerDelete}
         />
         <Content>
           <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" placeholder="John" />
@@ -178,7 +193,7 @@ class AddSpeakersForm extends Component {
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
             <Button style={{flex: 1, alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Speaker</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.speakerValues.id ? 'Save Changes' : 'Add Speaker'}</Text>
             </Button>
           </Content>
         </Footer>

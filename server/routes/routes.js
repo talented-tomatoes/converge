@@ -35,6 +35,8 @@ router.route('/editSpeaker')
 router.route('/speakers/:speakerid/:presentationid')
   .delete(controller.deleteSpeakerFromPresentation);
 
+router.route('/deleteSpeaker/:speakerID')
+  .delete(controller.deleteSpeaker);
 
 /*********************CONFERENCES **********************/
 router.route('/conferences')
