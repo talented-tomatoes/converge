@@ -45,7 +45,7 @@ class EditConferenceForm extends Component {
     this.state = {
       start_date: '' || this.props.admin.selectedConference.start_date,
       end_date: '' || this.props.admin.selectedConference.end_date,
-      conferenceBanner: this.props.admin.selectedConference.banner || defaultImage,
+      banner: this.props.admin.selectedConference.banner || defaultImage,
       logo: this.props.admin.selectedConference.logo || defaultImage,
       venue_map: this.props.admin.selectedConference.venue_map || defaultImage,
       isLoading: {}
@@ -114,7 +114,7 @@ class EditConferenceForm extends Component {
             } else if (imageType === 'banner') {
               this.state.isLoading[imageType] = false;
               this.setState({
-                conferenceBanner: response.data.secure_url,
+                banner: response.data.secure_url,
                 isLoading: this.state.isLoading
               });
             }
@@ -253,7 +253,7 @@ class EditConferenceForm extends Component {
                           <Spinner color={this.randomColor}/>
                         </Left>
                       </View>
-                    : <Image source={{uri: this.state.conferenceBanner}} style={{height: 200, flex: 1}}/>
+                    : <Image source={{uri: this.state.banner}} style={{height: 200, flex: 1}}/>
                 }
               </CardItem>
             </TouchableOpacity>
