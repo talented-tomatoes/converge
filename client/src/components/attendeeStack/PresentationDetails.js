@@ -30,7 +30,6 @@ class PresentationsDetails extends Component {
 
   componentDidMount() {
     const { params } = this.props.navigation.state;
-    console.log(params.presentation.id);
     axios.get(`${Config.server.url}api/speakers/presentation/${params.presentation.id}`)
       .then(response => {
         this.setState({
@@ -93,7 +92,7 @@ class PresentationsDetails extends Component {
                     </ListItem>
                     {
                       this.state.speakers.map((speaker, i) => {
-                        return ( 
+                        return (
                             <ListItem avatar key={i}>
                               <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', { backPage: 'PresentationDetails', speaker: speaker, data: params.presentation })}>
                                 <Left>

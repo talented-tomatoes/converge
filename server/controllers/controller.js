@@ -95,21 +95,10 @@ let getAllPresentationsOfConf = (req, res) => {
 };
 
 let checkinUser = (req, res) => {
-
-  //console.log('req.userid = ', req.params.userid);
-  //console.log('req.body======>', req.body);
   let USERID = req.params.userid;
   let CHECKINPICURL = req.body.checkinpicurl;
-  //console.log('CHECKINPICURL=====>', CHECKINPICURL);
   let gallery_name = req.params.userid;
-//   models.User.where({login_id: USERID}).fetch({columns: ['gallery_name']})
-//  .then(user => {
-//   if (!user) {
-//   console.log('user=', user);
-//   res.status(200).send('No User');
-// } else {
-  // gallery_name = user.attributes.gallery_name;
-  console.log('GALLERY_NAME=', gallery_name);
+
       // verify
   const OPTIONS = util.getKairosRequestObj(CHECKINPICURL, gallery_name, USERID);
   console.log('options = ', OPTIONS);
@@ -118,20 +107,23 @@ let checkinUser = (req, res) => {
     //res.status(200).send('Success!');
 
   .then(response => {
-    console.log('response from kairos ====>', response.data);
     if (response.data.images) {
       let confidence = response.data.images[0]['transaction']['confidence'];
       console.log('confidence=', confidence);
       if (confidence > 0.65) {
+        console.log('face was a match');
         res.status(200).send('Success');
       } else {
+        console.log('no match found')
         res.status(200).send('Checkin Failed. Please enter a Valid Picture');
       }
     } else {
+      console.log('no match found')
       res.status(200).send('Checkin Failed. Please enter a Valid Picture');
     }
   })
 	.catch(err => {
+  console.log('no match found')
   console.log('ERROR :', err);
   res.status(500).send('Internal Error!');
 });
@@ -140,9 +132,6 @@ let checkinUser = (req, res) => {
 
 
 let chargeCustomer = (req, res) => {
-
-  console.log('Inside chargeCustomer POST ===> ', req.body);
-
   stripe.charges.create({
     amount: Number(req.body.details.total.amount.value) * 100,
     currency: 'usd',
@@ -153,7 +142,7 @@ let chargeCustomer = (req, res) => {
       console.log(err);
       res.status(400).end();
     } else {
-      console.log(charge);
+      console.log('payment successful!');
       res.status(201).end();
     }
   });
@@ -161,15 +150,6 @@ let chargeCustomer = (req, res) => {
 };
 
 let registerUser = (req, res) => {
-  console.log('Inside registerUser');
-  console.log('req.body: ', req.body);
-  // models.User.forge(req.body).save()
-  //   .then(user => {
-  //     console.log('user saved:', user);
-  //   })
-  //   .catch(err => {
-  //     console.log('error saving user: ', err);
-  //   });
   models.User.forge({login_id: req.body.login_id})
              .fetch()
              .then(user => {
@@ -488,18 +468,6 @@ let editPresentation = (req, res) => {
       console.log('error updating presentation: ', err);
       res.status(400).send('error updating presentation: ', err);
     });
-
-
-
-    // res.status(201).send('presentation Updated');
-
-
-    // .then(response => {
-    // })
-    // .catch(err => {
-    //   console.log('error updating presentation: ', err);
-    //   res.status(400).send('error updating presentation: ', err);
-    // })
 }
 
 let deleteSpeakerFromPresentation = (req, res) => {
@@ -514,9 +482,6 @@ let deleteSpeakerFromPresentation = (req, res) => {
     res.status(400).send('error deleting speaker from presentation');
   })
 }
-
-let addSpeakerToPresen
-
 
 module.exports = {
   getAllUsers: getAllUsers,

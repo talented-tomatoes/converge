@@ -95,8 +95,6 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
                     <Content>
                       {
                         this.state.presentations.filter(presentation => {
-                          console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date))
-                          console.log('date: ', date);
                           return convertDateToEnglish(presentation.date) === date;
                         }).map((presentation, i) => {
                           return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem } from 'native-base';
-import { Image } from 'react-native';
+import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem, Grid, Col } from 'native-base';
+import { Image, TouchableOpacity } from 'react-native';
 
 // import Redux things
 import { connect } from 'react-redux';
@@ -12,24 +12,34 @@ class SpeakersListEntry extends Component {
     super(props);
   }
 
+  handleSpeakerPress() {
+    this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
+    this.props.navigation.navigate('AddSpeakersForm', {editMode: true});
+  }
+
   render() {
     return (
       // onPress I need to go to the edit page of the speaker
-      <ListItem avatar onPress={() => {
-        // set the redux store of ADMIN to have the speaker's values
-        console.log('this.props.speaker: ', this.props.speaker);
-        this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
-        // navigate to the AddSpeakersForm
-        this.props.navigation.navigate('AddSpeakersForm', {editMode: true});
-      }}>
-        <Left>
-          <Thumbnail source={{ uri: this.props.speaker.avatar_url }} />
+      <Card>
+        <CardItem>
+        <TouchableOpacity onPress={this.handleSpeakerPress.bind(this)}>
+          <Left style={{paddingRight: 15}}>
+            <Thumbnail small source={{ uri: this.props.speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
           </Left>
+        </TouchableOpacity>
         <Body>
-          <Text>{this.props.speaker.first_name} {this.props.speaker.last_name}</Text>
-          <Text note>{this.props.speaker.job_title}</Text>
-          </Body>
-        </ListItem>
+          <TouchableOpacity onPress={this.handleSpeakerPress.bind(this)}>
+             <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
+             <Text note>{this.props.speaker.job_title}</Text>
+          </TouchableOpacity>
+        </Body>
+        </CardItem>
+        <Grid style={{ alignSelf: "center", flex: 0}}>
+          <Col style={{ backgroundColor: this.props.randomColor, height: 5, flex: 1}}></Col>
+        </Grid>
+      </Card>
+
+
     );
   }
 
@@ -43,3 +53,21 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(SpeakersListEntry);
+
+
+
+// <Card>
+//         <CardItem onPress={() => {
+//           console.log('this.props.speaker: ', this.props.speaker);
+//           this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
+//           this.props.navigation.navigate('AddSpeakersForm', {editMode: true});
+//         }}>
+//           <Left>
+//             <Thumbnail small source={{ uri: this.props.speaker.avatar_url }} />
+//             </Left>
+//           <Body>
+//             <Text>{this.props.speaker.first_name} {this.props.speaker.last_name}</Text>
+//             <Text note>{this.props.speaker.job_title}</Text>
+//           </Body>
+//         </CardItem>
+//       </Card>
