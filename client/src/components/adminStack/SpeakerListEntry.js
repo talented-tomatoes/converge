@@ -49,20 +49,3 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(SpeakersListEntry);
 
-
-
-// <Card>
-//         <CardItem onPress={() => {
-//           console.log('this.props.speaker: ', this.props.speaker);
-//           this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
-//           this.props.navigation.navigate('AddSpeakersForm', {editMode: true});
-//         }}>
-//           <Left>
-//             <Thumbnail small source={{ uri: this.props.speaker.avatar_url }} />
-//             </Left>
-//           <Body>
-//             <Text>{this.props.speaker.first_name} {this.props.speaker.last_name}</Text>
-//             <Text note>{this.props.speaker.job_title}</Text>
-//           </Body>
-//         </CardItem>
-//       </Card>
