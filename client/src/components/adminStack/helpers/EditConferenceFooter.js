@@ -25,7 +25,7 @@ export default class EditConferenceFooter extends Component {
           <FooterTab>
             <Button onPress={() => {this.props.navigation.navigate('EditConferenceForm')}}>
               <Icon ios="ios-settings-outline" android="md-settings"/>
-              <Text style={{fontSize: 10}}>Details</Text>
+              <Text style={{fontSize: 10}}>Edit Conference</Text>
             </Button>
           </FooterTab>
         </Footer>
