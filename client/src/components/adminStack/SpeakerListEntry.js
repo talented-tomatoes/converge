@@ -22,7 +22,7 @@ class SpeakersListEntry extends Component {
         this.props.navigation.navigate('AddSpeakersForm'); 
       }}>
         <Left>
-          <Thumbnail source={{ uri: this.props.speaker.avatar_url }} />
+          <Thumbnail small source={{ uri: this.props.speaker.avatar_url }} />
           </Left>
         <Body>
           <Text>{this.props.speaker.first_name} {this.props.speaker.last_name}</Text>
