@@ -45,6 +45,7 @@ class EditConferenceForm extends Component {
       start_time: '' || this.props.admin.selectedConference.start_time,
       end_time: '' || this.props.admin.selectedConference.end_time
     }
+    this.handleConferenceDelete = this.handleConferenceDelete.bind(this);
   }
   static navigationOptions = {
     title: 'Update Conference Details',
@@ -124,7 +125,7 @@ class EditConferenceForm extends Component {
           .catch(err => {
             console.log('error: ', err);
           })
-        this.props.navigation.navigate(this.props.admin.selectedConference.id ? 'EditConference' : 'AdminLanding');
+        this.props.navigation.navigate('AdminLanding');
       })
       .catch(error => {
         console.log('error:', error.response.data);
@@ -176,17 +177,32 @@ class EditConferenceForm extends Component {
     })
   }
 
+  handleConferenceDelete() {
+  let currentConf = this.props.admin.selectedConference;
+  axios.delete(`${Config.server.url}api/deleteConference/${currentConf.id}`)
+    .then(response => {
+      console.log('RESPONSE FROM SERVER ON DELETE CONFERENCE ', response);
+      // only navigate when the conference actual deletes
+      this.props.navigation.navigate('AdminLanding');
+    })
+    .catch(err => {
+    console.log('error deleting the conference ', err);
+  })
+    
+}
+
   render() {
     const { handleSubmit } = this.props;
     return (
       <Container>
         <AdminStackHeader
           navigation={this.props.navigation}
-          leftNavigation={!!this.props.admin.selectedConference.id ? 'EditConference' : 'AdminLanding'}
+          leftNavigation={'AdminLanding'}
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
-        />
+          rightAction={this.handleConferenceDelete} 
+        /> 
         <Content>
           <Field name="name" validate={[required]} component={ renderInput } label="Conference Name:" placeholder="SXSW" />
           <Field name="address" validate={[required]} component={ renderInput } label="Address:" placeholder="123 Main St. Anywhere, CA 94111" />
@@ -198,7 +214,6 @@ class EditConferenceForm extends Component {
             <Text>Start Time: </Text>
             <DatePicker onChange={this.onStartTimeChange.bind(this)} value={this.state.start_time} mode='time' disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
-            
           <ListItem>
             <Text>End Date:   </Text>
             <DatePicker onChange={this.onEndDateChange.bind(this)} value={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
@@ -214,7 +229,6 @@ class EditConferenceForm extends Component {
                 <Icon name="ios-cloud-upload-outline" />
               </Button>
           </Item>
-
           <Field name="ticket_price" validate={[required, price]} component={ renderInput } label="Ticket Price:" placeholder="$85.00" keyboardType="numeric" />
           <Item inlineLabel>
             <Label>Venue Map:</Label>
@@ -241,7 +255,7 @@ class EditConferenceForm extends Component {
           </Content>
         </Footer>
       </Container>
-    )
+    );
   }
 }
 
@@ -259,5 +273,3 @@ EditConferenceForm = connect(
   }))(EditConferenceForm)
 
 export default EditConferenceForm;
-
-
