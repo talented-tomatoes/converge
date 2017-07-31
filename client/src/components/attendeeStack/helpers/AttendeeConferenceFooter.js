@@ -28,12 +28,6 @@ export default class AttendeeConferenceFooter extends Component {
               <Text style={{fontSize: 10}}>Map</Text>
             </Button>
           </FooterTab>
-          <FooterTab>
-            <Button onPress={() => {this.props.navigation.navigate('Concierge')}}>
-              <Icon ios="ios-help-buoy-outline" android="md-help-buoy"/>
-              <Text style={{fontSize: 10}}>Concierge</Text>
-            </Button>
-          </FooterTab>
         </Footer>
     );
   }

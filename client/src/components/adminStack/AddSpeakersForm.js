@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail } from 'native-base';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Field, reduxForm, initialize } from 'redux-form';
@@ -56,40 +56,41 @@ class AddSpeakersForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      avatar: '',
+      editMode: this.props.navigation.state.params !== undefined ? true : false,
+      avatar: this.props.admin.speakerValues.avatar_url || '',
       isLoading: false
     }
   }
 
   componentDidMount() {
     // do the pre-load of values
-    this.handleInitialize();
+    this.props.initialize(this.props.initialValues);
   }
 
-  handleInitialize() {
-    const linkedinid = this.props.admin.speakerValues.linkedin_id;
-    let linkedinHandle = '';
-    if (linkedinid) {
-      const str = 'https://www.linkedin.com/in';
-      const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
-      linkedinHandle = linkedinid.substring(startIndex);
-    }
-    const speakerValues = {
-      first_name: this.props.admin.speakerValues.first_name,
-      last_name: this.props.admin.speakerValues.last_name,
-      job_title: this.props.admin.speakerValues.job_title,
-      email: this.props.admin.speakerValues.email,
-      avatar_url: this.props.admin.speakerValues.avatar_url,
-      bio: this.props.admin.speakerValues.bio,
-      id: this.props.admin.speakerValues.id
-    };
-    if (linkedinid) {
-      speakerValues.linkedin_id = linkedinHandle;
-    } else {
-      speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
-    }
-    this.props.initialize(speakerValues);
-  }
+  // handleInitialize() {
+  //   const linkedinid = this.props.admin.speakerValues.linkedin_id;
+  //   let linkedinHandle = '';
+  //   if (linkedinid) {
+  //     const str = 'https://www.linkedin.com/in';
+  //     const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
+  //     linkedinHandle = linkedinid.substring(startIndex);
+  //   }
+  //   const speakerValues = {
+  //     first_name: this.props.admin.speakerValues.first_name,
+  //     last_name: this.props.admin.speakerValues.last_name,
+  //     job_title: this.props.admin.speakerValues.job_title,
+  //     email: this.props.admin.speakerValues.email,
+  //     avatar_url: this.props.admin.speakerValues.avatar_url,
+  //     bio: this.props.admin.speakerValues.bio,
+  //     id: this.props.admin.speakerValues.id
+  //   };
+  //   if (linkedinid) {
+  //     speakerValues.linkedin_id = linkedinHandle;
+  //   } else {
+  //     speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
+  //   }
+  //   this.props.initialize(speakerValues);
+  // }
 
   upload(imageType) {
      let options = {
@@ -104,7 +105,7 @@ class AddSpeakersForm extends Component {
         let options = uploadImage(response.data);
         axios.post(options.url, options.body)
           .then(response => {
-            console.log('Response URL: ...setting state to.....', response.data.secure_url);
+            console.log('Response URL:', response.data.secure_url);
             this.setState({avatar: response.data.secure_url });
             this.setState({isLoading: false});
           })
@@ -138,6 +139,7 @@ class AddSpeakersForm extends Component {
   }
 
   submit(speaker) {
+    console.log('speaker: ', speaker);
     speaker.conference_id = this.props.admin.selectedConference.id;
     speaker.avatar_url = this.state.avatar;
     if (!speaker.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
@@ -148,6 +150,7 @@ class AddSpeakersForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    console.log('addSpeakersForm props: ', this.props);
     return (
       <Container>
         <AdminStackHeader
@@ -155,30 +158,40 @@ class AddSpeakersForm extends Component {
           leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
-          rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
+          rightIcon={null}
         />
         <Content>
-          <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" placeholder="John" />
-          <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" placeholder="Doe" />
-          <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" placeholder="Director of Engineering" />
-          <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" placeholder="johndoe123@gmail.com" />
-          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle" placeholder="johndoe123" />
+          <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
+          <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" />
+          <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" />
+          <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
+          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle" />
           <Item inlineLabel>
             <Label>Profile Picture:</Label>
-              {this.state.isLoading 
+              {this.state.isLoading
                 ? (<Spinner color='red'/>)
-                : (<Button success small onPress={() => this.upload('avatar_url')}>
+                : (
+                  this.state.avatar ? (
+                    <TouchableOpacity onPress={() => this.upload('avatar_url')}>
+                      <Thumbnail source={{uri: this.state.avatar}} />
+                    </TouchableOpacity>
+                  ) : (
+                  <Button success small onPress={() => this.upload('avatar_url')}>
                       <Text> Upload </Text>
                       <Icon name="ios-cloud-upload-outline" />
-                    </Button>)
-              }     
+                    </Button>
+                  )
+                )
+              }
           </Item>
-          <Field name="bio" validate={[required]} component={ renderInput } label="Speaker Bio:" placeholder="John Doe is involved with...." multiline={true} />
+          <Field name="bio" validate={[required]} component={ renderInput } label="Speaker Bio:" multiline={true} />
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
-            <Button style={{flex: 1, alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Speaker</Text>
+            <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
+            {
+              this.state.editMode ? <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Speaker</Text> : <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Speaker</Text>
+            }
             </Button>
           </Content>
         </Footer>
@@ -187,14 +200,18 @@ class AddSpeakersForm extends Component {
   }
 }
 
-AddSpeakersForm = reduxForm({
-  form: 'AddSpeaker',
+const reduxFormConfig = {
+  form: 'AddSpeakersForm',
   fields: ['first_name', 'last_name', 'job_title', 'email', 'linkedin_id', 'avatar_url', 'bio']
-})(AddSpeakersForm)
+}
+
+AddSpeakersForm = reduxForm(reduxFormConfig)(AddSpeakersForm)
 
 AddSpeakersForm = connect(
   state => ({
-    admin: state.adminReducer
-  }))(AddSpeakersForm)
+    admin: state.adminReducer,
+    initialValues: state.adminReducer.speakerValues,
+  })
+  )(AddSpeakersForm)
 
-export default AddSpeakersForm;
+export default AddSpeakersForm

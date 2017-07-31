@@ -52,7 +52,6 @@ class EditConferenceForm extends Component {
   }
 
   componentDidMount() {
-    //console.log('CONFERENCE EDIT FORM LOADED, PROPS ARE: ', this.props)
     this.handleInitialize();
   }
 
@@ -115,16 +114,13 @@ class EditConferenceForm extends Component {
     console.log('CONFERENCE INFO ', conference);
     axios.post(url, conference)
       .then(response => {
-        // console.log('response from the updated: ', response.data);
-        axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
-          .then(conference => {
-            console.log('new conference information: ', conference.data);
-            this.props.dispatch(setAdminSelectedConference(conference.data));
-          })
-          .catch(err => {
-            console.log('error: ', err);
-          })
-        this.props.navigation.navigate(this.props.admin.selectedConference.id ? 'EditConference' : 'AdminLanding');
+        Toast.show({
+          text: conference.name + ' created',
+          position: 'bottom',
+          buttonText: 'X',
+          type: 'success'
+        });
+        this.props.navigation.navigate('AdminLanding');
       })
       .catch(error => {
         console.log('error:', error.response.data);
@@ -198,7 +194,7 @@ class EditConferenceForm extends Component {
             <Text>Start Time: </Text>
             <DatePicker onChange={this.onStartTimeChange.bind(this)} value={this.state.start_time} mode='time' disabled={!!this.props.admin.selectedConference.id}/>
             </ListItem>
-            
+
           <ListItem>
             <Text>End Date:   </Text>
             <DatePicker onChange={this.onEndDateChange.bind(this)} value={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
@@ -223,7 +219,7 @@ class EditConferenceForm extends Component {
               <Icon name="ios-cloud-upload-outline" />
             </Button>
           </Item>
-          
+
           <Item inlineLabel>
             <Label>Banner:</Label>
             <Button success small onPress={() => this.uploadImage('banner')}>

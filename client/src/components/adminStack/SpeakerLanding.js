@@ -11,42 +11,36 @@ import AdminStackHeader from './helpers/AdminStackHeader.js';
 // redux things
 import { connect } from 'react-redux';
 // import actions
-import { setSpeakerInitialValues } from '../actions/actions.js';
+import { setSpeakerInitialValues, setSpeakersOfConference } from '../actions/actions.js';
 
 class SpeakersLanding extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      speakers: []
+    // this.state = {
+    //   speakers: []
 
-    }
+    // }
   }
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Speakers',
-      headerRight: <Button transparent onPress={() => navigation.navigate('AddSpeakersForm')}><Icon name="add"/></Button>,
-      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
-    }
-  };
+
 
   componentDidMount() {
     // reset the Redux Store current speaker upon landing on this page
     // should be able to read this as being empty so that we can utilize this to tell the Form to make a post to the correct place
     this.props.dispatch(setSpeakerInitialValues({}));
 
-    console.log('EDIT SPEAKERS LANDING PAGE MOUNTED', this.props);
     // make server call to get speakers from DB based on currentConfID;
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let url = SERVER_URL + `api/speakers/${this.props.admin.selectedConference.id}`;
 
     axios.get(url)
       .then(response => {
-        console.log('response in SPEAKER LANDING: ', response);
+        // console.log('response in SPEAKER LANDING: ', response);
         // on speakers data coming in, store it in local state
-        this.setState({
-          speakers: response.data
-        });
+        // this.setState({
+        //   speakers: response.data
+        // });
+      this.props.dispatch(setSpeakersOfConference(response.data));
       })
       .catch(err => {
         console.log('error getting conference speakers: ', err);
@@ -55,6 +49,7 @@ class SpeakersLanding extends Component {
   }
 
   render() {
+    console.log('SpeakerLanding props: ', this.props);
     return (
       <Container>
         <AdminStackHeader
@@ -67,7 +62,7 @@ class SpeakersLanding extends Component {
         />
         <Content>
           <SpeakersList
-            speakers={this.state.speakers}
+            speakers={this.props.admin.speakers}
             navigation={this.props.navigation}/>
         </Content>
         <EditConferenceFooter navigation={this.props.navigation}/>

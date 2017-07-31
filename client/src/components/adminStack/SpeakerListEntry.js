@@ -17,9 +17,10 @@ class SpeakersListEntry extends Component {
       // onPress I need to go to the edit page of the speaker
       <ListItem avatar onPress={() => {
         // set the redux store of ADMIN to have the speaker's values
+        console.log('this.props.speaker: ', this.props.speaker);
         this.props.dispatch(setSpeakerInitialValues(this.props.speaker));
         // navigate to the AddSpeakersForm
-        this.props.navigation.navigate('AddSpeakersForm'); 
+        this.props.navigation.navigate('AddSpeakersForm', {editMode: true});
       }}>
         <Left>
           <Thumbnail source={{ uri: this.props.speaker.avatar_url }} />

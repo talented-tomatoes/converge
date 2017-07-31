@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import renderListOfDatesFromConference from '../adminStack/helpers/renderListOfDatesFromConference.js';
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
 import { Drawer, Content, Container, Tabs, Tab, Toast, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem } from 'native-base';
-import AttendeeFooter from './AttendeeFooter.js';
 import randomColor from '../helpers/randomColor';
 
 import SideBar from './Sidebar';

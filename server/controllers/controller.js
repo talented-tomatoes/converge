@@ -37,7 +37,10 @@ let getAllSpeakersOfConf = (req, res) => {
   models.Speaker.where({conference_id: confid})
     .fetchAll()
     .then((speakers) => {
-      console.log(speakers.length, 'speakers fetched');
+      speakers.forEach(speaker => {
+        console.log('fetched speaker: ', speaker.attributes.first_name, speaker.attributes.last_name);
+      })
+      console.log(speakers.length, 'speakers fetched')
       res.status(200).send(speakers);
     })
   .catch((err) => {
@@ -80,6 +83,9 @@ let getAllPresentationsOfConf = (req, res) => {
       var sortedData = JSON.parse(data).sort((a, b) => {
         return new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time);
       });
+      presentations.forEach(presentation => {
+        console.log('fetched presentation: ', presentation.attributes.name);
+      })
       console.log(presentations.length, 'presentations fetched');
       res.status(200).send(sortedData);
     })
@@ -202,7 +208,7 @@ let addConference = (req, res) => {
   //console.log('Inside addConference, conference name=', req.body.name);
   models.Conference.forge(req.body).save()
     .then(conference => {
-      console.log('conference saved: ', conference);
+      console.log(conference.attributes.name, 'conference created');
       res.status(200).send('Conference saved!');
     })
     .catch(err => {
@@ -224,14 +230,9 @@ let getConferencesByHostID = (req, res) => {
 
 // ADD A NEW SPEAKER TO A CONFERENCE
 let addSpeaker = (req, res) => {
-  console.log('Inside ** ADD SPEAKER TO CONF **');
-  console.log('req.body: ', req.body);
-  console.log('req.body type :', typeof req.body);
-
-  // bookshelf command
   models.Speaker.forge(req.body).save()
     .then(speaker => {
-      console.log('speaker saved: ', speaker);
+      console.log('1 speaker saved: ', speaker.attributes.first_name, speaker.attributes.last_name);
       res.status(200).send('Speaker saved!');
     })
     .catch(err => {
@@ -264,11 +265,9 @@ let addPresentation = (req, res) => {
   var presentation = req.body.presentation;
   var speakers = req.body.speakers;
 
-  console.log('presentation: ', presentation)
-  console.log('speakers: ', speakers)
   models.Presentation.forge(presentation).save()
     .then(pres => {
-      console.log('presentation added to database');
+      console.log('1 new presentation added to conference');
       for (var key in speakers) {
         models.PresentationSpeaker.forge({speaker_id: speakers[key].id, presentation_id: pres.id}).save()
           .then(record => {
@@ -380,6 +379,7 @@ let getConferenceByConfID = (req, res) => {
 
   models.Conference.where({id: req.params.confID}).fetch()
     .then(conference => {
+
       console.log('conference fetched: ', conference);
       res.status(200).send(conference);
     })
@@ -418,15 +418,15 @@ let editUserProfile = (req, res) => {
 };
 
 let removePresentationFromConference = (req, res) => {
-  console.log('Removing presentation from conference...', req.params);
   var presid = req.params.presid;
   models.Presentation.where({id: presid})
     .destroy()
     .then(results => {
+      console.log('presentation deleted');
       res.status(200).end();
     })
     .catch(err => {
-      console.log(err);
+      console.log('error deletingn presentation: ', err);
       res.status(400).send('Error removing presentation from conference');
     });
 };
@@ -447,7 +447,6 @@ let getAllPresentationsOfSpeaker = (req, res) => {
 };
 
 let editPresentation = (req, res) => {
-  console.log('req.body in editPresentation: ', req.body);
   //fetch current record and update presentation table with new updates
   models.Presentation.where({id: req.body.presentation.id}).fetch()
     .then(presentation => {
@@ -459,23 +458,26 @@ let editPresentation = (req, res) => {
       models.PresentationSpeaker.where({presentation_id: req.body.presentation.id})
         .destroy()
         .then(result => {
-          console.log('joins associated with', req.body.presentation.name, 'deleted');
+          console.log('All joins associated with', req.body.presentation.name, 'destroyed');
 
-        //create new records for new joins
-        for (var i = 0; i < req.body.speakerIds.length; i++) {
-          models.PresentationSpeaker.forge({speaker_id: req.body.speakerIds[i], presentation_id: req.body.presentation.id}).save()
-            .then(joins => {
-              console.log('1 join associated with', req.body.presentation.name, 'created')
-              console.log('presentation/speaker join table updated');
-            })
-            .catch(err => {
-              console.log('error updating presentation/speaker join table: ', err);
-              res.status(400).send('error updating presentation: ', err);
-            })
+          //create new records for new joins
+          for (let i = 0; i < req.body.speakerIds.length; i++) {
+            models.PresentationSpeaker.forge({speaker_id: req.body.speakerIds[i], presentation_id: req.body.presentation.id}).save()
+              .then(joins => {
+                console.log('1 join associated with', req.body.presentation.name, 'created')
+                if (i === req.body.speakerIds.length - 1) {
+                  console.log('presentation/speaker join table updated');
+                  res.status(201).send('presentation Updated');
+                }
+              })
+              .catch(err => {
+                console.log('error updating presentation/speaker join table: ', err);
+                res.status(400).send('error updating presentation: ', err);
+              })
           }
         })
         .tap(result => {
-          res.status(201).send('presentation Updated');
+
         })
         .catch(err => {
           console.log('error updating presentation/speaker join table: ', err);

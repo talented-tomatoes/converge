@@ -70,7 +70,7 @@ class AddPresentation extends Component {
       .then(response => {
         this.getPresentations();
         Toast.show({
-            text: `${presentation.name} removed from your schedule`,
+            text: `${presentation.name} deleted`,
             position: 'bottom',
             buttonText: 'X',
             type: 'warning',

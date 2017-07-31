@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, View, H3, Item as FormItem, ListItem, Thumbnail } from "native-base";
 import SpeakerList from '../../registerStack/SpeakerList.js';
 import { connect } from 'react-redux';
@@ -37,6 +37,8 @@ class SpeakerPicker extends Component {
     return (
       <Content>
         {
+
+
           this.props.admin.speakers.map((speaker, idx)=> {
             return (
               <ListItem key={idx} avatar onPress={this.handleSpeakerPress.bind(this, speaker)}>

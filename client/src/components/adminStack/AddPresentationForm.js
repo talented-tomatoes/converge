@@ -7,7 +7,7 @@ import {
   Image,
   Platform
 } from 'react-native';
-import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon, Title } from 'native-base';
+import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon, Title, Toast } from 'native-base';
 
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
@@ -57,11 +57,6 @@ class AddPresentationForm extends Component {
     }
   }
 
-  static navigationOptions = {
-    title: 'Add A Presentation',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
-  }
-
   componentDidMount() {
     // do the pre-load of values
     this.handleInitialize();
@@ -95,12 +90,29 @@ class AddPresentationForm extends Component {
     this.props.initialize(presentationValues);
   }
 
-  saveToDB(presentation) {
+  saveToDB(presentationAndSpeakerIds) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
       let url = this.state.editMode ? SERVER_URL + 'api/editPresentation/' : SERVER_URL + 'api/AddPresentation';
-      console.log('saving presentation: ', presentation);
-      axios.post(url, presentation)
+      console.log('saving presentation: ', presentationAndSpeakerIds);
+      axios.post(url, presentationAndSpeakerIds)
         .then(response => {
+          if (this.state.editMode) {
+            Toast.show({
+              text: `${presentationAndSpeakerIds.presentation.name} updated`,
+              position: 'bottom',
+              buttonText: 'X',
+              type: 'success',
+              duration: 2000
+           });
+          } else if (this.state.editMode) {
+            Toast.show({
+              text: `${presentationAndSpeakerIds.presentation.name} added`,
+              position: 'bottom',
+              buttonText: 'X',
+              type: 'success',
+              duration: 2000
+            });
+          }
           this.props.navigation.navigate('AddPresentation');
         })
         .catch(error => {
@@ -192,10 +204,20 @@ class AddPresentationForm extends Component {
 
           <Field name="location" validate={[required]} component={ renderInput } label="Location:"/>
           <Field name="description" validate={[required]} component={ renderInput } label="Description:" multiline={true} />
-          <Title>Choose your Speakers</Title>
+
+          {
+            (this.props.admin.speakers.length === 0) ? (
+                <Button iconLeft transparent style={{alignSelf: 'center'}} onPress={() => this.props.navigation.navigate('AddSpeakersForm')}>
+                  <Icon name="add" />
+                  <Text style={{fontWeight: 'bold'}}>Please Add A Speaker First</Text>
+                </Button>
+            ) : (
+              <Title>All Speakers</Title>
+            )
+          }
+
             <Content>
             <SpeakerPicker />
-            {/* {this.makeSelectedSpeakersList()} */}
             </Content>
         </Content>
         <Footer>

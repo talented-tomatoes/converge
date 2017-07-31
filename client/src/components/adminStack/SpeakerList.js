@@ -11,21 +11,20 @@ export default class AddSpeakersList extends Component {
   }
 
   render() {
-    console.log('RENDERING THE EDITSPEAKRLIST ', this.props);
     return (
       <Content>
         <List>
           {
             this.props.speakers.map((speaker, key) => {
               return (
-                <SpeakerListEntry 
+                <SpeakerListEntry
                   key={key}
                   speaker={speaker}
                   navigation={this.props.navigation}
                   />
               );
-            }) 
-          } 
+            })
+          }
         </List>
       </Content>
     );

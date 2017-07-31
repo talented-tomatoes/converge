@@ -11,7 +11,6 @@ import Auth from './components/Auth';
 import MyEvents from './components/attendeeStack/MyEvents';
 import MySchedule from './components/attendeeStack/MySchedule';
 import VenueMap from './components/attendeeStack/VenueMap';
-import Concierge from './components/attendeeStack/Concierge';
 import Sidebar from './components/attendeeStack/Sidebar';
 import Home from './components/attendeeStack/Home';
 import Speakers from './components/attendeeStack/Speakers';
@@ -48,7 +47,6 @@ const AttendeeStack = StackNavigator({
   Home: { screen: Home },
   MySchedule: { screen: MySchedule },
   VenueMap: { screen: VenueMap },
-  Concierge: { screen: Concierge},
   Speakers: { screen: Speakers },
   Checkin: { screen: Checkin },
   MasterSchedule: { screen: MasterSchedule},
@@ -65,7 +63,6 @@ const AttendeeStack = StackNavigator({
 
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
-  // CreateEvent: { screen: CreateEvent },
   AddPresentation: { screen: AddPresentation },
   AddPresentationForm: { screen: AddPresentationForm },
   AddSpeakers: { screen: AddSpeakers },
@@ -101,7 +98,6 @@ export default AppStack = StackNavigator({
   Auth: { screen: Auth},
   AttendeeStack: { screen: AttendeeStack },
   RegisterStack: { screen: RegisterStack },
-  // AdminStack: { screen: AdminStack },
 }, {
   headerMode: 'none'
 });
