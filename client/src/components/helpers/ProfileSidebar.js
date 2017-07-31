@@ -19,7 +19,6 @@ class ProfileSidebar extends React.Component {
   }
 
   render() {
-    console.log('inside profile ProfileSidebar', this.props);
     return (
       <Container style={{backgroundColor: 'white'}}>
         <Header style={{ backgroundColor: '#428bca'}}>

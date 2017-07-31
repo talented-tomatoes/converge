@@ -31,8 +31,7 @@ class EventsList extends Component {
             <TouchableOpacity
               key={key}
               onPress={() => {
-                { console.log('dispatching the clicked conference ', event); } 
-                // keeping track of entire event that we clicked on 
+                // keeping track of entire event that we clicked on
                 this.props.dispatch(setAdminSelectedConference(event));
                 this.props.navigation.navigate('AddPresentation');
                 this.setState({

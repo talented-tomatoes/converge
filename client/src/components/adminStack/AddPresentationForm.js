@@ -7,7 +7,7 @@ import {
   Image,
   Platform
 } from 'react-native';
-import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon } from 'native-base';
+import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon, Title, Toast } from 'native-base';
 
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
@@ -49,30 +49,12 @@ class AddPresentationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: '',
-      selectedTime: '',
+      editMode: this.props.navigation.state.params !== undefined ? true : false,
+      selectedDate: this.props.admin.selectedPresentation.date,
+      selectedTime: this.props.admin.selectedPresentation.time,
       selectedSpeakerID: 0,
       selectedSpeakers: this.props.admin.selectedPresentation.speakers || []
-
     }
-    const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    let getAllSpeakersByConferenceIdUrl = SERVER_URL + 'api/speakers/' + this.props.admin.selectedConference.id;
-    axios.get(getAllSpeakersByConferenceIdUrl)
-      .then( speakers => {
-        console.log('speakers: ', speakers.data);
-        this.setState({
-          speakers: speakers.data
-        })
-      })
-      .catch(err => {
-        console.log('Error getting speakers: ', err);
-      })
-    this.submit = this.submit.bind(this);
-  }
-
-  static navigationOptions = {
-    title: 'Add A Presentation',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('AddPresentation')}><Icon name="menu"/></Button>
   }
 
   componentDidMount() {
@@ -81,7 +63,6 @@ class AddPresentationForm extends Component {
 
     var allSpeakers = this.props.admin.speakers || [];
     var checkedSpeakers = {};
-    // convert this.props.admin.selectedPresentation = 
     if (this.props.admin.selectedPresentation.speakers !== undefined) {
       for (var i = 0; i < this.props.admin.selectedPresentation.speakers.length; i++) {
         var currentSpeaker = this.props.admin.selectedPresentation.speakers[i];
@@ -90,7 +71,7 @@ class AddPresentationForm extends Component {
             checkedSpeakers[j] = true;
           }
         }
-      } 
+      }
     }
     // this.props.dispatch(setPresentationSpeakers(checkedSpeakers));
 
@@ -109,13 +90,29 @@ class AddPresentationForm extends Component {
     this.props.initialize(presentationValues);
   }
 
-  saveToDB(presentation) {
+  saveToDB(presentationAndSpeakerIds) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-      let url = SERVER_URL + 'api/AddPresentation';
-      console.log('presentation: ', presentation);
-      axios.post(url, presentation)
+      let url = this.state.editMode ? SERVER_URL + 'api/editPresentation/' : SERVER_URL + 'api/AddPresentation';
+      console.log('saving presentation: ', presentationAndSpeakerIds);
+      axios.post(url, presentationAndSpeakerIds)
         .then(response => {
-          console.log('response : ', response);
+          if (this.state.editMode) {
+            Toast.show({
+              text: `${presentationAndSpeakerIds.presentation.name} updated`,
+              position: 'bottom',
+              buttonText: 'X',
+              type: 'success',
+              duration: 2000
+           });
+          } else if (this.state.editMode) {
+            Toast.show({
+              text: `${presentationAndSpeakerIds.presentation.name} added`,
+              position: 'bottom',
+              buttonText: 'X',
+              type: 'success',
+              duration: 2000
+            });
+          }
           this.props.navigation.navigate('AddPresentation');
         })
         .catch(error => {
@@ -130,11 +127,14 @@ class AddPresentationForm extends Component {
   }
 
   submit(presentation) {
+    presentation.id = this.props.admin.selectedPresentation.id;
     presentation.conference_id = this.props.admin.selectedConference.id;
     presentation.date = this.state.selectedDate;
     presentation.time = this.state.selectedTime;
+    let speakerIds = Object.keys(this.props.selectedSpeakers).map(id => Number(id));
     let data = {
       presentation: presentation,
+      speakerIds: speakerIds,
       speakers: this.props.selectedSpeakers
     }
     this.saveToDB(data);
@@ -180,7 +180,7 @@ class AddPresentationForm extends Component {
   }
 
   render() {
-    console.log('props in AddPresentationForm: ', this.props);
+    // console.log('props in AddPresentationForm: ', this.props);
     const { handleSubmit } = this.props;
     return (
       <Container>
@@ -189,33 +189,43 @@ class AddPresentationForm extends Component {
           leftNavigation="AddPresentation"
           leftIcon="arrow-back"
           title="Presentations"
-          rightIcon= "trash"
+          rightIcon={null}
         />
         <Content>
           <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:"/>
           <Item inlineLabel name="date" validate={[required]}>
             <Label>Date: </Label>
-            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.props.admin.selectedPresentation.date}/>
+            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.state.selectedDate}/>
           </Item>
           <Item inlineLabel>
             <Label>Time: </Label>
-            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.props.admin.selectedPresentation.time}/>
+            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.state.selectedTime}/>
           </Item>
 
           <Field name="location" validate={[required]} component={ renderInput } label="Location:"/>
           <Field name="description" validate={[required]} component={ renderInput } label="Description:" multiline={true} />
-          <ListItem onPress={() => this.props.navigation.navigate('SpeakerPicker')}> 
-            {!!this.props.admin.selectedSpeakers ? <Text>Tap to add speakers to this presentation</Text> : <Text> Tap here to change speakers </Text>}
-             </ListItem> 
+
+          {
+            (this.props.admin.speakers.length === 0) ? (
+                <Button iconLeft transparent style={{alignSelf: 'center'}} onPress={() => this.props.navigation.navigate('AddSpeakersForm')}>
+                  <Icon name="add" />
+                  <Text style={{fontWeight: 'bold'}}>Please Add A Speaker First</Text>
+                </Button>
+            ) : (
+              <Title>All Speakers</Title>
+            )
+          }
+
             <Content>
             <SpeakerPicker />
-            {/* {this.makeSelectedSpeakersList()} */}
             </Content>
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
             <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Presentation</Text>
+            {
+              this.state.editMode ? <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Presentation</Text> : <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Presentation</Text>
+            }
             </Button>
           </Content>
         </Footer>

@@ -60,7 +60,6 @@ class EditConferenceForm extends Component {
   }
 
   componentDidMount() {
-    //console.log('CONFERENCE EDIT FORM LOADED, PROPS ARE: ', this.props)
     this.handleInitialize();
   }
 
@@ -139,6 +138,12 @@ class EditConferenceForm extends Component {
     console.log('CONFERENCE INFO ', conference);
     axios.post(url, conference)
       .then(response => {
+        Toast.show({
+          text: conference.name + ' created',
+          position: 'bottom',
+          buttonText: 'X',
+          type: 'success'
+        });
         // console.log('response from the updated: ', response.data);
         axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
           .then(conference => {
@@ -209,7 +214,7 @@ class EditConferenceForm extends Component {
     .catch(err => {
     console.log('error deleting the conference ', err);
   })
-    
+
 }
 
   render() {
@@ -222,8 +227,8 @@ class EditConferenceForm extends Component {
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
-          rightAction={this.handleConferenceDelete} 
-        /> 
+          rightAction={this.handleConferenceDelete}
+        />
         <Content style={{padding: 10}}>
           <Card>
             <CardItem>
@@ -242,7 +247,7 @@ class EditConferenceForm extends Component {
             <TouchableOpacity onPress={() => this.uploadImage('banner')}>
               <CardItem cardBody>
                 {
-                  this.state.isLoading['banner'] ? 
+                  this.state.isLoading['banner'] ?
                       <View style={{height: 200, flex: 1}}>
                         <Left>
                           <Spinner color={this.randomColor}/>
@@ -278,7 +283,7 @@ class EditConferenceForm extends Component {
             </CardItem>
             <CardItem>
               <Content style={{height: 75}}>
-               <Field name="details" validate={[required]} component={ renderInput } multiline={true} />   
+               <Field name="details" validate={[required]} component={ renderInput } multiline={true} />
               </Content>
             </CardItem>
             <CardItem>
@@ -287,11 +292,11 @@ class EditConferenceForm extends Component {
             <TouchableOpacity onPress={() => this.uploadImage('venue_map')}>
               <CardItem>
                 {
-                  this.state.isLoading['venue_map'] ? 
+                  this.state.isLoading['venue_map'] ?
                   <Body>
                     <Left>
-                     <Spinner color={this.randomColor}/> 
-                    </Left>   
+                     <Spinner color={this.randomColor}/>
+                    </Left>
                   </Body>
                   : <Image source={{uri: this.state.venue_map}} style={{height: 285, flex: 1}}/>
                 }

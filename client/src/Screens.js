@@ -11,7 +11,6 @@ import Auth from './components/Auth';
 import MyEvents from './components/attendeeStack/MyEvents';
 import MySchedule from './components/attendeeStack/MySchedule';
 import VenueMap from './components/attendeeStack/VenueMap';
-import Concierge from './components/attendeeStack/Concierge';
 import Sidebar from './components/attendeeStack/Sidebar';
 import Home from './components/attendeeStack/Home';
 import Speakers from './components/attendeeStack/Speakers';
@@ -30,13 +29,10 @@ import PaymentForm from './components/registerStack/PaymentForm.js';
 
 //AdminStack
 import AdminLanding from './components/adminStack/AdminLanding';
-// removing this because we have this is the version not using redux-form
-// import CreateEvent from './components/adminStack/CreateEvent';
 import AddSpeakers from './components/adminStack/SpeakerLanding';
 import AddSpeakersForm from './components/adminStack/AddSpeakersForm';
 import AddPresentation from './components/adminStack/AddPresentation';
 import AddPresentationForm from './components/adminStack/AddPresentationForm';
-import EditConference from './components/adminStack/EditConference';
 import EditConferenceForm from './components/adminStack/EditConferenceForm';
 import EditAdminProfileForm from './components/adminStack/EditAdminProfileForm';
 import SpeakerPicker from './components/adminStack/helpers/SpeakerPicker.js';
@@ -48,7 +44,6 @@ const AttendeeStack = StackNavigator({
   Home: { screen: Home },
   MySchedule: { screen: MySchedule },
   VenueMap: { screen: VenueMap },
-  Concierge: { screen: Concierge},
   Speakers: { screen: Speakers },
   Checkin: { screen: Checkin },
   MasterSchedule: { screen: MasterSchedule},
@@ -65,12 +60,10 @@ const AttendeeStack = StackNavigator({
 
 const AdminStack = StackNavigator({
   AdminLanding: { screen: AdminLanding },
-  // CreateEvent: { screen: CreateEvent },
   AddPresentation: { screen: AddPresentation },
   AddPresentationForm: { screen: AddPresentationForm },
   AddSpeakers: { screen: AddSpeakers },
   AddSpeakersForm: { screen: AddSpeakersForm },
-  // EditConference: { screen: EditConference },
   EditConferenceForm: { screen: EditConferenceForm },
   EditAdminProfileForm: { screen: EditAdminProfileForm },
   SpeakerPicker: { screen: SpeakerPicker }
@@ -101,7 +94,6 @@ export default AppStack = StackNavigator({
   Auth: { screen: Auth},
   AttendeeStack: { screen: AttendeeStack },
   RegisterStack: { screen: RegisterStack },
-  // AdminStack: { screen: AdminStack },
 }, {
   headerMode: 'none'
 });

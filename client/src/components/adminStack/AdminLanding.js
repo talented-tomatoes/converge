@@ -29,12 +29,10 @@ class AdminLanding extends Component {
   }
 
   openDrawer() {
-    console.log('drawer open');
     this.drawer._root.open()
   };
 
   componentDidMount() {
-    console.log('adminlanding props', this.props);
     // setup URL for getting the user id
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     let url = SERVER_URL + 'api/getUserID/' + this.props.user.id;
@@ -45,7 +43,6 @@ class AdminLanding extends Component {
 
     axios.get(url)
       .then(response => {
-        console.log('response in createEvent: ', response);
 
         //add userID to store
         this.props.dispatch(decorateUserWithDBUserID(response.data.id));
@@ -56,7 +53,6 @@ class AdminLanding extends Component {
         let getConferencesURL = SERVER_URL + 'api/getConferencesByHostID/' + this.props.user.userID;
 
         axios.get(getConferencesURL).then(response => {
-          console.log('response: ', response.data);
           // put the response's info into the redux store
           this.props.dispatch(setInitialHostData(response.data));
           this.setState({
@@ -68,7 +64,6 @@ class AdminLanding extends Component {
       }).catch(err => {
         console.log('error getting host id ', err);
       });
-    console.log('bottom of the component did mount component ', this.props);
   }
 
   // ADMIN LANDING PAGE

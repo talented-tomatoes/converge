@@ -31,11 +31,17 @@ export default class AdminStackHeader extends Component {
         <Body>
           <Title style={{color: 'white'}} >{this.props.title}</Title>
         </Body>
-        <Right>
-          <Button transparent onPress={this.handleRightIconPress}>
-            <Icon style={{color: 'white'}} name={this.props.rightIcon || 'close'}/>
-        </Button>
-        </Right>
+        {
+          (this.props.rightIcon === null) ? (
+            <Right />
+          ) : (
+            <Right>
+              <Button transparent onPress={this.handleRightIconPress}>
+                <Icon style={{color: 'white'}} name={this.props.rightIcon || 'close'}/>
+            </Button>
+            </Right>
+          )
+        }
       </Header>
     );
   }

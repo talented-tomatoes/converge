@@ -5,6 +5,8 @@ import { StackNavigator } from 'react-navigation';
 import SpeakerListEntry from './SpeakerListEntry.js';
 import { Container, Header, Right, Content, Card, Title, CardItem, ListItem, Thumbnail, Text, Button, Icon, List, Left, Body } from 'native-base';
 import Config from '../../../../config/config.js';
+import randomColor from '../helpers/randomColor';
+
 
 export default class SpeakerList extends React.Component {
   constructor(props) {
@@ -12,6 +14,8 @@ export default class SpeakerList extends React.Component {
     this.state = {
       speakers : []
     }
+    this.randomColor = randomColor();
+
   }
 
   componentDidMount() {
@@ -29,13 +33,13 @@ export default class SpeakerList extends React.Component {
   }
   render() {
     const speakerListItems = this.state.speakers.map((speaker, i) =>
-      <SpeakerListEntry key={i} speaker={speaker} navigation={this.props.navigation} backPage={this.props.backPage}/>
+      <SpeakerListEntry key={i} speaker={speaker} navigation={this.props.navigation} backPage={this.props.backPage} randomColor={this.randomColor}/>
     );
 
     return (
-      <List>
+      <Content>
         {speakerListItems}
-      </List>
+      </Content>
     );
   }
 }
