@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail, Badge, Body, Left, Right, Card, CardItem } from 'native-base';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Field, reduxForm, initialize } from 'redux-form';
@@ -15,6 +15,7 @@ import { loadSpeakerValues as loadSpeakerValuesIntoForm } from '../reducers/redu
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import uploadImage from '../registerStack/helpers/uploadImage';
+import randomColor from '../helpers/randomColor';
 
 const required = (value) => {
   return value ? undefined  : <Text> Required </Text>
@@ -60,6 +61,7 @@ class AddSpeakersForm extends Component {
       avatar: this.props.admin.speakerValues.avatar_url || '',
       isLoading: false
     }
+    this.randomColor = randomColor();
   }
 
   componentDidMount() {
@@ -160,31 +162,48 @@ class AddSpeakersForm extends Component {
           title="Speakers"
           rightIcon={null}
         />
-        <Content>
-          <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
-          <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" />
-          <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" />
-          <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
-          <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle" />
-          <Item inlineLabel>
-            <Label>Profile Picture:</Label>
-              {this.state.isLoading
-                ? (<Spinner color='red'/>)
-                : (
-                  this.state.avatar ? (
-                    <TouchableOpacity onPress={() => this.upload('avatar_url')}>
-                      <Thumbnail source={{uri: this.state.avatar}} />
-                    </TouchableOpacity>
-                  ) : (
-                  <Button success small onPress={() => this.upload('avatar_url')}>
-                      <Text> Upload </Text>
-                      <Icon name="ios-cloud-upload-outline" />
-                    </Button>
-                  )
-                )
-              }
-          </Item>
-          <Field name="bio" validate={[required]} component={ renderInput } label="Speaker Bio:" multiline={true} />
+        <Content style={{padding: 10}}>
+          <Card>
+            <CardItem style={{paddingTop: 15}}>
+              <Body>
+                  {
+                    !this.state.isLoading ? (
+                      <Left>
+                        <TouchableOpacity light onPress={() => this.upload('avatar_url')}>
+                          <Thumbnail large source={{uri: this.state.avatar} ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.upload('avatar_url')} style={{position: 'absolute', left: 50, top: 50}}>
+                          <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
+                        </TouchableOpacity>
+                      </Left>
+                    ) : (
+                      <Left>
+                        <Spinner />
+                      </Left>
+                    )
+                  }
+              </Body>
+            </CardItem>
+          <CardItem>
+            <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
+          </CardItem>
+          <CardItem>
+            <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:" />
+          </CardItem>
+          <CardItem>
+            <Field name="job_title" validate={[required]} component={ renderInput } label="Job Title:" />
+          </CardItem>
+          <CardItem>
+            <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
+          </CardItem>
+          <CardItem>
+            <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" />
+          </CardItem>
+          <Text style={{paddingLeft: 17 }}>Speaker Bio:</Text>
+          <CardItem>
+            <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
+          </CardItem>
+          </Card>
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>

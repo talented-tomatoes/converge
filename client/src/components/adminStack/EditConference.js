@@ -57,11 +57,7 @@ class EditConference extends Component {
           </Card>
           <Card>
             <CardItem>
-              <Left>
-                <Body>
-                  <Title style={{fontWeight: 'bold'}}>Conference Details</Title>
-                </Body>
-              </Left>
+              <Text style={{fontWeight: 'bold'}}>Conference Details</Text>
             </CardItem>
             <Grid style={{ alignSelf: "center", flex: 0}}>
               <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
