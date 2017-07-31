@@ -84,9 +84,7 @@ saveToDB(user, userType) {
       linkedin_id: user.linkedIn,
       phone_number: user.phoneNumber,
     };
-    if (!userToSave.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
-      userToSave.linkedin_id = `https://www.linkedin.com/in/${profile.linkedin_id}`;
-    }
+
     this.saveToDB(userToSave , userType);
  }
 

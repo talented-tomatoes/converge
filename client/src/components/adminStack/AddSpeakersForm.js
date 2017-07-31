@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail, Badge, Body, Left, Right, Card, CardItem, Grid, Col } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, Spinner, Thumbnail, Badge, Body, Left, Right, Card, CardItem, Grid, Col, Toast } from 'native-base';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Field, reduxForm, initialize } from 'redux-form';
@@ -62,6 +62,7 @@ class AddSpeakersForm extends Component {
       isLoading: false
     }
     this.randomColor = randomColor();
+    this.handleSpeakerDelete = this.handleSpeakerDelete.bind(this);
   }
 
   componentDidMount() {
@@ -69,30 +70,47 @@ class AddSpeakersForm extends Component {
     this.props.initialize(this.props.initialValues);
   }
 
-  // handleInitialize() {
-  //   const linkedinid = this.props.admin.speakerValues.linkedin_id;
-  //   let linkedinHandle = '';
-  //   if (linkedinid) {
-  //     const str = 'https://www.linkedin.com/in';
-  //     const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
-  //     linkedinHandle = linkedinid.substring(startIndex);
-  //   }
-  //   const speakerValues = {
-  //     first_name: this.props.admin.speakerValues.first_name,
-  //     last_name: this.props.admin.speakerValues.last_name,
-  //     job_title: this.props.admin.speakerValues.job_title,
-  //     email: this.props.admin.speakerValues.email,
-  //     avatar_url: this.props.admin.speakerValues.avatar_url,
-  //     bio: this.props.admin.speakerValues.bio,
-  //     id: this.props.admin.speakerValues.id
-  //   };
-  //   if (linkedinid) {
-  //     speakerValues.linkedin_id = linkedinHandle;
-  //   } else {
-  //     speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
-  //   }
-  //   this.props.initialize(speakerValues);
-  // }
+// <<<<<<< HEAD
+//   // handleInitialize() {
+//   //   const linkedinid = this.props.admin.speakerValues.linkedin_id;
+//   //   let linkedinHandle = '';
+//   //   if (linkedinid) {
+//   //     const str = 'https://www.linkedin.com/in';
+//   //     const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
+//   //     linkedinHandle = linkedinid.substring(startIndex);
+//   //   }
+//   //   const speakerValues = {
+//   //     first_name: this.props.admin.speakerValues.first_name,
+//   //     last_name: this.props.admin.speakerValues.last_name,
+//   //     job_title: this.props.admin.speakerValues.job_title,
+//   //     email: this.props.admin.speakerValues.email,
+//   //     avatar_url: this.props.admin.speakerValues.avatar_url,
+//   //     bio: this.props.admin.speakerValues.bio,
+//   //     id: this.props.admin.speakerValues.id
+//   //   };
+//   //   if (linkedinid) {
+//   //     speakerValues.linkedin_id = linkedinHandle;
+//   //   } else {
+//   //     speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
+//   //   }
+//   //   this.props.initialize(speakerValues);
+//   // }
+// =======
+//   handleInitialize() {
+//     const linkedinid = this.props.admin.speakerValues.linkedin_id;
+//     const speakerValues = {
+//       first_name: this.props.admin.speakerValues.first_name,
+//       last_name: this.props.admin.speakerValues.last_name,
+//       job_title: this.props.admin.speakerValues.job_title,
+//       email: this.props.admin.speakerValues.email,
+//       avatar_url: this.props.admin.speakerValues.avatar_url,
+//       linkedin_id: this.props.admin.speakerValues.linkedin_id,
+//       bio: this.props.admin.speakerValues.bio,
+//       id: this.props.admin.speakerValues.id
+//     };
+//     this.props.initialize(speakerValues);
+//   }
+// >>>>>>> e76c439bb4c04f83059144ba91af8133f0013ac3
 
   upload(imageType) {
      let options = {
@@ -144,10 +162,26 @@ class AddSpeakersForm extends Component {
     console.log('speaker: ', speaker);
     speaker.conference_id = this.props.admin.selectedConference.id;
     speaker.avatar_url = this.state.avatar;
-    if (!speaker.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
-      speaker.linkedin_id = `https://www.linkedin.com/in/${speaker.linkedin_id}`;
-    }
     this.saveToDB(speaker);
+  }
+
+  handleSpeakerDelete() {
+    let currentSpeaker = this.props.admin.speakerValues;
+    axios.delete(`${Config.server.url}api/deleteSpeaker/${currentSpeaker.id}`)
+      .then(response => {
+        console.log('RESPONSE FROM SERVER ON DELETE SPEAKER ', response);
+        this.props.navigation.navigate('AddSpeakers', {speakerDeleted: true});
+      })
+      .catch(err => {
+        console.log('error deleting the conference ', err);
+        Toast.show({
+          text: `Error deleting ${currentSpeaker.first_name} ${currentSpeaker.last_name} right now...`,
+          position: 'bottom',
+          buttonText: 'X',
+          type: 'warning',
+          duration: 2000
+        });
+    })
   }
 
   render() {
@@ -160,7 +194,8 @@ class AddSpeakersForm extends Component {
           leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
-          rightIcon={null}
+          rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
+          rightAction={this.handleSpeakerDelete}
         />
         <Content style={{padding: 10}}>
           <Card>
@@ -215,10 +250,8 @@ class AddSpeakersForm extends Component {
         </Content>
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
-            <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
-            {
-              this.state.editMode ? <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Speaker</Text> : <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Speaker</Text>
-            }
+            <Button style={{flex: 1, alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this))}>
+              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.speakerValues.id ? 'Save Changes' : 'Add Speaker'}</Text>
             </Button>
           </Content>
         </Footer>

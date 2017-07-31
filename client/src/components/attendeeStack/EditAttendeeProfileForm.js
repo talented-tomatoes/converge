@@ -277,5 +277,3 @@ EditAttendeeProfileForm = connect(
   }))(EditAttendeeProfileForm)
 
 export default EditAttendeeProfileForm;
-
-

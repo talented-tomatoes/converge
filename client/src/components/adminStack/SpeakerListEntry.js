@@ -34,12 +34,7 @@ class SpeakersListEntry extends Component {
               </TouchableOpacity>
             </Body>
           </CardItem>
-          <Grid style={{ alignSelf: "center", flex: 0}}>
-            <Col style={{ backgroundColor: this.props.randomColor, height: 5, flex: 1}}></Col>
-          </Grid>
       </Card>
-
-
     );
   }
 

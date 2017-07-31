@@ -475,13 +475,40 @@ let deleteSpeakerFromPresentation = (req, res) => {
   models.PresentationSpeaker.where({speaker_id: req.params.speakerid, presentation_id: req.params.presentationid})
   .destroy()
   .then(results => {
-    res.status(200).end();
+    res.status(204).end();
   })
   .catch(err => {
     console.log('error deleting speaker from presentation: ', err);
     res.status(400).send('error deleting speaker from presentation');
   })
 }
+
+let deleteConferenceFromHost = (req, res) => {
+  console.log('Deleting Conference from Host, id:', req.params.conferenceID);
+
+  models.Conference.where({id: req.params.conferenceID})
+  .destroy()
+  .then(results => {
+    res.status(204).end();
+  })
+  .catch(err => {
+    console.log('error deleting conference from host ', err);
+    res.status(400).send('error deleting conference from host');
+  });
+};
+
+let deleteSpeaker = (req, res) => {
+  console.log('Deleting Speaker ', req.params.speakerID);
+  models.Speaker.where({id: req.params.speakerID})
+  .destroy()
+  .then(results => {
+    res.status(204).end();
+  })
+  .catch(err => {
+    console.log('error deleteing speaker ', err);
+    res.status(400).send('error deleting speaker');
+  });
+};
 
 module.exports = {
   getAllUsers: getAllUsers,
@@ -511,5 +538,7 @@ module.exports = {
   removePresentationFromConference: removePresentationFromConference,
   getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker,
   editPresentation: editPresentation,
-  deleteSpeakerFromPresentation: deleteSpeakerFromPresentation
+  deleteSpeakerFromPresentation: deleteSpeakerFromPresentation,
+  deleteConferenceFromHost: deleteConferenceFromHost,
+  deleteSpeaker: deleteSpeaker
 };

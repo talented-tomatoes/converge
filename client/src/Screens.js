@@ -67,7 +67,7 @@ const AdminStack = StackNavigator({
   AddPresentationForm: { screen: AddPresentationForm },
   AddSpeakers: { screen: AddSpeakers },
   AddSpeakersForm: { screen: AddSpeakersForm },
-  EditConference: { screen: EditConference },
+  // EditConference: { screen: EditConference },
   EditConferenceForm: { screen: EditConferenceForm },
   EditAdminProfileForm: { screen: EditAdminProfileForm },
   SpeakerPicker: { screen: SpeakerPicker }
