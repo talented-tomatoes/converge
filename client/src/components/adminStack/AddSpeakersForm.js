@@ -63,12 +63,6 @@ class AddSpeakersForm extends Component {
 
   handleInitialize() {
     const linkedinid = this.props.admin.speakerValues.linkedin_id;
-    // let linkedinHandle = '';
-    // if (linkedinid) {
-    //   const str = 'https://www.linkedin.com/in';
-    //   const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
-    //   linkedinHandle = linkedinid.substring(startIndex);
-    // }
     const speakerValues = {
       first_name: this.props.admin.speakerValues.first_name,
       last_name: this.props.admin.speakerValues.last_name,
@@ -79,11 +73,6 @@ class AddSpeakersForm extends Component {
       bio: this.props.admin.speakerValues.bio,
       id: this.props.admin.speakerValues.id
     };
-    // if (linkedinid) {
-    //   speakerValues.linkedin_id = linkedinHandle;
-    // } else {
-    //   speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
-    // }
     this.props.initialize(speakerValues);
   }
 
@@ -136,9 +125,6 @@ class AddSpeakersForm extends Component {
   submit(speaker) {
     speaker.conference_id = this.props.admin.selectedConference.id;
     speaker.avatar_url = this.state.avatar;
-    // if (!speaker.linkedin_id.startsWith('https://www.linkedin.com/in/')) {
-    //   speaker.linkedin_id = `https://www.linkedin.com/in/${speaker.linkedin_id}`;
-    // }
     this.saveToDB(speaker);
   }
 
