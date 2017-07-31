@@ -15,8 +15,7 @@ const months = {
 
 module.exports = (date) => {
   date = date.split('-');
-
-  return months[Number(date[1])] + ' ' + date[2];
+  return months[Number(date[1])] + ' ' + Number(date[2]);
 }
 
 // console.log(months[Number(01)]);

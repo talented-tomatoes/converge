@@ -49,11 +49,6 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 }
 
 class AddSpeakersForm extends Component {
-
-  static navigationOptions = {
-    title: 'Add A Speaker',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('AddSpeakers')}><Icon name="menu"/></Button>
-  }
   constructor(props) {
     super(props);
     this.state = {
@@ -151,6 +146,13 @@ class AddSpeakersForm extends Component {
       .then(response => {
         console.log('response : ', response);
         // go back to the the EditSpeaker's landing page on success
+        Toast.show({
+          text: speaker.first_name + ' ' + speaker.last_name + ' added',
+          position: 'bottom',
+          buttonText: 'X',
+          type: 'success',
+          duration: 2000
+        });
         this.props.navigation.navigate('AddSpeakers');
       })
       .catch(error => {
@@ -194,10 +196,19 @@ class AddSpeakersForm extends Component {
           leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
-          rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
-          rightAction={this.handleSpeakerDelete}
+          rightIcon={this.state.editMode ? "trash" : null}
+          rightAction={() => {
+            Toast.show({
+              text: this.props.admin.speakerValues.first_name + ' ' + this.props.admin.speakerValues.last_name + ' deleted',
+              position: 'bottom',
+              buttonText: 'X',
+              type: 'warning',
+              duration: 2000
+            });
+            this.handleSpeakerDelete();
+          }}
         />
-        <Content style={{padding: 10}}>
+        <Content style={{paddingLeft: 10, paddingRight: 10, paddingBottom: 30}}>
           <Card>
             <CardItem style={{paddingTop: 15}}>
               <Body>
@@ -205,7 +216,7 @@ class AddSpeakersForm extends Component {
                   !this.state.isLoading ? (
                     <Left>
                       <TouchableOpacity light onPress={() => this.upload('avatar_url')}>
-                        <Thumbnail large source={{uri: this.state.avatar} ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
+                        <Thumbnail large source={this.state.avatar ? {uri: this.state.avatar} : require('../../../../assets/AvatarPlaceHolder.png')} />
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => this.upload('avatar_url')} style={{position: 'absolute', left: 50, top: 50}}>
                         <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
@@ -219,9 +230,6 @@ class AddSpeakersForm extends Component {
                 }
               </Body>
             </CardItem>
-            <Grid style={{ alignSelf: "center", flex: 0}}>
-              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
-            </Grid>
             <CardItem>
               <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:" />
             </CardItem>
@@ -237,12 +245,14 @@ class AddSpeakersForm extends Component {
             <CardItem>
               <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linked Handle:" />
             </CardItem>
-          </Card>
-          <Card>
-            <Text style={{paddingLeft: 17, paddingTop: 10, paddingBottom: 10, fontWeight: 'bold'}}>Speaker Bio</Text>
             <Grid style={{ alignSelf: "center", flex: 0}}>
               <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
             </Grid>
+          </Card>
+          <Card>
+            <CardItem>
+            <Text style={{fontWeight: 'bold'}}>Speaker Bio</Text>
+            </CardItem>
             <CardItem>
               <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
             </CardItem>

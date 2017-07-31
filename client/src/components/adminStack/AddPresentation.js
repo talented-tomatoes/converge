@@ -80,7 +80,6 @@ class AddPresentation extends Component {
   }
 
   render() {
-   console.log('AddPresentation props', this.props);
     var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
     return (
       <Container>
