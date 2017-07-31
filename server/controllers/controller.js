@@ -448,34 +448,47 @@ let getAllPresentationsOfSpeaker = (req, res) => {
 
 let editPresentation = (req, res) => {
   console.log('req.body in editPresentation: ', req.body);
+  //fetch current record and update presentation table with new updates
   models.Presentation.where({id: req.body.presentation.id}).fetch()
     .then(presentation => {
       presentation.save(req.body.presentation, {method: 'update'});
       console.log('presentation updated');
-    })
-    .catch(err => {
-      console.log('error updating presentation: ', err);
-    });
 
-    models.PresentationSpeaker.where({presentation_id: req.body.presentation.id})
-      .destroy()
-      .then(result => {
-        console.log('joins associated with', req.body.presentation.name, 'deleted');
-      })
-      .catch(err => {
-        console.log('error updating presentation/speaker join table: ', err);
-      });
+      //to update speaker/presentations joins, first delete current joins, then add new joins
+      //fetch all joins between current presentation and speakers and delete from database
+      models.PresentationSpeaker.where({presentation_id: req.body.presentation.id})
+        .destroy()
+        .then(result => {
+          console.log('joins associated with', req.body.presentation.name, 'deleted');
 
-    for (var i = 0; i < req.body.speakerIds.length; i++) {
-      models.PresentationSpeaker.forge({speaker_id: req.body.speakerIds[i], presentation_id: req.body.presentation.id}).save()
-        .then(joins => {
-          console.log('1 join associated with', req.body.presentation.name, 'created')
-          console.log('presentation/speaker join table updated');
+        //create new records for new joins
+        for (var i = 0; i < req.body.speakerIds.length; i++) {
+          models.PresentationSpeaker.forge({speaker_id: req.body.speakerIds[i], presentation_id: req.body.presentation.id}).save()
+            .then(joins => {
+              console.log('1 join associated with', req.body.presentation.name, 'created')
+              console.log('presentation/speaker join table updated');
+            })
+            .catch(err => {
+              console.log('error updating presentation/speaker join table: ', err);
+              res.status(400).send('error updating presentation: ', err);
+            })
+          }
+        })
+        .tap(result => {
+          res.status(201).send('presentation Updated');
         })
         .catch(err => {
           console.log('error updating presentation/speaker join table: ', err);
-        })
-      }
+          res.status(400).send('error updating presentation: ', err);
+        });
+    })
+    .catch(err => {
+      console.log('error updating presentation: ', err);
+      res.status(400).send('error updating presentation: ', err);
+    });
+
+
+
     // res.status(201).send('presentation Updated');
 
 
