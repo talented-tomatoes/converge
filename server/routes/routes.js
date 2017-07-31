@@ -25,7 +25,10 @@ router.route('/speakers/:confid')
 router.route('/speakers/presentation/:presentationid')
   .get(controller.getAllSpeakersOfPresentation);
 
-// modify speakers from a conference
+router.route('/addSpeaker')
+  .post(controller.addSpeaker);
+
+  // modify speakers from a conference
 router.route('/editSpeaker')
   .post(controller.updateSpeakerOfConf);
 
@@ -49,11 +52,12 @@ router.route('/addConference')
 router.route('/editConference')
   .post(controller.editConference);
 
+router.route('/deleteConference/:conferenceID')
+  .delete(controller.deleteConferenceFromHost);
+
 router.route('/getConferencesByHostID/:hostID')
   .get(controller.getConferencesByHostID);
 
-router.route('/addSpeaker')
-  .post(controller.addSpeaker);
 
 
 

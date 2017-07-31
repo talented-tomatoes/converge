@@ -494,7 +494,7 @@ let deleteSpeakerFromPresentation = (req, res) => {
   models.PresentationSpeaker.where({speaker_id: req.params.speakerid, presentation_id: req.params.presentationid})
   .destroy()
   .then(results => {
-    res.status(200).end();
+    res.status(204).end();
   })
   .catch(err => {
     console.log('error deleting speaker from presentation: ', err);
@@ -502,7 +502,19 @@ let deleteSpeakerFromPresentation = (req, res) => {
   })
 }
 
-let addSpeakerToPresen
+let deleteConferenceFromHost = (req, res) => {
+  console.log('Deleting Conference from Host ', req.params);
+  
+  models.Conference.where({id: req.params.conferenceID})
+  .destroy()
+  .then(results => {
+    res.status(204).end();
+  })
+  .catch(err => {
+    console.log('error deleting conference from host ', err);
+    res.status(400).send('error deleting conference from host');
+  });
+};
 
 
 module.exports = {
@@ -533,5 +545,6 @@ module.exports = {
   removePresentationFromConference: removePresentationFromConference,
   getAllPresentationsOfSpeaker: getAllPresentationsOfSpeaker,
   editPresentation: editPresentation,
-  deleteSpeakerFromPresentation: deleteSpeakerFromPresentation
+  deleteSpeakerFromPresentation: deleteSpeakerFromPresentation,
+  deleteConferenceFromHost: deleteConferenceFromHost
 };
