@@ -18,11 +18,17 @@ export default class AdminStackHeader extends Component {
         <Body>
           <Title style={{color: 'white'}} >{this.props.title}</Title>
         </Body>
-        <Right>
-          <Button transparent onPress={() => this.props.navigation.navigate(this.props.rightNavigation || this.props.navigation.navigate(this.props.leftNavigation))}>
-            <Icon style={{color: 'white'}} name={this.props.rightIcon || 'close'}/>
-        </Button>
-        </Right>
+        {
+          (this.props.rightIcon === null) ? (
+            <Right />
+          ) : (
+            <Right>
+              <Button transparent onPress={() => this.props.navigation.navigate(this.props.rightNavigation || this.props.navigation.navigate(this.props.leftNavigation))}>
+                <Icon style={{color: 'white'}} name={this.props.rightIcon || 'close'}/>
+              </Button>
+            </Right>
+          )
+        }
       </Header>
     );
   }

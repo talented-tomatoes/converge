@@ -19,7 +19,6 @@ const userReducer = (state = { user: null }, action) => {
 const adminReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_EVENTS':
-      console.log('getting events');
       return {...state, ...{data: action.data}};
     case 'SET_CURRENT_CONF_ID':
       return {...state, ...{currentConfID: action.currentConfID}};
@@ -44,7 +43,6 @@ const attendeeReducer = (state = {conference: null}, action) => {
   // console.log('attendee Reducer Called')
   switch (action.type) {
     case 'SET_SELECTED_CONFERENCE':
-      console.log('SETTING CONFERENCE ==>', {...action.conference})
       return {...action.conference}
     default:
       return state;

@@ -11,9 +11,7 @@ import convertDateToEnglish from './helpers/convertDateToEnglish';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import { setAdminSelectedPresentation, setSpeakersOfConference, setPresentations, setPresentationSpeakers } from '../actions/actions.js';
-
-
-
+import convertArrayToObject from './helpers/convertArrayToObject';
 
 class AddPresentation extends Component {
   constructor(props) {
@@ -30,18 +28,16 @@ class AddPresentation extends Component {
    this.getSpeakersOfConf();
    this.props.dispatch(setAdminSelectedPresentation({}));
    this.props.dispatch(setPresentationSpeakers({}));
-
   }
 
   getSpeakersOfConf() {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
     axios.get(SERVER_URL + `api/speakers/${this.props.admin.selectedConference.id}`)
     .then(response => {
-      console.log('SPEAKERS', response);
       this.props.dispatch(setSpeakersOfConference(response.data));
     })
     .catch(error => {
-      console.log(error);
+      console.log('error getting speakers: ', error);
     });
   }
 
@@ -51,25 +47,22 @@ class AddPresentation extends Component {
     axios.get(getAllPresentationsWithConferenceIdUrl)
       .then(presentations => {
         this.props.dispatch(setPresentations(presentations.data));
+        this.setState({
+          presentations: presentations.data
+        })
       })
       .catch(err => {
         console.log('error fetching presentations: ', err);
       });
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Schedule',
-      headerRight: <Button transparent onPress={() => navigation.navigate('AddPresentationForm')}><Icon name="add"/></Button>,
-      headerLeft: <Button transparent onPress={() => navigation.navigate('AdminLanding')}><Icon name="arrow-back"/></Button>
-    }
-  };
-
   handleItemPress(presentation) {
     // used for editing the presentation details
-    console.log('PRESENTATION DETAILS', presentation)
+    console.log('presentation clicked: ', presentation.name);
+
+    this.props.dispatch(setPresentationSpeakers(convertArrayToObject(presentation.speakers, 'id')))
     this.props.dispatch(setAdminSelectedPresentation(presentation));
-    this.props.navigation.navigate('AddPresentationForm');
+    this.props.navigation.navigate('AddPresentationForm', {editMode: true});
   }
 
   handleDeletePress(presentation) {
@@ -87,9 +80,7 @@ class AddPresentation extends Component {
   }
 
   render() {
-    console.log('in AddPresentation');
-    console.log('AddPresentation props', this.props);
-    console.log('this.state.presentations: ', this.state.presentations);
+   console.log('AddPresentation props', this.props);
     var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
     return (
       <Container>
@@ -110,8 +101,6 @@ class AddPresentation extends Component {
                   <Content>
                     {
                       this.state.presentations.filter(presentation => {
-                        {/* console.log('convertDateToEnglish(presentation.date): ', convertDateToEnglish(presentation.date)) */}
-                        {/* console.log('date: ', date); */}
                         return convertDateToEnglish(presentation.date) === date;
                       }).map((presentation, i) => {
                         return (

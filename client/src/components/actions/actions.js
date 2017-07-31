@@ -6,7 +6,6 @@ export function setUser(user) {
 }
 
 export function decorateUserWithAvatar(url) {
-  console.log('decorateUserWithAvatar fired')
   return {
     type: 'SET_USER_AVATAR_URL',
     avatarUrl: url
@@ -72,7 +71,6 @@ export function setSpeakersOfConference(speakers) {
 }
 
 export function setPresentationSpeakers(presentationSpeakers) {
-  console.log('presentationSpeakers: ', presentationSpeakers)
   return {
     type: 'SET_PRESENTATION_SPEAKERS',
     selectedPresentationSpeakers: presentationSpeakers

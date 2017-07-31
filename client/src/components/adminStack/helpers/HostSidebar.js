@@ -29,7 +29,6 @@ class HostSidebar extends React.Component {
     let url = SERVER_URL + 'api/users/' + this.props.user.id;
     axios.get(url)
       .then(user => {
-        console.log('user: ', user);
         this.setState({
           dbUser: user.data
         })
@@ -40,7 +39,6 @@ class HostSidebar extends React.Component {
   }
 
   render() {
-    console.log('host sidebar props: ', this.props);
     return (
       <Container style={{backgroundColor: 'white'}}>
         <Header style={{ backgroundColor: '#428bca'}}>
