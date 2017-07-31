@@ -39,7 +39,7 @@ class AdminLanding extends Component {
 
     // set the select conference to empty object on landing on this page
     // used to allow the form to become an ADD form instead of EDIT
-    // this.props.dispatch(setAdminSelectedConference({}));
+    this.props.dispatch(setAdminSelectedConference({}));
 
     axios.get(url)
       .then(response => {
