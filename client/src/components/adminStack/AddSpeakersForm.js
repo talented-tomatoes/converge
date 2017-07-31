@@ -49,11 +49,6 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 }
 
 class AddSpeakersForm extends Component {
-
-  static navigationOptions = {
-    title: 'Add A Speaker',
-    headerLeft: <Button transparent onPress={() => navigation.navigate('AddSpeakers')}><Icon name="menu"/></Button>
-  }
   constructor(props) {
     super(props);
     this.state = {
@@ -151,6 +146,13 @@ class AddSpeakersForm extends Component {
       .then(response => {
         console.log('response : ', response);
         // go back to the the EditSpeaker's landing page on success
+        Toast.show({
+          text: speaker.first_name + ' ' + speaker.last_name + ' added',
+          position: 'bottom',
+          buttonText: 'X',
+          type: 'success',
+          duration: 2000
+        });
         this.props.navigation.navigate('AddSpeakers');
       })
       .catch(error => {
@@ -194,10 +196,19 @@ class AddSpeakersForm extends Component {
           leftNavigation="AddSpeakers"
           leftIcon="arrow-back"
           title="Speakers"
-          rightIcon={!!this.props.admin.speakerValues.id ? "trash": ""}
-          rightAction={this.handleSpeakerDelete}
+          rightIcon={this.state.editMode ? "trash" : null}
+          rightAction={() => {
+            Toast.show({
+              text: this.props.admin.speakerValues.first_name + ' ' + this.props.admin.speakerValues.last_name + ' deleted',
+              position: 'bottom',
+              buttonText: 'X',
+              type: 'warning',
+              duration: 2000
+            });
+            this.handleSpeakerDelete();
+          }}
         />
-        <Content style={{padding: 10}}>
+        <Content style={{paddingLeft: 10, paddingRight: 10, paddingBottom: 30}}>
           <Card>
             <CardItem style={{paddingTop: 15}}>
               <Body>
@@ -239,7 +250,9 @@ class AddSpeakersForm extends Component {
             </Grid>
           </Card>
           <Card>
-            <Text style={{paddingLeft: 17, paddingTop: 10, paddingBottom: 10, fontWeight: 'bold'}}>Speaker Bio</Text>
+            <CardItem>
+            <Text style={{fontWeight: 'bold'}}>Speaker Bio</Text>
+            </CardItem>
             <CardItem>
               <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
             </CardItem>

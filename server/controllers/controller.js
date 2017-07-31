@@ -502,6 +502,7 @@ let deleteSpeaker = (req, res) => {
   models.Speaker.where({id: req.params.speakerID})
   .destroy()
   .then(results => {
+    console.log('1 speaker deleted');
     res.status(204).end();
   })
   .catch(err => {

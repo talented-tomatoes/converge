@@ -56,6 +56,9 @@ const AttendeeStack = StackNavigator({
       duration: 0
     }
   }),
+  navigationOptions: {
+    gesturesEnabled: false
+  },
 });
 
 const AdminStack = StackNavigator({
@@ -74,6 +77,9 @@ const AdminStack = StackNavigator({
       duration: 0
     }
   }),
+  navigationOptions: {
+    gesturesEnabled: false
+  },
 });
 
 const RegisterStack = StackNavigator({
@@ -87,6 +93,9 @@ const RegisterStack = StackNavigator({
   PaymentForm: { screen: PaymentForm }
 }, {
   headerMode: 'none',
+  navigationOptions: {
+    gesturesEnabled: false
+  },
 });
 
 export default AppStack = StackNavigator({
@@ -95,7 +104,10 @@ export default AppStack = StackNavigator({
   AttendeeStack: { screen: AttendeeStack },
   RegisterStack: { screen: RegisterStack },
 }, {
-  headerMode: 'none'
+  headerMode: 'none',
+  navigationOptions: {
+    gesturesEnabled: false
+  }
 });
 
 
