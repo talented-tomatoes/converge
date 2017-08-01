@@ -102,11 +102,14 @@ class Auth extends Component {
   render() {
       return (
         <Image source={require('../../../assets/splashPage.png')} style={styles.background} resizeMode="contain">
-        <Header style={{backgroundColor: 'rgba(0,0,0,0)'}}/>
-        <Content />
-        <Footer style={{backgroundColor: 'rgba(0,0,0,0)'}}>
+        <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignSelf: 'center',
+      }}>
           <GoogleSigninButton style={{width: 212, height: 48}} size={GoogleSigninButton.Size.Standard} color={GoogleSigninButton.Color.Auto} onPress={this._signIn.bind(this)}/>
-        </Footer>
+        </View>
         </Image>
       );
   }
