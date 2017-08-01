@@ -88,13 +88,13 @@ exports.seed = function(knex, Promise) {
           last_name: 'Whittle',
           job_title: 'Developer Advocate (Uber)',
           avatar_url: 'https://apiworld.co/wp-content/uploads/2016/04/06d1510.jpg',
-          bio: `At the moment I specialize in developing scalable web platforms and developer advocacy. I enjoy contributing to making the web better.`
+          bio: `At the moment I specialize in developing scalable web platforms and developer advocacy. I enjoy contributing to making the web better.`,
           email: 'dwhittle@example.com',
           linkedin_id: 'dustinwhittle',
           conference_id: 3
         },
         {
-          first_name: 'Chris'
+          first_name: 'Chris',
           last_name: 'Matthieu',
           job_title: 'Director, IoT Engineering (Citrix Octoblu)',
           avatar_url: 'https://apiworld.co/wp-content/uploads/2016/04/AAEAAQAAAAAAAAlfAAAAJDg5ZWZkZmJjLTgxM2UtNDY4YS04MDc4LTA4Nzc0OGI2NjFhOQ.jpg',
@@ -126,7 +126,7 @@ exports.seed = function(knex, Promise) {
         {
           first_name: 'Erik',
           last_name: 'Wilde',
-          job_title: 'Unavailable'
+          job_title: 'Unavailable',
           avatar_url: 'Unavailable',
           bio: 'Unavailable',
           email: 'Unavailable',
@@ -134,9 +134,9 @@ exports.seed = function(knex, Promise) {
           conference_id: 3
         },
         {
-          first_name: 'Christopher'
-          last_name: 'Dow'
-          job_title: 'Vice President, Software, August home, Inc.'
+          first_name: 'Christopher',
+          last_name: 'Dow',
+          job_title: 'Vice President, Software, August home, Inc.',
           avatar_url: 'https://static.sched.com/a4/1674479/avatar.jpg.320x320px.jpg?4d7',
           bio: `Christopher Dow runs the software organization for August, where he is responsible for front-end, back-end, mobile, and firmware development. 
 
@@ -151,7 +151,7 @@ exports.seed = function(knex, Promise) {
           job_title: 'Engineering Manager, Languages, Heroku',
           avatar_url: 'https://static.sched.com/a12/4195255/avatar.jpg.320x320px.jpg?816',
           bio: `Full-stack JavaScript, C#, Unity, VR, Node.js engineer who loves occasionally escaping the keyboard. I manage the Languages team at Heroku and believe that programming should be playful.`,
-          email: 'hloft@example.com'
+          email: 'hloft@example.com',
           linkedin_id: 'hunterloftus',
           conference_id: 3
         },
@@ -161,7 +161,7 @@ exports.seed = function(knex, Promise) {
           job_title: 'Principal Artchitect (Cloud Native Apps, Red Hat)',
           avatar_url: `https://static.sched.com/a12/3419237/avatar.jpg.320x320px.jpg?5f3`,
           bio: `Christian Posta (@christianposta) is a Principal Middleware Specialist/Architect at Red Hat and well known for being an author (Microservices for Java Developers, O’Reilly 2016), frequent blogger, speaker, open-source enthusiast and committer on Apache ActiveMQ, Apache Camel, Fabric8 and others. Christian has spent time at web-scale companies and now helps companies creating and deploying large-scale distributed architectures - many of what are now called Microservices based. He enjoys mentoring, training and leading teams to be successful with distributed systems concepts, microservices, devops, and cloud-native application design.`,
-          email: 'christianposta@example.com'
+          email: 'christianposta@example.com',
           linkedin_id: 'ceposta',
           conference_id: 3
         },
@@ -200,7 +200,7 @@ exports.seed = function(knex, Promise) {
           last_name: 'Grenié',
           job_title: 'API Evangelist, RedHat',
           avatar_url: `https://static.sched.com/a12/3930461/avatar.jpg.320x320px.jpg?2fe`,
-          bio: 'TBA'
+          bio: 'TBA',
           email: 'ngrenie@example.com',
           linkedin_id: 'ngrenie',
           conference_id: 3
@@ -240,7 +240,7 @@ exports.seed = function(knex, Promise) {
           last_name: 'Sahter',
           job_title: 'Principal Software Architct, eBay Inc',
           avatar_url: `https://static.sched.com/a12/3930417/avatar.jpg.320x320px.jpg?cc4`,
-          bio: `eCommerce | Identity | Risk management for eCommerce | Services Oriented Architecture`
+          bio: `eCommerce | Identity | Risk management for eCommerce | Services Oriented Architecture`,
           email: 'ssahter@example.com',
           linkedin_id: 'ssahter',
           conference_id: 3
