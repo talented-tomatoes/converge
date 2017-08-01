@@ -6,7 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
-import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Header, Left, Right, Body, Title } from 'native-base';
+import { Container, Button, Input, Label, Item, Content, Separator, Text, Footer, FooterTab, Header, Left, Right, Body, Title, Card, CardItem, Thumbnail, Badge, Icon, Grid, Col, Spinner } from 'native-base';
 import uploadImage from './helpers/uploadImage'
 import normalizePhoneNumber from './helpers/normalizePhoneNumber';
 import kairosEnrollReqObj from './helpers/kairosEnrollReqObj';
@@ -16,7 +16,7 @@ import Swiper from 'react-native-swiper';
 import Config from '../../../../config/config.js';
 
 import RegisterStackHeader from './helpers/RegisterStackHeader.js'
-
+import randomColor from '../helpers/randomColor';
 
 
 import { Field, reduxForm } from 'redux-form';
@@ -51,7 +51,9 @@ class ProfileForm extends Component {
     this.state = {
       isAttendee: true,
       avatarSource: '',
+      isLoading: false
     }
+    this.randomColor = randomColor();
   }
 
 saveToDB(user, userType) {
@@ -109,13 +111,10 @@ saveToDB(user, userType) {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        this.setState({
-          avatarSource: { uri: 'https://media.giphy.com/media/210NUQw5BT8c0/giphy.gif' }
-        });
+        this.setState({ isLoading: true });
         let options = uploadImage(response.data)
         axios.post(options.url, options.body)
         .then( response => {
-          console.log('response url = ', response.data.secure_url);
           this.setState({
             avatarSource: {uri: response.data.secure_url}
           });
@@ -123,10 +122,12 @@ saveToDB(user, userType) {
           return axios.post(options.url, options.body, options.config)
         })
         .then(response => {
-          console.log('response.images[0]', response.images[0].transaction.status);
+          this.setState({ isLoading: false });
+          // console.log('response.images[0]', response.images[0].transaction.status);
         })
         .catch(err => {
-          console.log('err=', err);
+          this.setState({ isLoading: false });
+          console.log('error uploading profile picture:', err);
         })
       }
     });
@@ -143,17 +144,38 @@ saveToDB(user, userType) {
           </Body>
           <Right />
         </Header>
-        <Content>
-          <Field name="linkedIn" validate={[required, linkedin]} component={ renderInput } label="LinkedIn Handle:" placeholder="johndoe123" />
-          <Field name="phoneNumber" validate={[required]} component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
-          <Separator bordered>
-            <Text style={{alignSelf: 'center'}} note>Tap below to attach a profile picture</Text>
-          </Separator>
-          <Item style={{margin: 5, alignSelf: 'center'}}>
-            <TouchableOpacity light onPress={() => this.takePicture()}>
-              <Image source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}}></Image>
-            </TouchableOpacity>
-          </Item>
+        <Content style={{padding: 10}}>
+          <Card>
+            <CardItem>
+              <Field name="linkedIn" validate={[required, linkedin]} component={ renderInput } label="LinkedIn Handle:" />
+            </CardItem>
+            <CardItem>
+              <Field name="phoneNumber" validate={[required]} component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber} />
+            </CardItem>
+            <CardItem style={{alignSelf: 'center'}}>
+              <Text note>Tap below to attach a profile picture</Text>
+            </CardItem>
+            <CardItem style={{paddingTop: 15}}>
+              <Body>
+                <Left>
+                  {
+                    (this.state.isLoading) ? (
+                      <Spinner color={this.randomColor} />
+                    ): (
+                      <TouchableOpacity light onPress={() => this.takePicture()}>
+                        <Thumbnail large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} />
+                      </TouchableOpacity>
+                    )
+                  }
+
+                </Left>
+              </Body>
+
+            </CardItem>
+            <Grid style={{ alignSelf: "center", flex: 0}}>
+              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+            </Grid>
+          </Card>
         </Content>
         <Text style={{alignSelf: 'center'}} note>Swipe For Host</Text>
         <Footer>
@@ -172,7 +194,7 @@ saveToDB(user, userType) {
     )
   }
 }
-               
+
 const reduxFormConfig = {
   form: 'ProfileForm',
   fields: ['linkedIn', 'phoneNumber']
