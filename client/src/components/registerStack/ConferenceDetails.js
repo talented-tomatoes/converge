@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, TouchableOpacity } from 'react-native';
+import { TouchableHighlight, TouchableOpacity, ScrollView, View } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Container, Header, Text, Grid, Col, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
 import axios from 'axios';
@@ -25,18 +25,17 @@ class ConferenceDetails extends Component {
            title="Details"
          />
          <Content style={{padding: 10}}>
+          <View>
            <Card>
-             <CardItem header>
+             <CardItem >
                <Title>{this.props.selectedConference.name}</Title>
              </CardItem>
              <CardItem>
-               <Body>
-                 <Text>
-                   {this.props.selectedConference.details}
-                 </Text>
-               </Body>
+               <Text>
+                 {this.props.selectedConference.details}
+               </Text>
              </CardItem>
-             <CardItem footer>
+             <CardItem>
                <Button onPress={() => this.props.navigation.navigate('PaymentForm', {conference: this.props.selectedConference})}>
                  <Text style={{color: 'white'}}>Buy Ticket</Text>
                </Button>
@@ -44,11 +43,12 @@ class ConferenceDetails extends Component {
              <Grid style={{ alignSelf: "center", flex: 0}}>
                 <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
               </Grid>
+
           </Card>
-          <ListItem itemHeader first>
-            <Title>Speakers</Title>
-          </ListItem>
+          </View>
+          <ScrollView style={{height: 300}}>
           <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
+          </ScrollView>
          </Content>
       </Container>
     );

@@ -55,9 +55,6 @@ class Checkin extends Component {
   capturePic() {
     let options = {
       title: 'Select Avatar',
-      customButtons: [
-        {name: 'fb', title: 'Choose Photo from Facebook'},
-      ],
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -143,7 +140,7 @@ class Checkin extends Component {
             <CardItem style={{paddingTop: 15}}>
               <Body>
                 <Left>
-                  {this.state.isLoading 
+                  {this.state.isLoading
                 ? (<Spinner color='red'/>)
                 :  (<Left>
                   <TouchableOpacity light onPress={() => this.capturePic()}>
@@ -151,7 +148,7 @@ class Checkin extends Component {
                     </TouchableOpacity>
                      <TouchableOpacity onPress={() => this.capturePic()} style={{position: 'absolute', left: 50, top: 50}}>
                       <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="camera" style={{fontSize: 20, color: '#fff'}}></Icon></Text></Badge>
-                    </TouchableOpacity> 
+                    </TouchableOpacity>
                     </Left>)
                   }
                 </Left>

@@ -16,11 +16,6 @@ import { setSpeakerInitialValues, setSpeakersOfConference } from '../actions/act
 class SpeakersLanding extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   speakers: []
-
-    // }
   }
 
 
@@ -35,11 +30,7 @@ class SpeakersLanding extends Component {
 
     axios.get(url)
       .then(response => {
-        // console.log('response in SPEAKER LANDING: ', response);
-        // on speakers data coming in, store it in local state
-        // this.setState({
-        //   speakers: response.data
-        // });
+
       this.props.dispatch(setSpeakersOfConference(response.data));
       })
       .catch(err => {
@@ -49,7 +40,6 @@ class SpeakersLanding extends Component {
   }
 
   render() {
-    console.log('SpeakerLanding props: ', this.props);
     return (
       <Container>
         <AdminStackHeader

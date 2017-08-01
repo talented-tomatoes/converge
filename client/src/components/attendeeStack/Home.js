@@ -7,11 +7,13 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 import randomColor from '../helpers/randomColor';
 import SideBar from './Sidebar';
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.randomColor = randomColor()
   }
+
 
   closeDrawer() {
     this.drawer._root.close()
@@ -52,7 +54,7 @@ class Home extends Component {
           <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
         </Drawer>
       </Container>
-    
+
     );
   }
 }
@@ -64,23 +66,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Home);
-
-/*
-<Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<SideBar navigator={this.navigator} navigation={this.props.navigation} />}
-        onClose={() => this.closeDrawer()} >
-        <AttendeeConferenceHeader
-          leftOnPress={this.openDrawer.bind(this)}
-          leftIcon="menu"
-          title="Welcome"
-        />
-        <Content>
-          <Image source={{uri: this.props.conference.banner }} style={{height: 200, width: null, flex: 1}}/>
-          <Body>
-            <Text>{this.props.conference.details}</Text>
-          </Body>
-        </Content>
-        <AttendeeConferenceFooter navigation={this.props.navigation} />
-      </Drawer>
-*/

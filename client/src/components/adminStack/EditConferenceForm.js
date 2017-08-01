@@ -24,7 +24,6 @@ const price = (value) => {
 };
 
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
-  console.log('label: ', label)
   return (
     <Item inlineLabel>
       <Label>{label}</Label>
@@ -135,7 +134,6 @@ class EditConferenceForm extends Component {
     } else {
       url += 'api/editConference';
     }
-    console.log('CONFERENCE INFO ', conference);
     axios.post(url, conference)
       .then(response => {
         Toast.show({

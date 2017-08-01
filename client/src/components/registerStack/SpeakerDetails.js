@@ -110,19 +110,3 @@ export default class SpeakerDetails extends Component {
     );
   }
 }
-
-/*
-<ListItem onPress={this.handleItemPress.bind(this)} key={i}>
-                            <Left>
-                              <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
-                              </Grid>
-                            </Left>
-                            <Body>
-                              <Text>{presentation.name}}</Text>
-                              <Text note>{presentation.location}</Text>
-                            </Body>
-                            <Right>
-                            </Right>
-                        </ListItem>
-*/
