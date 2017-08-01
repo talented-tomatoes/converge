@@ -31,9 +31,11 @@ class ConferenceDetails extends Component {
                <Title>{this.props.selectedConference.name}</Title>
              </CardItem>
              <CardItem>
-               <Text>
-                 {this.props.selectedConference.details}
-               </Text>
+              <ScrollView style={{height: 140}}>
+                <Text>
+                  {this.props.selectedConference.details}
+                </Text>
+              </ScrollView>
              </CardItem>
              <CardItem>
                <Button onPress={() => this.props.navigation.navigate('PaymentForm', {conference: this.props.selectedConference})}>
@@ -46,7 +48,7 @@ class ConferenceDetails extends Component {
 
           </Card>
           </View>
-          <ScrollView style={{height: 200}}>
+          <ScrollView style={{height: 250}}>
           <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
           </ScrollView>
          </Content>
