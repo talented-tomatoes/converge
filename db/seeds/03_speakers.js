@@ -482,8 +482,8 @@ exports.seed = function(knex, Promise) {
           job_title: `API Product Manager, Vimeo`,
           avatar_url: 'TBD', 
           bio: `Aaron Hedges has been building the Vimeo API for years. Starting as an engineer, he recently transitioned into Product Management and is focusing that time on the design, developer experience and the business of APIs.`,
-          email: '',
-          linkedin_id: '',
+          email: 'ahedges@example.com',
+          linkedin_id: 'ahedges',
           conference_id: 3
         },
         {

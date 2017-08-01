@@ -249,7 +249,7 @@ class EditConferenceForm extends Component {
       <Container>
         <AdminStackHeader
           navigation={this.props.navigation}
-          leftNavigation={'AdminLanding'}
+          leftNavigation={this.props.admin.selectedConference.id ? 'AddPresentation' : 'AdminLanding'}
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
@@ -287,15 +287,15 @@ class EditConferenceForm extends Component {
             <Card>
               <CardItem>
                 <Text>Start Date:  </Text>
-                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id}/>
+                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date}/>
               </CardItem>
               <CardItem>
                 <Text>Start Time: </Text>
-                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time}/>
+                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} />
               </CardItem>
               <CardItem>
                 <Text>End Date:   </Text>
-                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
+                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date}/>
               </CardItem>
               <CardItem>
                 <Text>End Time:   </Text>

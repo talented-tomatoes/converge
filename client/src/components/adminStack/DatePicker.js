@@ -29,6 +29,8 @@ export default class MyDatePicker extends Component {
         maxDate={this.props.maxDate}
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
+        disabled={this.props.disabled}
+        
         customStyles={{
           disabled: this.props.disabled,
           dateIcon: {
@@ -39,8 +41,7 @@ export default class MyDatePicker extends Component {
           },
           dateInput: {
             marginLeft: 36
-          },
-          disabled: this.props.disabled
+          }
         }}
         onDateChange={(value) => { this.valueChange(value); }}
       />

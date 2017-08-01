@@ -7,6 +7,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { setSpeakerInitialValues } from '../actions/actions.js';
 import Config from '../../../../config/config.js';
+import truncateString from '../helpers/truncateString.js';
 
 
 
@@ -53,7 +54,7 @@ class SpeakersListEntry extends Component {
             <Thumbnail small source={{ uri: this.props.speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
           <TouchableOpacity style={{marginLeft: 15}} onPress={this.handleSpeakerPress.bind(this)}>
           <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
-          <Text note>{this.props.speaker.job_title}</Text>
+          <Text note >{truncateString(this.props.speaker.job_title)}</Text>
           </TouchableOpacity>
           <Right>
             <Button transparent small onPress={() => this.handleDeleteSpeakerFromConference(this.props.speaker)}>
