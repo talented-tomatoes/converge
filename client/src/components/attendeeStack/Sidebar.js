@@ -4,10 +4,16 @@ import {Image} from 'react-native';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
+import Config from '../../../../config/config.js';
+import axios from 'axios';
+
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      dbUser: {}
+    }
   }
 
   _signOut() {
@@ -18,13 +24,31 @@ class Sidebar extends React.Component {
     .done();
   }
 
+  componentDidMount() {
+    if (!this.state.dbUser.hasOwnProperty('first_name')) {
+      const SERVER_URL = Config.server.url;
+
+      let url = SERVER_URL + 'api/users/' + this.props.user.id;
+      axios.get(url)
+        .then(user => {
+          this.setState({
+            dbUser: user.data
+          })
+        })
+        .catch(err => {
+          console.log('error getting user: ', err);
+        })
+    }
+  }
+
   render() {
+    console.log('sidebar props: ', this.props);
     return (
       <Container style={{backgroundColor: 'white'}}>
         <Header style={{ backgroundColor: '#428bca'}}>
           <Left style={{flexDirection: 'row', alignItems: 'center' }}>
-          <Thumbnail small source={{uri: this.props.user.avatarUrl}} />
-          <Text style={{color: 'white', fontWeight: 'bold', paddingLeft: 20}}> {this.props.user.givenName + ' ' + this.props.user.familyName} </Text>
+          <Thumbnail small source={{uri: this.state.dbUser.avatar_url}} />
+          <Text style={{color: 'white', fontWeight: 'bold', paddingLeft: 20}}> {this.state.dbUser.first_name + ' ' + this.state.dbUser.last_name} </Text>
           </Left>
         </Header>
 

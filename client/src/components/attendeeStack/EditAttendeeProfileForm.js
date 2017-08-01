@@ -90,7 +90,7 @@ class EditAttendeeProfileForm extends Component {
   handleInitialize() {
     const linkedinid = this.state.dbUser.linkedin_id;
     let linkedinHandle = '';
- 
+
     const profileValues = {
       first_name: this.state.dbUser.first_name,
       last_name: this.state.dbUser.last_name,
@@ -105,16 +105,16 @@ class EditAttendeeProfileForm extends Component {
 
 
   saveToDB(profile) {
-    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    const SERVER_URL = Config.server.url;
 
     let url = SERVER_URL + 'api/users/';
 
-    axios.post(url, profile)
+    axios.put(url, profile)
       .then(response => {
         Toast.show({
           text: 'Profile Updated',
           position: 'bottom',
-          buttonText: 'Okay',
+          buttonText: 'X',
           type: 'success'
         })
         this.props.navigation.navigate('MyEvents');

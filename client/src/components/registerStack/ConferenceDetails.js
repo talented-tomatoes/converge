@@ -48,7 +48,7 @@ class ConferenceDetails extends Component {
 
           </Card>
           </View>
-          <ScrollView style={{height: 250}}>
+          <ScrollView style={{height: 350}}>
           <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
           </ScrollView>
          </Content>
