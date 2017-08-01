@@ -165,6 +165,127 @@ exports.seed = function(knex, Promise) {
           linkedin_id: 'ceposta',
           conference_id: 3
         },
+        {
+          first_name: 'Ross',
+          last_name: 'Garrett',
+          job_title: 'Head of Product Marketing, Cloud Elements',
+          avatar_url: 'https://static.sched.com/a12/4075165/avatar.jpg.320x320px.jpg?9ce',
+          bio: `Ross Garrett is the Head of Product Marketing at Cloud Elements - responsible for market strategy, product positioning and evangelism. He is a well-known speaker at developer events and other industry conferences. Ross has over 10 years of product and marketing leadership experience in the integration space, most recently at Push Technology and previously with Axway, CA and Layer 7.`,
+          email: 'rgarrett@example.com',
+          linkedin_id: 'rossgarrett',
+          conference_id: 3
+        },
+        {
+          first_name: 'Eugene',
+          last_name: 'Istrati',
+          job_title: 'Technology Partner, Mitoc Group',
+          avatar_url: `https://static.sched.com/a12/3930418/avatar.jpg.320x320px.jpg?47e`,
+          bio: `Eugene Istrati has spent over two decades as a technologist in a variety of industries, including digital media, cloud computing, and reputation marketing. Before joining Mitoc Group as Technology Partner, Eugene worked as Director of Engineering at Hearst Corporation and Program Manager at Amazon Web Services. He holds a dual Bachelor of Science degree in Mathematics and Computer Science and a Master of Science degree in Computer Science and Engineering.`,
+          email: 'eistrati@example.com',
+          linkedin_id: 'eugeneistrati',
+          conference_id: 3
+        },
+        {
+          first_name: 'Matt',
+          last_name: 'Billock',
+          job_title: 'Director of Product Management',
+          avatar_url: `https://static.sched.com/a12/3739343/avatar.jpg.320x320px.jpg?e12`,
+          bio: `I'm a developer with 13 years of experience, doing product management for serverless app platforms. I have worked in a number of industries, from game dev to trading software, and have a passion for making the lives of developers easier. I'm a proponent of test-driven development, complete documentation, and tools that reduce the headaches faced by developers.`,
+          email: 'mattbillock@example.com',
+          linkedin_id: 'mattbillock',
+          conference_id: 3
+        },
+        {
+          first_name: 'Nicolas',
+          last_name: 'Grenié',
+          job_title: 'API Evangelist, RedHat',
+          avatar_url: `https://static.sched.com/a12/3930461/avatar.jpg.320x320px.jpg?2fe`,
+          bio: 'TBA'
+          email: 'ngrenie@example.com',
+          linkedin_id: 'ngrenie',
+          conference_id: 3
+        },
+        {
+          first_name: 'Jenny', 
+          last_name: 'Wagner',
+          job_title: 'Digital Product Manager, Arity, founded by Allstate',
+          avatar_url: `https://media.licdn.com/mpr/mprx/0_0DBXb7RwI_THIERYYXwbzUEmeCyasHNlDXEbBAwIMg2DIXBgZXwGFVEaECDkjXRjjbEFnLIwJq8DZJF-dQ6wKNwSmq8SZJQOYQ66L7BDRaAkZmcBYG9F_53kDA`,
+          bio: `Jenny Wanger heads the DevEx Rockstars at Arity, a startup founded by Allstate in downtown Chicago. Formally trained in design thinking, she only feels properly dressed when there’s a pack of post-it notes in her pocket. She is also the owner of Avenir Design, a customer experience consulting firm and has worked with everything from startups raising their first round of funding to GE and Steelcase. Find her documenting user behavior on the streets of Chicago or as a guest blogger on Mind the Product.`,
+          email: 'jwagner@example.com',
+          linkedin_id: 'jennywagner',
+          conference_id: 3
+        },
+        {
+          first_name: 'Robert',
+          last_name: 'Zhu',
+          job_title: 'Software Engineer, Facebook',
+          avatar_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/5/000/259/312/1b19d18.jpg',
+          bio: `TBA`,
+          email: 'rzhu@example.com',
+          linkedin_id: 'rzhu',
+          conference_id: 3
+        },
+        {
+          first_name: 'Julia',
+          last_name: 'Edwards',
+          job_title: 'Software Engineer, Box',
+          avatar_url: 'https://static.sched.com/a12/4195256/avatar.jpg.320x320px.jpg?14c',
+          bio: `Julia is a software engineer on the Partners team at Box. She works on designing, building out, and maintaining Box's integrations with strategic partners like Google and Microsoft. She is passionate about developing and leveraging APIs to create a more connected and knowledgable world. Outside of work, she enjoys spending time with Malibu (her grumpy 10 year old yellow Lab), doing CrossFit, gardening, and playing Zelda on her N64.`,
+          email: 'jedwards@example.com',
+          linkedin_id: 'jedwards',
+          conference_id: 3
+        },
+        {
+          first_name: 'Snezana',
+          last_name: 'Sahter',
+          job_title: 'Principal Software Architct, eBay Inc',
+          avatar_url: `https://static.sched.com/a12/3930417/avatar.jpg.320x320px.jpg?cc4`,
+          bio: `eCommerce | Identity | Risk management for eCommerce | Services Oriented Architecture`
+          email: 'ssahter@example.com',
+          linkedin_id: 'ssahter',
+          conference_id: 3
+        },
+        {
+          first_name: 'Milan',
+          last_name: 'Patel',
+          job_title: 'Program Director for Security Offerings',
+          avatar_url: `https://static.sched.com/a12/3930461/avatar.jpg.320x320px.jpg?2fe`,
+          bio: 'Management, IBM',
+          email: 'patelm@example.com',
+          linkedin_id: 'patelpatel',
+          conference_id: 3
+        },
+        {
+          first_name: 'Ashley',
+          last_name: 'Roach',
+          job_title: 'Principal Engineer Evangelist, Cisco DevNet',
+          avatar_url: `https://static.sched.com/a12/4195908/avatar.jpg.320x320px.jpg?92e`,
+          bio: `Ashley Roach is a Principal Engineer and API Evangelist for Cisco's developer relations team, DevNet. He has spoken and led workshops at many Cisco and 3rd-Party conferences. Prior to DevNet, he was a Product Manager in Cloud Collaboration working on APIs and XMPP technologies. Before Cisco, he was Product Manager at NewsGator Technologies, where he initiated the Social Sites product, the leading social software integration with SharePoint at the time. Before NewsGator, he joined Jabber, Inc. in 2003 where he was the Product Manager for the Jabber XCP server and launched the JabberNow appliance. Ashley holds an MBA from the University of Colorado Leeds School of Business and Undergraduate degree in History from the University of Pennsylvania. When not hacking on APIs, he enjoys playing guitar at blues jams around Denver, snowboarding, and camping.`, 
+          email: 'aroach@example.com',
+          linkedin_id: 'ashleyroach',
+          conference_id: 3
+        },
+        {
+          first_name: 'Prabath',
+          last_name: 'Siriwardena',
+          job_title: 'Senior Director of Security Architecture, WSO2',
+          avatar_url: 'https://static.sched.com/a13/3164778/avatar.jpg.320x320px.jpg?8f1',
+          bio: 'Prabath Siriwardena is the Senior Director of Security Architecture at WSO2 Inc., a company that produces a wide variety of open source software from data to screen. He is the author of the book Advanced API Security published by Apress. Prabath is also a member of Apache Axis PMC and has spoken at numerous international conferences including OSCON, QCon, ApacheCon, WSO2Con, EIC, IDentity Next and OSDC. He has more than 10 years of industry experience and has worked with many Fortune 100 companies.',
+          email: 'prabath@example.com',
+          linkedin_id: 'prabathsss',
+          conference_id: 3
+        },
+        {
+          // seymon
+          first_name: ''
+          last_name:
+          job_title:
+          avatar_url:
+          bio:
+          email:
+          linkedin_id:
+          conference_id:
+        },
       ]);
     });
 };
