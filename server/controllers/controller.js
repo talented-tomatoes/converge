@@ -21,7 +21,7 @@ let getAllUsers = (req, res) => {
 
 let getUser = (req, res) => {
   models.User.where({login_id: req.params.id})
-  .fetch()
+  .fetchAll()
   .then(user => {
     if (user) {
       res.status(200).send(user);
@@ -68,7 +68,9 @@ let getAllSpeakersOfPresentation = (req, res) => {
 };
 
 let getAllConferences = (req, res) => {
-  models.Conferences.fetch()
+  models.Conferences
+  .orderBy('start_date', 'ASC')
+  .fetch()
   .then(collection => {
     console.log('conferences = ', collection);
     res.status(200).send(collection);
