@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
-import { Container, Content, Button, Toast } from 'native-base';
+import { Container, Content, Button, Toast, Header, Footer } from 'native-base';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
@@ -101,16 +101,13 @@ class Auth extends Component {
 
   render() {
       return (
-        <Container style={{backgroundColor: 'lightgrey'}}>
-          <View style={styles.container}>
-            <GoogleSigninButton style={{width: 212, height: 48}} size={GoogleSigninButton.Size.Standard} color={GoogleSigninButton.Color.Auto} onPress={this._signIn.bind(this)}/>
-            <TouchableOpacity onPress={() => {this._signOut(); }}>
-              <View style={{marginTop: 50}}>
-                <Text>Log out</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </Container>
+        <Image source={require('../../../assets/splashPage.png')} style={styles.background} resizeMode="contain">
+        <Header style={{backgroundColor: 'rgba(0,0,0,0)'}}/>
+        <Content />
+        <Footer style={{backgroundColor: 'rgba(0,0,0,0)'}}>
+          <GoogleSigninButton style={{width: 212, height: 48}} size={GoogleSigninButton.Size.Standard} color={GoogleSigninButton.Color.Auto} onPress={this._signIn.bind(this)}/>
+        </Footer>
+        </Image>
       );
   }
 }
@@ -139,5 +136,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  background: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    height: null,
+    width: null,
+    backgroundColor: 'white',
+    resizeMode: 'stretch',
+    padding: 10
   },
 });

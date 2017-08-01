@@ -4,7 +4,7 @@
 
 import { StackNavigator } from 'react-navigation';
 
-import SplashScreen from './components/SplashScreen';
+// import SplashScreen from './components/SplashScreen';
 import Auth from './components/Auth';
 
 //AttendeeStack
@@ -99,7 +99,7 @@ const RegisterStack = StackNavigator({
 });
 
 export default AppStack = StackNavigator({
-  SplashScreen: { screen: SplashScreen },
+  // SplashScreen: { screen: SplashScreen },
   Auth: { screen: Auth},
   AttendeeStack: { screen: AttendeeStack },
   RegisterStack: { screen: RegisterStack },

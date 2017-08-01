@@ -229,7 +229,7 @@ class AddPresentationForm extends Component {
                   <Text style={{fontWeight: 'bold'}}>Please Add A Speaker First</Text>
                 </Button>
             ) : (
-              <Title style={{paddingTop: 10}}>All Speakers</Title>
+              <View />
             )
           }
 

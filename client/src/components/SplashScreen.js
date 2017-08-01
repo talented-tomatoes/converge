@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View } from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, Image } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import Auth from './Auth';
 
@@ -16,10 +16,21 @@ export default class SplashScreen extends Component {
   render() {
     setTimeout(()=> {this.props.navigation.navigate('Auth')}, 700)
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#428bca'}}>
-        <Text style={{color: 'lightgrey', fontSize: 50, fontWeight: 'bold', fontFamily: 'Verdana'}}>Converge</Text>
-      </View>
+      <Image source={require('../../../assets/splashPage.png')} style={styles.background} resizeMode="contain" />
     );
   }
 }
 
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    height: null,
+    width: null,
+    backgroundColor: 'rgba(0,0,0,0)',
+    resizeMode: 'stretch',
+    padding: 10
+  },
+})
