@@ -57,7 +57,7 @@ class EditProfile extends React.Component {
     profile.user_type = this.props.currentUser.user_type;
     console.log('profile form values: ', profile);
 
-    let url = config.server.url + 'api/editUserProfile';
+    let url = config.server.url + 'api/users';
     axios.post(url, profile)
       .then(response => {
         console.log('profile updated: ', response);

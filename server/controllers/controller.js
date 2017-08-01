@@ -20,14 +20,17 @@ let getAllUsers = (req, res) => {
 };
 
 let getUser = (req, res) => {
-  models.User.where({login_id: req.params.userid})
+  models.User.where({login_id: req.params.id})
   .fetch()
   .then(user => {
-    console.log('Current user: ', user.attributes.first_name, user.attributes.last_name);
-    res.status(200).send(user);
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(404).send(user);
+    }
   })
   .catch(err => {
-    console.log('Error====>', err);
+    console.log(`Error fetching user with id:${req.params.id}-`, err);
     res.status(500).send(err);
   });
 };
@@ -213,7 +216,7 @@ let addSpeaker = (req, res) => {
   models.Speaker.forge(req.body).save()
     .then(speaker => {
       console.log('1 speaker saved: ', speaker.attributes.first_name, speaker.attributes.last_name);
-      res.status(200).send('Speaker saved!');
+      res.status(201).send(speaker);
     })
     .catch(err => {
       console.log('error: ', err);
@@ -222,7 +225,7 @@ let addSpeaker = (req, res) => {
 };
 
 let updateSpeakerOfConf = (req, res) => {
-  console.log('Updating speaker of of conference ', req.body);
+  console.log('Updating speaker of conference ', req.body);
 
   // bookshelf command -
     // use .where to look for the entry in Speaker
@@ -387,9 +390,19 @@ let editUserProfile = (req, res) => {
   console.log('In EditUserProfile');
   models.User.where({login_id: req.body.login_id}).fetch()
     .then(user => {
-      user.save(req.body, {method: 'update'});
-      console.log('user updated: ', user);
-      res.status(201).send('User Updated');
+      if (user) {
+      return user.save(req.body, {method: 'update'});
+      } else {
+        res.status(404).send(user);
+      }
+    })
+    .then(user => {
+      console.log('user===>', user);
+      if (user) {
+        res.status(201).send(user);
+      } else {
+
+      }
     })
     .catch(err => {
       console.log('error updating user: ', err);

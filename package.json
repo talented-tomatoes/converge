@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest",
+		"test": "NODE_ENV=test grunt test",
+		"test-client": "jest",
 		"dev-start": "nodemon ./server/index.js",
 		"db-start": "sh recreateDB.sh",
 		"react-dev": "webpack -d --watch"
@@ -14,9 +15,14 @@
 		"bluebird": "^3.5.0",
 		"body-parser": "^1.17.2",
 		"bookshelf": "^0.10.3",
+		"chai": "^4.1.0",
 		"config": "^1.26.1",
 		"express": "^4.15.3",
+		"grunt": "^1.0.1",
+		"grunt-eslint": "^20.0.0",
+		"grunt-mocha-test": "^0.13.2",
 		"knex": "^0.13.0",
+		"mocha": "^3.5.0",
 		"native-base": "^2.2.1",
 		"nodemon": "^1.11.0",
 		"pg": "^6.4.0",
@@ -40,6 +46,7 @@
 		"redux-thunk": "^2.2.0",
 		"sha1": "^1.1.1",
 		"stripe": "^4.23.1",
+		"supertest": "^3.0.0",
 		"webpack": "^2.2.1"
 	},
 	"devDependencies": {

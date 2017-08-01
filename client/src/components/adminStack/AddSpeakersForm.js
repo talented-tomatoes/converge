@@ -95,7 +95,7 @@ class AddSpeakersForm extends Component {
 
     // change URL depending on whether or not how they got to the page
     if (this.props.admin.speakerValues.id === undefined) {
-      url = SERVER_URL + 'api/addSpeaker';
+      url = SERVER_URL + 'api/speakers';
     } else {
       url = SERVER_URL + 'api/editSpeaker';
     }
