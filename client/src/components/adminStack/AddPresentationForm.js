@@ -7,14 +7,15 @@ import {
   Image,
   Platform
 } from 'react-native';
-import { Container, Button, Right, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon, Title, Toast } from 'native-base';
+import { Container, Button, Right, Grid, Col, List, Card, Thumbnail, Left, CardItem, CheckBox, Body, Input, ListItem, Label, Item, Content, Separator, Text, Footer, FooterTab, Picker, Icon, Title, Toast } from 'native-base';
 
 import axios from 'axios';
 import DatePicker from './DatePicker.js';
-
+import convertDateToEnglish from './helpers/convertDateToEnglish';
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
+import randomColor from '../helpers/randomColor';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import SpeakerPicker from './helpers/SpeakerPicker.js';
 import { setPresentationSpeakers } from '../actions/actions.js';
@@ -55,6 +56,7 @@ class AddPresentationForm extends Component {
       selectedSpeakerID: 0,
       selectedSpeakers: this.props.admin.selectedPresentation.speakers || []
     }
+    this.randomColor = randomColor();
   }
 
   componentDidMount() {
@@ -74,7 +76,6 @@ class AddPresentationForm extends Component {
       }
     }
     // this.props.dispatch(setPresentationSpeakers(checkedSpeakers));
-
   }
 
   handleInitialize() {
@@ -180,31 +181,47 @@ class AddPresentationForm extends Component {
   }
 
   render() {
-    // console.log('props in AddPresentationForm: ', this.props);
+    //    <Item  name="date" validate={[required]}>
     const { handleSubmit } = this.props;
+    console.log('ADMIN PROPS.......', this.props.admin);
     return (
       <Container>
         <AdminStackHeader
           navigation={this.props.navigation}
           leftNavigation="AddPresentation"
           leftIcon="arrow-back"
-          title="Presentations"
+          title="Edit"
           rightIcon={null}
         />
-        <Content>
-          <Field name="name" validate={[required]}  component={ renderInput } label="Presentation Name:"/>
-          <Item inlineLabel name="date" validate={[required]}>
-            <Label>Date: </Label>
-            <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.state.selectedDate}/>
-          </Item>
-          <Item inlineLabel>
-            <Label>Time: </Label>
-            <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.state.selectedTime}/>
-          </Item>
+        <Content style={{padding: 10}}>
+          <Card style={{flex: 0}}>
+              <CardItem>
+                <Field name="name" label="Presentation:"validate={[required]}  component={ renderInput } placeholder="Presentation Name"></Field>
+              </CardItem>
+              <CardItem>
 
-          <Field name="location" validate={[required]} component={ renderInput } label="Location:"/>
-          <Field name="description" validate={[required]} component={ renderInput } label="Description:" multiline={true} />
-
+                  <Field name="location" validate={[required]} label="Location:" component={ renderInput } placeholder="Location"/>
+              </CardItem>
+              <CardItem>
+                <Icon name="ios-calendar-outline"/>
+                <View style={{position: "absolute", left: 20}}>
+                  <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.state.selectedDate}/>
+                </View>
+              </CardItem>
+              <CardItem>
+                <Icon name="ios-time-outline"/>
+                <View style={{position: "absolute", left: 20}}>
+                 <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.state.selectedTime}/>
+                </View>
+              </CardItem>
+              <CardItem style={{height: 140}}>
+                 <Field name="description" validate={[required]} component={ renderInput } placeholder="Description" multiline={true} />
+              </CardItem>
+              <Grid style={{ alignSelf: "center", flex: 0}}>
+                <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+              </Grid>
+          </Card>
+          <Card>
           {
             (this.props.admin.speakers.length === 0) ? (
                 <Button iconLeft transparent style={{alignSelf: 'center'}} onPress={() => this.props.navigation.navigate('AddSpeakersForm')}>
@@ -212,16 +229,17 @@ class AddPresentationForm extends Component {
                   <Text style={{fontWeight: 'bold'}}>Please Add A Speaker First</Text>
                 </Button>
             ) : (
-              <Title>All Speakers</Title>
+              <Title style={{paddingTop: 10}}>All Speakers</Title>
             )
           }
 
             <Content>
             <SpeakerPicker />
             </Content>
+          </Card>
         </Content>
         <Footer>
-          <Content style={{backgroundColor: '#428bca'}}>
+          <Content style={{backgroundColor: this.randomColor}}>
             <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
             {
               this.state.editMode ? <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Presentation</Text> : <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Presentation</Text>
