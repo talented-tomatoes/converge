@@ -38,11 +38,12 @@ let getUser = (req, res) => {
 let getAllSpeakersOfConf = (req, res) => {
   const confid = req.params.confid;
   models.Speaker.where({conference_id: confid})
+    .orderBy('first_name', 'ASC')
     .fetchAll()
     .then((speakers) => {
       speakers.forEach(speaker => {
         console.log('fetched speaker: ', speaker.attributes.first_name, speaker.attributes.last_name);
-      })
+      });
       console.log(speakers.length, 'speakers fetched')
       res.status(200).send(speakers);
     })
