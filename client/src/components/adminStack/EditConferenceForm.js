@@ -157,9 +157,9 @@ class EditConferenceForm extends Component {
       .catch(error => {
         console.log('error:', error.response.data);
         Toast.show({
-          text: error.response.data,
+          text: this.props.admin.selectedConference.id === undefined ? 'Error adding conference' : 'Error updating conference',
           position: 'bottom',
-          buttonText: 'Okay',
+          buttonText: 'X',
           type: 'danger'
         });
       })
@@ -169,7 +169,7 @@ class EditConferenceForm extends Component {
     conference.user_id = this.props.user.userID;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
-    conference.start_time = this.state.start_time;		
+    conference.start_time = this.state.start_time;
     conference.end_time = this.state.end_time;
     conference.id = this.props.admin.selectedConference.id;
     conference.logo = this.state.logo;
@@ -205,15 +205,39 @@ class EditConferenceForm extends Component {
     })
   }
 
+  areYouSure() {
+    Alert.alert(
+      'Delete',
+      'This will delete the conference, all presentations, and all associated speakers',
+      [
+        {text: 'Proceed', onPress: () => this.handleConferenceDelete()},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      ],
+      { cancelable: true }
+    )
+  }
+
   handleConferenceDelete() {
   let currentConf = this.props.admin.selectedConference;
   axios.delete(`${Config.server.url}api/deleteConference/${currentConf.id}`)
     .then(response => {
       console.log('RESPONSE FROM SERVER ON DELETE CONFERENCE ', response);
       // only navigate when the conference actual deletes
+      Toast.show({
+        text: `${currentConf.name} deleted`,
+        position: 'bottom',
+        buttonText: 'X',
+        type: 'warning'
+      });
       this.props.navigation.navigate('AdminLanding');
     })
     .catch(err => {
+      Toast.show({
+        text: `Could not delete ${currentConf.name}`,
+        position: 'bottom',
+        buttonText: 'X',
+        type: 'danger'
+      });
     console.log('error deleting the conference ', err);
   })
 
@@ -229,7 +253,7 @@ class EditConferenceForm extends Component {
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
-          rightAction={this.handleConferenceDelete}
+          rightAction={this.areYouSure.bind(this)}
         />
         <Content style={{padding: 10}}>
           <Card>
@@ -274,7 +298,7 @@ class EditConferenceForm extends Component {
                 <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date}/>
               </CardItem>
               <CardItem>
-                <Text>End Time:   </Text>	
+                <Text>End Time:   </Text>
                 <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time}/>
               </CardItem>
               <CardItem>

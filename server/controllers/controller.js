@@ -391,6 +391,7 @@ let editUserProfile = (req, res) => {
   console.log('In EditUserProfile');
   models.User.where({login_id: req.body.login_id}).fetch()
     .then(user => {
+      console.log('user: ', user.attributes);
       if (user) {
       return user.save(req.body, {method: 'update'});
       } else {
