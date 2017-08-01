@@ -65,48 +65,6 @@ class AddSpeakersForm extends Component {
     this.props.initialize(this.props.initialValues);
   }
 
-// <<<<<<< HEAD
-//   // handleInitialize() {
-//   //   const linkedinid = this.props.admin.speakerValues.linkedin_id;
-//   //   let linkedinHandle = '';
-//   //   if (linkedinid) {
-//   //     const str = 'https://www.linkedin.com/in';
-//   //     const startIndex = linkedinid.indexOf('https://www.linkedin.com/in') + 1 + str.length;
-//   //     linkedinHandle = linkedinid.substring(startIndex);
-//   //   }
-//   //   const speakerValues = {
-//   //     first_name: this.props.admin.speakerValues.first_name,
-//   //     last_name: this.props.admin.speakerValues.last_name,
-//   //     job_title: this.props.admin.speakerValues.job_title,
-//   //     email: this.props.admin.speakerValues.email,
-//   //     avatar_url: this.props.admin.speakerValues.avatar_url,
-//   //     bio: this.props.admin.speakerValues.bio,
-//   //     id: this.props.admin.speakerValues.id
-//   //   };
-//   //   if (linkedinid) {
-//   //     speakerValues.linkedin_id = linkedinHandle;
-//   //   } else {
-//   //     speakerValues.linkedin_id = this.props.admin.speakerValues.linkedin_id;
-//   //   }
-//   //   this.props.initialize(speakerValues);
-//   // }
-// =======
-//   handleInitialize() {
-//     const linkedinid = this.props.admin.speakerValues.linkedin_id;
-//     const speakerValues = {
-//       first_name: this.props.admin.speakerValues.first_name,
-//       last_name: this.props.admin.speakerValues.last_name,
-//       job_title: this.props.admin.speakerValues.job_title,
-//       email: this.props.admin.speakerValues.email,
-//       avatar_url: this.props.admin.speakerValues.avatar_url,
-//       linkedin_id: this.props.admin.speakerValues.linkedin_id,
-//       bio: this.props.admin.speakerValues.bio,
-//       id: this.props.admin.speakerValues.id
-//     };
-//     this.props.initialize(speakerValues);
-//   }
-// >>>>>>> e76c439bb4c04f83059144ba91af8133f0013ac3
-
   upload(imageType) {
      let options = {
     };
@@ -144,7 +102,6 @@ class AddSpeakersForm extends Component {
     //console.log('speaker: ', speaker)
     axios.post(url, speaker)
       .then(response => {
-        console.log('response : ', response);
         // go back to the the EditSpeaker's landing page on success
         Toast.show({
           text: speaker.first_name + ' ' + speaker.last_name + ' added',
@@ -161,7 +118,6 @@ class AddSpeakersForm extends Component {
   }
 
   submit(speaker) {
-    console.log('speaker: ', speaker);
     speaker.conference_id = this.props.admin.selectedConference.id;
     speaker.avatar_url = this.state.avatar;
     this.saveToDB(speaker);
@@ -171,7 +127,6 @@ class AddSpeakersForm extends Component {
     let currentSpeaker = this.props.admin.speakerValues;
     axios.delete(`${Config.server.url}api/deleteSpeaker/${currentSpeaker.id}`)
       .then(response => {
-        console.log('RESPONSE FROM SERVER ON DELETE SPEAKER ', response);
         this.props.navigation.navigate('AddSpeakers', {speakerDeleted: true});
       })
       .catch(err => {
@@ -188,7 +143,6 @@ class AddSpeakersForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    console.log('addSpeakersForm props: ', this.props);
     return (
       <Container>
         <AdminStackHeader

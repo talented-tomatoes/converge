@@ -236,16 +236,16 @@ class EditAttendeeProfileForm extends Component {
               </CardItem>
               <CardItem>
                 <Field name="email" validate={[required, email]} component={ renderInput } label="Email:" />
-              </CardItem>  
+              </CardItem>
               <CardItem>
                 <Field name="linkedin_id" validate={[required, linkedin]} component={ renderInput } label="Linkedin Handle:"/>
-              </CardItem>     
+              </CardItem>
               <CardItem>
                 <Field name="phone_number" component={ renderInput } label="Phone Number:" keyboardType="phone-pad" normalize={normalizePhoneNumber}/>
-              </CardItem>    
+              </CardItem>
               <Grid style={{ alignSelf: "center", flex: 0}}>
                 <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
-              </Grid>   
+              </Grid>
             </Card>
 
 
@@ -266,7 +266,7 @@ class EditAttendeeProfileForm extends Component {
 
 const reduxFormConfig = {
   form: 'EditAttendeeProfileForm',
-  fields: ['name', 'address', 'logo', 'ticket_price', 'venue_map', 'banner', 'details']
+  fields: ['first_name', 'last_name', 'email', 'linkedin_id', 'phone_number']
 }
 
 EditAttendeeProfileForm = reduxForm(reduxFormConfig)(EditAttendeeProfileForm)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Right, Left, Body, Icon, Title, Button} from 'native-base';
+import { Header, Right, Left, Body, Icon, Title, Text, Button} from 'native-base';
 
 export default class RegisterStackHeader extends Component {
 
@@ -16,7 +16,7 @@ export default class RegisterStackHeader extends Component {
           </Button>
         </Left>
         <Body>
-          <Title style={{color: 'white'}}>{ this.props.title }</Title>
+          <Text style={{color: 'white', fontWeight: 'bold'}}>{ this.props.title }</Text>
         </Body>
         <Right />
       </Header>

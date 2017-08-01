@@ -43,7 +43,7 @@ const attendeeReducer = (state = {conference: null}, action) => {
   // console.log('attendee Reducer Called')
   switch (action.type) {
     case 'SET_SELECTED_CONFERENCE':
-      return {...action.conference}
+      return {...action.conference};
     default:
       return state;
   }

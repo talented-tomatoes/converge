@@ -6,6 +6,9 @@ import SideBar from './Sidebar';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
 
+
+
+
 class Speakers extends Component {
   static navigationOptions = {
 

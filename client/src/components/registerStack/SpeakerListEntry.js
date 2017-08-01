@@ -9,29 +9,27 @@ export default class SpeakerListEntry extends React.Component {
     super(props);
   }
 
-  render() {
+  handleSpeakerPress() {
     var params = {
       backPage: this.props.backPage,
       speaker: this.props.speaker
     }
+    this.props.navigation.navigate('SpeakerDetails', params);
+  }
+
+  render() {
     return (
       <Card>
-        <CardItem>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', params)}>
-            <Left style={{paddingRight: 15}}>
-              <Thumbnail small source={{ uri: this.props.speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
-            </Left>
-          </TouchableOpacity>
-          <Body>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SpeakerDetails', params)}>
-               <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
-               <Text note>{this.props.speaker.job_title}</Text>
+        <TouchableOpacity onPress={this.handleSpeakerPress.bind(this)}>
+          <CardItem header>
+            <Thumbnail small source={{ uri: this.props.speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
+            <TouchableOpacity style={{marginLeft: 15}} onPress={this.handleSpeakerPress.bind(this)}>
+              <Text>{this.props.speaker.first_name + ' ' + this.props.speaker.last_name}</Text>
+              <Text note>{this.props.speaker.job_title}</Text>
             </TouchableOpacity>
-          </Body>
-        </CardItem>
-        <Grid style={{ alignSelf: "center", flex: 0}}>
-          <Col style={{ backgroundColor: this.props.randomColor, height: 5, flex: 1}}></Col>
-        </Grid>
+          </CardItem>
+        </TouchableOpacity>
+
       </Card>
     );
   }
