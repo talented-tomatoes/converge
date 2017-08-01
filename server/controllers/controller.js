@@ -205,11 +205,13 @@ let addConference = (req, res) => {
 };
 
 let getConferencesByHostID = (req, res) => {
-  models.Conference.where({user_id: req.params.hostID}).fetchAll()
-    .then(conferences => {
-      console.log(conferences.length, 'conferences fetched');
-      res.status(200).send(conferences);
-    });
+  models.Conference.where({user_id: req.params.hostID})
+    .orderBy('start_date', 'ASC')
+    .fetchAll()
+      .then(conferences => {
+        console.log(conferences.length, 'conferences fetched');
+        res.status(200).send(conferences);
+      });
 };
 
 // ADD A NEW SPEAKER TO A CONFERENCE
