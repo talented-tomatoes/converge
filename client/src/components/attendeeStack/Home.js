@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import { Drawer, Content, Header, Container, Card, CardItem, Grid, Col, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text } from 'native-base';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
@@ -40,11 +40,10 @@ class Home extends Component {
             <Card style={{flex: 0}}>
               <Image source={{uri: this.props.conference.banner}} style={{height: 200, flex: 1}}/>
               <CardItem>
-                <Body>
-                  <Text style={{padding: 10}}>
-                    {this.props.conference.details}
-                  </Text>
-                </Body>
+                <ScrollView style={{height: 140}}>
+                  <Text>{this.props.conference.details}</Text>
+                </ScrollView>
+
               </CardItem>
               <Grid style={{ alignSelf: "center", flex: 0}}>
                 <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>

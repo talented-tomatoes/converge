@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
-import { Button, Content, Drawer, Item, Toast, Card, CardItem, Body, Left, Badge, Icon, Spinner } from 'native-base';
+import { Button, Content, Drawer, Item, Toast, Card, CardItem, Body, Left, Badge, Icon, Spinner, Grid, Col, Thumbnail } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { FileUpload } from 'NativeModules';
 import axios from 'axios';
@@ -60,7 +60,7 @@ class Checkin extends Component {
         path: 'images'
       }
     };
-    //ImagePicker.launchCamera(options, (response) => {
+
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
 
@@ -76,12 +76,10 @@ class Checkin extends Component {
       else {
         this.setState({isLoading: true});
         let options = uploadImage(response.data);
-        console.log('USER ID', this.props.user.id);
         const USER_ID = this.props.user.id;
         const SERVER_URL = Config.server.url || 'http://localhost:3000';
         axios.post(options.url, options.body)
         .then(response => {
-           console.log('Response URL: ', response.data.secure_url);
            let reqObj = {
             checkinpicurl: response.data.secure_url
            };
@@ -89,7 +87,6 @@ class Checkin extends Component {
            return axios.post(SERVER_URL + `api/users/${USER_ID}/checkin`, reqObj)
         })
         .then(response => {
-          console.log('Response', response.data);
           if (response.data !== 'Success') {
             //console.log('Checkin Failed!');
             this.setState({isLoading: false});
@@ -135,20 +132,19 @@ class Checkin extends Component {
           leftIcon="menu"
           title="Check In"
         />
-    	  <Content style={{padding: 10}}>
-          <Card style={{paddingTop: 155, paddingBottom: 160}}>
+        <Content style={{padding: 10}}>
+          <Card style={{flex: 0}}>
+            <Image source={{uri: this.props.conference.banner}} style={{height: 200, flex: 1}}/>
             <CardItem style={{paddingTop: 15}}>
               <Body>
                 <Left>
                   {this.state.isLoading
-                ? (<Spinner color='red'/>)
+                ? (<Spinner color={this.randomColor} />)
                 :  (<Left>
                   <TouchableOpacity light onPress={() => this.capturePic()}>
-                      <Image large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}} />
+                      <Thumbnail large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} style={{width: 100, height: 100}} />
                     </TouchableOpacity>
-                     <TouchableOpacity onPress={() => this.capturePic()} style={{position: 'absolute', left: 50, top: 50}}>
-                      <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="camera" style={{fontSize: 20, color: '#fff'}}></Icon></Text></Badge>
-                    </TouchableOpacity>
+
                     </Left>)
                   }
                 </Left>
@@ -157,11 +153,14 @@ class Checkin extends Component {
             <CardItem>
               <Body>
                 <Left>
-                  <Text> Bye-bye long check-in lines! Click a picture of your face to speed up the process and skip the check-in line. </Text>
+                  <Text> Bye-bye long check-in lines! Take a selfie to speed up the process and skip the check-in line. </Text>
                 </Left>
               </Body>
             </CardItem>
-          </Card >
+            <Grid style={{ alignSelf: "center", flex: 0}}>
+              <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
+            </Grid>
+          </Card>
         </Content>
         <AttendeeConferenceFooter navigation={this.props.navigation}></AttendeeConferenceFooter>
       </Drawer>
@@ -171,7 +170,8 @@ class Checkin extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer
+    user: state.userReducer,
+    conference: state.attendeeReducer,
   }
 }
 
