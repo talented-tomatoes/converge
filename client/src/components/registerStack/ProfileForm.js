@@ -134,6 +134,7 @@ saveToDB(user, userType) {
   }
 
   render() {
+    console.log('in profileform props: ', this.props)
     const { handleSubmit } = this.props;
     return (
       <Container>

@@ -2,25 +2,21 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
-import { Container, Content, Button } from 'native-base';
+import { Container, Content, Button, Toast } from 'native-base';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import { connect } from 'react-redux';
-import { setUser } from './actions/actions';
+import { setUser} from './actions/actions';
 import Config from '../../../config/config';
 
 import axios from 'axios';
 
 class Auth extends Component {
-  static navigationOptions = {
-    title: 'Log In',
-    header: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      isAuthorized: false,
     }
   }
 
@@ -29,22 +25,42 @@ class Auth extends Component {
   }
 
   validateUserType() {
-    const SERVER_URL = Config.server.url || 'http://localhost:3000';
-    this.props.dispatch(setUser(this.state.user));
-    let url = SERVER_URL + 'api/getUserID/' + this.state.user.id;
-    axios.get(url)
-      .then(response => {
-        if (response.data.length === 0) {
-          this.props.navigation.navigate('RegisterStack');
-        } else if (response.data.user_type === 'host') {
-          this.props.navigation.navigate('AdminStack');
-        } else if (response.data.user_type === 'attendee') {
-          this.props.navigation.navigate('AttendeeStack');
-        }
+    if (this.state.isAuthorized === false) {
+        const SERVER_URL = Config.server.url || 'http://localhost:3000';
+        this.props.dispatch(setUser(this.state.user));
+        let url = SERVER_URL + 'api/getUserID/' + this.state.user.id;
+        axios.get(url)
+          .then(response => {
+            if (response.data.length === 0) {
+              this.props.navigation.navigate('RegisterStack');
+            } else if (response.data.user_type === 'host') {
+              this.props.navigation.navigate('AdminStack');
+            } else if (response.data.user_type === 'attendee') {
+              this.props.navigation.navigate('AttendeeStack');
+            } else {
+              this._signOut();
+              Toast.show({
+                text: 'Please try logging in again',
+                position: 'bottom',
+                buttonText: 'X',
+                type: 'warning',
+                duration: 2000
+              });
+              this.setState({
+                isAuthorized: false
+              });
+            }
+          })
+          .catch(error => {
+            console.log('error redirecting user: ', error);
+          })
+
+
+    }
+      this.setState({
+        isAuthorized: true
       })
-      .catch(error => {
-        console.log('error redirecting user: ', error);
-      })
+
 
 
   }
@@ -58,7 +74,6 @@ class Auth extends Component {
 
       const user = await GoogleSignin.currentUserAsync();
       this.setState({user}, () => this.validateUserType());
-      // this.props.dispatch(setUser(this.state.user));
 
     }
     catch(err) {
@@ -70,8 +85,6 @@ class Auth extends Component {
     GoogleSignin.signIn()
     .then((user) => {
       this.setState({user: user}, () => this.validateUserType());
-      // this.props.dispatch(setUser(this.state.user));
-
     })
     .catch((err) => {
       console.log('WRONG SIGNIN', err);
@@ -86,9 +99,7 @@ class Auth extends Component {
     .done();
   }
 
-  //This is our main app
   render() {
-    // if (!this.state.user) {
       return (
         <Container style={{backgroundColor: 'lightgrey'}}>
           <View style={styles.container}>
@@ -101,32 +112,12 @@ class Auth extends Component {
           </View>
         </Container>
       );
-    // }
-
-    // if (this.state.user) {
-    //   return (
-    //     <Container style={{backgroundColor: 'lightgrey'}}>
-    //       <View style={styles.container}>
-    //         <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 20}}>Welcome {this.state.user.name}</Text>
-    //         <Button rounded primary onPress={() => {this.props.navigation.navigate('AttendeeStack', this.state.user)}}>
-    //           <Text style={{fontWeight: 'bold', color: 'white'}}>I'm Already Registered</Text>
-    //         </Button>
-    //         <Button rounded primary onPress={() => {this.props.navigation.navigate('RegisterStack')}}>
-    //           <Text style={{fontWeight: 'bold', color: 'white'}}>I Need To Register</Text>
-    //         </Button>
-    //       </View>
-    //     </Container>
-    //   );
-    // }
-
-
-
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer
+    user: state.userReducer,
   }
 }
 

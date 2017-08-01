@@ -9,7 +9,7 @@ const userReducer = (state = { user: null }, action) => {
     case 'SET_USER_AVATAR_URL':
       return {...state, ...{avatarUrl: action.avatarUrl}};
     case 'ADD_USER_ID_FROM_DB':
-      return {...state, ...{userID: action.userID}}
+      return {...state, ...{userID: action.userID}};
     default:
       return state;
   }
@@ -40,7 +40,6 @@ const adminReducer = (state = {}, action) => {
 }
 
 const attendeeReducer = (state = {conference: null}, action) => {
-  // console.log('attendee Reducer Called')
   switch (action.type) {
     case 'SET_SELECTED_CONFERENCE':
       return {...action.conference};
@@ -49,7 +48,6 @@ const attendeeReducer = (state = {conference: null}, action) => {
   }
 }
 
-// root reducers?
 const reducers = combineReducers({
   userReducer,
   adminReducer,
