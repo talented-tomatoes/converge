@@ -420,12 +420,12 @@ exports.seed = function(knex, Promise) {
     });
 };
 
-
-        {
-          location: 'Workshop Room',
-          time: '',
-          date: '2017-09-27',
-          conference_id: 3,
-          description: '',
-          name: ''
-        },
+// Template
+        // {
+        //   location: 'Workshop Room',
+        //   time: '',
+        //   date: '2017-09-27',
+        //   conference_id: 3,
+        //   description: '',
+        //   name: ''
+        // },

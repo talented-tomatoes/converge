@@ -276,28 +276,238 @@ exports.seed = function(knex, Promise) {
           conference_id: 3
         },
         {
-          // seymon
-          first_name: ''
-          last_name:
-          job_title:
-          avatar_url:
-          bio:
-          email:
-          linkedin_id:
-          conference_id:
+          first_name: 'Semyon',
+          last_name: 'Sergunin',
+          job_title: 'Head of SDK Product Group, ABBYY',
+          avatar_url: `https://static.sched.com/a13/4308988/avatar.jpg.320x320px.jpg?6e0`,
+          bio: `I believe that people are intelligent and creative, but unfortunately, they have to waste their precious time dealing with stupid and repetitive tasks, which prevent them from reaching their full potential. 
+          At ABBYY we help to solve it. We build technology for capturing information from analog (or digital) sources and making it actionable: searchable, analyzable, ready for making decisions and taking actions. Now our technology saves people millions of hours per year by reducing the need for manual data entry. For last 20+ years, thousands of software developers integrated our OCR, document and data capture technologies into their applications, saving users' time and improving their experience.
+          At API:World I will show how to leverage our latest Real-time Mobile Capture technology for reading card numbers, codes, signs and any other alpha-numeric data on the mobile device.`,
+          email: 'sserguinin@example.com',
+          linkedin_id: 'semyonsergunin',
+          conference_id: 3
         },
+        {
+          first_name: 'Abhinav',
+          last_name: 'Asthana',
+          job_title: `CEO/Co-founder, Postman`,
+          avatar_url: 'https://static.sched.com/a13/4325486/avatar.jpg.320x320px.jpg?0fa', 
+          bio: `TBA`,
+          email: 'aasthana@example.com',
+          linkedin_id: 'asthana_abhinav',
+          conference_id: 3
+        },
+        {
+          first_name: 'Josh',
+          last_name: 'Thurston',
+          job_title: `Security Strategist`,
+          avatar_url: 'https://static.sched.com/a12/3445633/avatar.jpg.320x320px.jpg?040', 
+          bio: `Josh Thurston is a Security Strategist in the McAfee Office of the CTO. In this role, Thurston drives business growth and defines the company’s go-to-market strategy for the Americas, creating and communicating innovative solutions for today’s complex information security and privacy challenges.
+          Prior to joining McAfee, Thurston was co-founder of a merchant services company known for developing a secure mobile credit card processing solution over digital wireless devices. 
+          With over a decade at McAfee, Thurston is an industry veteran with extensive experience in customer environments of multiple sizes and verticals. Thurston has worked side by side with engineering teams in product innovations, design specification, scalability testing, and product integrations. 
+          Thurston has educated security practitioners around the globe on security design and best practices, and is a known speaker and participant in industry events. Thurston has a Bachelor’s of Science in Business / e-Business.`,
+          email: 'jthurston@example.com',
+          linkedin_id: 'jthurston',
+          conference_id: 3
+        },
+        {
+          first_name: 'Alan',
+          last_name: 'Winters',
+          job_title: `Head of US Business Development, MobiDev`,
+          avatar_url: 'https://static.sched.com/a13/4308219/avatar.jpg.320x320px.jpg?5b6', 
+        bio: `I am an entertainment executive/TV producer turned serial entrepreneur. After spending two decades creating and marketing projects for major media companies such as FOX and Lionsgate, I have spent the past twelve years in the world of digital start-ups and emerging companies. I am currently engaged in a number of such businesses and takes an active, hands-on role in each.`,
+          email: 'awinters@example.com',
+          linkedin_id: 'awinters',
+          conference_id: 3
+        },
+        {
+          first_name: 'Bhavana',
+          last_name: 'Srinivas',
+          job_title: `Solutions Architect, PubNub`,
+          avatar_url: 'https://static.sched.com/a12/3754775/avatar.jpg.320x320px.jpg?b40', 
+          bio: `I have been working in the realtime communication space for over three years, and am excited by the possibilities it has for the future. Whether it is building the next big IoT application, or working with realtime APIs or the infrastructure to support always-on applications, I am excited to learn more in this space.`,
+          email: 'bhavanasrinivas@example.com',
+          linkedin_id: 'bhavanascrinivas',
+          conference_id: 3
+        },
+        {
+          first_name: 'Venkatachalam',
+          last_name: 'Rangasamy',
+          job_title: `Principal Software Architect, Equinix`,
+          avatar_url: 'https://static.sched.com/a10/3135065/avatar.jpg.320x320px.jpg?cd4', 
+          bio: `Principal Software Architect at Equinix. An Innovative, dynamic and agile lead with reputations for defining enterprise technology strategies/solutions that reduce costs | | Authored a well acclaimed micro-service design principle based framework called AquaJS`,
+          email: 'venka@example.com',
+          linkedin_id: 'venkatachalam',
+          conference_id: 3
+        },
+        {
+          first_name: 'Gal',
+          last_name: 'Oppenheimer',
+          job_title: `Senior Product Manager, Built.io`,
+          avatar_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/2/000/201/299/1d37753.jpg', 
+          bio: `Gal Oppenheimer is the senior product manager at Built.io and delivered award-winning applications from inception to onstage launch. He is responsible for Built.io’s flagship products including Built.io Flow, Built.io Backend, and Built.io Contentstack. Gal manages development engagements for both enterprises and startup customers including the Sacramento Kings, Miami Heat, Dell, EMC, VMware, Elastic, Twilio and more. Gal holds a B.A. in economics and a minor in computer science from The University of Chicago. Parthiv Patel is the Technical Marketing Manager at Built.io where he specializes in technologies that enable tomorrow’s connected ecosystems. Dubbed “Connected Parthiv”, he has been hacking hardware for over a decade and brings to life solutions that span robotics, automation and artificial intelligence. From smart buildings to race cars, Parthiv’s forte is building interesting connections and innovative demos at the intersection of hardware, software, digital and physical. As part of the Office of the CTO, he authors Built.io’s annual Technology Predictions.`,
+          email: 'gal@example.com',
+          linkedin_id: 'galop',
+          conference_id: 3
+        },
+        {
+          first_name: 'Adam',
+          last_name: 'Tornes',
+          job_title: `Senior Product Manager, Twitter Developer Platform`,
+          avatar_url: 'https://static.sched.com/a12/4195264/avatar.jpg.320x320px.jpg?073', 
+          bio: `Adam is Senior Product Manager at Twitter, where he leads many of the product and engineering initiatives related to Twitter's API platform and data business. Prior to joining Twitter, Adam was an early employee and PM at Gnip, where he launched and managed many of the company's core API products that still support Twitter’s enterprise customers today (including Historical PowerTrack, Search, Replay and more). Previously, he served as Director of Product at OneRiot (a Gnip customer acquired by Walmart Labs) and Web Development Engineer at web analytics company, Compete (acq. by TNS). Adam received his MBA from The Ohio State University and has a bachelor degree in computer graphics technology from Purdue University. Outside of Twitter, Adam founded and leads Colorado Product, a professional organization focused on growth and development of the PM/PMM profession in the region.`,
+          email: 'atorr@example.com',
+          linkedin_id: 'adamtorres',
+          conference_id: 3
+        },
+        {
+          first_name: 'Matthias',
+          last_name: 'Broner',
+          job_title: `TBA`,
+          avatar_url: 'TBA', 
+          bio: `TBA`,
+          email: 'mbro@example.com',
+          linkedin_id: 'mbron',
+          conference_id: 3
+        },
+        {
+          first_name: 'Boisy',
+          last_name: 'Pitre',
+          job_title: `Emotion AI Evangelist, Affectiva`,
+          avatar_url: 'https://static.sched.com/a12/3930406/avatar.jpg.320x320px.jpg?7eb', 
+          bio: `Boisy is the Emotion AI Evangelist for Affectiva, an MIT Media Lab spinoff, where he advocates and promotes the adoption of the company’s emotion-based artificial intelligence technology across all of its supported platforms. He is responsible for designing and developing the first real-time machine learning-based, emotion-sensing and analytics SDK for mobile devices, which has pushed the boundaries of innovation in the industry. Now he is focused on advancing the adoption of Emotion AI through his thought leadership and advocacy. Boisy holds a Master of Science in Computer Science from the University of Louisiana at Lafayette.`,
+          email: 'boisyp@example.com',
+          linkedin_id: 'boisyp',
+          conference_id: 3
+        },
+        {
+          first_name: 'Gavin',
+          last_name: 'Cooney',
+          job_title: `CEO and Co-Founder, Learnosity`,
+          avatar_url: 'https://static.sched.com/a12/3930411/avatar.jpg.320x320px.jpg?f4b', 
+          bio: `Gavin is the Co-Founder and CEO of Learnosity, an award winning educational technology company that offers a suite of B2B, SaaS assessment technologies (APIs) which enable organizations from a wide range of sectors, to easily incorporate powerful, interactive assessment capabilities into any digital product, new or existing.`,
+          email: 'gcooney@example.com',
+          linkedin_id: 'gcooney',
+          conference_id: 3
+        },
+        {
+          first_name: 'Varun',
+          last_name: 'Sivamani',
+          job_title: `Chief Executive Officer, Semantics3, Inc`,
+          avatar_url: 'https://static.sched.com/a12/3722970/avatar.jpg.320x320px.jpg?db4', 
+          bio: `Varun started out with the simple idea of organizing and structuring the world's ecommerce information in his dorm room at university. This eventually evolved into Semantics3, which he co-founded with two of his classmates.
+
+          You should talk to us about how we're helping retailers embrace ecommerce with APIs and AI - particularly in challenges like product catalog enrichment, product taxonomy and the RealTime price monitoring
+
+          Varun oversees the strategic direction of the company, with offices in San Francisco, Bengaluru and Singapore. It is the leading provider of intelligent data-powered software for ecommerce-focussed companies; it supports retailers, brands, insurance providers and many other large Fortune 500 enterprises make better decisions and grow their market in online commerce.
+
+          Varun hails from Singapore and holds a bachelor's degree in computer engineering from the National University of Singapore (NUS).`,
+          email: 'varun@example.com',
+          linkedin_id: 'varun',
+          conference_id: 3
+        },
+        {
+          first_name: 'Paul',
+          last_name: 'Nerger',
+          job_title: `Senior VP, Product Management`,
+          avatar_url: 'https://static.sched.com/a12/3930409/avatar.jpg.320x320px.jpg?832', 
+          bio: `Developer and Partner Ecosystems | Documenting APIs | Building Developer Communities | Developer Relations`,
+          email: 'paul_n@example.com',
+          linkedin_id: 'paulnerger',
+          conference_id: 3
+        },
+        {
+          first_name: 'Arjun',
+          last_name: 'Mohan',
+          job_title: `CEO, Archie.ai`,
+          avatar_url: 'https://static.sched.com/a12/3663563/avatar.jpg.320x320px.jpg?676', 
+          bio: `Arjun is the CEO & Co-founder of Archie.AI, an Artificially Intelligent Data Scientist. Archie plugs into a business's wealth of untapped data to synthesize insights and increase revenue. Archie's database of 50 million conversions helps train machine learning algorithms powering Archie. Our goal is to help businesses make better decisions based on rigorous and continuous analysis of their existing data, through the power of A.I.`,
+          email: 'arjunmohan@example.com',
+          linkedin_id: 'arjunmohan',
+          conference_id: 3
+        },
+        {
+          first_name: 'Fran',
+          last_name: 'Mendez',
+          job_title: `Lead Engineer, Hutch`,
+          avatar_url: 'https://static.sched.com/a12/3930416/avatar.jpg.320x320px.jpg?f1a', 
+          bio: `TBD`,
+          email: 'fmendez@example.com',
+          linkedin_id: 'fmendez',
+          conference_id: 3
+        },
+        {
+          first_name: 'Anuj',
+          last_name: 'Agrawal',
+          job_title: `CMO, Earth Networks`,
+          avatar_url: 'https://static.sched.com/a12/3930410/avatar.jpg.320x320px.jpg?329', 
+          bio: `TBD`,
+          email: 'aagrawal@example.com',
+          linkedin_id: 'aagrawal',
+          conference_id: 3
+        },
+        {
+          first_name: 'Guiliano',
+          last_name: 'Iacobelli',
+          job_title: `CEO, Stamplay`,
+          avatar_url: 'https://static.sched.com/a12/3230401/avatar.jpg.320x320px.jpg?259', 
+          bio: `Software engineer turned full stack entrepreneur. Co-Founder of #500 Strong company Stamplay, the Lego for APIs. Love for Hip Hop.`,
+          email: 'giacobelli@example.com',
+          linkedin_id: 'giaco',
+          conference_id: 3
+        },
+        {
+          first_name: 'Scott',
+          last_name: 'Harkins',
+          job_title: `VP IoT Partner Programs Honeywell Connection Home & Buildings, Honeywell`,
+          avatar_url: 'https://static.sched.com/a12/4195253/avatar.jpg.320x320px.jpg?952', 
+          bio: `Scott Harkins is Vice President of Partner Development within Honeywell’s Connected Home & Building organizations. In this role, Scott manages the relationships with technology companies, the developer community & the startup community. The partner development team is responsible for creating consumer value by enabling developers to consume Honeywell’s API for its’ portfolio of cloud connected products.`,
+          email: 'sharkins@example.com',
+          linkedin_id: 'sharkins',
+          conference_id: 3
+        },
+        {
+          first_name: 'Greg',
+          last_name: 'DiFruscio',
+          job_title: `Director of Support`,
+          avatar_url: 'https://static.sched.com/a13/4325447/avatar.jpg.320x320px.jpg?4b7', 
+          bio: `Working with Forum Systems since 2004, Greg is responsible for all pre and post-sales customer support. This includes product training for customers and partners as well as deploying new Forum Sentry installations. A core focus is on designing, building, implementing, and demonstrating the Forum Sentry API Security Gateway use cases.`,
+          email: 'gdi@example.com',
+          linkedin_id: 'gregdifruscio',
+          conference_id: 3
+        },
+        {
+          first_name: 'Aaron',
+          last_name: 'Hedges',
+          job_title: `API Product Manager, Vimeo`,
+          avatar_url: 'TBD', 
+          bio: `Aaron Hedges has been building the Vimeo API for years. Starting as an engineer, he recently transitioned into Product Management and is focusing that time on the design, developer experience and the business of APIs.`,
+          email: '',
+          linkedin_id: '',
+          conference_id: 3
+        },
+        {
+          first_name: 'Sumit',
+          last_name: 'Kapoor',
+          job_title: `Managing Partner, Zorang Inc.`,
+          avatar_url: 'https://static.sched.com/a13/4327141/avatar.jpg.320x320px.jpg?e13', 
+          bio: `With over 20 years of IT industry experience leading teams in engineering, services, product management, sales and marketing, in diverse fields such as Services, Telecom, Content Management, Integration and Marketplaces at leading companies such as HCL-HP, Verizon (GTE), Interwoven (OpenText), Cast Iron and IBM, Sumit can provide a unique perspective as a Consumer and Provider of services. Sumit has a Masters in CS from Cornell University and a Bachelors in CS from Pune University, India.`,
+          email: 'sumitkapoor@example.com,',
+          linkedin_id: 'sumitkapoor',
+          conference_id: 3
+        }
       ]);
     });
 };
 
 // template
-        {
-          first_name: 
-          last_name:
-          job_title:
-          avatar_url:
-          bio:
-          email:
-          linkedin_id:
-          conference_id:
-        },
+        // {
+        //   first_name: '',
+        //   last_name: '',
+        //   job_title: ``,
+        //   avatar_url: '', 
+        //   bio: ``,
+        //   email: '',
+        //   linkedin_id: '',
+        //   conference_id: 3
+        // },
