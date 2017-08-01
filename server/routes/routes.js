@@ -10,11 +10,12 @@ router.route('/')
 router.route('/users')
   .get(controller.getAllUsers);
 
-router.route('/users/:userid')
+router.route('/users/:id')
   .get(controller.getUser);
 
-router.route('/editUserProfile')
-  .post(controller.editUserProfile);
+//router.route('/editUserProfile')
+router.route('/users')
+  .put(controller.editUserProfile);
 
 
 /*********************SPEAKERS **********************/
@@ -25,7 +26,7 @@ router.route('/speakers/:confid')
 router.route('/speakers/presentation/:presentationid')
   .get(controller.getAllSpeakersOfPresentation);
 
-router.route('/addSpeaker')
+router.route('/speakers')
   .post(controller.addSpeaker);
 
   // modify speakers from a conference

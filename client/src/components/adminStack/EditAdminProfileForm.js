@@ -104,9 +104,9 @@ class EditAdminProfileForm extends Component {
   saveToDB(profile) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
 
-    let url = SERVER_URL + 'api/editUserProfile/';
+    let url = SERVER_URL + 'api/users/';
 
-    axios.post(url, profile)
+    axios.put(url, profile)
       .then(response => {
         Toast.show({
           text: 'Profile Updated',
