@@ -19,8 +19,8 @@ export default class SpeakerList extends React.Component {
   }
 
   componentDidMount() {
-  const SERVER_URL = Config.server.url || 'http://localhost:3000';
-   axios.get(SERVER_URL + `api/speakers/${this.props.conferenceID}`)
+    const SERVER_URL = Config.server.url || 'http://localhost:3000';
+    axios.get(SERVER_URL + `api/speakers/${this.props.conferenceID}`)
     .then(response => {
       this.setState({
         speakers: response.data

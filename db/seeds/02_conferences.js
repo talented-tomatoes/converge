@@ -44,7 +44,7 @@ exports.seed = function(knex, Promise) {
           ticket_price: 35,
           venue_map: 'https://www.sanjose.org/media/650852/digitalmonitorlocationsv2.jpg',
           banner: 'https://apiworld.co/wp-content/uploads/2014/12/APIWORLD-WHT.png',
-          user_id: 3
+          user_id: 4
         }
       ]);
     });
