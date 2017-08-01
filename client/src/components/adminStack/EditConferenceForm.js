@@ -40,10 +40,12 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 class EditConferenceForm extends Component {
   constructor(props) {
     super(props);
-    var defaultImage = 'https://res.cloudinary.com/awchang56/image/upload/v1501397395/default-banner-mobile_wo9i8j.jpg';
+    var defaultImage = 'https://res.cloudinary.com/awchang56/image/upload/v1501540513/default-placeholder-1024x1024-959x540_dgzvxo.png';
     this.state = {
       start_date: '' || this.props.admin.selectedConference.start_date,
       end_date: '' || this.props.admin.selectedConference.end_date,
+      start_time: '' || this.props.admin.selectedConference.start_time,
+      end_time: '' || this.props.admin.selectedConference.end_time,
       banner: this.props.admin.selectedConference.banner || defaultImage,
       logo: this.props.admin.selectedConference.logo || defaultImage,
       venue_map: this.props.admin.selectedConference.venue_map || defaultImage,
@@ -51,7 +53,6 @@ class EditConferenceForm extends Component {
     }
     this.handleConferenceDelete = this.handleConferenceDelete.bind(this);
     this.randomColor = randomColor();
-    this.defaultImage = 'https://res.cloudinary.com/awchang56/image/upload/v1501397395/default-banner-mobile_wo9i8j.jpg';
   }
   static navigationOptions = {
     title: 'Update Conference Details',
@@ -168,10 +169,13 @@ class EditConferenceForm extends Component {
     conference.user_id = this.props.user.userID;
     conference.start_date = this.state.start_date;
     conference.end_date = this.state.end_date;
+    conference.start_time = this.state.start_time;		
+    conference.end_time = this.state.end_time;
     conference.id = this.props.admin.selectedConference.id;
     conference.logo = this.state.logo;
     conference.banner = this.state.banner;
     conference.venue_map = this.state.venue_map;
+    console.log('SAVING conference ', conference);
     this.saveToDB(conference);
   }
 
@@ -255,18 +259,23 @@ class EditConferenceForm extends Component {
                 }
               </CardItem>
             </TouchableOpacity>
-            <TouchableOpacity style={{position: 'absolute', left: 350, top: 245}} onPress={() => this.uploadImage('banner')}>
-              <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
-            </TouchableOpacity>
             </Card>
             <Card>
               <CardItem>
-                <Text>Start Date: </Text>
+                <Text>Start Date:  </Text>
                 <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id}/>
+              </CardItem>
+              <CardItem>
+                <Text>Start Time: </Text>
+                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time}/>
               </CardItem>
               <CardItem>
                 <Text>End Date:   </Text>
                 <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id}/>
+              </CardItem>
+              <CardItem>
+                <Text>End Time:   </Text>	
+                <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time}/>
               </CardItem>
               <CardItem>
                 <Field name="address" validate={[required]} component={ renderInput } label="Address:"/>
