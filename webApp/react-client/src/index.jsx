@@ -11,12 +11,13 @@ import EventMenu from './components/EventMenu.jsx';
 import Main from './components/Main.jsx';
 import Auth from './components/Auth.jsx';
 import { Grid } from 'semantic-ui-react';
-
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+require("react-datepicker/dist/react-datepicker-cssmodules.css");
 
 const store = configureStore();
 

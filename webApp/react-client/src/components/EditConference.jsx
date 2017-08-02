@@ -11,6 +11,11 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import EventMenu from './EventMenu.jsx';
 import defaultImage from './helpers/defaultImage';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+
 
 const renderTextField = ({input, label, placeholder, width, meta: { touched, error, warning }}) => (
   <Form.Input onChange={e => input.onChange(e)} value={input.value} label={label} placeholder={placeholder} width={width} />
@@ -43,8 +48,24 @@ class EditConference extends React.Component {
       logo: this.props.selectedConference.logo,
       banner: this.props.selectedConference.banner,
       venue_map: this.props.selectedConference.venue_map,
-      activeItem: 'Add Conference'
+      activeItem: 'Add Conference',
+      start_date: moment(),
+      end_date: ''
     }
+    this.handleChangeStart = this.handleChangeStart.bind(this);
+    this.handleChangeEnd = this.handleChangeEnd.bind(this);
+  }
+
+  handleChangeStart(date) {
+    this.setState({
+      start_date: date
+    });
+  }
+
+  handleChangeEnd(date) {
+    this.setState({
+      end_date: date
+    });
   }
 
   submit(conference) {
@@ -52,17 +73,23 @@ class EditConference extends React.Component {
     conference.logo = this.state.logo;
     conference.banner = this.state.banner;
     conference.venue_map = this.state.venue_map;
+    conference.start_date = this.state.start_date;
+    conference.end_date = this.state.end_date;
     console.log('conference form values: ', conference);
 
-    let url = config.server.url + 'api/editConference';
+    // have different paths for Adding or Editting
+    let endPoint = this.props.selectedConference.name ? 'api/editConference' : 'api/addConference';
+    let url = config.server.url + endPoint;
+    console.log('url', url);
+
     axios.post(url, conference)
       .then(response => {
         console.log('conference updated: ', response);
         browserHistory.push('/MyEvents');
       })
       .catch(err => {
-        console.log('error updating conference: ', error);
-      })
+        console.log('error updating conference: ', err);
+      });
   }
 
   getPicture(name, picture) {
@@ -130,6 +157,27 @@ class EditConference extends React.Component {
               <Form.Group>
                 <Field name="details" component={ renderTextAreaField } validate={[required]} label="Conference Blurb" width={16} height={250}/>
               </Form.Group>
+
+              <DatePicker
+                selected={this.state.start_date}
+                selectsStart
+                startDate={this.state.start_date}
+                endDate={this.state.end_date}
+                onChange={this.handleChangeStart}
+                placeholderText="Start Date"
+                dateFormat="YYYY/MM/DD"
+              />
+
+              <DatePicker
+                selected={this.state.end_date}
+                selectsEnd
+                startDate={this.state.start_date}
+                endDate={this.state.end_date}
+                onChange={this.handleChangeEnd}
+                placeholderText="End Date"
+                dateFormat="YYYY/MM/DD"                
+              />
+
               <Grid>
                 <Grid.Row >
                   <Grid.Column width={5}>
@@ -147,7 +195,7 @@ class EditConference extends React.Component {
                 </Grid.Row>
               </Grid>
               <Form.Group />
-              <Button primary fluid type="submit">
+              <Button primary fluid type="submit" onClick={this.submit.bind(this)}>
               {
                 !this.props.selectedConference.name ? 'Add Conference' : 'Update Conference'
               }
