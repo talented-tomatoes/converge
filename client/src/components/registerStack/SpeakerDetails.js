@@ -14,7 +14,7 @@ class SpeakerDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      presentations : []
+      presentations : [],
     }
     var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
     this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
@@ -28,9 +28,9 @@ class SpeakerDetails extends Component {
     const { params } = this.props.navigation.state;
     axios.get(`${Config.server.url}api/join/presentations_speakers/${params.speaker.id}`)
       .then(response => {
-        this.setState({
-          presentations: response.data
-        });
+          this.setState({
+            presentations: response.data,
+          })
       })
       .catch(err => {
         console.log(err);
@@ -38,36 +38,47 @@ class SpeakerDetails extends Component {
   }
 
   handleAddToSchedule(presentation) {
-    axios.post(`${Config.server.url}api/join/users_presentations`, { presentation_id: presentation.id, user_id: this.props.user.id })
-      .then(response => {
-        //TODO: Try to store this in redux?
-        if (response.data === 'success') {
-          Toast.show({
-              text: `Added ${presentation.name} to your schedule`,
+    const { params } = this.props.navigation.state;
+    if (!params.isUserPaid) {
+      Toast.show({
+        text: 'Please purchase a ticket first before adding this to your schedule.',
+        position: 'bottom',
+        buttonText: 'Okay',
+        type: 'warning',
+        duration: 2000
+      })
+    } else {
+      axios.post(`${Config.server.url}api/join/users_presentations`, { presentation_id: presentation.id, user_id: this.props.user.id })
+        .then(response => {
+          //TODO: Try to store this in redux?
+          if (response.data === 'success') {
+            Toast.show({
+                text: `Added ${presentation.name} to your schedule`,
+                position: 'bottom',
+                buttonText: 'Okay',
+                type: 'success',
+                duration: 2000
+            });
+          }
+          if (response.data === 'already added') {
+            Toast.show({
+              text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
               position: 'bottom',
               buttonText: 'Okay',
-              type: 'success',
+              type: 'warning',
               duration: 2000
-          });
-        }
-        if (response.data === 'already added') {
-          Toast.show({
-            text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
-            position: 'bottom',
-            buttonText: 'Okay',
-            type: 'warning',
-            duration: 2000
-          })
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+    }
   }
 
   render() {
     const { params } = this.props.navigation.state;
-    console.log(this.props);
     return (
       <Container>
         <RegisterStackHeader
