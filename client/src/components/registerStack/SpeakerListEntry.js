@@ -11,7 +11,7 @@ export default class SpeakerListEntry extends React.Component {
 
   handleSpeakerPress() {
     
-    this.props.navigation.navigate('SpeakerDetails', {backPage: this.props.backPage, speaker: this.props.speaker});
+    this.props.navigation.navigate('SpeakerDetails', {backPage: this.props.backPage, speaker: this.props.speaker, isUserPaid: this.props.isUserPaid});
   }
 
   render() {
