@@ -51,10 +51,7 @@ class EditConferenceForm extends Component {
       venue_map: this.props.admin.selectedConference.venue_map || defaultImage,
       isLoading: {},
       startOnFocus: false,
-      placeholderText: {
-        color: 'grey',
-        fontStyle: 'normal'
-      }
+      datepickerRequired: false
     }
     this.handleConferenceDelete = this.handleConferenceDelete.bind(this);
     this.randomColor = randomColor();
@@ -174,10 +171,7 @@ class EditConferenceForm extends Component {
     // throw an alert here if the state of the date is an empty string
     if (this.state.start_date === undefined || this.state.end_date === undefined || this.state.start_time === undefined || this.state.end_time === undefined) {
       this.setState({
-        placeholderText: {
-          fontStyle: 'italic',
-          color: 'red'
-        }
+        datepickerRequired: true
       })
     } else {
       conference.user_id = this.props.user.userID;
@@ -302,19 +296,19 @@ class EditConferenceForm extends Component {
             <Card>
               <CardItem>
                 <Text>Start Date:  </Text>
-                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date} placeholderText={this.state.placeholderText} />
+                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Text>Start Time: </Text>
-                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} placeholderText={this.state.placeholderText} />
+                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Text>End Date:   </Text>
-                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date} placeholderText={this.state.placeholderText} />
+                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Text>End Time:   </Text>
-                <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} placeholderText={this.state.placeholderText} />
+                <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Field name="address" validate={[required]} component={ renderInput } label="Address:"/>
