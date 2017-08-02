@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, TouchableOpacity, ScrollView, View } from 'react-native';
 import { TabNavigator } from 'react-navigation';
-import { Container, Header, Text, Grid, Col, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
+import { Container, Header, Text, Grid, Col, Toast, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
 import axios from 'axios';
+import randomColor from '../helpers/randomColor';
 import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
 import Config from '../../../../config/config.js';
@@ -12,8 +13,37 @@ class ConferenceDetails extends Component {
 
   constructor(props) {
     super(props);
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+    this.state = {
+      isUserPaid: null
+    }
+    this.randomColor = randomColor();
+  }
+
+  componentDidMount() {
+    axios.get(`${Config.server.url}api/payments/${this.props.user.id}/${this.props.selectedConference.id}`)
+    .then(result => {
+      console.log(result.data);
+      this.setState({
+        isUserPaid: result.data
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
+  handleBuyButtonPress() {
+    if (!this.state.isUserPaid) {
+      this.props.navigation.navigate('PaymentForm', {conference: this.props.selectedConference});
+    } else {
+      Toast.show({
+        text: 'Looks like you already purchased a ticket. Please visit My Events to get more info',
+        position: 'bottom',
+        buttonText: 'Okay',
+        type: 'warning',
+        duration: 2000
+      })
+    }
   }
 
   render() {
@@ -38,7 +68,7 @@ class ConferenceDetails extends Component {
               </ScrollView>
              </CardItem>
              <CardItem>
-               <Button onPress={() => this.props.navigation.navigate('PaymentForm', {conference: this.props.selectedConference})}>
+               <Button onPress={this.handleBuyButtonPress.bind(this)}>
                  <Text style={{color: 'white'}}>Buy Ticket</Text>
                </Button>
              </CardItem>
@@ -49,7 +79,7 @@ class ConferenceDetails extends Component {
           </Card>
           </View>
           <ScrollView style={{height: 350}}>
-          <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} backPage={'ConferenceDetails'}/>
+          <SpeakerList navigation={this.props.navigation} conferenceID={this.props.selectedConference.id} isUserPaid={this.state.isUserPaid} backPage={'ConferenceDetails'}/>
           </ScrollView>
          </Content>
       </Container>

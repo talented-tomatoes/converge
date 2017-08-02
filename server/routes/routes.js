@@ -86,6 +86,10 @@ router.route('/users/:userid/checkin')
 router.route('/payments/charge')
   .post(controller.chargeCustomer);
 
+//Check if user paid for the conference
+router.route('/payments/:userid/:confid')
+  .get(controller.checkIfUserPaid)
+
 /*********************REGISTRATION**********************/
 router.route('/registerUser')
   .post(controller.registerUser);
