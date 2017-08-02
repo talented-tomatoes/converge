@@ -26,6 +26,7 @@
     "react-dates": "^12.3.0",
     "react-dom": ">=0.14",
     "react-dropzone": "^3.13.4",
+    "react-google-login": "^2.9.3",
     "react-redux": "^5.0.5",
     "react-router": "2.5.2",
     "react-router-redux": "^4.0.8",

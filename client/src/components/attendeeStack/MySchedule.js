@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Drawer, Content, Text, Toast, Container, Button, Icon, Tabs, Body, Tab, List, ListItem, Left, Grid, Col, Right } from 'native-base';
+import { Drawer, Content, Text, Toast, Container, Button, Icon, Tabs, Body, Tab, List, ListItem, Left, Grid, Col, Right, Row } from 'native-base';
 import SideBar from './Sidebar';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
@@ -8,6 +8,8 @@ import renderListOfDatesFromConference from '../adminStack/helpers/renderListOfD
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
 import AttendeeConferenceHeader from './helpers/AttendeeConferenceHeader.js'
 import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
+import randomColor from '../helpers/randomColor';
+
 
 class MySchedule extends Component {
   static navigationOptions = {
@@ -34,7 +36,7 @@ class MySchedule extends Component {
   }
 
   handleItemPress(presentation) {
-    this.props.navigation.navigate('PresentationDetails', { presentation: presentation });
+    this.props.navigation.navigate('PresentationDetails', { presentation: presentation, backPage: 'MySchedule' });
   }
 
   getUserSchedule() {
@@ -93,24 +95,42 @@ class MySchedule extends Component {
                           console.log('presentations?', presentation);
                           return (
                             <List key={i}>
+                              <Grid>
+                              <Row style={{alignItems: 'center'}}>
+                              <Col style={{width: '85%'}}>
                               <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
-                                <Left>
-                                  <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                    <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
-                                  </Grid>
-                                  <Text>{presentation.time}</Text>
-                                </Left>
-                                <Body>
-                                  <Text>{presentation.name}</Text>
-                                  <Text note>{presentation.location}</Text>
-                                </Body>
-                                  <Right>
-                                    <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
+                                <Grid>
+                                  <Row style={{alignItems: 'center'}}>
+                                  <Col style={{width: '27%'}}>
+                                    <Row>
+                                      <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
+                                        <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
+                                      </Grid>
+                                      <Text style={{paddingLeft: 10, marginRight: 0}}>{presentation.time}</Text>
+                                    </Row>
+                                  </Col>
+                                  <Col style={{width: '73%'}}>
+                                    <Body>
+                                      <Text>{presentation.name}</Text>
+                                      <Text note>{presentation.location}</Text>
+                                    </Body>
+                                  </Col>
+
+                                  </Row>
+                                </Grid>
+
+                              </ListItem>
+                              </Col>
+                              <Col style={{width: '15%', alignItems: 'center'}}>
+                                  <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
                                       <Icon name="trash" style={{color: '#428bca'}}/>
                                     </Button>
-                                  </Right>
-                              </ListItem>
+                              </Col>
+                              </Row>
+                              </Grid>
                             </List>
+
+
                           )
                         })
                       }

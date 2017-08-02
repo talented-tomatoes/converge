@@ -47,7 +47,7 @@ class PresentationsDetails extends Component {
     return (
       <Container>
         <AttendeeConferenceHeader
-          leftOnPress={() => this.props.navigation.navigate('MasterSchedule')}
+          leftOnPress={() => this.props.navigation.navigate(params.backPage)}
           leftIcon="arrow-back"
           title="Presentation"
         />
@@ -55,7 +55,9 @@ class PresentationsDetails extends Component {
             <Card style={{flex: 0}}>
               <CardItem header>
                 <Thumbnail square source={{uri: this.props.conference.logo}} />
-                <Text style={{fontWeight: 'bold', paddingLeft: 15}}>{params.presentation.name}</Text>
+                <Body>
+                <Text style={{fontWeight: 'bold', padding: 10}}>{params.presentation.name}</Text>
+                </Body>
               </CardItem>
               <List style={{paddingRight: 20}}>
                 <ListItem icon>

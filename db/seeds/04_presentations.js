@@ -8,11 +8,11 @@ exports.seed = function(knex, Promise) {
       .returning('id')
       .insert([
         {
-          name: 'STARTUP BATTLEFIELD', 
-          description: 'Startup Battlefield brings the world s top early stage startups together on one stage to compete for the coveted Disrupt Cup, a $50,000 prize, and the attention of media and investors. Since appearing on the TechCrunch stage, Battlefield alumni have collectively raised over $6.9 billion. The judges include TechCrunch editors as well as top VCs and entrepreneurs, and past winners include names like Dropbox, Mint, Yammer, Zenefits, and many more. Participation is free and open. Battlefield applications are now open for Disrupt SF ', 
-          date: '2017-09-21', 
-          time: '10:00AM', 
-          location: 'Red Room', 
+          name: 'STARTUP BATTLEFIELD',
+          description: 'Startup Battlefield brings the world s top early stage startups together on one stage to compete for the coveted Disrupt Cup, a $50,000 prize, and the attention of media and investors. Since appearing on the TechCrunch stage, Battlefield alumni have collectively raised over $6.9 billion. The judges include TechCrunch editors as well as top VCs and entrepreneurs, and past winners include names like Dropbox, Mint, Yammer, Zenefits, and many more. Participation is free and open. Battlefield applications are now open for Disrupt SF ',
+          date: '2017-09-21',
+          time: '10:00AM',
+          location: 'Red Room',
           conference_id: 1},
         {
           name: 'HACKATHON',
@@ -146,7 +146,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           location: 'Workshop Room 4',
-          time: '4:00PM',
+          time: '4:00 PM',
           date: '2017-09-25',
           conference_id: 3,
           description: 'With the advent of microservices and the proliferation of APIs, even the simplest applications require significant API orchestration logic as they find the data they depend on scattered across an ever growing number of systems. Even with the newer protocols, developers still need to do a significant amount of heavy lifting. In this fun and thought provoking talk we will take a look at a new set of technologies, currently under development, that let developers easily combine data from multiple services exposed via RESTful or GraphQL APIs by writing declarative graph queries instead of code and delegating orchestration to a new kind of "query" engine - one that understands how to talk to data services as well as APIs. We will discuss the main shortcomings of the current state of the industry, explore the possible solutions space, understand (briefly) different techniques for automating data-gathering across distributed/federated systems and, finally, take a look at a couple of real world scenarios and working code. This talk will aim to be equal parts content and inspiration. We hope to spark interest in exploring higher level abstractions and protocols for publishing and connecting systems.',
@@ -282,7 +282,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           location: 'Workshop Room 3',
-          time: '1:00 AM',
+          time: '1:00 PM',
           date: '2017-09-26',
           conference_id: 3,
           description: 'Integrate: Internet of Things API Design',
@@ -290,7 +290,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           location: 'Workshop Room 2',
-          time: 'Building Real-time Apps with GraphQL Subscriptions',
+          time: '4:30 PM',
           date: '2017-09-26',
           conference_id: 3,
           description: 'Real-time & Streaming APIs',
@@ -354,7 +354,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           location: 'Workshop Room 2',
-          time: '9:25AM',
+          time: '9:25 AM',
           date: '2017-09-27',
           conference_id: 3,
           description: `Semantics3 is pioneering the use of Artificial Intelligence in ecommerce. We work with many Fortune 500 retailers on problems core to their ecommerce businesses. Our offer to retailers is simple - in order to compete on a level playing field with Amazon, they need to develop core tech strategies that keep up with Amazon's own tech strategy. We help these retailers fill this void through our AI APIs, which tackle problems like product enrichment, image generation, content generation, product classification and taxonomy. Efficiency-wise, we've managed to achieve human-levels of accuracy without a human-level cost margin. Our talk will explore some of the core business challenges that retailers face, and how AI APIs can help.`,

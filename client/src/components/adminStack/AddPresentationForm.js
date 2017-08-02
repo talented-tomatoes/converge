@@ -228,22 +228,22 @@ class AddPresentationForm extends Component {
                 <Col style={{ backgroundColor: this.randomColor, height: 5, flex: 1}}></Col>
               </Grid>
           </Card>
-          <Card>
           {
             (this.props.admin.speakers.length === 0) ? (
+              <Card>
                 <Button iconLeft transparent style={{alignSelf: 'center'}} onPress={() => this.props.navigation.navigate('AddSpeakersForm')}>
                   <Icon name="add" />
                   <Text style={{fontWeight: 'bold'}}>Please Add A Speaker First</Text>
                 </Button>
+              </Card>
             ) : (
               <View />
             )
           }
 
-            <Content>
-            <SpeakerPicker />
-            </Content>
-          </Card>
+          <View>
+          <SpeakerPicker />
+          </View>
         </Content>
         <Footer>
           <Content style={{backgroundColor: this.randomColor}}>

@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MyEvents from './components/MyEvents.jsx';
-import ConferenceDetails from './components/ConferenceDetails.jsx';
 import EditSpeaker from './components/EditSpeaker.jsx';
 import Speakers from './components/Speakers.jsx';
 import Presentations from './components/Presentations.jsx';
 import EditProfile from './components/EditProfile.jsx';
 import EditPresentation from './components/EditPresentation.jsx';
 import EditConference from './components/EditConference.jsx';
+import EventMenu from './components/EventMenu.jsx';
 import Main from './components/Main.jsx';
+import Auth from './components/Auth.jsx';
 import { Grid } from 'semantic-ui-react';
 
 import { Provider } from 'react-redux';
@@ -24,15 +25,15 @@ const history = syncHistoryWithStore(browserHistory, store);
 const App = (
   <Provider store={store} >
     <Router history={history}>
+      {/*<Route path='/' component={Auth} />*/}
       <Route path='/' component={Main}>
         <IndexRoute component={MyEvents} />
         <Route path='/MyEvents' component={MyEvents} />
+        <Route path='/EditConference' component={EditConference} />
+        <Route path='/Presentations' component={Presentations} />
         <Route path='/Speakers' component={Speakers} />
         <Route path='/EditSpeaker' component={EditSpeaker} />
-        <Route path='/Presentations' component={Presentations} />
-        <Route path='/ConferenceDetails' component={ConferenceDetails} />
         <Route path='/EditProfile' component={EditProfile} />
-        <Route path='/EditConference' component={EditConference} />
         <Route path='/EditPresentation' component={EditPresentation} />
       </Route>
     </Router>

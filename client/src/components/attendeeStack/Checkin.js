@@ -102,7 +102,7 @@ class Checkin extends Component {
               text: 'Check-in Successful!',
               position: 'bottom',
               type: 'success',
-              duration: 500
+              duration: 2000
             });
             this.props.navigation.navigate('Home');
           }

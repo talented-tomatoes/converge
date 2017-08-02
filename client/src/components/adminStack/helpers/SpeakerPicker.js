@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from "react-native";
-import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, View, H3, Item as FormItem, ListItem, Thumbnail } from "native-base";
+import { TouchableOpacity, ScrollView } from "react-native";
+import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, View, H3, Item as FormItem, ListItem, Thumbnail, Card, CardItem } from "native-base";
 import SpeakerList from '../../registerStack/SpeakerList.js';
 import { connect } from 'react-redux';
 import Config from '../../../../../config/config.js';
 import { setPresentationSpeakers } from '../../actions/actions.js';
-
+import truncateString from '../../helpers/truncateString';
 
 class SpeakerPicker extends Component {
   constructor(props) {
@@ -35,31 +35,34 @@ class SpeakerPicker extends Component {
 
   render() {
     return (
-      <Content>
+      <ScrollView style={{height: 140}}>
         {
 
 
           this.props.admin.speakers.map((speaker, idx)=> {
             return (
-              <ListItem key={idx} avatar onPress={this.handleSpeakerPress.bind(this, speaker)}>
-                <Left>
-                  <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
-                </Left>
-                <Body>
-                  <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
-                  <Text note>{speaker.job_title}</Text>
-                </Body>
-                <Right>
-                  {
-                    Object.keys(this.state.selectedSpeakers).includes(speaker.id.toString()) ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}} /> : <Icon name="add" style={{color: 'gray', fontSize: 32}} />
+              <Card key={idx}>
+                <TouchableOpacity onPress={this.handleSpeakerPress.bind(this, speaker)}>
+                  <CardItem header>
+                      <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
+                    <TouchableOpacity style={{marginLeft: 15}} onPress={this.handleSpeakerPress.bind(this)}>
+                    <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
+                    <Text note >{truncateString(speaker.job_title)}</Text>
+                    </TouchableOpacity>
+                    <Right>
+                      {
+                        Object.keys(this.state.selectedSpeakers).includes(speaker.id.toString()) ? <Icon name="checkmark" style= {{color: 'green', fontSize: 32}} /> : <Icon name="add" style={{color: 'gray', fontSize: 32}} />
 
-                  }
-                </Right>
-              </ListItem>
+                      }
+                    </Right>
+
+                  </CardItem>
+                </TouchableOpacity>
+              </Card>
             )
           })
         }
-      </Content>
+      </ScrollView>
     );
   }
 }

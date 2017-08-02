@@ -12,6 +12,8 @@ import normalizePhoneNumber from './helpers/normalizePhoneNumber';
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import EventMenu from './EventMenu.jsx';
+import defaultImage from './helpers/defaultImage';
 
 
 
@@ -122,43 +124,54 @@ class EditProfile extends React.Component {
     )
     return (
       <div>
-          <h2>Edit Profile</h2>
-          <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
-            <Form.Group>
-              <Field name="first_name" component={ renderTextField } validate={[required]} label="First Name" width={8}/>
-              <Field name="last_name" component={ renderTextField } validate={[required]} label="Last Name" width={8}/>
-            </Form.Group>
-            <Form.Group>
-              <Field name="email" component={ renderTextField } validate={[required, email]} label="Email" width={16}/>
-            </Form.Group>
-            <Form.Group>
-              <Field name="linkedin_id" component={ renderTextField } validate={[required, linkedin]} label="LinkedIn Handle" width={16}/>
-            </Form.Group>
-            <Form.Group>
-              <Field name="phone_number" component={ renderTextField } label="Phone Number" width={16} normalize={normalizePhoneNumber} />
-            </Form.Group>
-            <Grid>
-            <Grid.Row>
-              <Grid.Column width={5}>
-              <Dimmer.Dimmable
-                as={Image}
-                dimmed={active}
-                dimmer={{ active, content }}
-                onMouseEnter={this.handleDimmer.bind(this)}
-                onMouseLeave={this.handleDimmer.bind(this)}
-                size='medium'
-                src={this.state.avatar_url}
-              />
-              </Grid.Column>
-              <Dropzone style={{display: 'none'}} accept="image/*" ref={(node) => { dropzoneRef = node; }} onDrop={this.onImageDrop.bind(this)}>
-                <p>Drag picture here.</p>
-              </Dropzone>
-            </Grid.Row>
-            </Grid>
-            <Form.Group />
-            <Button primary type="submit">Update</Button>
-          </Form>
-
+        <EventMenu currentPage='Edit Profile'/>
+        <Grid style={{backgroundColor: 'rgb(200, 199, 204)', padding: 30}}>
+          <Grid.Row>
+          <Grid.Column width={3} />
+          <Grid.Column width={10}>
+            <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
+              <Form.Group>
+                <Field name="first_name" component={ renderTextField } validate={[required]} label="First Name" width={8}/>
+                <Field name="last_name" component={ renderTextField } validate={[required]} label="Last Name" width={8}/>
+              </Form.Group>
+              <Form.Group>
+                <Field name="email" component={ renderTextField } validate={[required, email]} label="Email" width={16}/>
+              </Form.Group>
+              <Form.Group>
+                <Field name="linkedin_id" component={ renderTextField } validate={[required, linkedin]} label="LinkedIn Handle" width={16}/>
+              </Form.Group>
+              <Form.Group>
+                <Field name="phone_number" component={ renderTextField } label="Phone Number" width={16} normalize={normalizePhoneNumber} />
+              </Form.Group>
+              <Grid>
+              <Grid.Row>
+                <Grid.Column width={5} verticalAlign="middle">
+                <p style={{fontWeight: 'bold'}}>Upload a new photo</p>
+                </Grid.Column>
+                <Grid.Column width={5}>
+                <Dimmer.Dimmable
+                  as={Image}
+                  dimmed={active}
+                  dimmer={{ active, content }}
+                  onMouseEnter={this.handleDimmer.bind(this)}
+                  onMouseLeave={this.handleDimmer.bind(this)}
+                  size='medium'
+                  src={this.state.avatar_url || defaultImage}
+                />
+                </Grid.Column>
+                <Grid.Column width={5} />
+                <Dropzone style={{display: 'none'}} accept="image/*" ref={(node) => { dropzoneRef = node; }} onDrop={this.onImageDrop.bind(this)}>
+                  <p>Drag picture here.</p>
+                </Dropzone>
+              </Grid.Row>
+              </Grid>
+              <Form.Group />
+              <Button primary fluid type="submit">Update Profile</Button>
+            </Form>
+          </Grid.Column>
+          <Grid.Column width={3} />
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }
