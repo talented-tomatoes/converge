@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { Grid, Card, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../../config/config';
-import { Link } from 'react-router';
 
 import { connect } from 'react-redux';
 import { setSelectedSpeaker } from '../actions/actions';
 import { browserHistory } from 'react-router';
-
+import randomColor from './helpers/randomColor';
+import truncateString from './helpers/truncateString';
 
 
 class Speakers extends React.Component {
@@ -17,6 +17,7 @@ class Speakers extends React.Component {
     this.state = {
       speakers: []
     }
+    this.randomColor = randomColor();
   }
 
   componentDidMount() {
@@ -37,14 +38,12 @@ class Speakers extends React.Component {
   render () {
     console.log('this.props in myEvents: ', this.props)
     let displayedSpeakers = this.state.speakers.map((speaker, i) => {
-      let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-      let randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
       return (
-        <Card raised color={randomColor} onClick={() => {
+        <Card raised centered style={{borderBottom: 'medium solid ' + randomColor(), width: 212}} onClick={() => {
           this.props.dispatch(setSelectedSpeaker(speaker));
           browserHistory.push('/EditSpeaker');
         }} key={i}>
-          <Image src={speaker.avatar_url} />
+          <Image style={{width: 212, height: 212}} src={speaker.avatar_url} />
           <Card.Content>
             <Card.Header>{speaker.first_name + ' ' + speaker.last_name}</Card.Header>
             <Card.Meta>{speaker.job_title}</Card.Meta>
@@ -56,14 +55,19 @@ class Speakers extends React.Component {
 
     return (
       <div>
-        <Grid.Row>
-          <h3>My Events</h3>
-        </Grid.Row>
-        <Grid.Row>
-          <Card.Group itemsPerRow={3}>
-            {displayedSpeakers}
-          </Card.Group>
-        </Grid.Row>
+        <Grid style={{backgroundColor: 'rgb(200, 199, 204)'}}>
+          <Grid.Row>
+            <Card.Group style={{margin: 10}} itemsPerRow={5}>
+              <Card raised style={{border: 'medium dashed black', width: 212, height: 212, backgroundColor: 'rgb(200, 199, 204)'}} onClick={() => {
+                this.props.dispatch(setSelectedSpeaker({}));
+                browserHistory.push('/EditSpeaker');
+              }}>
+                <Image style={{width: 212}} src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-alphanumeric/070928-glossy-black-icon-alphanumeric-plus-sign-simple.png" />
+              </Card>
+              {displayedSpeakers}
+            </Card.Group>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }

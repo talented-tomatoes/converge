@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Grid, Card, Image } from 'semantic-ui-react';
+import { Grid, Card, Image, Menu } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../../config/config';
 import { Link } from 'react-router';
@@ -8,14 +8,17 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { setSelectedConference } from '../actions/actions';
 import { browserHistory } from 'react-router';
+import randomColor from './helpers/randomColor';
 
 
 class MyEvents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      conferences: []
+      conferences: [],
+      activeItem: 'My Events'
     }
+    this.randomColor = randomColor();
   }
 
   componentDidMount() {
@@ -29,15 +32,22 @@ class MyEvents extends React.Component {
       })
   }
 
+  handleItemClick(e, { name }) {
+    e.preventDefault();
+    console.log('click works');
+    this.setState({
+      activeItem: name
+    })
+  }
+
   render () {
     console.log('this.props in myEvents: ', this.props)
     let displayedConferences = this.state.conferences.map((conference, i) => {
-      let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-      let randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+
       return (
-        <Card raised color={randomColor} onClick={() => {
+        <Card raised style={{padding: 10, borderBottom: 'medium solid ' + randomColor(), width: 212}} onClick={() => {
           this.props.dispatch(setSelectedConference(conference));
-          browserHistory.push('/ConferenceDetails');
+          browserHistory.push('/Presentations');
         }} key={i}>
           <Card.Header>
             <Image floated='left' size='mini' src={conference.logo} />
@@ -48,19 +58,27 @@ class MyEvents extends React.Component {
             {conference.start_date} to {conference.end_date}
           </Card.Meta>
         </Card>
-        // </Link>
       )
     })
+    const { activeItem } = this.state;
     return (
       <div>
-        <Grid.Row>
-          <h3>My Events</h3>
-        </Grid.Row>
-        <Grid.Row>
-          <Card.Group itemsPerRow={3}>
-            {displayedConferences}
-          </Card.Group>
-        </Grid.Row>
+        <Menu tabular widths="5" inverted style={{backgroundColor: '#428bca'}}>
+          <Menu.Item style={this.state.activeItem === 'My Events' ? styles.tabSelected : {color: 'white'}} name='My Events' active={activeItem === 'My Events'} onClick={this.handleItemClick.bind(this)} />
+        </Menu>
+        <Grid style={{backgroundColor: 'rgb(200, 199, 204)'}}>
+          <Grid.Row>
+            <Card.Group itemsPerRow={5} style={{margin: 10}}>
+              <Card raised style={{border: 'medium dashed black', width: 212, backgroundColor: 'rgb(200, 199, 204)'}} onClick={() => {
+                this.props.dispatch(setSelectedConference({}));
+                browserHistory.push('/EditConference');
+              }}>
+                <Image style={{width: 212}} src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-alphanumeric/070928-glossy-black-icon-alphanumeric-plus-sign-simple.png" />
+              </Card>
+              {displayedConferences}
+            </Card.Group>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }
@@ -73,3 +91,11 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(MyEvents);
+
+const styles = {
+  tabSelected: {
+    backgroundColor: 'rgb(200, 199, 204)',
+    borderWidth: 0,
+    fontSize: 20
+  }
+}

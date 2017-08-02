@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { Grid, Card, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../../config/config';
-import { Link } from 'react-router';
 
 import { connect } from 'react-redux';
 import { setSelectedPresentation } from '../actions/actions';
 import { browserHistory } from 'react-router';
-
+import randomColor from './helpers/randomColor';
+import truncateString from './helpers/truncateString';
 
 
 class Presentations extends React.Component {
@@ -17,6 +17,7 @@ class Presentations extends React.Component {
     this.state = {
       presentations: []
     }
+    this.randomColor = randomColor();
   }
 
   componentDidMount() {
@@ -37,15 +38,14 @@ class Presentations extends React.Component {
   render () {
     console.log('this.props in myEvents: ', this.props)
     let displayedPresentations = this.state.presentations.map((presentation, i) => {
-      let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-      let randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+
       return (
-        <Card raised color={randomColor} onClick={() => {
+        <Card raised style={{borderBottom: 'medium solid ' + randomColor(),  width: 212}} onClick={() => {
           this.props.dispatch(setSelectedPresentation(presentation));
           browserHistory.push('/EditPresentation');
         }} key={i}>
           <Card.Content>
-            <Card.Header>{presentation.name}</Card.Header>
+            <Card.Header>{truncateString(presentation.name, 82)}</Card.Header>
             <Card.Meta>{presentation.date + '   ' + presentation.time}</Card.Meta>
             <Card.Description>{presentation.location}</Card.Description>
           </Card.Content>
@@ -55,14 +55,19 @@ class Presentations extends React.Component {
 
     return (
       <div>
-        <Grid.Row>
-          <h3>Presentations</h3>
-        </Grid.Row>
-        <Grid.Row>
-          <Card.Group itemsPerRow={3}>
+        <Grid style={{backgroundColor: 'rgb(200, 199, 204)'}}>
+          <Grid.Row>
+            <Card.Group style={{margin: 10}} itemsPerRow={5}>
+            <Card raised style={{border: 'medium dashed black', width: 212, backgroundColor: 'rgb(200, 199, 204)'}} onClick={() => {
+                this.props.dispatch(setSelectedPresentation({}));
+                browserHistory.push('/EditPresentation');
+              }}>
+              <Image style={{width: 212}} src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-alphanumeric/070928-glossy-black-icon-alphanumeric-plus-sign-simple.png" />
+            </Card>
             {displayedPresentations}
-          </Card.Group>
-        </Grid.Row>
+            </Card.Group>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }

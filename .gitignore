@@ -57,4 +57,4 @@ server/config.js
 
 webApp/node_modules
 webApp/config
-webApp/react-client/dist
+webApp/react-client/dist/bundle.js
