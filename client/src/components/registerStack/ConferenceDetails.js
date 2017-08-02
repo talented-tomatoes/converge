@@ -3,6 +3,7 @@ import { TouchableHighlight, TouchableOpacity, ScrollView, View } from 'react-na
 import { TabNavigator } from 'react-navigation';
 import { Container, Header, Text, Grid, Col, Toast, Content, Title, Body, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
 import axios from 'axios';
+import randomColor from '../helpers/randomColor';
 import { connect } from 'react-redux';
 import SpeakerList from './SpeakerList.js';
 import Config from '../../../../config/config.js';
@@ -15,8 +16,7 @@ class ConferenceDetails extends Component {
     this.state = {
       isUserPaid: null
     }
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+    this.randomColor = randomColor();
   }
 
   componentDidMount() {
