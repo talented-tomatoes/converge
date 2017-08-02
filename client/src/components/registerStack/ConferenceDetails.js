@@ -33,7 +33,6 @@ class ConferenceDetails extends Component {
   }
 
   handleBuyButtonPress() {
-    console.log(this.state.isUserPaid);
     if (!this.state.isUserPaid) {
       this.props.navigation.navigate('PaymentForm', {conference: this.props.selectedConference});
     } else {
