@@ -37,7 +37,7 @@ export default class SpeakerList extends React.Component {
 
         {
           this.state.speakers.map((speaker, i) => {
-            return (<SpeakerListEntry key={i} speaker={speaker} navigation={this.props.navigation} backPage={this.props.backPage} randomColor={this.randomColor}/>)
+            return (<SpeakerListEntry key={i} speaker={speaker} navigation={this.props.navigation} backPage={this.props.backPage} isUserPaid={this.props.isUserPaid} randomColor={this.randomColor}/>)
           })
         }
       </Content>
