@@ -12,6 +12,8 @@ import { browserHistory } from 'react-router';
 
 import EditSpeakerInPresentation from './helpers/EditSpeakerInPresentation.jsx';
 import DeleteSpeakerFromPresentation from './helpers/DeleteSpeakerFromPresentation.jsx';
+import EventMenu from './EventMenu.jsx';
+
 
 
 
@@ -70,10 +72,11 @@ class EditPresentation extends React.Component {
     const { handleSubmit } = this.props;
     return (
       <div>
+        <EventMenu currentPage='Presentations' />
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)', padding: 30}}>
           <Grid.Row>
-          <Grid.Column width={4} />
-          <Grid.Column width={8}>
+          <Grid.Column width={3} />
+          <Grid.Column width={10}>
             <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
               <Form.Group>
                 <Field name="name" component={ renderTextField } validate={[required]} label="Presentation Name" width={16}/>
@@ -105,7 +108,7 @@ class EditPresentation extends React.Component {
               </Button>
             </Form>
           </Grid.Column>
-          <Grid.Column width={4} />
+          <Grid.Column width={3} />
           </Grid.Row>
         </Grid>
 

@@ -38,6 +38,12 @@ class MyEvents extends React.Component {
     this.setState({
       activeItem: name
     })
+    if (name === 'My Events') {
+      browserHistory.push('/MyEvents');
+    } else if (name === 'Add Conference') {
+      this.props.dispatch(setSelectedConference({}));
+      browserHistory.push('/EditConference');
+    }
   }
 
   render () {
@@ -63,18 +69,13 @@ class MyEvents extends React.Component {
     const { activeItem } = this.state;
     return (
       <div>
-        <Menu tabular widths="5" inverted style={{backgroundColor: '#428bca'}}>
+        <Menu tabular widths="6" inverted style={{backgroundColor: '#428bca'}}>
           <Menu.Item style={this.state.activeItem === 'My Events' ? styles.tabSelected : {color: 'white'}} name='My Events' active={activeItem === 'My Events'} onClick={this.handleItemClick.bind(this)} />
+          <Menu.Item style={this.state.activeItem === 'Add Conference' ? styles.tabSelected : {color: 'white'}} name='Add Conference' active={activeItem === 'Add Conference'} onClick={this.handleItemClick.bind(this)} />
         </Menu>
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)'}}>
           <Grid.Row>
             <Card.Group itemsPerRow={5} style={{margin: 10}}>
-              <Card raised style={{border: 'medium dashed black', width: 212, backgroundColor: 'rgb(200, 199, 204)'}} onClick={() => {
-                this.props.dispatch(setSelectedConference({}));
-                browserHistory.push('/EditConference');
-              }}>
-                <Image style={{width: 212}} src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glossy-black-icons-alphanumeric/070928-glossy-black-icon-alphanumeric-plus-sign-simple.png" />
-              </Card>
               {displayedConferences}
             </Card.Group>
           </Grid.Row>
@@ -95,7 +96,5 @@ export default connect(mapStateToProps)(MyEvents);
 const styles = {
   tabSelected: {
     backgroundColor: 'rgb(200, 199, 204)',
-    borderWidth: 0,
-    fontSize: 20
   }
 }

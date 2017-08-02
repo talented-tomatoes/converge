@@ -10,8 +10,7 @@ import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import EventMenu from './EventMenu.jsx';
-
-
+import defaultImage from './helpers/defaultImage';
 
 const renderTextField = ({input, label, placeholder, width, meta: { touched, error, warning }}) => (
   <Form.Input onChange={e => input.onChange(e)} value={input.value} label={label} placeholder={placeholder} width={width} />
@@ -36,7 +35,6 @@ const linkedin = (value) => {
               : undefined
 }
 
-
 class EditConference extends React.Component {
   constructor(props) {
     super(props);
@@ -45,26 +43,7 @@ class EditConference extends React.Component {
       logo: this.props.selectedConference.logo,
       banner: this.props.selectedConference.banner,
       venue_map: this.props.selectedConference.venue_map,
-      activeItem: this.props.selectedConference.name ? 'Details' : 'My Events',
-    }
-  }
-
-  handleItemClick(e, { name }) {
-    e.preventDefault();
-    console.log('click works');
-    this.setState({
-      activeItem: name
-    })
-    if (name === 'My Events') {
-      browserHistory.push('/MyEvents');
-    } else if (name === 'Presentations') {
-      browserHistory.push('/Presentations');
-    } else if (name === 'Speakers') {
-      browserHistory.push('/Speakers');
-    } else if (name === 'Details') {
-      browserHistory.push('/EditConference');
-    } else if (name === 'Edit Profile') {
-      browserHistory.push('/EditProfile');
+      activeItem: 'Add Conference'
     }
   }
 
@@ -79,7 +58,7 @@ class EditConference extends React.Component {
     axios.post(url, conference)
       .then(response => {
         console.log('conference updated: ', response);
-        browserHistory.push('/ConferenceDetails');
+        browserHistory.push('/MyEvents');
       })
       .catch(err => {
         console.log('error updating conference: ', error);
@@ -104,6 +83,20 @@ class EditConference extends React.Component {
     }
   }
 
+  handleItemClick(e, { name }) {
+    e.preventDefault();
+    console.log('click works');
+    this.setState({
+      activeItem: name
+    })
+    if (name === 'My Events') {
+      browserHistory.push('/MyEvents');
+    } else if (name === 'AddConference') {
+      this.props.dispatch(setSelectedConference({}));
+      browserHistory.push('/EditConference');
+    }
+  }
+
   render () {
     console.log('this.props in EditConference: ', this.props);
     const { handleSubmit } = this.props;
@@ -112,24 +105,18 @@ class EditConference extends React.Component {
       <div>
         {
           this.props.selectedConference.name ? (
-            // <Menu tabular widths="5" inverted style={{backgroundColor: '#428bca'}}>
-            //   <Menu.Item style={this.state.activeItem === 'My Events' ? styles.tabSelected : {color: 'white'}} name='My Events' active={activeItem === 'My Events'} onClick={this.handleItemClick.bind(this)} />
-            //   <Menu.Item style={this.state.activeItem === 'Presentations' ? styles.tabSelected : {color: 'white'}} name='Presentations' active={activeItem === 'Presentations'} onClick={this.handleItemClick.bind(this)} />
-            //   <Menu.Item style={this.state.activeItem === 'Speakers' ? styles.tabSelected : {color: 'white'}} name='Speakers' active={activeItem === 'Speakers'} onClick={this.handleItemClick.bind(this)} />
-            //   <Menu.Item style={this.state.activeItem === 'Details' ? styles.tabSelected : {color: 'white'}} name='Details' active={activeItem === 'Details'} onClick={this.handleItemClick.bind(this)} />
-            // //   <Menu.Item style={this.state.activeItem === 'Edit Profile' ? styles.tabSelected : {color: 'white'}} name='Edit Profile' active={activeItem === 'Edit Profile'} onClick={this.handleItemClick.bind(this)} />
-            // </Menu>
-            <EventMenu />
+            <EventMenu currentPage='Details'/>
           ) : (
-            <Menu tabular widths="5" inverted style={{backgroundColor: '#428bca'}}>
+            <Menu tabular widths="6" inverted style={{backgroundColor: '#428bca'}}>
               <Menu.Item style={this.state.activeItem === 'My Events' ? styles.tabSelected : {color: 'white'}} name='My Events' active={activeItem === 'My Events'} onClick={this.handleItemClick.bind(this)} />
+              <Menu.Item style={this.state.activeItem === 'Add Conference' ? styles.tabSelected : {color: 'white'}} name='Add Conference' active={activeItem === 'Add Conference'} onClick={this.handleItemClick.bind(this)} />
             </Menu>
           )
         }
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)', padding: 30}}>
           <Grid.Row>
-          <Grid.Column width={4} />
-          <Grid.Column width={8}>
+          <Grid.Column width={3} />
+          <Grid.Column width={10}>
             <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
               <Form.Group>
                 <Field name="name" component={ renderTextField } validate={[required]} label="Conference Name" width={16}/>
@@ -147,15 +134,15 @@ class EditConference extends React.Component {
                 <Grid.Row >
                   <Grid.Column width={5}>
                     <label style={{fontWeight: 'bold'}}>Logo</label>
-                    <UploadPicture picture={this.state.logo} name="Logo" getPicture={this.getPicture.bind(this)} />
+                    <UploadPicture picture={this.state.logo || defaultImage} name="Logo" getPicture={this.getPicture.bind(this)} />
                   </Grid.Column>
                   <Grid.Column width={5}>
                     <label style={{fontWeight: 'bold'}}>Banner</label>
-                    <UploadPicture picture={this.state.banner} name="Banner" getPicture={this.getPicture.bind(this)} />
+                    <UploadPicture picture={this.state.banner || defaultImage} name="Banner" getPicture={this.getPicture.bind(this)} />
                   </Grid.Column>
                   <Grid.Column width={5}>
                     <label style={{fontWeight: 'bold'}}>Venue Map</label>
-                    <UploadPicture picture={this.state.venue_map} name="Venue Map" getPicture={this.getPicture.bind(this)} />
+                    <UploadPicture picture={this.state.venue_map || defaultImage} name="Venue Map" getPicture={this.getPicture.bind(this)} />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -167,7 +154,7 @@ class EditConference extends React.Component {
               </Button>
             </Form>
           </Grid.Column>
-          <Grid.Column width={4} />
+          <Grid.Column width={3} />
           </Grid.Row>
         </Grid>
 
@@ -194,7 +181,5 @@ export default EditConference;
 const styles = {
   tabSelected: {
     backgroundColor: 'rgb(200, 199, 204)',
-    borderWidth: 0,
-    fontSize: 20
   }
 }

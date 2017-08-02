@@ -9,7 +9,8 @@ import { setSelectedSpeaker } from '../actions/actions';
 import { browserHistory } from 'react-router';
 import randomColor from './helpers/randomColor';
 import truncateString from './helpers/truncateString';
-
+import EventMenu from './EventMenu.jsx';
+import defaultImage from './helpers/defaultImage';
 
 class Speakers extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class Speakers extends React.Component {
           this.props.dispatch(setSelectedSpeaker(speaker));
           browserHistory.push('/EditSpeaker');
         }} key={i}>
-          <Image style={{width: 212, height: 212}} src={speaker.avatar_url} />
+          <Image style={{width: 212, height: 212}} src={speaker.avatar_url || defaultImage} />
           <Card.Content>
             <Card.Header>{speaker.first_name + ' ' + speaker.last_name}</Card.Header>
             <Card.Meta>{speaker.job_title}</Card.Meta>
@@ -55,6 +56,7 @@ class Speakers extends React.Component {
 
     return (
       <div>
+        <EventMenu currentPage='Speakers'/>
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)'}}>
           <Grid.Row>
             <Card.Group style={{margin: 10}} itemsPerRow={5}>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Grid, Menu, Container, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { setSelectedConference } from '../actions/actions';
 
 import axios from 'axios';
 
@@ -14,7 +15,7 @@ class EventMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: 'Presentations'
+      activeItem: this.props.currentPage || 'Presentations'
     }
   }
 
@@ -34,6 +35,8 @@ class EventMenu extends React.Component {
       browserHistory.push('/EditConference');
     } else if (name === 'Edit Profile') {
       browserHistory.push('/EditProfile');
+    } else if (name === 'Log Out') {
+      console.log('log out user');
     }
   }
 
@@ -42,14 +45,14 @@ class EventMenu extends React.Component {
     console.log('this.props in EventMenu: ', this.props);
     return (
       <div>
-        <Menu tabular widths="5" inverted style={{backgroundColor: '#428bca'}}>
+        <Menu tabular widths="6" inverted style={{backgroundColor: '#428bca', padding: 15}}>
           <Menu.Item style={this.state.activeItem === 'My Events' ? styles.tabSelected : {color: 'white'}} name='My Events' active={activeItem === 'My Events'} onClick={this.handleItemClick.bind(this)} />
           <Menu.Item style={this.state.activeItem === 'Presentations' ? styles.tabSelected : {color: 'white'}} name='Presentations' active={activeItem === 'Presentations'} onClick={this.handleItemClick.bind(this)} />
           <Menu.Item style={this.state.activeItem === 'Speakers' ? styles.tabSelected : {color: 'white'}} name='Speakers' active={activeItem === 'Speakers'} onClick={this.handleItemClick.bind(this)} />
           <Menu.Item style={this.state.activeItem === 'Details' ? styles.tabSelected : {color: 'white'}} name='Details' active={activeItem === 'Details'} onClick={this.handleItemClick.bind(this)} />
           <Menu.Item style={this.state.activeItem === 'Edit Profile' ? styles.tabSelected : {color: 'white'}} name='Edit Profile' active={activeItem === 'Edit Profile'} onClick={this.handleItemClick.bind(this)} />
+          <Menu.Item style={this.state.activeItem === 'Logout' ? styles.tabSelected : {color: 'white'}} name='Logout' active={activeItem === 'Logout'} onClick={this.handleItemClick.bind(this)} />
         </Menu>
-        {this.props.children}
       </div>
     )
   }
@@ -68,31 +71,6 @@ const styles = {
   tabSelected: {
     backgroundColor: 'rgb(200, 199, 204)',
     borderWidth: 0,
-    fontSize: 20
+    // fontSize: 20
   }
 }
-
-
-//         </Menu>
-
-// <Grid>
-//           <Grid.Row />
-//           <Grid.Row>
-//             <Grid.Column width={4}>
-//               <Link to="/MyEvents"><h2>My Events</h2></Link>
-//               <Link to="/Speakers"><h2>Speakers</h2></Link>
-//               <Link to="/Presentations"><h2>Presentations</h2></Link>
-//               <Link to="/ConferenceDetails"><h2>Conference Details</h2></Link>
-//               <Link to="/EditProfile"><h2>Edit Profile</h2></Link>
-//             </Grid.Column>
-//             <Grid.Column width={11}>
-//               <Grid.Row><h1>Converge</h1>
-//               </Grid.Row>
-//               <Grid.Row>
-//                 {this.props.children}
-//               </Grid.Row>
-//             </Grid.Column>
-//             <Grid.Column width={1}/>
-
-//           </Grid.Row>
-//         </Grid>

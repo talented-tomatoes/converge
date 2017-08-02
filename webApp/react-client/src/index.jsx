@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MyEvents from './components/MyEvents.jsx';
-import ConferenceDetails from './components/ConferenceDetails.jsx';
 import EditSpeaker from './components/EditSpeaker.jsx';
 import Speakers from './components/Speakers.jsx';
 import Presentations from './components/Presentations.jsx';
@@ -31,15 +30,11 @@ const App = (
         <IndexRoute component={MyEvents} />
         <Route path='/MyEvents' component={MyEvents} />
         <Route path='/EditConference' component={EditConference} />
-        <Route path='/EventMenu' component={EventMenu}>
-          <IndexRoute component={Presentations} />
-          <Route path='/Presentations' component={Presentations} />
-          <Route path='/Speakers' component={Speakers} />
-          <Route path='/ConferenceDetails' component={ConferenceDetails} />
-          <Route path='/EditSpeaker' component={EditSpeaker} />
-          <Route path='/EditProfile' component={EditProfile} />
-          <Route path='/EditPresentation' component={EditPresentation} />
-        </Route>
+        <Route path='/Presentations' component={Presentations} />
+        <Route path='/Speakers' component={Speakers} />
+        <Route path='/EditSpeaker' component={EditSpeaker} />
+        <Route path='/EditProfile' component={EditProfile} />
+        <Route path='/EditPresentation' component={EditPresentation} />
       </Route>
     </Router>
   </Provider>

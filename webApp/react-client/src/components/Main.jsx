@@ -42,9 +42,9 @@ class Main extends React.Component {
     console.log('this.props in main: ', this.props);
     return (
       <div style={{backgroundColor: '#428bca'}}>
-        <Menu inverted widths="1" style={{fontSize: 40, backgroundColor: '#428bca'}}>
+        <Menu inverted widths="1" style={{backgroundColor: '#428bca'}}>
           <Menu.Item>
-            <h1 style={{fontSize: 50, textAlign: 'center', backgroundColor: '#428bca'}}>Converge</h1>
+            <h1 style={{fontSize: 30, textAlign: 'center', backgroundColor: '#428bca'}}>Converge</h1>
           </Menu.Item>
         </Menu>
         {this.props.children}

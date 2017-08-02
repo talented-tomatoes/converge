@@ -9,6 +9,8 @@ import { setSelectedPresentation } from '../actions/actions';
 import { browserHistory } from 'react-router';
 import randomColor from './helpers/randomColor';
 import truncateString from './helpers/truncateString';
+import EventMenu from './EventMenu.jsx';
+
 
 
 class Presentations extends React.Component {
@@ -55,6 +57,7 @@ class Presentations extends React.Component {
 
     return (
       <div>
+        <EventMenu currentPage='Presentations'/>
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)'}}>
           <Grid.Row>
             <Card.Group style={{margin: 10}} itemsPerRow={5}>

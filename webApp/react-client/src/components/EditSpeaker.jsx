@@ -9,6 +9,9 @@ import UploadPicture from './helpers/UploadPicture.jsx';
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import EventMenu from './EventMenu.jsx';
+import defaultImage from './helpers/defaultImage';
+
 
 
 
@@ -72,10 +75,11 @@ class EditSpeaker extends React.Component {
     const { handleSubmit } = this.props;
     return (
       <div>
+      <EventMenu currentPage="Speakers" />
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)', padding: 30}}>
           <Grid.Row>
-              <Grid.Column width={4} />
-              <Grid.Column width={8}>
+              <Grid.Column width={3} />
+              <Grid.Column width={10}>
                 <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
                   <Form.Group>
                     <Field name="first_name" component={ renderTextField } validate={[required]} label="First Name" width={8}/>
@@ -98,7 +102,7 @@ class EditSpeaker extends React.Component {
                       <Grid.Column width={5} />
                       <Grid.Column width={5}>
                         <label style={{fontWeight: 'bold'}}>Speaker Avatar</label>
-                        <UploadPicture picture={this.state.avatar_url} name="Speaker" getPicture={this.getPicture.bind(this)} />
+                        <UploadPicture picture={this.state.avatar_url || defaultImage} name="Speaker" getPicture={this.getPicture.bind(this)} />
                       </Grid.Column>
                       <Grid.Column width={5} />
                     </Grid.Row>
@@ -111,7 +115,7 @@ class EditSpeaker extends React.Component {
                   </Button>
               </Form>
             </Grid.Column>
-            <Grid.Column width={4} />
+            <Grid.Column width={3} />
           </Grid.Row>
         </Grid>
       </div>
@@ -133,3 +137,5 @@ EditSpeaker = connect(
   }))(EditSpeaker)
 
 export default EditSpeaker;
+
+
