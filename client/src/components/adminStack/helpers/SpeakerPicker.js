@@ -45,7 +45,7 @@ class SpeakerPicker extends Component {
                 <TouchableOpacity onPress={this.handleSpeakerPress.bind(this, speaker)}>
                   <CardItem header>
                       <Thumbnail small source={{ uri: speaker.avatar_url || 'https://rentcircles.com/assets/no-pic.jpg' }} />
-                    <TouchableOpacity style={{marginLeft: 15}} onPress={this.handleSpeakerPress.bind(this)}>
+                    <TouchableOpacity style={{marginLeft: 15}} onPress={this.handleSpeakerPress.bind(this, speaker)}>
                     <Text>{speaker.first_name + ' ' + speaker.last_name}</Text>
                     <Text note >{truncateString(speaker.job_title)}</Text>
                     </TouchableOpacity>

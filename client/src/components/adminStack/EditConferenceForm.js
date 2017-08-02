@@ -137,7 +137,7 @@ class EditConferenceForm extends Component {
       msg = ' created';
     } else {
       url += 'api/editConference';
-      msg = ' edited';
+      msg = ' updated';
     }
     axios.post(url, conference)
       .then(response => {
@@ -256,7 +256,7 @@ class EditConferenceForm extends Component {
           leftNavigation={this.props.admin.selectedConference.id ? 'AddPresentation' : 'AdminLanding'}
           leftIcon="arrow-back"
           title={this.props.admin.selectedConference.id ? 'Edit Event' : 'New Event'}
-          rightIcon={this.props.admin.selectedConference.id ? 'trash' : ''}
+          rightIcon={this.props.admin.selectedConference.id ? 'trash' : null}
           rightAction={this.areYouSure.bind(this)}
         />
         <Content style={{padding: 10}}>
@@ -291,19 +291,19 @@ class EditConferenceForm extends Component {
             <Card>
               <CardItem>
                 <Text>Start Date:  </Text>
-                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date} datepickerRequired={this.state.datepickerRequired} />
-              </CardItem>
-              <CardItem>
-                <Text>Start Time: </Text>
-                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} datepickerRequired={this.state.datepickerRequired} />
+                <DatePicker showIcon={false} onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Text>End Date:   </Text>
-                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date} datepickerRequired={this.state.datepickerRequired} />
+                <DatePicker showIcon={false} onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date} datepickerRequired={this.state.datepickerRequired} />
+              </CardItem>
+              <CardItem>
+                <Text>Start Time: </Text>
+                <DatePicker showIcon={false} onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Text>End Time:   </Text>
-                <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} datepickerRequired={this.state.datepickerRequired} />
+                <DatePicker showIcon={false} onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} datepickerRequired={this.state.datepickerRequired} />
               </CardItem>
               <CardItem>
                 <Field name="address" validate={[required]} component={ renderInput } label="Address:"/>

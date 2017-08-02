@@ -53,7 +53,7 @@ class AddSpeakersForm extends Component {
     super(props);
     let avatar_url = '';
     if(this.props.admin.speakerValues) {
-      avatar_url = this.props.admin.speakerValues;
+      avatar_url = this.props.admin.speakerValues.avatar_url;
     }
     this.state = {
       editMode: this.props.navigation.state.params !== undefined ? true : false,
@@ -205,12 +205,14 @@ class AddSpeakersForm extends Component {
             </Grid>
           </Card>
           <Card>
+            <Body>
             <CardItem>
             <Text style={{fontWeight: 'bold'}}>Speaker Bio</Text>
             </CardItem>
             <CardItem>
               <Field name="bio" validate={[required]} component={ renderInput } multiline={true} />
             </CardItem>
+            </Body>
           </Card>
         </Content>
         <Footer>
