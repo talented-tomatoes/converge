@@ -39,11 +39,11 @@ exports.seed = function(knex, Promise) {
           start_time: '12:00PM',
           end_date: '2017-09-27',
           end_time: '4:00PM',
-          logo: 'https://apiworld.co/wp-content/uploads/2016/08/apiworld-logo-retina_new@2x.png',
+          logo: 'https://res.cloudinary.com/awchang56/image/upload/v1501642541/api-world-2017-final-logo_kn3odi.png',
           details: 'API World 2017 is the world’s largest vendor-neutral API conference and expo, organizing the API Economy. API World is dedicated to the mission to be independent and facilitate connections, knowledge, trust and business within the developer community of API providers and consumers.',
           ticket_price: 35,
           venue_map: 'https://www.sanjose.org/media/650852/digitalmonitorlocationsv2.jpg',
-          banner: 'https://apiworld.co/wp-content/uploads/2014/12/APIWORLD-WHT.png',
+          banner: 'https://res.cloudinary.com/awchang56/image/upload/v1501642541/api-world-2017-final-logo_kn3odi.png',
           user_id: 5
         }
       ]);

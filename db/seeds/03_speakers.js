@@ -9,7 +9,6 @@ exports.seed = function(knex, Promise) {
       .insert([
         {first_name: 'Sam', last_name: 'Altman', job_title: 'President', avatar_url: 'https://res.cloudinary.com/awchang56/image/upload/v1500833051/Sam_Altman_jdvbnn.png', bio: 'Sam Altman is the president of Y Combinator and the co-chair of OpenAI. Sam also serves on the board of Boom and Reddit. He was cofounder and CEO of Loopt, which was funded by Y Combinator in 2005 and acquired by Green Dot in 2012. Sam also founded Hydrazine Capital. He studied computer science at Stanford, and while there worked in the AI lab. \n Prior to taking over as Y Combinator s president, Sam was a part-time partner at Y Combinator since 2011. You can read Sam\'s essays on startups and technology at [his blog](http://blog.samaltman.com/). \n Sam has consistently been recognized for his entrepreneurship. He was featured in Inc. Magazine\'s Top 30 Entrepreneurs Under 30 and BusinessWeek\'s Tech\'s Best Entrepreneurs. \n As an early innovator in mobile location services, Sam joined Apple CEO Steve Jobs on stage at WWDC 2008, presenting Loopt as one of the first applications in the iPhone App Store. \n Sam has been a valuable source for many media outlets including Charlie Rose, CNN, The Economist, New York Times, Wall Street Journal and numerous others', email: 'sam.altman@gmail.com', linkedin_id: 'samaltman', conference_id: 1},
         {first_name: 'Alon', last_name: 'Cohen', job_title: 'President and co-founder', avatar_url: 'https://res.cloudinary.com/awchang56/image/upload/v1500833483/Alon_Cohen_wnyiub.jpg', bio: 'Alon Cohen is the President and co-founder of Houzz, the leading platform for home remodeling and design, bringing together both professionals and homeowners via mobile, local and social tools. Alon and his wife and cofounder, Adi Tatarko, started Houzz out of challenges that they faced during their own remodeling process. Today, millions of homeowners and more than 1.5 million active home professionals connect through Houzz.com and its mobile apps every month, sharing their photos, advice and product recommendations. Earlier in his career, Alon was a Senior Director of Engineering at eBay, where he helped start eBay\'s developer APIs and manage technology teams responsible for eBay Stores, ProStores, advertising and analytics. Before that, he worked in various software development roles and founded a software company together with his wife. Alon lives in Palo Alto with his wife and three boys. He enjoys traveling the world and playing basketball with his sons, both of which he hopes to do more often', email: 'alon.cohen@gmail.com', linkedin_id: 'aloncohen', conference_id: 1},
-        {first_name: 'John', last_name: 'Green', job_title: 'Author', avatar_url: 'https://res.cloudinary.com/awchang56/image/upload/v1500833696/JohnGreen_s0yq1w.jpg', bio: 'John Green is the New York Times bestselling author of Looking for Alaska and The Fault in Our Stars. He is one half of the vlogbrothers on YouTube, co-creator of educational series Crash Course, and co-CEO of Complexly. He is also the award-winning, #1 bestselling author of The Fault in Our Stars, Looking for Alaska, An Abundance of Katherines, Paper Towns, and Will Grayson, Will Grayson. In 2014 he was selected by TIME magazine as one of the 100 Most Influential People in the World, and in 2015 he signed a first-look producing deal with Fox 2000 . You can follow him on twitter @johngreen.', email: 'john.green@gmail.com', linkedin_id: 'johngreen', conference_id: 1},
         {first_name: 'Anna', last_name: 'Fang', job_title: 'CEO', avatar_url: 'https://res.cloudinary.com/awchang56/image/upload/v1500833987/Anna_Fang_cm5g0b.png', bio: 'Anna Fang is the CEO and Partner of ZhenFund, an angel investment fund active in China\'s TMT sector. Anna oversees the fund\'s investments, portfolio management and operations. Since starting the fund in 2011 with Xu Xiaoping, Anna has managed the fund’s over 300 early stage investments. She also sits on the Boards of many of ZhenFund’s investments.', email: 'anna.fang@gmail.com', linkedin_id: 'https://www.linkedin.com/in/anna_fang', conference_id: 1},
         {first_name: 'Kristen', last_name: 'Green', job_title: 'Managing Director', avatar_url: 'https://res.cloudinary.com/awchang56/image/upload/v1500834316/KristenGreen_i0muen.png', bio: 'Kirsten Green used a unique and unconventional blend of professional history and acquired investment experience to launch San Francisco-based Forerunner Ventures in 2010, where she currently serves as Founder and Managing Director. Noticing that emerging purchasing processes were linear and ripe for improvement, Kirsten developed a pacesetter mentality and analytical eye to remain ahead of experience-driven retail trends and identify compelling brand platforms and visionary entrepreneurs. As a founder, Kirsten has lead efforts to raise over $250M from leading investors and has invested in more than 40 early stage companies. Forerunner Ventures is the only VC firm to invest in both Dollar Shave Club and Jet.com, two of the biggest and highest-profile e-commerce exits in recent years, and counts Birchbox, Bonobos, Glossier, Hotel Tonight, Warby Parker and Zola among its portfolio companies. She currently serves on the Board of Directors of several Forerunner portfolio companies including Glossier, InTurn, Outdoor Voices, Ritual and Rockets of Awesome among others. In an unpredictable consumer landscape, Kirsten’s 20+ years of evaluation and investment success stems from a combination of product savvy, retail acumen and a thesis-driven approach that has been the basis of all Forerunner investments — from pre-revenue startups to multi-billion-dollar enterprises- to date. Prior to Forerunner, Kirsten was an equity research analyst and investor at Banc of America Securities, formerly Montgomery Securities, covering publicly-traded retail and consumer stocks. Kirsten graduated from UCLA with a B.A. in Business Economics, and earned a CPA license and a CFA certification.', email: 'kristen.green@gmail.com', linkedin_id: 'kristengreen', conference_id: 2},
         {first_name: 'Michael', last_name: 'Wayne', job_title: 'Founder and CEO', avatar_url: 'https://res.cloudinary.com/awchang56/image/upload/v1500834578/MichaelWayne_FounderandCEO-KinCommunity__2702_tdj2ca.jpg', bio: 'Wayne founded Kin Community in 2007 and has grown the business into a global digital media company that inspires and entertains women around the world through home-focused content and community. Kin Studios produces world-class original and branded video content in categories that include food, home, and DIY. Kin Community is a network of 120 of the best lifestyle content creators across all social platforms. Kin Community works with the world’s leading advertisers to deliver high-quality online video and social campaigns. Wayne is a founding member of GOVA, the trade association for online video, and served as the founding Chairman of the IAWTV. He has lectured at the S.I. Newhouse School of Public Communication at Syracuse University, USC Annenberg School for Communication & Journalism and UCLA’s Anderson School of Business. He has been featured in numerous publications, including Business Week, The Wall Street Journal and The New York Times. Before founding Kin Community, Wayne served as Vice President of Strategic Alliances for Sony Pictures. Prior to joining Sony, Wayne served as Vice President, Business Development for Launch Media where he was part of the core team that grew the online music media company from start-up through IPO and ultimately to its acquisition by Yahoo! Prior to Launch Media, Wayne was a Marketing Manager for The ABC Television Network. He began his career as an entrepreneur in Prague, Czech Republic, where he founded Velvet Magazine, the first English-language city magazine in Central and Eastern Europe. Wayne earned his Bachelor of Arts in English Literature from The University of the South, Sewanee, TN. He’s a board member of the Los Angeles chapter of Girls Inc., a non-profit organization that provides more than 140,000 girls across the U.S. and Canada with life-changing experiences and solutions to the unique challenges girls face.', email: 'michael.wayne@gmail.com', linkedin_id: 'michaelwayne', conference_id: 2},
@@ -495,6 +494,86 @@ exports.seed = function(knex, Promise) {
           email: 'sumitkapoor@example.com,',
           linkedin_id: 'sumitkapoor',
           conference_id: 3
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/johngreen",
+          "bio" : "John Green is the New York Times bestselling author of Looking for Alaska and The Fault in Our Stars. He is one half of the vlogbrothers on YouTube, co-creator of educational series Crash Course, and co-CEO of Complexly. He is also the award-winning, #1 bestselling author of The Fault in Our Stars, Looking for Alaska, An Abundance of Katherines, Paper Towns, and Will Grayson, Will Grayson. In 2014 he was selected by TIME magazine as one of the 100 Most Influential People in the World, and in 2015 he signed a first-look producing deal with Fox 2000 . You can follow him on twitter @johngreen.",
+          "last_name" : "Green",
+          "job_title" : "Author",
+          "email" : "john.green@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/res.cloudinary.com\/awchang56\/image\/upload\/v1500833696\/JohnGreen_s0yq1w.jpg",
+          "first_name" : "John"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/michaelwayne",
+          "bio" : "Wayne founded Kin Community in 2007 and has grown the business into a global digital media company that inspires and entertains women around the world through home-focused content and community. Kin Studios produces world-class original and branded video content in categories that include food, home, and DIY. Kin Community is a network of 120 of the best lifestyle content creators across all social platforms. Kin Community works with the world’s leading advertisers to deliver high-quality online video and social campaigns. Wayne is a founding member of GOVA, the trade association for online video, and served as the founding Chairman of the IAWTV. He has lectured at the S.I. Newhouse School of Public Communication at Syracuse University, USC Annenberg School for Communication & Journalism and UCLA’s Anderson School of Business. He has been featured in numerous publications, including Business Week, The Wall Street Journal and The New York Times. Before founding Kin Community, Wayne served as Vice President of Strategic Alliances for Sony Pictures. Prior to joining Sony, Wayne served as Vice President, Business Development for Launch Media where he was part of the core team that grew the online music media company from start-up through IPO and ultimately to its acquisition by Yahoo! Prior to Launch Media, Wayne was a Marketing Manager for The ABC Television Network. He began his career as an entrepreneur in Prague, Czech Republic, where he founded Velvet Magazine, the first English-language city magazine in Central and Eastern Europe. Wayne earned his Bachelor of Arts in English Literature from The University of the South, Sewanee, TN. He’s a board member of the Los Angeles chapter of Girls Inc., a non-profit organization that provides more than 140,000 girls across the U.S. and Canada with life-changing experiences and solutions to the unique challenges girls face.",
+          "last_name" : "Wayne",
+          "job_title" : "Founder and CEO",
+          "email" : "michael.wayne@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/res.cloudinary.com\/awchang56\/image\/upload\/v1500834578\/MichaelWayne_FounderandCEO-KinCommunity__2702_tdj2ca.jpg",
+          "first_name" : "Michael"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/jennamarbles",
+          "bio" : "Jenna Marbles has 16+ Million subscribers and over 2 Billion views. She’s mommi to Kermit and Mr. Marbles. Jenna uploads her video every Wednesday \/ Thursday. Jenna and her boyfriend (Julien Solomita) also have a weekly podcast, The Jenna & Julien Podcast and they stream on their Twitch channel every Monday night. Jenna hosts a radio show on SiriusXM called The YouTube 15 which showcases the most popular and trending songs on YouTube every week. ",
+          "last_name" : "Marbles",
+          "job_title" : "Youtuber",
+          "email" : "jenna.marbles@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/cust-images.grenadine.co\/grenadine\/image\/upload\/c_fill,f_jpg,g_face,h_600,w_600\/v0\/VidCon\/JennaMarbles_2072.jpg",
+          "first_name" : "Jenna"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/rhettandlink",
+          "bio" : "Rhett & Link, best friends since the first grade, are a comedic duo known for their wildly popular comedic songs and sketches on YouTube, their viral low-budget local commercials, their narrative series \"Rhett & Link's Buddy System,\" and the most-watched daily morning show on the Internet, “Good Mythical Morning.”",
+          "last_name" : "& Link",
+          "job_title" : "Youtuber",
+          "email" : "rhettandlink@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/cust-images.grenadine.co\/grenadine\/image\/upload\/c_fill,f_jpg,g_face,h_600,w_600\/v1\/VidCon\/RhettLink_522.jpg",
+          "first_name" : "Rhett"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/phillipdefranco",
+          "bio" : "Philip DeFranco has spent a decade making his voice heard on YouTube. He is most notable for The Philip DeFranco Show which broadcasts four times a week to 5 Million people all over the world, garnering 2 billion lifetime views. The show uses his signature opinionated and satirical tone to make news, current events and pop culture interesting and relevant to a whole new generation. ",
+          "last_name" : "DeFranco",
+          "job_title" : "Youtuber",
+          "email" : "phillipdefranco@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/cust-images.grenadine.co\/grenadine\/image\/upload\/c_fill,f_jpg,g_face,h_600,w_600\/v1\/VidCon\/PhilipDeFranco_222.jpg",
+          "first_name" : "Phillip"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/juliensolomita",
+          "bio" : "Julien is a vlogger who's love for video expands past documenting his life on YouTube. He has a production company called Waffsicle and spends much of his time creating video content in many shapes and sizes.",
+          "last_name" : "Solomita",
+          "job_title" : "Vlogger",
+          "email" : "julien.solomita@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/cust-images.grenadine.co\/grenadine\/image\/upload\/c_fill,f_jpg,g_face,h_600,w_600\/v0\/VidCon\/JulienSolomita_4207.jpg",
+          "first_name" : "Julien"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/hankgreen",
+          "bio" : "Hank Green started making YouTube videos in 2007 with his brother, John. They thought it was a pretty dumb idea, but it turned out pretty well. He is now the Executive Producer of SciShow, Crash Course and nearly a dozen other educational YouTube channels, and co-founder and CEO of NerdCon and VidCon, DFTBA Records, a merchandise fulfillment company, and DFTBA Games, a tabletop gaming company. He is co-founder and Executive Producer of Pemberly Digital, co-founder of Project for Awesome, and a Billboard top ten musician. He has also written for a variety of publications, including The New York Times, Scientific American, and Mental Floss Magazine. His most recent projects include launching the Internet Creators Guild, creating the YouTube series How to Vote in Every State, and, of course, bringing this community together for NerdCon: Nerdfighteria.",
+          "last_name" : "Green",
+          "job_title" : "Youtuber",
+          "email" : "hank.green@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/cust-images.grenadine.co\/grenadine\/image\/upload\/c_fill,f_jpg,g_face,h_600,w_600\/v0\/VidCon\/HankGreen_67.jpg",
+          "first_name" : "Hank"
+        },
+        {
+          "linkedin_id" : "https:\/\/www.linkedin.com\/in\/swlevine",
+          "bio" : "Webby, Streamy, and Shorty Award-Winning Producer, Stevie Wynne Levine, acts as Senior Vice President of Production & Development at Mythical Entertainment and spearheads all creative initiatives for Rhett & Link including Good Mythical Morning, Rhett & Link's Buddy System, Ear Biscuits, and their new YouTube channel, This is Mythical.",
+          "last_name" : "Wynne Levine",
+          "job_title" : "Senior Vice President - Mythical Entertainment",
+          "email" : "steviewynne.levine@gmail.com",
+          "conference_id" : 2,
+          "avatar_url" : "https:\/\/cust-images.grenadine.co\/grenadine\/image\/upload\/c_fill,f_jpg,g_face,h_600,w_600\/v0\/VidCon\/StevieWynneLevine%28SeniorVicePresident%2CProductionDevelopment-MythicalEntertainment%29_3277.jpg",
+          "first_name" : "Stevie"
         }
       ]);
     });

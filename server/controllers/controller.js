@@ -68,7 +68,9 @@ let getAllSpeakersOfPresentation = (req, res) => {
 };
 
 let getAllConferences = (req, res) => {
-  models.Conferences.fetch()
+  models.Conferences
+  .orderBy('start_date', 'ASC')
+  .fetch()
   .then(collection => {
     console.log('conferences = ', collection);
     res.status(200).send(collection);
@@ -528,6 +530,22 @@ let deleteSpeaker = (req, res) => {
   });
 };
 
+let checkIfUserPaid = (req, res) => {
+  console.log('Checking if user paid for conference', req.params)
+  models.ConferenceUser.where({conference_id: req.params.confid, user_id: req.params.userid})
+    .fetch()
+    .then(results => {
+      if (results) {
+        res.status(200).send(true);
+      } else {
+        res.status(200).send(false);
+      }
+    })
+    .catch(err => {
+      res.status(400).send('Error checking if user paid for conference');
+    })
+}
+
 module.exports = {
   getAllUsers: getAllUsers,
   getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -558,5 +576,6 @@ module.exports = {
   editPresentation: editPresentation,
   deleteSpeakerFromPresentation: deleteSpeakerFromPresentation,
   deleteConferenceFromHost: deleteConferenceFromHost,
-  deleteSpeaker: deleteSpeaker
+  deleteSpeaker: deleteSpeaker,
+  checkIfUserPaid: checkIfUserPaid
 };
