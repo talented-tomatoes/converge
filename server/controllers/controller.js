@@ -21,7 +21,7 @@ let getAllUsers = (req, res) => {
 
 let getUser = (req, res) => {
   models.User.where({login_id: req.params.id})
-  .fetchAll()
+  .fetch()
   .then(user => {
     if (user) {
       res.status(200).send(user);
@@ -530,6 +530,22 @@ let deleteSpeaker = (req, res) => {
   });
 };
 
+let checkIfUserPaid = (req, res) => {
+  console.log('Checking if user paid for conference', req.params)
+  models.ConferenceUser.where({conference_id: req.params.confid, user_id: req.params.userid})
+    .fetch()
+    .then(results => {
+      if (results) {
+        res.status(200).send(true);
+      } else {
+        res.status(200).send(false);
+      }
+    })
+    .catch(err => {
+      res.status(400).send('Error checking if user paid for conference');
+    })
+}
+
 module.exports = {
   getAllUsers: getAllUsers,
   getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -560,5 +576,6 @@ module.exports = {
   editPresentation: editPresentation,
   deleteSpeakerFromPresentation: deleteSpeakerFromPresentation,
   deleteConferenceFromHost: deleteConferenceFromHost,
-  deleteSpeaker: deleteSpeaker
+  deleteSpeaker: deleteSpeaker,
+  checkIfUserPaid: checkIfUserPaid
 };
