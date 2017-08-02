@@ -119,18 +119,28 @@ class SpeakerDetails extends Component {
                             <Grid style={{ alignSelf: "center", flex: 0}}>
                               <Col style={{ backgroundColor: this.randomColor, height: 50, width: 5}}></Col>
                             </Grid>
-                            <Text style={{paddingTop: 15, paddingLeft: 5}}>{convertDateToEnglish(presentation.date)}, </Text>
-                            <Text style={{paddingTop: 15 }}>{presentation.time}</Text>
+                            {
+                              params.isUserPaid ?
+                              <View>
+                                <Text style={{paddingTop: 10, paddingLeft: 10, fontWeight: 'bold'}}>{convertDateToEnglish(presentation.date)}</Text>
+                                <Text style={{paddingLeft: 10}}>{presentation.time}</Text>
+                              </View>
+                              : <Text style={{paddingTop: 15, paddingLeft: 10 }}>{presentation.time}</Text>
+                            }
                           </Left>
                           <Body>
-                            <Text>{presentation.name}</Text>
+                            <Text style={{fontWeight: 'bold'}}>{presentation.name}</Text>
                             <Text style={{color: 'grey'}}>{presentation.location}</Text>
                           </Body>
                           <Right>
-                            <Button transparent onPress={this.handleAddToSchedule.bind(this, presentation)}>
-                              <Icon name="ios-calendar-outline" style={{fontSize: 35, color: this.randomColor}}></Icon>
-                              <Icon name="ios-add-circle" style={{fontSize: 20, color: this.randomColor, position: 'absolute', left: 29, top: 16}}></Icon>
-                            </Button>
+                            {
+                              params.isUserPaid ? 
+                                <Button transparent onPress={this.handleAddToSchedule.bind(this, presentation)}>
+                                  <Icon name="ios-calendar-outline" style={{fontSize: 35, color: this.randomColor}}></Icon>
+                                  <Icon name="ios-add-circle" style={{fontSize: 20, color: this.randomColor, position: 'absolute', left: 29, top: 16}}></Icon>
+                                </Button>
+                                : <Text>{convertDateToEnglish(presentation.date)}</Text>
+                            }
                           </Right>
                         </ListItem>
                       </List>
