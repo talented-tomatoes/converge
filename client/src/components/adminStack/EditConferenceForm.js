@@ -49,7 +49,12 @@ class EditConferenceForm extends Component {
       banner: this.props.admin.selectedConference.banner || defaultImage,
       logo: this.props.admin.selectedConference.logo || defaultImage,
       venue_map: this.props.admin.selectedConference.venue_map || defaultImage,
-      isLoading: {}
+      isLoading: {},
+      startOnFocus: false,
+      placeholderText: {
+        color: 'grey',
+        fontStyle: 'normal'
+      }
     }
     this.handleConferenceDelete = this.handleConferenceDelete.bind(this);
     this.randomColor = randomColor();
@@ -166,17 +171,27 @@ class EditConferenceForm extends Component {
     }
 
   submit(conference) {
-    conference.user_id = this.props.user.userID;
-    conference.start_date = this.state.start_date;
-    conference.end_date = this.state.end_date;
-    conference.start_time = this.state.start_time;
-    conference.end_time = this.state.end_time;
-    conference.id = this.props.admin.selectedConference.id;
-    conference.logo = this.state.logo;
-    conference.banner = this.state.banner;
-    conference.venue_map = this.state.venue_map;
-    console.log('SAVING conference ', conference);
-    this.saveToDB(conference);
+    // throw an alert here if the state of the date is an empty string
+    if (this.state.start_date === undefined || this.state.end_date === undefined || this.state.start_time === undefined || this.state.end_time === undefined) {
+      this.setState({
+        placeholderText: {
+          fontStyle: 'italic',
+          color: 'red'
+        }
+      })
+    } else {
+      conference.user_id = this.props.user.userID;
+      conference.start_date = this.state.start_date;
+      conference.end_date = this.state.end_date;
+      conference.start_time = this.state.start_time;
+      conference.end_time = this.state.end_time;
+      conference.id = this.props.admin.selectedConference.id;
+      conference.logo = this.state.logo;
+      conference.banner = this.state.banner;
+      conference.venue_map = this.state.venue_map;
+      console.log('SAVING conference ', conference);
+      this.saveToDB(conference);
+    }
   }
 
   onStartDateChange(date) {
@@ -287,19 +302,19 @@ class EditConferenceForm extends Component {
             <Card>
               <CardItem>
                 <Text>Start Date:  </Text>
-                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date}/>
+                <DatePicker onChange={this.onStartDateChange.bind(this)} date={this.props.admin.selectedConference.start_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.start_date} placeholderText={this.state.placeholderText} />
               </CardItem>
               <CardItem>
                 <Text>Start Time: </Text>
-                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} />
+                <DatePicker onChange={this.onStartTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} placeholderText={this.state.placeholderText} />
               </CardItem>
               <CardItem>
                 <Text>End Date:   </Text>
-                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date}/>
+                <DatePicker onChange={this.onEndDateChange.bind(this)} date={this.props.admin.selectedConference.end_date} disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_date} placeholderText={this.state.placeholderText} />
               </CardItem>
               <CardItem>
                 <Text>End Time:   </Text>
-                <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time}/>
+                <DatePicker onChange={this.onEndTimeChange.bind(this)} mode='time' disabled={!!this.props.admin.selectedConference.id} value={this.props.admin.selectedConference.end_time} placeholderText={this.state.placeholderText} />
               </CardItem>
               <CardItem>
                 <Field name="address" validate={[required]} component={ renderInput } label="Address:"/>
