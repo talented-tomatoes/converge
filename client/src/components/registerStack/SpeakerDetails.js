@@ -14,7 +14,7 @@ class SpeakerDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      presentations : [],
+      presentations : []
     }
     var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
     this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
