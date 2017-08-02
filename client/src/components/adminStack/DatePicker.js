@@ -23,7 +23,7 @@ export default class MyDatePicker extends Component {
         style={{width: 200}}
         date={this.props.value || this.state.value}
         mode={this.props.mode || 'date'}
-        placeholder= {this.props.mode === 'time' ? 'Select Time' : 'Select Date'}
+        placeholder= {this.props.mode === 'time' ? (this.props.placeholderText.color === 'red' ? 'Required' : 'Select Time') : (this.props.placeholderText.color === 'red' ? 'Required' : 'Select Date')}
         format= {this.props.mode === 'time' ? 'LT' : 'YYYY-MM-DD'}
         minDate={this.props.minDate}
         maxDate={this.props.maxDate}
@@ -32,6 +32,7 @@ export default class MyDatePicker extends Component {
         disabled={this.props.disabled}
         
         customStyles={{
+          placeholderText: this.props.placeholderText,
           disabled: this.props.disabled,
           dateIcon: {
             position: 'absolute',
