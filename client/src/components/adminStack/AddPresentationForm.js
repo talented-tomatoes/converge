@@ -201,11 +201,11 @@ class AddPresentationForm extends Component {
         <Content style={{padding: 10}}>
           <Card style={{flex: 0}}>
               <CardItem>
-                <Field name="name" label="Presentation:"validate={[required]}  component={ renderInput } placeholder="Presentation Name"></Field>
+                <Field name="name" label="Presentation:"validate={[required]}  component={ renderInput }></Field>
               </CardItem>
               <CardItem>
 
-                  <Field name="location" validate={[required]} label="Location:" component={ renderInput } placeholder="Location"/>
+                  <Field name="location" validate={[required]} label="Location:" component={ renderInput } />
               </CardItem>
               <CardItem>
                 <Icon name="ios-calendar-outline"/>

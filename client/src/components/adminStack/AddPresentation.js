@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Left, Toast, List, Grid, Col, ListItem, Right, Body, Title, Text, Button, Tabs, Tab, Icon } from 'native-base';
+import { Container, Content, Header, Left, Toast, List, Grid, Col, ListItem, Right, Body, Title, Text, Button, Tabs, Tab, Icon, Row } from 'native-base';
 
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -12,6 +12,8 @@ import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import { setAdminSelectedPresentation, setSpeakersOfConference, setPresentations, setPresentationSpeakers } from '../actions/actions.js';
 import convertArrayToObject from './helpers/convertArrayToObject';
+import randomColor from '../helpers/randomColor';
+
 
 class AddPresentation extends Component {
   constructor(props) {
@@ -104,23 +106,40 @@ class AddPresentation extends Component {
                       }).map((presentation, i) => {
                         return (
                           <List key={i}>
+                            <Grid>
+                              <Row style={{alignItems: 'center'}}>
+                              <Col style={{width: '82%'}}>
                               <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
-                                <Left>
-                                  <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                    <Col style={{ backgroundColor:  colors[Math.floor(Math.random() * (colors.length - 1 + 1))], height: 50, width: 5}}></Col>
-                                  </Grid>
-                                  <Text>{presentation.time}</Text>
-                                </Left>
-                                <Body>
-                                  <Text>{presentation.name}</Text>
-                                  <Text note>{presentation.location}</Text>
-                                </Body>
-                                  <Right>
-                                    <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
+                                <Grid>
+                                  <Row style={{alignItems: 'center'}}>
+                                  <Col style={{width: '27%'}}>
+                                    <Row>
+                                      <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
+                                        <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
+                                      </Grid>
+                                      <Text style={{paddingLeft: 10, marginRight: 0}}>{presentation.time}</Text>
+                                    </Row>
+                                  </Col>
+                                  <Col style={{width: '73%'}}>
+                                    <Body>
+                                      <Text>{presentation.name}</Text>
+                                      <Text note>{presentation.location}</Text>
+                                    </Body>
+                                  </Col>
+
+                                  </Row>
+                                </Grid>
+
+                              </ListItem>
+                              </Col>
+                              <Col style={{width: '18%', alignItems: 'center'}}>
+                                  <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
                                       <Icon name="trash" style={{color: '#428bca'}}/>
                                     </Button>
-                                  </Right>
-                              </ListItem>
+                              </Col>
+                              </Row>
+                              </Grid>
+
                             </List>
                         )
                       })

@@ -89,8 +89,8 @@ class EditAdminProfileForm extends Component {
         Toast.show({
           text: 'Profile Updated',
           position: 'bottom',
-          buttonText: 'Okay',
-          type: 'success'
+          type: 'success',
+          duration: 1500
         })
         this.props.navigation.navigate('AdminLanding');
       })
@@ -207,7 +207,7 @@ class EditAdminProfileForm extends Component {
                 <Field name="first_name" validate={[required]} component={ renderInput } label="First Name:"/>
               </CardItem>
               <CardItem>
-                <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:"/>     
+                <Field name="last_name" validate={[required]} component={ renderInput } label="Last Name:"/>
               </CardItem>
               <CardItem>
                 <Field name="email" validate={[required, email]} component={ renderInput } label="Email:"/>
