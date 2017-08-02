@@ -88,7 +88,6 @@ class Checkin extends Component {
         })
         .then(response => {
           if (response.data !== 'Success') {
-            //console.log('Checkin Failed!');
             this.setState({isLoading: false});
             Toast.show({
               text: 'Check-in Failed! Please try again.',
@@ -102,7 +101,7 @@ class Checkin extends Component {
               text: 'Check-in Successful!',
               position: 'bottom',
               type: 'success',
-              duration: 2000
+              duration: 1500
             });
             this.props.navigation.navigate('Home');
           }

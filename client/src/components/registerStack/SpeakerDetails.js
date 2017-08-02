@@ -57,7 +57,7 @@ class SpeakerDetails extends Component {
                 position: 'bottom',
                 buttonText: 'Okay',
                 type: 'success',
-                duration: 2000
+                duration: 1500
             });
           }
           if (response.data === 'already added') {

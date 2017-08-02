@@ -102,17 +102,15 @@ class AddPresentationForm extends Component {
             Toast.show({
               text: `${presentationAndSpeakerIds.presentation.name} updated`,
               position: 'bottom',
-              buttonText: 'X',
               type: 'success',
-              duration: 2000
+              duration: 1500
            });
           } else if (this.state.editMode) {
             Toast.show({
               text: `${presentationAndSpeakerIds.presentation.name} added`,
               position: 'bottom',
-              buttonText: 'X',
               type: 'success',
-              duration: 2000
+              duration: 1500
             });
           }
           this.props.navigation.navigate('AddPresentation');

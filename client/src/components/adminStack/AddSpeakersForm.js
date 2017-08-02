@@ -51,9 +51,13 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
 class AddSpeakersForm extends Component {
   constructor(props) {
     super(props);
+    let avatar_url = '';
+    if(this.props.admin.speakerValues) {
+      avatar_url = this.props.admin.speakerValues;
+    }
     this.state = {
       editMode: this.props.navigation.state.params !== undefined ? true : false,
-      avatar: this.props.admin.speakerValues.avatar_url || '',
+      avatar: avatar_url,
       isLoading: false
     }
     this.randomColor = randomColor();
@@ -78,7 +82,6 @@ class AddSpeakersForm extends Component {
         let options = uploadImage(response.data);
         axios.post(options.url, options.body)
           .then(response => {
-            console.log('Response URL:', response.data.secure_url);
             this.setState({avatar: response.data.secure_url });
             this.setState({isLoading: false});
           })
@@ -94,21 +97,19 @@ class AddSpeakersForm extends Component {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
 
     // change URL depending on whether or not how they got to the page
-    if (this.props.admin.speakerValues.id === undefined) {
+    if (this.props.admin.speakerValues === undefined) {
       url = SERVER_URL + 'api/speakers';
     } else {
       url = SERVER_URL + 'api/editSpeaker';
     }
-    //console.log('speaker: ', speaker)
     axios.post(url, speaker)
       .then(response => {
         // go back to the the EditSpeaker's landing page on success
         Toast.show({
           text: speaker.first_name + ' ' + speaker.last_name + ' added',
           position: 'bottom',
-          buttonText: 'X',
           type: 'success',
-          duration: 2000
+          duration: 1500
         });
         this.props.navigation.navigate('AddSpeakers');
       })
@@ -215,7 +216,7 @@ class AddSpeakersForm extends Component {
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
             <Button style={{flex: 1, alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.speakerValues.id ? 'Save Changes' : 'Add Speaker'}</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.speakerValues ? 'Save Changes' : 'Add Speaker'}</Text>
             </Button>
           </Content>
         </Footer>
