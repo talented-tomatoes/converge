@@ -42,7 +42,7 @@ exports.seed = function(knex, Promise) {
           logo: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501699401/api-world-2017-final-logo_kn3odi_jtl4av_mp1ayk.png',
           details: 'API World 2017 is the world’s largest vendor-neutral API conference and expo, organizing the API Economy. API World is dedicated to the mission to be independent and facilitate connections, knowledge, trust and business within the developer community of API providers and consumers.',
           ticket_price: 35,
-          venue_map: 'https://www.sanjose.org/media/650852/digitalmonitorlocationsv2.jpg',
+          venue_map: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501712878/digitalmonitorlocationsv2_fm1ucx_ldylnd.jpg',
           banner: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501699401/api-world-2017-final-logo_kn3odi_jtl4av_mp1ayk.png',
           user_id: 5
         }
