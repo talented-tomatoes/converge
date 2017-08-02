@@ -448,6 +448,46 @@ exports.seed = function(knex, Promise) {
           description: 'With the growth in machine learning, neural networks, cognitive systems, self-driving cars, the importance of APIs will only grow. The neural networks can only get better when they are fed data from millions of independent data points. These independent data points are essentially systems which are not only sharing data but seeking intelligence from centrally hosted systems. To cater to demands of vast networks of systems sharing and receiving data APIs will need to be lightweight, low latency, high performance and scalable.',
           name: 'Role of APIs in the World of Rising Machine Self Awareness and Cognitive Systems'
         },
+        {
+          "location" : "Youtube Arena",
+          "time" : "5:00 PM",
+          "date" : "2018-06-23",
+          "conference_id" : 2,
+          "description" : "Ask Jenna Marbles and Julien Solomita about anything!",
+          "name" : "Q&A with Jenna Marbles and Julien Solomita"
+        },
+        {
+          "location" : "Twitter Community Stage",
+          "time" : "9:30 AM",
+          "date" : "2018-06-23",
+          "conference_id" : 2,
+          "description" : "Ask Phillip DeFranco anything!",
+          "name" : "Q&A with Phillip DeFranco"
+        },
+        {
+          "location" : "Room 204",
+          "time" : "3:30 PM",
+          "date" : "2018-06-23",
+          "conference_id" : 2,
+          "description" : "Two of the most successful internet pioneers chat about the past, present, and future of online video.",
+          "name" : "Hank Green & Phillip DeFranco Fireside Chat"
+        },
+        {
+          "location" : "Youtube Arena",
+          "time" : "11:00 AM",
+          "date" : "2018-06-23",
+          "conference_id" : 2,
+          "description" : "Rhett & Link's wildly popular podcast Ear Biscuits is coming to VidCon for a live recording! ",
+          "name" : "Ear Biscuits Live"
+        },
+        {
+          "location" : "Room 210",
+          "time" : "2:00 PM",
+          "date" : "2018-06-22",
+          "conference_id" : 2,
+          "description" : "Rhett & Link dive into their day-to-day production of Good Mythical Morning and bigger projects like Buddy System.",
+          "name" : "The Creative Process"
+        }
       ]);
     });
 };
