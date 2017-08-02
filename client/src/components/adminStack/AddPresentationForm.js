@@ -54,7 +54,8 @@ class AddPresentationForm extends Component {
       selectedDate: this.props.admin.selectedPresentation.date,
       selectedTime: this.props.admin.selectedPresentation.time,
       selectedSpeakerID: 0,
-      selectedSpeakers: this.props.admin.selectedPresentation.speakers || []
+      selectedSpeakers: this.props.admin.selectedPresentation.speakers || [],
+      datepickerRequired: false
     }
     this.randomColor = randomColor();
   }
@@ -128,17 +129,23 @@ class AddPresentationForm extends Component {
   }
 
   submit(presentation) {
-    presentation.id = this.props.admin.selectedPresentation.id;
-    presentation.conference_id = this.props.admin.selectedConference.id;
-    presentation.date = this.state.selectedDate;
-    presentation.time = this.state.selectedTime;
-    let speakerIds = Object.keys(this.props.selectedSpeakers).map(id => Number(id));
-    let data = {
-      presentation: presentation,
-      speakerIds: speakerIds,
-      speakers: this.props.selectedSpeakers
+    if (this.state.selectedDate === undefined || this.state.selectedTime === undefined) {
+      this.setState({
+        datepickerRequired: true
+      })
+    } else {
+      presentation.id = this.props.admin.selectedPresentation.id;
+      presentation.conference_id = this.props.admin.selectedConference.id;
+      presentation.date = this.state.selectedDate;
+      presentation.time = this.state.selectedTime;
+      let speakerIds = Object.keys(this.props.selectedSpeakers).map(id => Number(id));
+      let data = {
+        presentation: presentation,
+        speakerIds: speakerIds,
+        speakers: this.props.selectedSpeakers
+      }
+      this.saveToDB(data);
     }
-    this.saveToDB(data);
   }
 
   onSpeakerChange(value) {
@@ -190,7 +197,7 @@ class AddPresentationForm extends Component {
           navigation={this.props.navigation}
           leftNavigation="AddPresentation"
           leftIcon="arrow-back"
-          title="Edit"
+          title={this.props.admin.selectedPresentation.id ? 'Edit' : 'Add'}
           rightIcon={null}
         />
         <Content style={{padding: 10}}>
@@ -205,13 +212,13 @@ class AddPresentationForm extends Component {
               <CardItem>
                 <Icon name="ios-calendar-outline"/>
                 <View style={{position: "absolute", left: 20}}>
-                  <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.state.selectedDate}/>
+                  <DatePicker showIcon={false} onChange={this.onDateChange.bind(this)} minDate={this.props.admin.selectedConference.start_date} maxDate={this.props.admin.selectedConference.end_date} value={this.state.selectedDate} datepickerRequired={this.state.datepickerRequired}/>
                 </View>
               </CardItem>
               <CardItem>
                 <Icon name="ios-time-outline"/>
                 <View style={{position: "absolute", left: 20}}>
-                 <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.state.selectedTime}/>
+                 <DatePicker showIcon={false} mode={'time'} onChange={this.onTimeChange.bind(this)} value={this.state.selectedTime} datepickerRequired={this.state.datepickerRequired}/>
                 </View>
               </CardItem>
               <CardItem style={{height: 140}}>
@@ -242,7 +249,7 @@ class AddPresentationForm extends Component {
           <Content style={{backgroundColor: this.randomColor}}>
             <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>
             {
-              this.state.editMode ? <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Presentation</Text> : <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Presentation</Text>
+              this.props.admin.selectedPresentation.id ? <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Update Presentation</Text> : <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>Add Presentation</Text>
             }
             </Button>
           </Content>
