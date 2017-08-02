@@ -5,7 +5,7 @@ import Config from '../../../../config/config.js';
 import { connect } from 'react-redux';
 import renderListOfDatesFromConference from '../adminStack/helpers/renderListOfDatesFromConference.js';
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
-import { Drawer, Content, Container, Tabs, Tab, Toast, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem } from 'native-base';
+import { Drawer, Content, Container, Tabs, Tab, Toast, Header, Grid, Left, Col, Body, Right, Icon, Button, Title, Text, List, ListItem, Row } from 'native-base';
 import randomColor from '../helpers/randomColor';
 
 import SideBar from './Sidebar';
@@ -43,7 +43,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
   }
 
   handleItemPress(presentation) {
-    this.props.navigation.navigate('PresentationDetails', { presentation: presentation });
+    this.props.navigation.navigate('PresentationDetails', { presentation: presentation, backPage: 'MasterSchedule' });
   }
 
   handleSavePress(presentation) {
@@ -55,7 +55,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
           Toast.show({
               text: `Added ${presentation.name} to your schedule`,
               position: 'bottom',
-              buttonText: 'Okay',
+              buttonText: 'X',
               type: 'success',
               duration: 2000
           });
@@ -64,7 +64,7 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
           Toast.show({
             text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
             position: 'bottom',
-            buttonText: 'Okay',
+            buttonText: 'X',
             type: 'warning',
             duration: 2000
           })
@@ -99,23 +99,39 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
                         }).map((presentation, i) => {
                           return (
                             <List key={i}>
+                              <Grid>
+                              <Row style={{alignItems: 'center'}}>
+                              <Col style={{width: '82%'}}>
                               <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
-                                <Left>
-                                  <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                    <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
-                                  </Grid>
-                                  <Text>{presentation.time}</Text>
-                                </Left>
-                                <Body>
-                                  <Text>{presentation.name}</Text>
-                                  <Text note>{presentation.location}</Text>
-                                </Body>
-                                  <Right>
-                                    <Button small transparent onPress={this.handleSavePress.bind(this, presentation)}>
-                                      <Icon name="ios-add-circle-outline" style={{color: '#428bca'}}/>
-                                    </Button>
-                                  </Right>
+                                <Grid>
+                                  <Row style={{alignItems: 'center'}}>
+                                  <Col style={{width: '27%'}}>
+                                    <Row>
+                                      <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
+                                        <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
+                                      </Grid>
+                                      <Text style={{paddingLeft: 10, marginRight: 0}}>{presentation.time}</Text>
+                                    </Row>
+                                  </Col>
+                                  <Col style={{width: '73%'}}>
+                                    <Body>
+                                      <Text>{presentation.name}</Text>
+                                      <Text note>{presentation.location}</Text>
+                                    </Body>
+                                  </Col>
+
+                                  </Row>
+                                </Grid>
+
                               </ListItem>
+                              </Col>
+                              <Col style={{width: '18%', alignItems: 'center'}}>
+                                  <Button small transparent onPress={this.handleSavePress.bind(this, presentation)}>
+                                    <Icon name="ios-add-circle-outline" style={{color: '#428bca'}}/>
+                                  </Button>
+                              </Col>
+                              </Row>
+                              </Grid>
                             </List>
                           )
                         })
@@ -141,4 +157,21 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(MasterSchedule);
+
+
+// <Left>
+//                                   <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
+//                                     <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
+//                                   </Grid>
+//                                   <Text style={{marginRight: 10}}>{presentation.time}</Text>
+//                                 </Left>
+//                                 <Body>
+//                                   <Text>{presentation.name}</Text>
+//                                   <Text note>{presentation.location}</Text>
+//                                 </Body>
+//                                   <Right>
+//                                     <Button small transparent onPress={this.handleSavePress.bind(this, presentation)}>
+//                                       <Icon name="ios-add-circle-outline" style={{color: '#428bca'}}/>
+//                                     </Button>
+//                                   </Right>
 
