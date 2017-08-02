@@ -29,7 +29,7 @@ class SpeakerDetails extends Component {
     axios.get(`${Config.server.url}api/join/presentations_speakers/${params.speaker.id}`)
       .then(response => {
           this.setState({
-            presentations: response.data,
+            presentations: response.data
           })
       })
       .catch(err => {
