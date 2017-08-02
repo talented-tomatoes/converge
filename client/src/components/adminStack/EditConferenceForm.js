@@ -100,7 +100,6 @@ class EditConferenceForm extends Component {
         let options = uploadImage(response.data);
         axios.post(options.url, options.body)
           .then(response => {
-            console.log('Response URL: ', response.data.secure_url);
             if (imageType === 'logo') {
               this.state.isLoading[imageType] = false;
               this.setState({
@@ -132,23 +131,24 @@ class EditConferenceForm extends Component {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
 
     let url = SERVER_URL;
-    if (this.props.admin.selectedConference.id === undefined) {
+    let msg = '';
+    if (!this.props.admin.selectedConference.id) {
       url += 'api/addConference';
+      msg = ' created';
     } else {
       url += 'api/editConference';
+      msg = ' edited';
     }
     axios.post(url, conference)
       .then(response => {
         Toast.show({
-          text: conference.name + ' created',
+          text: conference.name + msg,
           position: 'bottom',
-          buttonText: 'X',
-          type: 'success'
+          type: 'success',
+          duration: 1500
         });
-        // console.log('response from the updated: ', response.data);
         axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
           .then(conference => {
-            console.log('new conference information: ', conference.data);
             this.props.dispatch(setAdminSelectedConference(conference.data));
           })
           .catch(err => {
@@ -183,7 +183,6 @@ class EditConferenceForm extends Component {
       conference.logo = this.state.logo;
       conference.banner = this.state.banner;
       conference.venue_map = this.state.venue_map;
-      console.log('SAVING conference ', conference);
       this.saveToDB(conference);
     }
   }
@@ -201,14 +200,12 @@ class EditConferenceForm extends Component {
   }
 
   onStartTimeChange(time) {
-    console.log('changing the start time now to ', time);
     this.setState({
       start_time: time
     })
   }
 
   onEndTimeChange(time) {
-    console.log('changing the end time now to ', time);
     this.setState({
       end_time: time
     })
@@ -230,8 +227,6 @@ class EditConferenceForm extends Component {
   let currentConf = this.props.admin.selectedConference;
   axios.delete(`${Config.server.url}api/deleteConference/${currentConf.id}`)
     .then(response => {
-      console.log('RESPONSE FROM SERVER ON DELETE CONFERENCE ', response);
-      // only navigate when the conference actual deletes
       Toast.show({
         text: `${currentConf.name} deleted`,
         position: 'bottom',
@@ -247,8 +242,8 @@ class EditConferenceForm extends Component {
         buttonText: 'X',
         type: 'danger'
       });
-    console.log('error deleting the conference ', err);
-  })
+      console.log('error deleting the conference ', err);
+    })
 
 }
 

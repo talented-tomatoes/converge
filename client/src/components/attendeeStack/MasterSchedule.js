@@ -55,9 +55,8 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
           Toast.show({
               text: `Added ${presentation.name} to your schedule`,
               position: 'bottom',
-              buttonText: 'X',
               type: 'success',
-              duration: 2000
+              duration: 1500
           });
         }
         if (response.data === 'already added') {
