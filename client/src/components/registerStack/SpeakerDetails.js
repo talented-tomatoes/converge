@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Config from '../../../../config/config.js';
+import randomColor from '../helpers/randomColor.js';
 import convertDateToEnglish from '../adminStack/helpers/convertDateToEnglish.js';
 import { AppRegistry, Text, TouchableHighlight, TouchableOpacity, Image, View, ScrollView } from 'react-native';
 import { Container, Header, Badge, Icon, Toast, Tab, Tabs, Content, Title, Body, Grid, Col, Row, Right, Card, CardItem, Button, List, ListItem, Thumbnail, Left } from 'native-base';
@@ -16,8 +17,7 @@ class SpeakerDetails extends Component {
     this.state = {
       presentations : []
     }
-    var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
-    this.randomColor = colors[Math.floor(Math.random() * (colors.length -1 + 1))];
+    this.randomColor = randomColor();
   }
 
   static navigationOptions = {
@@ -124,12 +124,12 @@ class SpeakerDetails extends Component {
                           </Left>
                           <Body>
                             <Text>{presentation.name}</Text>
-                            <Text note>{presentation.location}</Text>
+                            <Text style={{color: 'grey'}}>{presentation.location}</Text>
                           </Body>
                           <Right>
                             <Button transparent onPress={this.handleAddToSchedule.bind(this, presentation)}>
-                              <Icon name="ios-calendar-outline" style={{fontSize: 40, color: this.randomColor}}></Icon>
-                              <Icon name="ios-add-circle" style={{fontSize: 25, color: this.randomColor, position: 'absolute', left: 29, top: 15}}></Icon>
+                              <Icon name="ios-calendar-outline" style={{fontSize: 35, color: this.randomColor}}></Icon>
+                              <Icon name="ios-add-circle" style={{fontSize: 20, color: this.randomColor, position: 'absolute', left: 29, top: 16}}></Icon>
                             </Button>
                           </Right>
                         </ListItem>
