@@ -1,44 +1,33 @@
 import React, { Component } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
-import { Drawer, Button, Header, Thumbnail, Badge, Container, Card, Grid, Col, CardItem, Left, Right, Body, Input, Label, Item, Title, Content, Separator, Text, Footer, FooterTab, Icon, ListItem, Toast } from 'native-base';
-// import UserSwiperFooter from './helpers/UserSwiperFooter';
+import { Drawer, Button, Header, Thumbnail, Badge, Container, Card, Grid, Col, CardItem, Left, Right, Body, Input, Label, Item, Title, Content, Separator, Text, Footer, FooterTab, Icon, ListItem, Toast, Spinner } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import kairosEnrollReqObj from '../registerStack/helpers/kairosEnrollReqObj';
 import uploadImage from '../registerStack/helpers/uploadImage';
 import randomColor from '../helpers/randomColor';
-
-// import Swiper from 'react-native-swiper';
-
 import axios from 'axios';
 import Config from '../../../../config/config.js';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import DatePicker from './DatePicker.js';
 import normalizePhoneNumber from '../registerStack/helpers/normalizePhoneNumber';
-
-
-// need initialize to initialize the form with some data if it exists
 import { Field, reduxForm, initialize } from 'redux-form';
 import { connect } from 'react-redux';
 import { setAdminSelectedConference } from '../actions/actions.js';
 import SideBar from './helpers/HostSidebar';
 
-
 const required = value => {
   return value ? undefined  : <Text> Required </Text>
 };
-
 const email = (value) => {
  return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
               ? <Text> Invalid Email </Text>
               : undefined
 }
-
 const linkedin = (value) => {
   return value && (value.toLowerCase().indexOf('linkedin.com') !== -1)
                ? <Text> Enter only the Handle</Text>
               : undefined
 }
-
 const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, placeholder, normalize, multiline, meta: { touched, error, warning }}) => {
   return (
     <Item inlineLabel>
@@ -52,28 +41,24 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, p
     </Item>
   )
 }
-
 class EditAdminProfileForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dbUser: {},
-      avatarSource: ''
+      avatarSource: '',
+      isLoading: false
     }
     this.randomColor = randomColor();
   }
-
   closeDrawer() {
     this.drawer._root.close()
   }
-
   openDrawer() {
     this.drawer._root.open()
   };
-
   componentDidMount() {
     const SERVER_URL = Config.server.url;
-
     let url = SERVER_URL + 'api/users/' + this.props.user.id;
     axios.get(url)
       .then(user => {
@@ -86,9 +71,7 @@ class EditAdminProfileForm extends Component {
         console.log('error getting user: ', err);
       })
   }
-
   handleInitialize() {
-
     const profileValues = {
       first_name: this.state.dbUser.first_name,
       last_name: this.state.dbUser.last_name,
@@ -96,16 +79,11 @@ class EditAdminProfileForm extends Component {
       phone_number: this.state.dbUser.phone_number,
       linkedin_id: this.state.dbUser.linkedin_id
     };
-
     this.props.initialize(profileValues);
   }
-
-
   saveToDB(profile) {
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-
     let url = SERVER_URL + 'api/users/';
-
     axios.put(url, profile)
       .then(response => {
         Toast.show({
@@ -127,14 +105,12 @@ class EditAdminProfileForm extends Component {
       })
 
     }
-
   submit(profile) {
     profile.login_id = this.props.user.id;
     profile.avatar_url = this.state.avatarSource.uri;
     profile.user_type = this.state.dbUser.user_type;
     this.saveToDB(profile);
   }
-
   takePicture() {
     let options = {
       title: 'Select Avatar',
@@ -143,7 +119,6 @@ class EditAdminProfileForm extends Component {
         path: 'images'
       }
     };
-
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
       if (response.didCancel) {
@@ -156,9 +131,7 @@ class EditAdminProfileForm extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        this.setState({
-          avatarSource: { uri: 'https://media.giphy.com/media/210NUQw5BT8c0/giphy.gif' }
-        });
+        this.setState({isLoading: true});
         let options = uploadImage(response.data);
         console.log('options: ', options);
         axios.post(options.url, options.body)
@@ -171,16 +144,21 @@ class EditAdminProfileForm extends Component {
           return axios.post(options.url, options.body, options.config)
         })
         .then(response => {
-          console.log('response.images[0]', response.images[0].transaction.status);
+          this.setState({isLoading: false});
         })
         .catch(err => {
           console.log('err=', err);
-          // handle error scenario
+          this.setState({isLoading: false});
+          Toast.show({
+            text: 'Profile Could Not Be Updated',
+            position: 'bottom',
+            buttonText: 'X',
+            type: 'danger'
+          })
         })
       }
     });
   }
-
   render() {
     const { handleSubmit } = this.props;
     console.log('in editProfile: ', this.props);
@@ -205,14 +183,24 @@ class EditAdminProfileForm extends Component {
             <Card>
               <CardItem style={{paddingTop: 15}}>
                 <Body>
-                  <Left>
-                    <TouchableOpacity light onPress={() => this.takePicture()}>
-                      <Thumbnail large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.takePicture()} style={{position: 'absolute', left: 50, top: 50}}>
-                      <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
-                    </TouchableOpacity>
-                  </Left>
+                  {
+                    !this.state.isLoading
+                    ? (
+                      <Left>
+                        <TouchableOpacity light onPress={() => this.takePicture()}>
+                          <Thumbnail large source={this.state.avatarSource ? this.state.avatarSource : require('../../../../assets/AvatarPlaceHolder.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.takePicture()} style={{position: 'absolute', left: 50, top: 50}}>
+                          <Badge style={{backgroundColor: this.randomColor}}><Text><Icon name="md-create" style={{fontSize: 16, color: '#fff'}}></Icon></Text></Badge>
+                        </TouchableOpacity>
+                      </Left>
+                    )
+                    : (
+                      <Left>
+                        <Spinner />
+                      </Left>
+                    )
+                  }
                 </Body>
               </CardItem>
               <CardItem>
@@ -247,14 +235,11 @@ class EditAdminProfileForm extends Component {
     )
   }
 }
-
 const reduxFormConfig = {
   form: 'EditAdminProfileForm',
   fields: ['name', 'address', 'logo', 'ticket_price', 'venue_map', 'banner', 'details']
 }
-
 EditAdminProfileForm = reduxForm(reduxFormConfig)(EditAdminProfileForm)
-
 EditAdminProfileForm = connect(
   state => ({
     user: state.userReducer
