@@ -20,7 +20,7 @@ exports.seed = function(knex, Promise) {
           bio: 'Neha Sampat (@nehasf) is the CEO of Built.io, a company that brings startup innovation to large organizations. With 15+ years experience in enterprise software, Neha is a recognized industry leader and has led product marketing and online experiences for companies like Sun Microsystems and VMware. She is a proponent of diversity and an outspoken advocate for nurturing women leaders in her industry. Neha sits on the Board for the Application Developers Alliance with a passion for supporting professional growth for developers. Neha can be found appearing on keynote stages or expert panels discussing her experiences as an entrepreneur, a female leader or how Built.io is changing the world through automation. Neha was named a “San Francisco Business Times 40 under 40” honoree and one of “50 Women in Tech Dominating Silicon Valley” in 2015.',
           email: 'nehasampat@example.com',
           linkedin_id: 'nehasampat',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Michael',
@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
           bio: 'Professional technologist and marketer with over 15 years experience. Author, speaker, and consultant with a focus on community development, software architecture, API design, security, and usability.',
           email: 'michaelstowe@example.com',
           linkedin_id: 'mikestowe',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Rob',
@@ -40,7 +40,7 @@ exports.seed = function(knex, Promise) {
           bio: 'Crazy passionate about helping enterprises, entrepreneurs, small businesses and startups use technology to drive sales and increase revenues. My career has spanned across business development with an emphasis on technical integrations and channel partnerships, technical sales and support, web application design and programming and online and social marketing. I also spent three years as an independent business owner focused on providing technical consulting for small business customers.',
           email: 'robzazueta@example.com',
           linkedin_id: 'techknowme',
-          conference_id: 3
+          conference_id: 1
         }, 
         {
           first_name: 'Matt',
@@ -50,7 +50,7 @@ exports.seed = function(knex, Promise) {
           bio: `20+ years in Information Technology Enterprise Architecture, Microservices, Distributed Systems, API Management, Mobile/Cloud/Social/Application/IoT/Big Data Integration, DevOps, REST, SOA, Web Services, Middleware, Information Security`,
           email: 'mattmclarty@example.com',
           linkedin_id: 'mattmclartybc',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Todd',
@@ -60,7 +60,7 @@ exports.seed = function(knex, Promise) {
           bio: `As co-founder and CEO of PubNub, we've delivered a groundbreaking cloud service that levels the playing field, bringing the power of massively multi-user applications to any developer, at any budget.`,
           email: 'toddgreene@example.com',
           linkedin_id: 'toddngreene',
-          conference_id: 3
+          conference_id: 1
         }, 
         {
           first_name: 'Tanya',
@@ -70,7 +70,7 @@ exports.seed = function(knex, Promise) {
           bio: '15+ years of experience in complete software development life cycle: requirements phase, design and architecture, development, testing, deployment, data analysis, and monitoring. In-depth knowledge of designing, implementing and deploying APIs, user entity resolution, risk assessment and decision making systems. ',
           email: 'tvlahovic@example.com',
           linkedin_id: 'tvlahovic',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Aldo', 
@@ -80,7 +80,7 @@ exports.seed = function(knex, Promise) {
           bio: `Hacker, Salesman, Manager, Coach, Consultant, Engineer. 15 years in the IT industry. Advisor to early stage startups and innovation consultant to CXO types at >1B corporations.`,
           email: 'abucchi@example.com',
           linkedin_id: 'aldobucchi',
-          conference_id: 3
+          conference_id: 2
         }, 
         {
           first_name: 'Dustin',
@@ -90,7 +90,7 @@ exports.seed = function(knex, Promise) {
           bio: `At the moment I specialize in developing scalable web platforms and developer advocacy. I enjoy contributing to making the web better.`,
           email: 'dwhittle@example.com',
           linkedin_id: 'dustinwhittle',
-          conference_id: 3
+          conference_id: 2
         },
         {
           first_name: 'Chris',
@@ -100,7 +100,7 @@ exports.seed = function(knex, Promise) {
           bio: 'Highly experienced Senior Executive recognized and recruited to drive the development, launch, and market expansion of best in class enterprise software. An expert in developing architecture, SOA, SaaS, and layers of technology from network to web. A proven Business Leader and strategist with a lengthy record of success resolving strategic business issues and creating new market opportunities and disruptive operational models via software. A key player in the evolution of technology and business strategies for companies including BlueCross BlueShield of AZ, Hoosier & Arizona Lotteries, and Accenture with a record of success identifying and leading the introduction of emerging technologies and business models into existing and brand new product portfolios.',
           email: 'cmatthieu@example.com',
           linkedin_id: 'chrismatthieu',
-          conference_id: 3
+          conference_id: 2
         },
         {
           first_name: 'Mary',
@@ -110,7 +110,7 @@ exports.seed = function(knex, Promise) {
           bio: 'I am a software consultant for Red Hat. I work mainly in the Middleware area with a strong focus on Integration. I work with clients as well as on internal initiatives. My product focus is on JBoss Fuse and the technologies within it.',
           email: 'mcochran@example.com',
           linkedin_id: 'mary-cochran-31201252',
-          conference_id: 3
+          conference_id: 2
         },
         {
           first_name: 'Catheryne',
@@ -120,7 +120,7 @@ exports.seed = function(knex, Promise) {
           bio: '15+ years in software product management, product marketing, environmental & energy, and defense; 5+ years as a U.S. Naval Officer.',
           email: 'cnicholson@example.com',
           linkedin_id: 'catherynenicholson',
-          conference_id: 3
+          conference_id: 2
         },
         {
           first_name: 'Erik',
@@ -130,7 +130,7 @@ exports.seed = function(knex, Promise) {
           bio: 'Unavailable',
           email: 'Unavailable',
           linkedin_id: 'Unavailable',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Christopher',
@@ -142,7 +142,7 @@ exports.seed = function(knex, Promise) {
           Prior to August, Christopher Dow was senior vice president, Architecture at Rovi where he was responsible for directing the architecture of Rovi digital entertainment products and product ecosystem, including the Rovi guide, metadata, search and recommendations solutions. He joined Rovi in 2007, when the company acquired Mediabolic, and has over 22 years in the computer graphics and multimedia industry. Chris has directed the high-level architecture for consumer electronics (CE) devices such as digital video recorders, web pads and hand-held gaming devices. He has also led the development of 3D graphics APIs, the media resource solution of a set-top box in an interactive TV environment, and has experience with imaging and X server development.`,
           email: 'cdow@example.com',
           linkedin_id: 'christopherdow',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Hunter',
@@ -152,7 +152,7 @@ exports.seed = function(knex, Promise) {
           bio: `Full-stack JavaScript, C#, Unity, VR, Node.js engineer who loves occasionally escaping the keyboard. I manage the Languages team at Heroku and believe that programming should be playful.`,
           email: 'hloft@example.com',
           linkedin_id: 'hunterloftus',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Christian',
@@ -162,7 +162,7 @@ exports.seed = function(knex, Promise) {
           bio: `Christian Posta (@christianposta) is a Principal Middleware Specialist/Architect at Red Hat and well known for being an author (Microservices for Java Developers, O’Reilly 2016), frequent blogger, speaker, open-source enthusiast and committer on Apache ActiveMQ, Apache Camel, Fabric8 and others. Christian has spent time at web-scale companies and now helps companies creating and deploying large-scale distributed architectures - many of what are now called Microservices based. He enjoys mentoring, training and leading teams to be successful with distributed systems concepts, microservices, devops, and cloud-native application design.`,
           email: 'christianposta@example.com',
           linkedin_id: 'ceposta',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Ross',
@@ -172,7 +172,7 @@ exports.seed = function(knex, Promise) {
           bio: `Ross Garrett is the Head of Product Marketing at Cloud Elements - responsible for market strategy, product positioning and evangelism. He is a well-known speaker at developer events and other industry conferences. Ross has over 10 years of product and marketing leadership experience in the integration space, most recently at Push Technology and previously with Axway, CA and Layer 7.`,
           email: 'rgarrett@example.com',
           linkedin_id: 'rossgarrett',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Eugene',
@@ -377,7 +377,7 @@ exports.seed = function(knex, Promise) {
           bio: `Boisy is the Emotion AI Evangelist for Affectiva, an MIT Media Lab spinoff, where he advocates and promotes the adoption of the company’s emotion-based artificial intelligence technology across all of its supported platforms. He is responsible for designing and developing the first real-time machine learning-based, emotion-sensing and analytics SDK for mobile devices, which has pushed the boundaries of innovation in the industry. Now he is focused on advancing the adoption of Emotion AI through his thought leadership and advocacy. Boisy holds a Master of Science in Computer Science from the University of Louisiana at Lafayette.`,
           email: 'boisyp@example.com',
           linkedin_id: 'boisyp',
-          conference_id: 3
+          conference_id: 2
         },
         {
           first_name: 'Gavin',
@@ -387,7 +387,7 @@ exports.seed = function(knex, Promise) {
           bio: `Gavin is the Co-Founder and CEO of Learnosity, an award winning educational technology company that offers a suite of B2B, SaaS assessment technologies (APIs) which enable organizations from a wide range of sectors, to easily incorporate powerful, interactive assessment capabilities into any digital product, new or existing.`,
           email: 'gcooney@example.com',
           linkedin_id: 'gcooney',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Varun',
@@ -403,7 +403,7 @@ exports.seed = function(knex, Promise) {
           Varun hails from Singapore and holds a bachelor's degree in computer engineering from the National University of Singapore (NUS).`,
           email: 'varun@example.com',
           linkedin_id: 'varun',
-          conference_id: 3
+          conference_id: 2 
         },
         {
           first_name: 'Paul',
@@ -413,7 +413,7 @@ exports.seed = function(knex, Promise) {
           bio: `Developer and Partner Ecosystems | Documenting APIs | Building Developer Communities | Developer Relations`,
           email: 'paul_n@example.com',
           linkedin_id: 'paulnerger',
-          conference_id: 3
+          conference_id: 1
         },
         {
           first_name: 'Arjun',
