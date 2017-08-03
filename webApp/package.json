@@ -18,11 +18,14 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "css-loader": "^0.28.4",
     "moment": "^2.18.1",
     "rc-datepicker": "^5.0.8",
+    "rc-time-picker": "^2.4.1",
     "react": ">=0.14",
     "react-addons-shallow-compare": ">=0.14",
     "react-bootstrap": "^0.31.1",
+    "react-datepicker": "^0.52.0",
     "react-dates": "^12.3.0",
     "react-dom": ">=0.14",
     "react-dropzone": "^3.13.4",
@@ -35,6 +38,7 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.71.2",
     "sha1": "^1.1.1",
+    "style-loader": "^0.18.2",
     "superagent": "^3.5.2"
   }
 }
