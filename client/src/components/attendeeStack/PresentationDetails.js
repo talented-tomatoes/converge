@@ -51,18 +51,16 @@ class PresentationsDetails extends Component {
           Toast.show({
               text: `Added ${presentation.name} to your schedule`,
               position: 'bottom',
-              buttonText: 'X',
               type: 'success',
-              duration: 2000
+              duration: 1500
           });
         }
         if (response.data === 'already added') {
           Toast.show({
             text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
             position: 'bottom',
-            buttonText: 'X',
             type: 'warning',
-            duration: 2000
+            duration: 1500
           })
         }
       })

@@ -43,9 +43,8 @@ class SpeakerDetails extends Component {
       Toast.show({
         text: 'Please purchase a ticket first before adding this to your schedule.',
         position: 'bottom',
-        buttonText: 'Okay',
         type: 'warning',
-        duration: 2000
+        duration: 1500
       })
     } else {
       axios.post(`${Config.server.url}api/join/users_presentations`, { presentation_id: presentation.id, user_id: this.props.user.id })
@@ -55,7 +54,6 @@ class SpeakerDetails extends Component {
             Toast.show({
                 text: `Added ${presentation.name} to your schedule`,
                 position: 'bottom',
-                buttonText: 'Okay',
                 type: 'success',
                 duration: 1500
             });
@@ -64,9 +62,8 @@ class SpeakerDetails extends Component {
             Toast.show({
               text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
               position: 'bottom',
-              buttonText: 'Okay',
               type: 'warning',
-              duration: 2000
+              duration: 1500
             })
           }
         })
@@ -134,7 +131,7 @@ class SpeakerDetails extends Component {
                           </Body>
                           <Right>
                             {
-                              params.isUserPaid ? 
+                              params.isUserPaid ?
                                 <Button transparent onPress={this.handleAddToSchedule.bind(this, presentation)}>
                                   <Icon name="ios-calendar-outline" style={{fontSize: 35, color: this.randomColor}}></Icon>
                                   <Icon name="ios-add-circle" style={{fontSize: 20, color: this.randomColor, position: 'absolute', left: 29, top: 16}}></Icon>

@@ -58,9 +58,8 @@ class MySchedule extends Component {
         Toast.show({
             text: `${presentation.name} removed from your schedule`,
             position: 'bottom',
-            buttonText: 'X',
             type: 'warning',
-            duration: 2000
+            duration: 1500
          });
       });
   }

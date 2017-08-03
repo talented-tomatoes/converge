@@ -74,9 +74,8 @@ class AddPresentation extends Component {
         Toast.show({
             text: `${presentation.name} deleted`,
             position: 'bottom',
-            buttonText: 'X',
             type: 'warning',
-            duration: 2000
+            duration: 1500
          });
       });
   }
@@ -106,41 +105,36 @@ class AddPresentation extends Component {
                       }).map((presentation, i) => {
                         return (
                           <List key={i}>
-                            <Grid>
-                              <Row style={{alignItems: 'center'}}>
-                              <Col style={{width: '82%'}}>
-                              <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
-                                <Grid>
-                                  <Row style={{alignItems: 'center'}}>
-                                  <Col style={{width: '27%'}}>
-                                    <Row>
-                                      <Grid style={{ alignSelf: "center", width: 0, flex: 0, paddingLeft: 5}}>
-                                        <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}}></Col>
-                                      </Grid>
-                                      <Text style={{paddingLeft: 10, marginRight: 0}}>{presentation.time}</Text>
-                                    </Row>
+                            <ListItem avatar onPress={this.handleItemPress.bind(this, presentation)}>
+                              <Grid>
+                                <Row style={{alignItems: 'center'}}>
+                                  <Col style={{width: '82%'}}>
+                                      <Grid>
+                                        <Row style={{alignItems: 'center'}}>
+                                        <Col style={{width: '28%'}}>
+                                          <Row style={{alignItems: 'center'}}>
+                                              <Col style={{ backgroundColor:  randomColor(), height: 50, width: 5}} />
+                                            <Text style={{paddingLeft: 10, marginRight: 0}}>{presentation.time}</Text>
+                                          </Row>
+                                        </Col>
+                                        <Col style={{width: '72%'}}>
+                                          <Body>
+                                            <Text>{presentation.name}</Text>
+                                            <Text note>{presentation.location}</Text>
+                                          </Body>
+                                        </Col>
+                                      </Row>
+                                    </Grid>
                                   </Col>
-                                  <Col style={{width: '73%'}}>
-                                    <Body>
-                                      <Text>{presentation.name}</Text>
-                                      <Text note>{presentation.location}</Text>
-                                    </Body>
-                                  </Col>
-
-                                  </Row>
-                                </Grid>
-
-                              </ListItem>
-                              </Col>
-                              <Col style={{width: '18%', alignItems: 'center'}}>
+                                <Col style={{width: '18%', alignItems: 'center'}}>
                                   <Button small transparent onPress={this.handleDeletePress.bind(this, presentation)}>
                                       <Icon name="trash" style={{color: '#428bca'}}/>
                                     </Button>
-                              </Col>
+                                </Col>
                               </Row>
-                              </Grid>
-
-                            </List>
+                            </Grid>
+                          </ListItem>
+                        </List>
                         )
                       })
                     }

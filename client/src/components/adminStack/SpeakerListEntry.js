@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, ListItem, Grid, Col, Toast } from 'native-base';
 import { Image, TouchableOpacity } from 'react-native';
@@ -28,9 +29,8 @@ class SpeakersListEntry extends Component {
         Toast.show({
           text: speaker.first_name + ' ' + speaker.last_name + ' deleted',
           position: 'bottom',
-          buttonText: 'X',
           type: 'warning',
-          duration: 2000
+          duration: 1500
         })
         this.props.navigation.navigate('AddSpeakers');
       })
@@ -39,9 +39,8 @@ class SpeakersListEntry extends Component {
         Toast.show({
           text: `Error deleting ${currentSpeaker.first_name} ${currentSpeaker.last_name} right now...`,
           position: 'bottom',
-          buttonText: 'X',
           type: 'danger',
-          duration: 2000
+          duration: 1500
         });
     })
   }

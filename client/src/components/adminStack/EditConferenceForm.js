@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, View, Image, Alert, ScrollView } from 'react-native';
 import { Container, Button, Input, Spinner, Badge, Grid, Col, Card, Thumbnail, CardItem, Body, Label, Item, Content, Separator, Text, Footer, FooterTab, Icon, ListItem, Toast, Left } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import uploadImage from '../registerStack/helpers/uploadImage';
@@ -147,13 +147,13 @@ class EditConferenceForm extends Component {
           type: 'success',
           duration: 1500
         });
-        axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
-          .then(conference => {
-            this.props.dispatch(setAdminSelectedConference(conference.data));
-          })
-          .catch(err => {
-            console.log('error: ', err);
-          })
+        // axios.get(SERVER_URL + 'api/conference/' + this.props.admin.selectedConference.id)
+        //   .then(conference => {
+        //     this.props.dispatch(setAdminSelectedConference(conference.data));
+        //   })
+        //   .catch(err => {
+        //     console.log('error: ', err);
+        //   })
         this.props.navigation.navigate('AdminLanding');
       })
       .catch(error => {
@@ -161,7 +161,6 @@ class EditConferenceForm extends Component {
         Toast.show({
           text: this.props.admin.selectedConference.id === undefined ? 'Error adding conference' : 'Error updating conference',
           position: 'bottom',
-          buttonText: 'X',
           type: 'danger'
         });
       })
@@ -230,8 +229,8 @@ class EditConferenceForm extends Component {
       Toast.show({
         text: `${currentConf.name} deleted`,
         position: 'bottom',
-        buttonText: 'X',
-        type: 'warning'
+        type: 'warning',
+        duration: 1500
       });
       this.props.navigation.navigate('AdminLanding');
     })
@@ -239,8 +238,8 @@ class EditConferenceForm extends Component {
       Toast.show({
         text: `Could not delete ${currentConf.name}`,
         position: 'bottom',
-        buttonText: 'X',
-        type: 'danger'
+        type: 'danger',
+        duration: 1500
       });
       console.log('error deleting the conference ', err);
     })
@@ -259,7 +258,7 @@ class EditConferenceForm extends Component {
           rightIcon={this.props.admin.selectedConference.id ? 'trash' : null}
           rightAction={this.areYouSure.bind(this)}
         />
-        <Content style={{padding: 10}}>
+        <ScrollView style={{padding: 10}}>
           <Card>
             <CardItem>
               <Left>
@@ -338,7 +337,7 @@ class EditConferenceForm extends Component {
               </CardItem>
             </TouchableOpacity>
           </Card>
-        </Content>
+        </ScrollView>
         <Footer>
           <Content style={{backgroundColor: this.randomColor}}>
             <Button style={{flex: 1, alignSelf: 'center'}} transparent onPress={handleSubmit(this.submit.bind(this))}>

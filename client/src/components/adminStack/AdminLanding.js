@@ -39,7 +39,6 @@ class AdminLanding extends Component {
 
     // set the select conference to empty object on landing on this page
     // used to allow the form to become an ADD form instead of EDIT
-    this.props.dispatch(setAdminSelectedConference({}));
 
     axios.get(url)
       .then(response => {
@@ -83,7 +82,10 @@ class AdminLanding extends Component {
             <Title style={{color: 'white'}} >Hosted Events</Title>
           </Body>
           <Right>
-            <Button transparent onPress={() => this.props.navigation.navigate('EditConferenceForm')}>
+            <Button transparent onPress={() => {
+              this.props.dispatch(setAdminSelectedConference({}));
+              this.props.navigation.navigate('EditConferenceForm');
+            }}>
               <Icon style={{color: 'white'}} name="add"/>
             </Button>
           </Right>

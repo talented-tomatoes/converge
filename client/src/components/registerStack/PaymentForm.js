@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, ScrollView } from 'react-native';
-import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text, Separator, Item, Label, Input, Spinner } from 'native-base';
+import { Container, Content, Header, Left, Body, Right, Footer, FooterTab, Icon, Button, Title, Text, Separator, Item, Label, Input, Spinner, Toast } from 'native-base';
 import RegisterStackHeader from './helpers/RegisterStackHeader';
 import Config from '../../../../config/config.js';
 import axios from 'axios';
@@ -138,7 +138,12 @@ class PaymentForm extends Component {
           })
           .then(response => {
             this.setState({isProcessing: false})
-            console.log('payment successful: ', response);
+            Toast.show({
+              text: 'Payment Successful',
+              position: 'bottom',
+              type: 'success',
+              duration: 1500
+            })
             this.props.navigation.navigate('MyEvents');
           })
           .catch(error => {

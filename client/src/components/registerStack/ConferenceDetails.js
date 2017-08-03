@@ -39,9 +39,8 @@ class ConferenceDetails extends Component {
       Toast.show({
         text: 'Looks like you already purchased a ticket. Please visit My Events to get more info',
         position: 'bottom',
-        buttonText: 'Okay',
         type: 'warning',
-        duration: 2000
+        duration: 1500
       })
     }
   }

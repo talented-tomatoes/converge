@@ -52,7 +52,7 @@ class AddSpeakersForm extends Component {
   constructor(props) {
     super(props);
     let avatar_url = '';
-    if(this.props.admin.speakerValues) {
+    if(Object.keys(this.props.admin.speakerValues).length > 0) {
       avatar_url = this.props.admin.speakerValues.avatar_url;
     }
     this.state = {
@@ -95,18 +95,21 @@ class AddSpeakersForm extends Component {
   saveToDB(speaker) {
     // base URL
     const SERVER_URL = Config.server.url || 'http://localhost:3000';
-
+    let msg;
     // change URL depending on whether or not how they got to the page
-    if (this.props.admin.speakerValues === undefined) {
+    console.log('this.props.admin.speakerValues: ', this.props.admin.speakerValues);
+    if (Object.keys(this.props.admin.speakerValues).length === 0) {
       url = SERVER_URL + 'api/speakers';
+      msg = ' added';
     } else {
       url = SERVER_URL + 'api/editSpeaker';
+      msg = ' updated'
     }
     axios.post(url, speaker)
       .then(response => {
         // go back to the the EditSpeaker's landing page on success
         Toast.show({
-          text: speaker.first_name + ' ' + speaker.last_name + ' added',
+          text: speaker.first_name + ' ' + speaker.last_name + msg,
           position: 'bottom',
           type: 'success',
           duration: 1500
@@ -135,9 +138,8 @@ class AddSpeakersForm extends Component {
         Toast.show({
           text: `Error deleting ${currentSpeaker.first_name} ${currentSpeaker.last_name} right now...`,
           position: 'bottom',
-          buttonText: 'X',
           type: 'warning',
-          duration: 2000
+          duration: 1500
         });
     })
   }
@@ -156,9 +158,8 @@ class AddSpeakersForm extends Component {
             Toast.show({
               text: this.props.admin.speakerValues.first_name + ' ' + this.props.admin.speakerValues.last_name + ' deleted',
               position: 'bottom',
-              buttonText: 'X',
               type: 'warning',
-              duration: 2000
+              duration: 1500
             });
             this.handleSpeakerDelete();
           }}
@@ -218,7 +219,7 @@ class AddSpeakersForm extends Component {
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
             <Button style={{flex: 1, alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.speakerValues ? 'Save Changes' : 'Add Speaker'}</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{!Object.keys(this.props.admin.speakerValues).length === 0 ? 'Save Changes' : 'Add Speaker'}</Text>
             </Button>
           </Content>
         </Footer>

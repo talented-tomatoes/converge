@@ -63,9 +63,8 @@ import AttendeeConferenceFooter from './helpers/AttendeeConferenceFooter.js';
           Toast.show({
             text: 'Looks like you already added this to your schedule. Please check My Schedule for more details.',
             position: 'bottom',
-            buttonText: 'X',
             type: 'warning',
-            duration: 2000
+            duration: 1500
           })
         }
       })

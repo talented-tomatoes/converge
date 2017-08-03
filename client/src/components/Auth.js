@@ -42,9 +42,8 @@ class Auth extends Component {
               Toast.show({
                 text: 'Please try logging in again',
                 position: 'bottom',
-                buttonText: 'X',
                 type: 'warning',
-                duration: 2000
+                duration: 1500
               });
               this.setState({
                 isAuthorized: false
