@@ -61,7 +61,7 @@ class Checkin extends Component {
       }
     };
 
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.launchCamera(options, (response) => {
       console.log('Response = ', response);
 
       if (response.didCancel) {
@@ -92,8 +92,8 @@ class Checkin extends Component {
             Toast.show({
               text: 'Check-in Failed! Please try again.',
               position: 'bottom',
-              buttonText: 'Okay',
-              type: 'danger'
+              type: 'danger',
+              duration: 1500
             });
           } else {
             this.setState({isLoading: false});
@@ -112,8 +112,8 @@ class Checkin extends Component {
           Toast.show({
             text: 'Check-in Failed! Please try again.',
             position: 'bottom',
-            buttonText: 'Okay',
-            type: 'danger'
+            type: 'danger',
+            duration: 1500
           });
         })
       }

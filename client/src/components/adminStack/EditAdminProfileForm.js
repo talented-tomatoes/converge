@@ -98,8 +98,8 @@ class EditAdminProfileForm extends Component {
         Toast.show({
           text: 'Profile Could Not Be Updated',
           position: 'bottom',
-          buttonText: 'X',
-          type: 'danger'
+          type: 'danger',
+          duration: 1500
         })
         console.log('error updating user: ', err);
       })
@@ -152,8 +152,8 @@ class EditAdminProfileForm extends Component {
           Toast.show({
             text: 'Profile Could Not Be Updated',
             position: 'bottom',
-            buttonText: 'X',
-            type: 'danger'
+            type: 'danger',
+            duration: 1500
           })
         })
       }
@@ -197,7 +197,7 @@ class EditAdminProfileForm extends Component {
                     )
                     : (
                       <Left>
-                        <Spinner />
+                        <Spinner color={this.randomColor} />
                       </Left>
                     )
                   }

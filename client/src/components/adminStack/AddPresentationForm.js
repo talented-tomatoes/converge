@@ -18,7 +18,7 @@ import Config from '../../../../config/config.js';
 import randomColor from '../helpers/randomColor';
 import AdminStackHeader from './helpers/AdminStackHeader';
 import SpeakerPicker from './helpers/SpeakerPicker.js';
-import { setPresentationSpeakers } from '../actions/actions.js';
+import { setPresentationSpeakers, setSpeakerInitialValues } from '../actions/actions.js';
 
 
 const required = value => {
@@ -229,7 +229,10 @@ class AddPresentationForm extends Component {
           {
             (this.props.admin.speakers.length === 0) ? (
               <Card>
-                <Button iconLeft transparent style={{alignSelf: 'center'}} onPress={() => this.props.navigation.navigate('AddSpeakersForm')}>
+                <Button iconLeft transparent style={{alignSelf: 'center'}} onPress={() => {
+                    this.props.dispatch(setSpeakerInitialValues({}))
+                    this.props.navigation.navigate('AddSpeakersForm');
+                  }}>
                   <Icon name="add" />
                   <Text style={{fontWeight: 'bold'}}>Please Add A Speaker First</Text>
                 </Button>
