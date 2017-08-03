@@ -22,7 +22,7 @@ class MyEvents extends React.Component {
   }
 
   componentDidMount() {
-    let url = config.server.url + 'api/getConferencesByHostID/5';
+    let url = config.server.url + 'api/getConferencesByHostID/4';
     axios.get(url)
       .then(response => {
         console.log('response: ', response.data);

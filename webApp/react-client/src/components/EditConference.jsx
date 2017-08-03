@@ -15,7 +15,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
 
+const timeFormat = 'h:mm a';
 
 const renderTextField = ({input, label, placeholder, width, meta: { touched, error, warning }}) => (
   <Form.Input onChange={e => input.onChange(e)} value={input.value} label={label} placeholder={placeholder} width={width} />
@@ -49,23 +52,39 @@ class EditConference extends React.Component {
       banner: this.props.selectedConference.banner,
       venue_map: this.props.selectedConference.venue_map,
       activeItem: 'Add Conference',
-      start_date: moment(),
-      end_date: ''
+      start_date: '',
+      end_date: '',
+      start_time: '',
+      end_time: ''
     }
-    this.handleChangeStart = this.handleChangeStart.bind(this);
-    this.handleChangeEnd = this.handleChangeEnd.bind(this);
+    this.onStartDateChange = this.onStartDateChange.bind(this);
+    this.onEndDateChange = this.onEndDateChange.bind(this);
+    this.onStartTimeChange = this.onStartTimeChange.bind(this);
+    this.onEndTimeChange = this.onEndTimeChange.bind(this);
   }
 
-  handleChangeStart(date) {
+  onStartDateChange(date) {
     this.setState({
       start_date: date
-    });
+    }, function() { console.log(this.state.start_date.format('YYYY/MM/DD')); });
   }
 
-  handleChangeEnd(date) {
+  onEndDateChange(date) {
     this.setState({
       end_date: date
-    });
+    }, function() { console.log(this.state.end_date.format('YYYY/MM/DD')); });
+  }
+
+  onStartTimeChange(value) {
+    this.setState({
+      start_time: value
+    }, function() { console.log(this.state.start_time.format('hh:mm A')); });
+  }
+
+  onEndTimeChange(value) {
+    this.setState({
+      end_time: value
+    }, function() { console.log(this.state.end_time.format('hh:mm A')); });
   }
 
   submit(conference) {
@@ -73,8 +92,10 @@ class EditConference extends React.Component {
     conference.logo = this.state.logo;
     conference.banner = this.state.banner;
     conference.venue_map = this.state.venue_map;
-    conference.start_date = this.state.start_date;
-    conference.end_date = this.state.end_date;
+    conference.start_date = this.state.start_date.format('YYYY-MM-DD');
+    conference.end_date = this.state.end_date.format('YYYY-MM-DD');
+    conference.start_time = this.state.start_time.format('hh:mm A');
+    conference.end_time = this.state.end_time.format('hh:mm A');
     console.log('conference form values: ', conference);
 
     // have different paths for Adding or Editting
@@ -163,19 +184,32 @@ class EditConference extends React.Component {
                 selectsStart
                 startDate={this.state.start_date}
                 endDate={this.state.end_date}
-                onChange={this.handleChangeStart}
                 placeholderText="Start Date"
                 dateFormat="YYYY/MM/DD"
+                onChange={this.onStartDateChange}
               />
-
+              <TimePicker 
+                placeholder="Start Time"
+                format={timeFormat}
+                showSecond={false}
+                use12Hours
+                onChange={this.onStartTimeChange}
+              />
               <DatePicker
                 selected={this.state.end_date}
                 selectsEnd
                 startDate={this.state.start_date}
                 endDate={this.state.end_date}
-                onChange={this.handleChangeEnd}
+                onChange={this.onEndDateChange}
                 placeholderText="End Date"
                 dateFormat="YYYY/MM/DD"                
+              />
+              <TimePicker 
+                placeholder="End Time"
+                format={timeFormat}
+                showSecond={false}
+                use12Hours
+                onChange={this.onEndTimeChange}
               />
 
               <Grid>
