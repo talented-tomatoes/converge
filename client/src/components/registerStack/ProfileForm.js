@@ -19,7 +19,7 @@ import RegisterStackHeader from './helpers/RegisterStackHeader.js'
 import randomColor from '../helpers/randomColor';
 
 
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 
 const required = value => {
   return value ? undefined  : <Text> Required </Text>
@@ -45,6 +45,8 @@ const renderInput = ({ input: { onChange, ...restInput }, label, keyboardType, n
   )
 }
 
+
+
 class ProfileForm extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +56,13 @@ class ProfileForm extends Component {
       isLoading: false
     }
     this.randomColor = randomColor();
+  }
+
+  componentDidMount() {
+    this.props.initialize({
+      linkedIn: '',
+      phoneNumber: ''
+    })
   }
 
 saveToDB(user, userType) {
@@ -202,6 +211,6 @@ const reduxFormConfig = {
 }
 ProfileForm = reduxForm(reduxFormConfig)(ProfileForm)
 
-export default ProfileForm
+export default ProfileForm;
 
 

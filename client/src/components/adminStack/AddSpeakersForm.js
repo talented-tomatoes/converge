@@ -183,7 +183,7 @@ class AddSpeakersForm extends Component {
                     </Left>
                   ) : (
                     <Left>
-                      <Spinner />
+                      <Spinner color={this.randomColor}/>
                     </Left>
                   )
                 }
@@ -222,7 +222,7 @@ class AddSpeakersForm extends Component {
         <Footer>
           <Content style={{backgroundColor: '#428bca'}}>
             <Button style={{flex: 1, alignSelf: 'center'}}transparent onPress={handleSubmit(this.submit.bind(this))}>
-              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{Object.keys(this.props.admin.speakerValues).length === 0 ? 'Add Speaker' : 'Save Changes'}</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold', color: 'white'}}>{this.props.admin.speakerValues.id ? 'Save Changes' : 'Add Speaker'}</Text>
             </Button>
           </Content>
         </Footer>
