@@ -97,8 +97,8 @@ class EditConference extends React.Component {
     conference.start_time = this.state.start_time.format('hh:mm A');
     conference.end_time = this.state.end_time.format('hh:mm A');
 
-    // remove this when user.id can be accessed
-    conference.user_id = 5;
+    // got this from redux store to send along with conf data
+    conference.user_id = this.props.user_id;
 
     console.log('conference form values: ', conference);
 
@@ -262,6 +262,7 @@ EditConference = reduxForm(reduxFormConfig)(EditConference);
 
 EditConference = connect(
   state => ({
+    user_id: state.userReducer.currentUser.id,
     selectedConference: state.conferenceReducer.selectedConference,
     initialValues: state.conferenceReducer.selectedConference
   }))(EditConference);

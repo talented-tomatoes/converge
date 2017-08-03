@@ -14,6 +14,13 @@ import EditSpeakerInPresentation from './helpers/EditSpeakerInPresentation.jsx';
 import DeleteSpeakerFromPresentation from './helpers/DeleteSpeakerFromPresentation.jsx';
 import EventMenu from './EventMenu.jsx';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
+
 
 
 
@@ -82,8 +89,10 @@ class EditPresentation extends React.Component {
                   <Field name="name" component={ renderTextField } validate={[required]} label="Presentation Name" width={16}/>
                 </Form.Group>
                 <Form.Group>
-                  <Field name="date" component={ renderTextField } validate={[required]} label="Date" width={8}/>
-                  <Field name="time" component={ renderTextField } validate={[required]} label="Time" width={8}/>
+                  {/* <Field name="date" component={ renderTextField } validate={[required]} label="Date" width={8}/>
+                  <Field name="time" component={ renderTextField } validate={[required]} label="Time" width={8}/> */}
+                  
+
                 </Form.Group>
                 <Form.Group>
                   <Field name="location" component={ renderTextField } validate={[required]} label="Location" width={16}/>
