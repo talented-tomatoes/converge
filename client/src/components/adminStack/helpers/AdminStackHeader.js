@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Right, Left, Body, Icon, Title, Button} from 'native-base';
+import { NavigationActions } from 'react-navigation'
+
 
 export default class AdminStackHeader extends Component {
 
@@ -19,12 +21,23 @@ export default class AdminStackHeader extends Component {
       this.props.navigation.navigate(this.props.rightNavigation || this.props.leftNavigation);
     }
   }
+  resetAction() {
+    this.props.navigation.dispatch({type: 'Navigation/RESET', index: 0, actions: [{ type: 'Navigate', routeName: 'AdminLanding'}]});
+  }
 
   render() {
+
+    const resetAction2 = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'AdminLanding'})
+      ]
+    })
+
     return (
       <Header style={{backgroundColor: '#428bca'}}>
         <Left>
-          <Button transparent onPress={() => this.props.navigation.navigate(this.props.leftNavigation)}>
+          <Button transparent onPress={() => {this.resetAction; this.props.navigation.navigate(this.props.leftNavigation);}}>
             <Icon style={{color: 'white'}} name={this.props.leftIcon}/>
           </Button>
         </Left>

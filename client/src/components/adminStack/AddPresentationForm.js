@@ -105,7 +105,7 @@ class AddPresentationForm extends Component {
               type: 'success',
               duration: 1500
            });
-          } else if (this.state.editMode) {
+          } else if (!this.state.editMode) {
             Toast.show({
               text: `${presentationAndSpeakerIds.presentation.name} added`,
               position: 'bottom',
