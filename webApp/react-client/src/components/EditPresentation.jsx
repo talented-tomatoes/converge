@@ -19,13 +19,13 @@ import EventMenu from './EventMenu.jsx';
 
 const renderTextField = ({input, label, placeholder, width, meta: { touched, error, warning }}) => (
   <Form.Input onChange={e => input.onChange(e)} value={input.value} label={label} placeholder={placeholder} width={width} />
-)
+);
 const renderTextAreaField = ({input, label, placeholder, width, height, meta: { touched, error, warning }}) => (
   <Form.TextArea style={{height: height}} onChange={e => input.onChange(e)} value={input.value} label={label} placeholder={placeholder} width={width} />
-)
+);
 
 const required = value => {
-  return value ? undefined  : <p> Required </p>
+  return value ? undefined : <p> Required </p>;
 };
 
 class EditPresentation extends React.Component {
@@ -38,11 +38,11 @@ class EditPresentation extends React.Component {
       allSpeakers: [],
       yesterday,
       value: null
-    }
+    };
   }
 
   resetState() {
-    this.setState({ value: null })
+    this.setState({ value: null });
   }
 
 
@@ -56,7 +56,7 @@ class EditPresentation extends React.Component {
     };
 
     let url = config.server.url + 'api/editPresentation';
-    console.log('data: ', data)
+    console.log('data: ', data);
     axios.post(url, data)
       .then(response => {
         console.log('presentation updated: ', response);
@@ -64,7 +64,7 @@ class EditPresentation extends React.Component {
       })
       .catch(err => {
         console.log('error updating presentation: ', err);
-      })
+      });
   }
 
   render () {
@@ -75,60 +75,60 @@ class EditPresentation extends React.Component {
         <EventMenu currentPage='Presentations' />
         <Grid style={{backgroundColor: 'rgb(200, 199, 204)', padding: 30}}>
           <Grid.Row>
-          <Grid.Column width={3} />
-          <Grid.Column width={10}>
-            <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
-              <Form.Group>
-                <Field name="name" component={ renderTextField } validate={[required]} label="Presentation Name" width={16}/>
-              </Form.Group>
-              <Form.Group>
-                <Field name="date" component={ renderTextField } validate={[required]} label="Date" width={8}/>
-                <Field name="time" component={ renderTextField } validate={[required]} label="Time" width={8}/>
-              </Form.Group>
-              <Form.Group>
-                <Field name="location" component={ renderTextField } validate={[required]} label="Location" width={16}/>
-              </Form.Group>
-              <Form.Group>
-                <Field name="description" component={ renderTextAreaField } validate={[required]} label="Presentation Description" width={16} height={250} />
-              </Form.Group>
-              <label style={{fontWeight: 'bold', fontSize: 13}}>Selected Speakers</label>
-              <Form.Group>
-                <DeleteSpeakerFromPresentation />
-              </Form.Group>
-              <label style={{fontWeight: 'bold', fontSize: 13}}>Add A Speaker</label>
-              <Form.Group>
-                <EditSpeakerInPresentation />
-              </Form.Group>
-              <Form.Group />
-              <Form.Group />
-              <Button primary fluid type="submit">
-                {
-                  !this.props.selectedPresentation.name ? 'Add Presentation' : 'Update Presentation'
-                }
-              </Button>
-            </Form>
-          </Grid.Column>
-          <Grid.Column width={3} />
+            <Grid.Column width={3} />
+            <Grid.Column width={10}>
+              <Form onSubmit={handleSubmit(this.submit.bind(this)).bind(this) }>
+                <Form.Group>
+                  <Field name="name" component={ renderTextField } validate={[required]} label="Presentation Name" width={16}/>
+                </Form.Group>
+                <Form.Group>
+                  <Field name="date" component={ renderTextField } validate={[required]} label="Date" width={8}/>
+                  <Field name="time" component={ renderTextField } validate={[required]} label="Time" width={8}/>
+                </Form.Group>
+                <Form.Group>
+                  <Field name="location" component={ renderTextField } validate={[required]} label="Location" width={16}/>
+                </Form.Group>
+                <Form.Group>
+                  <Field name="description" component={ renderTextAreaField } validate={[required]} label="Presentation Description" width={16} height={250} />
+                </Form.Group>
+                <label style={{fontWeight: 'bold', fontSize: 13}}>Selected Speakers</label>
+                <Form.Group>
+                  <DeleteSpeakerFromPresentation />
+                </Form.Group>
+                <label style={{fontWeight: 'bold', fontSize: 13}}>Add A Speaker</label>
+                <Form.Group>
+                  <EditSpeakerInPresentation />
+                </Form.Group>
+                <Form.Group />
+                <Form.Group />
+                <Button primary fluid type="submit">
+                  {
+                    !this.props.selectedPresentation.name ? 'Add Presentation' : 'Update Presentation'
+                  }
+                </Button>
+              </Form>
+            </Grid.Column>
+            <Grid.Column width={3} />
           </Grid.Row>
         </Grid>
 
       </div>
-    )
+    );
   }
 }
 
 const reduxFormConfig = {
   form: 'EditPresentation',
   fields: ['first_name', 'last_name', 'email', 'phone_number', 'linkedin_id'],
-}
+};
 
-EditPresentation = reduxForm(reduxFormConfig)(EditPresentation)
+EditPresentation = reduxForm(reduxFormConfig)(EditPresentation);
 
 EditPresentation = connect(
   state => ({
     selectedPresentation: state.presentationReducer.selectedPresentation,
     selectedConference: state.conferenceReducer.selectedConference,
     initialValues: state.presentationReducer.selectedPresentation
-  }))(EditPresentation)
+  }))(EditPresentation);
 
 export default EditPresentation;

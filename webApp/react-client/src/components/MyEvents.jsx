@@ -22,14 +22,14 @@ class MyEvents extends React.Component {
   }
 
   componentDidMount() {
-    let url = config.server.url + 'api/getConferencesByHostID/4';
+    let url = config.server.url + 'api/getConferencesByHostID/5';
     axios.get(url)
       .then(response => {
         console.log('response: ', response.data);
         this.setState({
           conferences: response.data
-        })
-      })
+        });
+      });
   }
 
   handleItemClick(e, { name }) {
@@ -52,6 +52,7 @@ class MyEvents extends React.Component {
 
       return (
         <Card raised style={{padding: 10, borderBottom: 'medium solid ' + randomColor(), width: 212}} onClick={() => {
+          console.log('events data, ', conference);
           this.props.dispatch(setSelectedConference(conference));
           browserHistory.push('/Presentations');
         }} key={i}>
@@ -81,7 +82,7 @@ class MyEvents extends React.Component {
           </Grid.Row>
         </Grid>
       </div>
-    )
+    );
   }
 }
 
