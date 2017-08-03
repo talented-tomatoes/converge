@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Content, Header, Left, Toast, List, Grid, Col, ListItem, Right, Body, Title, Text, Button, Tabs, Tab, Icon, Row } from 'native-base';
+import { NavigationActions } from 'react-navigation'
+
 
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -82,6 +84,9 @@ class AddPresentation extends Component {
 
   render() {
     var colors = ['#ff2d55', '#5856d6', '#007aff', '#5ac8fa', '#ffcc22', '#ff954f', '#ff3b30'];
+
+
+
     return (
       <Container>
         <AdminStackHeader

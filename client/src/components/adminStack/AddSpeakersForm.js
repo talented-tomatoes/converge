@@ -99,15 +99,18 @@ class AddSpeakersForm extends Component {
     // change URL depending on whether or not how they got to the page
     console.log('this.props.admin.speakerValues: ', this.props.admin.speakerValues);
     if (Object.keys(this.props.admin.speakerValues).length === 0) {
+      console.log('add speaker')
       url = SERVER_URL + 'api/speakers';
       msg = ' added';
     } else {
+      console.log('edit speaker');
       url = SERVER_URL + 'api/editSpeaker';
       msg = ' updated'
     }
     axios.post(url, speaker)
       .then(response => {
         // go back to the the EditSpeaker's landing page on success
+        console.log(speaker.first_name + ' ' + speaker.last_name + msg)
         Toast.show({
           text: speaker.first_name + ' ' + speaker.last_name + msg,
           position: 'bottom',
