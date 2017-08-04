@@ -15,9 +15,19 @@ class PaymentForm extends Component {
     super(props);
     this.state = {
       cardInfo: {valid: false},
-      isProcessing: false
+      isProcessing: false,
+      userID: null
     }
 
+  }
+
+  componentDidMount() {
+    axios.get(`${Config.server.url}api/getUserId/${this.props.user.id}`)
+      .then(response => {
+        this.setState({
+          userID: response.data.id
+        })
+      })
   }
 
   handlePaymentRequest() {
@@ -58,7 +68,8 @@ class PaymentForm extends Component {
           token: paymentResponse.details.paymentToken,
           details: DETAILS,
           conference_id: params.conference.id,
-          user_id: this.props.user.id
+          user_id: this.state.userID,
+          checked_in: false
         }
         const SERVER_URL = Config.server.url || 'http://localhost:3000';
         axios.post(SERVER_URL + 'api/payments/charge', paymentDetails)
@@ -126,7 +137,8 @@ class PaymentForm extends Component {
           token: paymentResponse.id,
           details: DETAILS,
           conference_id: params.conference.id,
-          user_id: this.props.user.id
+          user_id: this.state.userID,
+          checked_in: false
         }
         const SERVER_URL = Config.server.url;
         axios.post(SERVER_URL + 'api/payments/charge', paymentDetails)
