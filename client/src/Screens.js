@@ -36,6 +36,7 @@ import AddPresentationForm from './components/adminStack/AddPresentationForm';
 import EditConferenceForm from './components/adminStack/EditConferenceForm';
 import EditAdminProfileForm from './components/adminStack/EditAdminProfileForm';
 import SpeakerPicker from './components/adminStack/helpers/SpeakerPicker.js';
+import CheckedInAttendees from './components/adminStack/CheckedInAttendees.js';
 
 
 
@@ -67,6 +68,7 @@ const AdminStack = StackNavigator({
   AddPresentationForm: { screen: AddPresentationForm },
   AddSpeakers: { screen: AddSpeakers },
   AddSpeakersForm: { screen: AddSpeakersForm },
+  CheckedInAttendees: { screen: CheckedInAttendees },
   EditConferenceForm: { screen: EditConferenceForm },
   EditAdminProfileForm: { screen: EditAdminProfileForm },
   SpeakerPicker: { screen: SpeakerPicker }
