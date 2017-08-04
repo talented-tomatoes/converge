@@ -96,14 +96,23 @@ class Checkin extends Component {
               duration: 1500
             });
           } else {
-            this.setState({isLoading: false});
-            Toast.show({
-              text: 'Check-in Successful!',
-              position: 'bottom',
-              type: 'success',
-              duration: 1500
-            });
-            this.props.navigation.navigate('Home');
+            axios.get(SERVER_URL + `api/getUserID/${this.props.user.id}`)
+              .then(response => {
+                axios.put(SERVER_URL + `api/join/conferences_users/conference/${this.props.conference.id}`, { user_id: response.data.id } )
+                  .then(response => {
+                    this.setState({isLoading: false});
+                    Toast.show({
+                      text: 'Check-in Successful!',
+                      position: 'bottom',
+                      type: 'success',
+                      duration: 1500
+                    });
+                    this.props.navigation.navigate('Home');
+
+                  }).catch(err => {
+                    console.log(err)
+                  })
+              })
           }
         })
         .catch(err => {
