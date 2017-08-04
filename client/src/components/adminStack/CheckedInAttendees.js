@@ -65,8 +65,8 @@ class CheckedInAttendees extends Component {
             {
               this.state.attendees.map((attendee, key) => {
                 return (
-                  <Card>
-                    <CardItem key={key}>
+                  <Card key={key}>
+                    <CardItem>
                       <Thumbnail small source={{uri: attendee.users.avatar_url}} />
                       <TouchableOpacity style={{marginLeft: 15}}>
                       <Text>{attendee.users.first_name + ' ' + attendee.users.last_name}</Text>
