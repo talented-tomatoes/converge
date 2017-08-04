@@ -7,10 +7,10 @@ exports.seed = function(knex, Promise) {
       return knex('conferences_users')
       .returning('id')
       .insert([
-        // { conference_id: 1, user_id: '106873821099349941383' },
-        // { conference_id: 2, user_id: '106873821099349941383'},
-        // { conference_id: 1, user_id: '106873821099349941385'},
-        // { conference_id: 2, user_id: '106873821099349941385'}
+        { conference_id: 1, user_id: 1, checked_in: true },
+        { conference_id: 1, user_id: 2, checked_in: true },
+        { conference_id: 1, user_id: 3, checked_in: true },
+        { conference_id: 1, user_id: 4, checked_in: true }
       ]);
     });
 };

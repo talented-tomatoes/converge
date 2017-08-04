@@ -33,9 +33,15 @@ export default class EditConferenceFooter extends Component {
             </Button>
           </FooterTab>
           <FooterTab>
+            <Button onPress={() => {this.props.navigation.navigate('CheckedInAttendees')}}>
+              <Icon ios="ios-people-outline" android="md-people"/>
+              <Text style={{fontSize: 10}}>Checked in</Text>
+            </Button>
+          </FooterTab>
+          <FooterTab>
             <Button onPress={() => {resetAction; this.props.navigation.navigate('EditConferenceForm')}}>
               <Icon ios="ios-settings-outline" android="md-settings"/>
-              <Text style={{fontSize: 10}}>Edit Conference</Text>
+              <Text style={{fontSize: 10}}>Edit</Text>
             </Button>
           </FooterTab>
         </Footer>

@@ -20,16 +20,19 @@ class ConferenceDetails extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${Config.server.url}api/payments/${this.props.user.id}/${this.props.selectedConference.id}`)
-    .then(result => {
-      console.log(result.data);
-      this.setState({
-        isUserPaid: result.data
+    axios.get(`${Config.server.url}api/getUserID/${this.props.user.id}`)
+      .then(response => {
+        axios.get(`${Config.server.url}api/payments/${response.data.id}/${this.props.selectedConference.id}`)
+        .then(result => {
+          console.log(result.data);
+          this.setState({
+            isUserPaid: result.data
+          })
+        })
+        .catch(err => {
+          console.log(err);
+        });
       })
-    })
-    .catch(err => {
-      console.log(err);
-    });
   }
 
   handleBuyButtonPress() {

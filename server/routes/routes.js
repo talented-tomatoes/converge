@@ -101,6 +101,12 @@ router.route('/getUserID/:userID')
 router.route('/join/conferences_users')
   .post(controller.saveUserToConference);
 
+router.route('/join/conferences_users/conference/:confid')
+  .get(controller.getAllCheckedInAttendees);
+
+router.route('/join/conferences_users/conference/:confid')
+  .put(controller.checkInUserToConference);
+
 router.route('/join/conferences_users/:userid')
   .get(controller.getAllUserEvents);
 

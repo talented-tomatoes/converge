@@ -284,6 +284,7 @@ let saveUserToConference = (req, res) => {
   console.log('Payment successful. Saving user to Conference ===>', req.body);
   var conference_id = req.body.conference_id;
   var user_id = req.body.user_id;
+  var checked_in = req.body.checked_in;
   models.ConferenceUser.forge({conference_id, user_id})
 		.fetch()
 		.then(record => {
@@ -291,7 +292,7 @@ let saveUserToConference = (req, res) => {
     console.log('RECORD FOUND ===>', record);
     res.status(201).end();
   } else {
-    models.ConferenceUser.forge({conference_id, user_id}).save();
+    models.ConferenceUser.forge({conference_id, user_id, checked_in}).save();
     res.status(201).end();
   }
 })
@@ -546,6 +547,31 @@ let checkIfUserPaid = (req, res) => {
     })
 }
 
+let getAllCheckedInAttendees = (req, res) => {
+  console.log('Getting all checked in attendees in conference...', req.params);
+  models.ConferenceUser.where({conference_id: req.params.confid, checked_in: true})
+    .fetchAll({withRelated: 'users'})
+    .then(results => {
+      res.status(200).send(results);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send(err);
+    })
+}
+
+let checkInUserToConference = (req, res) => {
+  models.ConferenceUser.where({conference_id: Number(req.params.confid), user_id: req.body.user_id})
+    .fetch()
+    .then(user => {
+      user.save({checked_in: true}, {patch: true});
+      res.status(200).send('User successfully checked in');
+    })
+    .catch(err => {
+      res.status(400).send('Error updating user check in');
+    })
+}
+
 module.exports = {
   getAllUsers: getAllUsers,
   getAllSpeakersOfConf: getAllSpeakersOfConf,
@@ -577,5 +603,7 @@ module.exports = {
   deleteSpeakerFromPresentation: deleteSpeakerFromPresentation,
   deleteConferenceFromHost: deleteConferenceFromHost,
   deleteSpeaker: deleteSpeaker,
-  checkIfUserPaid: checkIfUserPaid
+  checkIfUserPaid: checkIfUserPaid,
+  getAllCheckedInAttendees: getAllCheckedInAttendees,
+  checkInUserToConference: checkInUserToConference
 };
