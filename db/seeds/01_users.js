@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
       return knex('users')
       .returning('id')
       .insert([
-        {login_id: '106873821099349941383', first_name: 'Padma', last_name: 'Govindarajalu', avatar_url: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501697683/Padma_Govindaradalu_1_imqyhp_jh6ite.jpg', email: 'padma.govindarajalu@gmail.com', linkedin_id: 'padma-govindarajalu-59092ba', phone_number:'123-234-1234', user_type: 'attendee' },
+        {login_id: '106873821099349941383', first_name: 'Padma', last_name: 'Govindarajalu', avatar_url: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501813323/Padma_Govindaradalu_1_imqyhp_jh6ite_ps9y1n.jpg', email: 'padma.govindarajalu@gmail.com', linkedin_id: 'padma-govindarajalu-59092ba', phone_number:'123-234-1234', user_type: 'attendee' },
         {login_id: '117286496899187654492', first_name: 'Alex', last_name: 'Chang', avatar_url: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501697679/alex_vshmmf_kl2fld.jpg', email: 'awchang56@gmail.com', linkedin_id: 'awchang56', phone_number:'555-555-5555', user_type: 'attendee' },
         {login_id: '109393783164163414314', first_name: 'Ryan', last_name: 'Platon', avatar_url: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501697673/Ryan_Platon_fl4nae_fdezxg.jpg', email: 'ryan.platon@gmail.com', linkedin_id: 'ryanplaton', phone_number:'444-444-4444', user_type: 'attendee' },
         {login_id: '101444786080971826600', first_name: 'Wilson', last_name: 'Cen', avatar_url: 'https://res.cloudinary.com/ryanplaton/image/upload/v1501697674/Wilson_Cen_cqix5l_hzxkbf.jpg', email: 'wilsoncen@gmail.com', linkedin_id: 'wilsoncen', phone_number:'666-666-6666', user_type: 'attendee' },
