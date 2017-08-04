@@ -65,7 +65,8 @@ exports.up = function(knex, Promise) {
 		knex.schema.createTableIfNotExists('conferences_users', (table) => {
 			table.increments('id').primary;
 			table.integer('conference_id').references('id').inTable('conferences').onDelete('CASCADE');
-			table.string('user_id').references('login_id').inTable('users').onDelete('CASCADE');
+			table.integer('user_id').references('id').inTable('users').onDelete('CASCADE');
+			table.boolean('checked_in');
 		})
 	])
 	})
